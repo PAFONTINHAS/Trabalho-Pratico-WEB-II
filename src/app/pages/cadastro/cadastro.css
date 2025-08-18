@@ -1,0 +1,95 @@
+
+
+/* Centraliza tudo na tela */
+.cadastro-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #f3f6fa;
+  font-family: Arial, sans-serif;
+}
+
+/* Card do formulário */
+.cadastro-card {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  width: 400px;
+}
+
+/* Cabeçalho */
+.cadastro-card .header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.cadastro-card .header h2 {
+  color: #333;
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+/* Grupos de formulário */
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 600;
+  color: #444;
+  margin-bottom: 0.3rem;
+}
+
+/* Inputs */
+.form-control {
+  width: 100%;
+  padding: 0.7rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  transition: 0.2s;
+}
+
+.form-control:focus {
+  border-color: #1976d2;
+  outline: none;
+  box-shadow: 0 0 4px rgba(25, 118, 210, 0.4);
+}
+
+/* Endereço e número */
+.endereco-group {
+  display: flex;
+  gap: 0.7rem;
+}
+
+.endereco-input {
+  flex: 3;
+}
+
+.numero-input {
+  flex: 1;
+}
+
+/* Botão */
+.btn-cadastrar {
+  display: block;
+  width: 100%;
+  padding: 0.9rem;
+  margin-top: 1rem;
+  background: #1976d2;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-cadastrar:hover {
+  background: #1259a5;
+}
