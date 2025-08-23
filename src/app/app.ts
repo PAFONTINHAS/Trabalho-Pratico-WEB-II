@@ -7,10 +7,12 @@ import { PaginaInicial } from "./pages/cliente/pagina-inicial/pagina-inicial";
 import { Detalhes } from './pages/cliente/detalhes/detalhes';
 import { RejeitarAceitar } from './pages/cliente/rejeitar-aceitar/rejeitar-aceitar';
 import { Resgatar } from './pages/cliente/resgatar/resgatar'
+import { VisualizarOrcamento } from './pages/cliente/visualizar-orcamento/visualizar-orcamento';
+
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Solicitar, FuncionarioHomepage, Login, PaginaInicial, Detalhes, RejeitarAceitar,Resgatar],
+  imports: [RouterOutlet, Solicitar, FuncionarioHomepage, Login, PaginaInicial, Detalhes, RejeitarAceitar,Resgatar, VisualizarOrcamento],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
