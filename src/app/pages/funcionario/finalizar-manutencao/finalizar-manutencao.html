@@ -1,0 +1,34 @@
+
+<div class="modal-backdrop">
+    <div class="modal-container">
+        <button class="modal-close-button">X</button>
+
+        <header class="modal-header">
+            <h2 class="modal-title">Detalhes da Solicitação</h2>
+        </header>
+
+        <section class="modal-body">
+            <div class="solicitacao-info">
+                <p>Dispositivo: Notebook Lenovo S145</p>
+                <p>Descrição: Troca de tela</p>
+                <p>Data da solicitação: 10/08/2025 - 15:48</p>
+                <p>Funcionario Responsável: {{ funcionarioResponsavel.nome }}</p>
+            </div>
+
+            <div class="orcamento-info">
+                <h3>Orçamento</h3>
+                <p>Valor: R$300,00</p>
+            </div>
+
+            <div class="orcamento-info">
+                <h3>Status de pagamento: <span style="color: green">Realizado</span></h3>
+            </div>
+        </section>
+
+        <footer class="modal-footer">
+            <button class="btn-rejeitar">Cancelar Solicitação</button>
+            <!-- <button class="btn-mover" (click)="abrirModal()">Mover manutenção</button> -->
+            <button class="btn-aprovar" (click)="alertaFuncionario()">Finalizar</button>
+        </footer>
+    </div>
+</div>
