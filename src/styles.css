@@ -3,15 +3,44 @@
 
 :root {
     font-family: Manrope;
+    color: #101828;
+}
+
+@theme {
+  --color-mm: #2D89CB;
+  --color-mm-dark: #2879b4;
+  --color-mm-light: #38acff;
+  --color-mm-s-dark: rgba(0,0,0, 0.1);
+  --color-mm-shadow: rgba(45, 137, 203, 0.1);
+  --color-mm-shadow2: rgba(45, 137, 203, 0.1);
+  --color-mm2: #164BAE;
+  --color-mm2-dark: #0f357b;
+  --color-mm2-light: #1f6bfa;
+  --color-danger: #EC221F;
+  --color-danger-dark: #c00f0c;
+  --color-danger-light: #fcb3ad;
+  --color-warning: #e8b931;
+  --color-warning-dark: #e5a000;
+  --color-warning-light: #ffe8a3;
+  --color-success: #14ae5c;
+  --color-success-dark: #009951;
+  --color-success-light: #aff4c6;
+  --color-dark: #101828;
 }
 
 h1{
     font-weight: 800;
+    font-family: Poppins;
+}
+button{
+    font-family: Poppins;
 }
 
-input, textarea, select{
+input, textarea, select, button{
     outline: none;
 }
+
+
 
 .poppins{
     font-family: Poppins

@@ -1,57 +1,168 @@
-<head>
-  <meta charset="utf-8" />
-  <link rel="stylesheet" href="./cadastro.css">
-</head>
-
-<!--- cpf, cep, telefone, nome, endereço completo-->
-<body> 
-  <div class="cadastro-container">
-  <div class="cadastro-card">
-    <div class="header">
-      <h2>CADASTRAR</h2>
+<div class="flex items-center justify-center min-h-screen bg-gradient-to-br from-mm to-mm2">
+  <div class="w-full max-w-4xl px-[70px] py-[60px] bg-gradient-to-br from-white to-[#ccc] rounded-3xl shadow-xl">
+    <div class="flex justify-center items-center">
+      <!-- <div class="flex items-center justify-center rounded-full mb-6">
+          <svg
+          class="h-[164px] w-[240px] text-mm block" 
+          viewBox="0 0 1800 1224" 
+          fill="currentColor"
+          aria-hidden="true">
+              <g id="Profile_blank" data-name="Profile blank">
+                  <path d="M1700 0C1755.23 2.57706e-05 1800 44.7715 1800 100V1124C1800 1179.23 1755.23 1224 1700 1224H100C44.7715 1224 1.70751e-06 1179.23 0 1124V100C1.64952e-05 44.7715 44.7715 4.02666e-07 100 0H1700ZM1626.58 977.672C1616.41 977.672 1606.85 978.741 1597.89 980.879C1588.93 982.883 1580.97 985.89 1574.02 989.899C1567.2 993.908 1561.85 998.919 1557.97 1004.93C1554.09 1010.81 1552.15 1017.63 1552.15 1025.38C1552.15 1031.93 1553.69 1037.81 1556.76 1043.02C1559.84 1048.1 1564.19 1052.44 1569.8 1056.05C1575.42 1059.66 1582.11 1062.6 1589.86 1064.87C1597.75 1067.01 1606.52 1068.41 1616.14 1069.08C1621.49 1069.48 1626.24 1069.88 1630.39 1070.28C1634.53 1070.55 1638.08 1070.95 1641.02 1071.48C1644.1 1071.88 1646.64 1072.42 1648.64 1073.09C1650.65 1073.75 1652.12 1074.62 1653.06 1075.69C1653.99 1076.63 1654.46 1077.83 1654.46 1079.3C1654.46 1082.37 1653.12 1084.58 1650.45 1085.92C1647.77 1087.12 1644.63 1087.85 1641.02 1088.12C1637.54 1088.39 1634.47 1088.52 1631.79 1088.52C1622.3 1088.52 1611.26 1086.98 1598.69 1083.91C1586.12 1080.84 1573.48 1075.82 1560.78 1068.88L1543.72 1103.15C1550.41 1106.49 1557.83 1109.77 1565.99 1112.98C1574.28 1116.18 1583.51 1118.86 1593.68 1120.99C1603.97 1123 1615.27 1124 1627.58 1124C1641.09 1124 1653.32 1122.13 1664.29 1118.39C1675.26 1114.65 1683.95 1109.17 1690.37 1101.95C1696.79 1094.73 1700 1085.91 1700 1075.49C1700 1066 1698.06 1058.52 1694.18 1053.04C1690.3 1047.43 1685.09 1043.22 1678.53 1040.41C1672.11 1037.61 1664.89 1035.67 1656.87 1034.6C1648.98 1033.4 1641.02 1032.46 1633 1031.79C1630.32 1031.53 1626.98 1031.33 1622.96 1031.19C1619.09 1030.92 1615.21 1030.52 1611.33 1029.99C1607.58 1029.45 1604.44 1028.59 1601.9 1027.38C1599.36 1026.18 1598.09 1024.51 1598.09 1022.37C1598.09 1019.97 1599.23 1018.16 1601.5 1016.96C1603.91 1015.62 1607.12 1014.75 1611.13 1014.35C1615.14 1013.82 1619.69 1013.55 1624.77 1013.55C1630.12 1013.55 1635.8 1014.02 1641.82 1014.96C1647.84 1015.76 1653.73 1016.89 1659.48 1018.36C1665.36 1019.83 1670.51 1021.64 1674.92 1023.78L1692.78 994.309C1688.63 991.903 1683.35 989.431 1676.93 986.893C1670.64 984.22 1663.29 982.015 1654.86 980.277C1646.57 978.54 1637.14 977.672 1626.58 977.672ZM100 981.681V1018.56H157.375V1122H200.707V1018.56H259.285V981.681H100ZM629.327 981.681L558.712 1122H601.643L611.226 1103.15H683.486L693.121 1122H736.854L666.641 981.681H629.327ZM1060.12 981.681V1122H1137.96C1151.33 1122 1163.3 1120.12 1173.87 1116.38C1184.44 1112.64 1193.4 1107.5 1200.75 1100.95C1208.24 1094.4 1213.93 1086.92 1217.8 1078.5C1221.68 1070.08 1223.62 1061.19 1223.62 1051.84C1223.62 1042.62 1221.68 1033.8 1217.8 1025.38C1213.93 1016.96 1208.31 1009.48 1200.95 1002.93C1193.6 996.381 1184.64 991.235 1174.07 987.493C1163.51 983.618 1151.47 981.681 1137.96 981.681H1060.12ZM1136.96 1018.56C1144.18 1018.56 1150.4 1019.57 1155.61 1021.57C1160.96 1023.57 1165.31 1026.25 1168.65 1029.59C1172.13 1032.8 1174.67 1036.34 1176.28 1040.21C1178.02 1044.09 1178.89 1047.96 1178.89 1051.84C1178.89 1055.71 1178.02 1059.59 1176.28 1063.46C1174.67 1067.34 1172.13 1070.95 1168.65 1074.29C1165.31 1077.5 1160.96 1080.1 1155.61 1082.11C1150.4 1084.11 1144.18 1085.11 1136.96 1085.11H1103.46V1018.56H1136.96ZM647.983 1031.79C648.92 1034.33 649.99 1037.01 651.193 1039.81C652.531 1042.48 654.002 1045.42 655.606 1048.63L668.419 1073.69H626.212L638.956 1048.63C640.427 1045.69 641.764 1042.88 642.968 1040.21C644.305 1037.54 645.509 1034.93 646.579 1032.39C646.876 1031.69 647.161 1030.99 647.438 1030.3C647.618 1030.79 647.798 1031.29 647.983 1031.79ZM140 100C117.909 100 100 117.909 100 140V923.433H334.749L334.748 416.49L537.966 680.271C545.164 689.614 559.253 689.626 566.467 680.294L769.653 417.44V923.433H1016.84V416.488L1220.06 680.271C1227.26 689.614 1241.35 689.626 1248.56 680.294L1451.75 417.44V923.433H1698.85V140C1698.85 117.909 1680.94 100 1658.85 100H1476.29C1463.93 100 1452.26 105.719 1444.68 115.49L1255.75 359.154C1248.48 368.524 1234.3 368.432 1227.16 358.969L1043.67 115.9C1036.11 105.887 1024.3 100 1011.75 100H794.195C781.831 100 770.161 105.719 762.584 115.49L573.654 359.154C566.389 368.524 552.207 368.432 545.063 358.969L361.578 115.9C354.019 105.887 342.2 100 329.653 100H140Z" />
+              </g>
+          </svg>
+      </div> -->
+      <div class="flex items-center justify-center rounded-full mb-6">
+        <svg
+        class="h-[164px] w-[240px] text-mm block" 
+        viewBox="0 0 1600 1024" 
+        fill="currentColor"
+        aria-hidden="true">
+          <g id="Profile_blank" data-name="Profile blank">
+            <path d="M445.063 258.969C452.207 268.432 466.389 268.524 473.655 259.154L662.584 15.4898C670.161 5.71833 681.831 0 694.195 0H911.749C924.295 0 936.115 5.88684 943.674 15.9006L1127.16 258.969C1134.3 268.432 1148.49 268.524 1155.75 259.154L1344.68 15.4898C1352.26 5.71833 1363.93 0 1376.29 0H1558.85C1580.94 0 1598.85 17.9086 1598.85 40V823.433H1351.75V317.44L1148.56 580.294C1141.35 589.625 1127.26 589.614 1120.06 580.27L916.844 316.488V823.433H669.653V317.44L466.466 580.294C459.253 589.625 445.164 589.614 437.966 580.271L234.748 316.49L234.749 823.433H0V39.9999C0 17.9086 17.9086 0 40 0H229.653C242.199 0 254.019 5.88684 261.578 15.9006L445.063 258.969Z"/>
+            <path d="M1526.58 877.672C1537.14 877.672 1546.57 878.54 1554.86 880.277C1563.29 882.015 1570.64 884.22 1576.93 886.893C1583.35 889.431 1588.63 891.903 1592.78 894.309L1574.92 923.775C1570.51 921.637 1565.36 919.833 1559.48 918.363C1553.73 916.893 1547.84 915.757 1541.82 914.955C1535.8 914.02 1530.12 913.552 1524.77 913.552C1519.69 913.552 1515.14 913.819 1511.13 914.353C1507.12 914.754 1503.91 915.624 1501.5 916.96C1499.23 918.163 1498.09 919.967 1498.09 922.372C1498.09 924.51 1499.36 926.18 1501.9 927.383C1504.44 928.585 1507.58 929.455 1511.33 929.989C1515.21 930.524 1519.09 930.924 1522.96 931.191C1526.98 931.325 1530.32 931.526 1533 931.793C1541.02 932.461 1548.98 933.397 1556.87 934.6C1564.89 935.669 1572.11 937.606 1578.53 940.412C1585.09 943.218 1590.3 947.428 1594.18 953.041C1598.06 958.52 1600 966.003 1600 975.491C1600 985.915 1596.79 994.735 1590.37 1001.95C1583.95 1009.17 1575.26 1014.65 1564.29 1018.39C1553.32 1022.13 1541.09 1024 1527.58 1024C1515.27 1024 1503.97 1023 1493.68 1020.99C1483.51 1018.85 1474.28 1016.18 1465.99 1012.98C1457.83 1009.77 1450.41 1006.49 1443.72 1003.15L1460.78 968.876C1473.48 975.825 1486.12 980.837 1498.69 983.91C1511.26 986.984 1522.3 988.52 1531.79 988.52C1534.47 988.52 1537.54 988.386 1541.02 988.119C1544.63 987.852 1547.77 987.118 1550.45 985.915C1553.12 984.579 1554.46 982.373 1554.46 979.3C1554.46 977.83 1553.99 976.627 1553.06 975.691C1552.12 974.622 1550.65 973.754 1548.64 973.086C1546.64 972.418 1544.1 971.883 1541.02 971.482C1538.08 970.948 1534.53 970.547 1530.39 970.279C1526.24 969.878 1521.49 969.478 1516.14 969.077C1506.52 968.409 1497.75 967.005 1489.86 964.867C1482.11 962.595 1475.42 959.656 1469.8 956.048C1464.19 952.44 1459.84 948.096 1456.76 943.018C1453.69 937.807 1452.15 931.927 1452.15 925.379C1452.15 917.628 1454.09 910.812 1457.97 904.933C1461.85 898.919 1467.2 893.908 1474.02 889.899C1480.97 885.89 1488.93 882.883 1497.89 880.879C1506.85 878.741 1516.41 877.672 1526.58 877.672Z"/>
+            <path d="M159.285 918.563H100.707V1022H57.375V918.563H0V881.681H159.285V918.563Z"/>
+            <path d="M636.854 1022H593.121L583.486 1003.15H511.226L501.643 1022H458.712L529.327 881.681H566.641L636.854 1022ZM547.438 930.297C547.161 930.991 546.876 931.69 546.579 932.394C545.509 934.933 544.305 937.539 542.968 940.212C541.764 942.884 540.427 945.691 538.956 948.631L526.212 973.687H568.419L555.606 948.631C554.002 945.424 552.531 942.484 551.193 939.811C549.99 937.005 548.92 934.332 547.983 931.793C547.798 931.289 547.618 930.79 547.438 930.297Z"/>
+            <path d="M1037.96 881.681C1051.47 881.681 1063.51 883.618 1074.07 887.493C1084.64 891.235 1093.6 896.381 1100.95 902.929C1108.31 909.477 1113.93 916.96 1117.8 925.379C1121.68 933.798 1123.62 942.617 1123.62 951.838C1123.62 961.192 1121.68 970.079 1117.8 978.498C1113.93 986.917 1108.24 994.4 1100.75 1000.95C1093.4 1007.5 1084.44 1012.64 1073.87 1016.38C1063.3 1020.12 1051.33 1022 1037.96 1022H960.124V881.681H1037.96ZM1003.46 985.113H1036.96C1044.18 985.113 1050.4 984.111 1055.61 982.106C1060.96 980.102 1065.31 977.495 1068.65 974.288C1072.13 970.947 1074.67 967.339 1076.28 963.464C1078.02 959.589 1078.89 955.713 1078.89 951.838C1078.89 947.963 1078.02 944.087 1076.28 940.212C1074.67 936.337 1072.13 932.795 1068.65 929.588C1065.31 926.247 1060.96 923.575 1055.61 921.57C1050.4 919.566 1044.18 918.563 1036.96 918.563H1003.46V985.113Z"/>
+          </g>
+        </svg>
+      </div>
     </div>
+    <div class="flex flex-row justify-around gap-10">
+      <div class="flex-col w-full gap-3">
+        <p class="text-gray-800 font-semibold text-4xl mb-2 select-none poppins">Cadastre-se</p>
+        <p class="mb-5">Já tem conta? 
+          <span 
+            class="transition cursor-pointer text-mm hover:text-mm-dark hover:font-semibold" >
+            Faça login aqui.
+          </span>
+        </p>
 
-    <form class="cadastro-form">
-      <div class="form-group">
-        <label>Nome*:</label>
-        <input type="text" placeholder="digite seu nome" class="form-control" />
+        <p class="font-semibold text-md mb-2">CPF</p>
+        <input
+        type="text"
+        class="border-gray-400 mb-5 rounded-lg border placeholder:text-gray-400 overflow-hidden h-10 px-3 transition w-full focus:border-mm focus:shadow-xl focus:shadow-mm-shadow hover:border-mm"
+        label="cpf"
+        placeholder="000.000.000-00"
+        required />
+
+        <p class="font-semibold text-md mb-2">Nome</p>
+        <input
+        type="text"
+        class="border-gray-400 mb-5 rounded-lg border placeholder:text-gray-400 overflow-hidden h-10 px-3 transition w-full focus:border-mm focus:shadow-xl focus:shadow-mm-shadow hover:border-mm"
+        label="name"
+        placeholder="Digite seu nome"
+        required />
+
+        <p class="font-semibold text-md mb-2">E-mail</p>
+        <input
+        type="email"
+        class="border-gray-400 mb-5 rounded-lg border placeholder:text-gray-400 overflow-hidden h-10 px-3 transition w-full focus:border-mm focus:shadow-xl focus:shadow-mm-shadow hover:border-mm"
+        label="email"
+        placeholder="exemplo@email.com"
+        required />
+        
+        <!-- <p class="font-semibold text-md mb-2">Telefone</p>
+        <input
+        type="text"
+        class="border-gray-400 mb-5 rounded-lg border placeholder:text-gray-400 overflow-hidden h-10 px-3 transition w-full focus:border-mm focus:shadow-xl focus:shadow-mm-shadow hover:border-mm"
+        label="telefone"
+        placeholder="(00) 90000-0000"
+        required /> -->
       </div>
 
-      <div class="form-group">
-        <label>CPF*:</label>
-        <input type="text" placeholder="seu CPF" class="form-control" />
-      </div>
 
-      <div class="form-group">
-        <label>Email*:</label>
-        <input type="email" placeholder="digite seu email" class="form-control" />
-      </div>
+      <div class="flex-col w-full gap-3">
+        <p class="font-semibold text-md mb-2">CEP</p>
+        <input
+        type="text"
+        class="border-gray-400 mb-5 rounded-lg border placeholder:text-gray-400 overflow-hidden h-10 px-3 transition w-full focus:border-mm focus:shadow-xl focus:shadow-mm-shadow hover:border-mm"
+        label="cep"
+        placeholder="Digite seu CEP"
+        required />
 
-      <div class="form-group">
-        <label>CEP*:</label>
-        <input type="text" placeholder="xxxxx-xxx" class="form-control" />
-      </div>
-
-      <div class="form-group endereco-group">
-        <div class="endereco-input">
-          <label>Endereço*:</label>
-          <input type="text" placeholder="endereço" class="form-control" />
+        <div class="flex flex-row gap-3">
+          <div class="w-[30%]">
+            <p class="font-semibold text-md mb-2">Estado</p>
+            <select
+            type="select"
+            class="border-gray-400 mb-5 rounded-lg border placeholder:text-gray-400 overflow-hidden h-10 px-3 transition w-full focus:border-mm focus:shadow-xl focus:shadow-mm-shadow hover:border-mm"
+            label="email"
+            placeholder=""
+            required>
+              <option value="AC">AC</option>
+              <option value="AL">AL</option>
+              <option value="AM">AM</option>
+              <option value="AP">AP</option>
+              <option value="BA">BA</option>
+              <option value="CE">CE</option>
+              <option value="DF">DF</option>
+              <option value="ES">ES</option>
+              <option value="GO">GO</option>
+              <option value="MA">MA</option>
+              <option value="MG">MG</option>
+              <option value="MS">MS</option>
+              <option value="MT">MT</option>
+              <option value="PA">PA</option>
+              <option value="PB">PB</option>
+              <option value="PE">PE</option>
+              <option value="PI">PI</option>
+              <option value="PR" selected>PR</option>
+              <option value="RJ">RJ</option>
+              <option value="RN">RN</option>
+              <option value="RO">RO</option>
+              <option value="RR">RR</option>
+              <option value="RS">RS</option>
+              <option value="SC">SC</option>
+              <option value="SE">SE</option>
+              <option value="SP">SP</option>
+              <option value="TO">TO</option>
+            </select>
+          </div>
+          <div class="w-full">
+            <p class="font-semibold text-md mb-2">Cidade</p>
+            <input
+            type="email"
+            class="border-gray-400 mb-5 rounded-lg border placeholder:text-gray-400 overflow-hidden h-10 px-3 transition w-full focus:border-mm focus:shadow-xl focus:shadow-mm-shadow hover:border-mm"
+            label="email"
+            placeholder="Digite sua cidade"
+            required />
+          </div>
         </div>
-        <div class="numero-input">
-          <label>n.º</label>
-          <input type="text" placeholder="xxx" class="form-control" />
+        
+        <div class="flex flex-row gap-3">
+          <div class="w-[80%]">
+            <p class="font-semibold text-md mb-2">Logradouro</p>
+            <input
+            type="text"
+            class="border-gray-400 mb-5 rounded-lg border placeholder:text-gray-400 overflow-hidden h-10 px-3 transition w-full focus:border-mm focus:shadow-xl focus:shadow-mm-shadow hover:border-mm"
+            label="cpf"
+            placeholder="Digite sua rua"
+            required />
+          </div>
+          <div class="w-[30%]">
+            <p class="font-semibold text-md mb-2">Número</p>
+            <input
+            type="text"
+            class="border-gray-400 mb-5 rounded-lg border placeholder:text-gray-400 overflow-hidden h-10 px-3 transition w-full focus:border-mm focus:shadow-xl focus:shadow-mm-shadow hover:border-mm"
+            placeholder="Nº"
+            label="numero"
+            required />
+          </div>
         </div>
-      </div>
 
-      <div class="form-group">
-        <label>Telefone*:</label>
-        <input type="tel" placeholder="+55 ( ) 000000000" class="form-control" />
+        <p class="font-semibold text-md mb-2">Telefone</p>
+        <input
+        type="text"
+        class="border-gray-400 mb-5 rounded-lg border placeholder:text-gray-400 overflow-hidden h-10 px-3 transition w-full focus:border-mm focus:shadow-xl focus:shadow-mm-shadow hover:border-mm"
+        label="telefone"
+        placeholder="(00) 90000-0000"
+        required />
       </div>
-
-      <button type="submit" class="btn-cadastrar">
-        CADASTRAR
-      </button>
-     </form>
-   </div>
- </div>
-</body>
+    </div>
+    <div class="flex justify-center mt-5">
+      <button class="bg-mm h-[50px] w-[30%] rounded-xl transition font-regular text-white text-lg cursor-pointer hover:shadow-xl hover:shadow-mm-shadow hover:bg-mm-dark hover:scale-[102%] active:scale-95">
+        Criar conta</button>
+    </div>
+  </div>
+</div>

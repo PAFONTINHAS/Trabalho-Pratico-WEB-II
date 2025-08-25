@@ -8,11 +8,16 @@ import { Detalhes } from './pages/cliente/detalhes/detalhes';
 import { RejeitarAceitar } from './pages/cliente/rejeitar-aceitar/rejeitar-aceitar';
 import { Resgatar } from './pages/cliente/resgatar/resgatar'
 import { VisualizarOrcamento } from './pages/cliente/visualizar-orcamento/visualizar-orcamento';
+import { Cadastro } from "./pages/cadastro/cadastro";
+import { Manutencao } from "./pages/funcionario/efetuar-manutencao/efetuar-manutencao";
+import { Orcamento } from "./pages/funcionario/orcamento/orcamento";
+import { MoverManutencao } from "./pages/funcionario/mover-manutencao/mover-manutencao";
+import { FinalizarManutencao } from "./pages/funcionario/finalizar-manutencao/finalizar-manutencao";
 
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Solicitar, FuncionarioHomepage, Login, PaginaInicial, Detalhes, RejeitarAceitar,Resgatar, VisualizarOrcamento],
+  imports: [RouterOutlet, Solicitar, FuncionarioHomepage, Login, PaginaInicial, Detalhes, RejeitarAceitar, Resgatar, VisualizarOrcamento, Cadastro, Manutencao, Orcamento, MoverManutencao, FinalizarManutencao],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
