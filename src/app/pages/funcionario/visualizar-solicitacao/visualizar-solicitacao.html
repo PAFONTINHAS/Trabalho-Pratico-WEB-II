@@ -1,0 +1,64 @@
+<h1 class="titulo">MM-TADS</h1>
+
+<header class="header">
+  <h2>Bem vindo, Maurício!</h2>
+
+  <nav>
+    <a routerLink="/solicitacoes">Solicitações</a>
+    <a routerLink="/orcamentos">Orçamentos</a>
+    <a routerLink="/perfil">Seu perfil</a>
+  </nav>
+</header>
+
+<main>
+  <!-- FILTROS -->
+  <section class="filtros">
+    <h3>Filtros</h3>
+
+    <label for="dataInicio">Data início:</label>
+    <input type="date" id="dataInicio" [(ngModel)]="filtro.dataInicio">
+
+    <label for="dataFim">Data fim:</label>
+    <input type="date" id="dataFim" [(ngModel)]="filtro.dataFim">
+
+    <label for="status">Status:</label>
+    <select id="status" [(ngModel)]="filtro.status">
+      <option value="">Todos</option>
+      <option value="aberto">Aberto</option>
+      <option value="andamento">Em andamento</option>
+      <option value="concluido">Concluído</option>
+    </select>
+
+    <button (click)="aplicarFiltro()">Filtrar</button>
+  </section>
+
+  <!-- LISTA DE SOLICITAÇÕES -->
+  <section class="solicitacoes">
+    <h2>Solicitações</h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Dispositivo</th>
+          <th>Descrição</th>
+          <th>Data</th>
+          <th>Status</th>
+          <th>Ação</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let s of solicitacoesFiltradas">
+          <td>{{ s.nome }}</td>
+          <td>{{ s.dispositivo }}</td>
+          <td>{{ s.descricao }}</td>
+          <td>{{ s.data | date:'dd/MM/yyyy - HH:mm' }}</td>
+          <td>{{ s.status }}</td>
+          <td><button (click)="efetuarOrcamento(s)">Efetuar Orçamento</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+</main>
+
