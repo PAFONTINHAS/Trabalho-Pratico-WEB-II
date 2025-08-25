@@ -12,26 +12,32 @@
 
 <main>
   <!-- FILTROS -->
-  <section class="filtros">
-    <h3>Filtros</h3>
+<section class="filtros">
+  <h3>Filtros</h3>
+  <form (submit)="aplicarFiltro()">
+    <div class="input-group">
+      <label for="dataInicio">Data de Início</label>
+      <input type="date" id="dataInicio" [(ngModel)]="filtro.dataInicio" name="dataInicio">
+    </div>
 
-    <label for="dataInicio">Data início:</label>
-    <input type="date" id="dataInicio" [(ngModel)]="filtro.dataInicio">
+    <div class="input-group">
+      <label for="dataFim">Data de Fim</label>
+      <input type="date" id="dataFim" [(ngModel)]="filtro.dataFim" name="dataFim">
+    </div>
 
-    <label for="dataFim">Data fim:</label>
-    <input type="date" id="dataFim" [(ngModel)]="filtro.dataFim">
+    <div class="input-group">
+      <label for="status">Status</label>
+      <select id="status" [(ngModel)]="filtro.status" name="status">
+        <option value="">Todos</option>
+        <option value="aberto">Aberto</option>
+        <option value="andamento">Em andamento</option>
+        <option value="concluido">Concluído</option>
+      </select>
+    </div>
 
-    <label for="status">Status:</label>
-    <select id="status" [(ngModel)]="filtro.status">
-      <option value="">Todos</option>
-      <option value="aberto">Aberto</option>
-      <option value="andamento">Em andamento</option>
-      <option value="concluido">Concluído</option>
-    </select>
-
-    <button (click)="aplicarFiltro()">Filtrar</button>
-  </section>
-
+    <button type="submit">Filtrar</button>
+  </form>
+</section>
   <!-- LISTA DE SOLICITAÇÕES -->
   <section class="solicitacoes">
     <h2>Solicitações</h2>
@@ -53,7 +59,7 @@
           <td>{{ s.nome }}</td>
           <td>{{ s.dispositivo }}</td>
           <td>{{ s.descricao }}</td>
-          <td>{{ s.data | date:'dd/MM/yyyy - HH:mm' }}</td>
+          <td>{{ s.data | date:'dd/mm/aaaa' }}</td>
           <td>{{ s.status }}</td>
           <td><button (click)="efetuarOrcamento(s)">Efetuar Orçamento</button></td>
         </tr>
