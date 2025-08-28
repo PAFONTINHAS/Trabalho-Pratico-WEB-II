@@ -12,11 +12,12 @@ import { Cadastro } from './pages/cadastro/cadastro';
 import { Manutencao } from './pages/funcionario/efetuar-manutencao/efetuar-manutencao';
 import { FinalizarManutencao } from './pages/funcionario/finalizar-manutencao/finalizar-manutencao';
 import { Orcamento } from './pages/funcionario/orcamento/orcamento';
+import { MoverManutencao } from "./pages/funcionario/mover-manutencao/mover-manutencao";
 
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet, Solicitar, FuncionarioHomepage, Login, PaginaInicial, Detalhes,RejeitarAceitar,
-    Resgatar, VisualizarOrcamento, Cadastro, Manutencao, FinalizarManutencao, Orcamento],
+    Resgatar, VisualizarOrcamento, Cadastro, Manutencao, FinalizarManutencao, Orcamento, MoverManutencao],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
