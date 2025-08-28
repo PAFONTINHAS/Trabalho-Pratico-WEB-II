@@ -4,8 +4,6 @@ import { Solicitar } from "./pages/cliente/solicitar/solicitar";
 import { FuncionarioHomepage } from "./pages/funcionario/funcionario-homepage/funcionario-homepage";
 import { Login } from "./pages/login/login";
 import { PaginaInicial } from "./pages/cliente/pagina-inicial/pagina-inicial";
-import { Detalhes } from './pages/cliente/detalhes/detalhes';
-import { RejeitarAceitar } from './pages/cliente/rejeitar-aceitar/rejeitar-aceitar';
 import { Resgatar } from './pages/cliente/resgatar/resgatar'
 import { VisualizarOrcamento } from './pages/cliente/visualizar-orcamento/visualizar-orcamento';
 import { Cadastro } from './pages/cadastro/cadastro';
@@ -13,10 +11,11 @@ import { Manutencao } from './pages/funcionario/efetuar-manutencao/efetuar-manut
 import { FinalizarManutencao } from './pages/funcionario/finalizar-manutencao/finalizar-manutencao';
 import { Orcamento } from './pages/funcionario/orcamento/orcamento';
 import { MoverManutencao } from "./pages/funcionario/mover-manutencao/mover-manutencao";
+import { VisualizarSolicitacao } from './pages/funcionario/visualizar-solicitacao/visualizar-solicitacao';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Solicitar, FuncionarioHomepage, Login, PaginaInicial, Detalhes,RejeitarAceitar,
+  imports: [RouterOutlet, Solicitar, FuncionarioHomepage, Login, PaginaInicial, VisualizarSolicitacao,
     Resgatar, VisualizarOrcamento, Cadastro, Manutencao, FinalizarManutencao, Orcamento, MoverManutencao],
   templateUrl: './app.html',
   styleUrl: './app.css'
