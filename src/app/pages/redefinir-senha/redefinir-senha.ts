@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-reset-password',
+  imports: [],
+  selector: 'app-redefinir-senha',
   templateUrl: './redefinir-senha.html',
+  styleUrl: './redefinir-senha.css'
+
 })
 export class ResetPasswordComponent {
   email: string = '';
