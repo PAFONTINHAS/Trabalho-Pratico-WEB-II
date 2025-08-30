@@ -1,0 +1,80 @@
+<body>
+    <h1>MM-TADS</h1>
+    <header>
+        <h2>Bem vindo, Maurício!</h2>
+        <nav>
+            <a href="">Solicitações</a>
+            <a href="">Orçamentos</a>
+            <a href="">Seu perfil</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="filtros">
+            <input type="date" id="dataInicio" placeholder="Data Início">
+            <input type="date" id="dataFim" placeholder="Data Fim">
+            <select id="statusFiltro">
+                <option value="">Todos Status</option>
+                <option value="pendente">Pendente</option>
+                <option value="andamento">Em Andamento</option>
+                <option value="finalizada">Finalizada</option>
+            </select>
+            <button onclick="filtrar()">Filtrar</button>
+            <button onclick="limpar()">Limpar</button>
+        </section>
+
+        <section>
+            <h2>Solicitações (<span id="total">5</span>)</h2>
+            <table id="tabela">
+                <tr>
+                    <th>Nome</th>
+                    <th>Dispositivo</th>
+                    <th>Descrição</th>
+                    <th>Data</th>
+                    <th>Status</th>
+                    
+                </tr>
+                <tr class="status-pendente" data-status="pendente" data-data="2025-08-10">
+                    <td>Marcos de Paula</td>
+                    <td>Notebook Lenovo S145</td>
+                    <td>Troca de tela</td>
+                    <td>10/08/2025</td>
+                    <td>Pendente</td>
+                    
+                </tr>
+                <tr class="status-andamento" data-status="andamento" data-data="2025-08-07">
+                    <td>Maria Assunção</td>
+                    <td>Samsung A04</td>
+                    <td>Botão de ligar</td>
+                    <td>07/08/2025</td>
+                    <td>Em Andamento</td>
+                    
+                </tr>
+                <tr class="status-finalizada" data-status="finalizada" data-data="2025-08-05">
+                    <td>João Silva</td>
+                    <td>iPad</td>
+                    <td>Bateria</td>
+                    <td>05/08/2025</td>
+                    <td>Finalizada</td>
+                  
+                </tr>
+                <tr class="status-pendente" data-status="pendente" data-data="2025-08-03">
+                    <td>Ana Souza</td>
+                    <td>Dell Inspiron</td>
+                    <td>Teclado</td>
+                    <td>03/08/2025</td>
+                    <td>Pendente</td>
+                    
+                </tr>
+                <tr class="status-andamento" data-status="andamento" data-data="2025-08-01">
+                    <td>Carlos Mendes</td>
+                    <td>Xiaomi Redmi</td>
+                    <td>Tela quebrada</td>
+                    <td>01/08/2025</td>
+                    <td>Em Andamento</td>
+                  
+                </tr>
+            </table>
+        </section>
+    </main>
+</body>
