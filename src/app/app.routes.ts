@@ -1,3 +1,51 @@
 import { Routes } from '@angular/router';
 
-export const routes: Routes = [];
+// Componentes acessíveis a todos
+import { Login } from './pages/login/login';
+import { Cadastro } from './pages/cadastro/cadastro';
+
+// Componentes do Cliente
+import { PaginaInicial } from './pages/cliente/pagina-inicial/pagina-inicial';
+import { Resgatar } from './pages/cliente/resgatar/resgatar';
+import { Solicitar } from './pages/cliente/solicitar/solicitar';
+
+// Componentes do Funcionário
+import { FuncionarioHomepage } from './pages/funcionario/funcionario-homepage/funcionario-homepage';
+import { FinalizarManutencao } from './pages/funcionario/finalizar-manutencao/finalizar-manutencao';
+import { MoverManutencao } from './pages/funcionario/mover-manutencao/mover-manutencao';
+import { VisualizarSolicitacao } from './pages/funcionario/visualizar-solicitacao/visualizar-solicitacao';
+//import { Orcamento } from './pages/funcionario/orcamento/orcamento';
+//import { EfetuarManutencao } from './pages/funcionario/efetuar-manutencao/efetuar-manutencao';
+
+
+export const routes: Routes = [
+  // Rotas públicas de login e cadastro
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: 'login', component: Login },
+  { path: 'cadastro', component: Cadastro },
+
+   // Rotas para a área de cliente
+  {
+    path: 'cliente',
+    children: [
+      { path: '', redirectTo: 'pagina-inicial', pathMatch: 'full' },
+      { path: 'pagina-inicial', component: PaginaInicial },
+      { path: 'resgatar', component: Resgatar },
+      { path: 'solicitar', component: Solicitar },
+    ]
+  },
+
+  // Rotas para a área de funcionário
+  {
+    path: 'funcionario',
+    children: [
+      { path: '', redirectTo: 'homepage', pathMatch: 'full' },
+      { path: 'homepage', component: FuncionarioHomepage },
+      { path: 'finalizar-manutencao', component: FinalizarManutencao },
+      { path: 'mover-manutencao', component: MoverManutencao },
+      { path: 'visualizar-solicitacao', component: VisualizarSolicitacao },
+      //{ path: 'orcamento', component: Orcamento },
+      //{ path: 'efetuar-manutencao', component: EfetuarManutencao },
+    ]
+  }
+];
