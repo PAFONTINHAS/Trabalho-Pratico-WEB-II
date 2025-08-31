@@ -16,6 +16,7 @@ import { MoverManutencao } from './pages/funcionario/mover-manutencao/mover-manu
 import { VisualizarSolicitacao } from './pages/funcionario/visualizar-solicitacao/visualizar-solicitacao';
 import { Orcamento } from './pages/funcionario/orcamento/orcamento';
 import { Manutencao } from './pages/funcionario/efetuar-manutencao/efetuar-manutencao';
+import { BotaoPagar } from './pages/cliente/botao-pagar/botao-pagar';
 
 
 export const routes: Routes = [
@@ -32,6 +33,7 @@ export const routes: Routes = [
       { path: 'pagina-inicial', component: PaginaInicial },
       { path: 'resgatar', component: Resgatar },
       { path: 'solicitar', component: Solicitar },
+      { path: 'botao-pagar', component: BotaoPagar },
     ]
   },
 
