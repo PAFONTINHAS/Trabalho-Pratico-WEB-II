@@ -14,8 +14,8 @@ import { FuncionarioHomepage } from './pages/funcionario/funcionario-homepage/fu
 import { FinalizarManutencao } from './pages/funcionario/finalizar-manutencao/finalizar-manutencao';
 import { MoverManutencao } from './pages/funcionario/mover-manutencao/mover-manutencao';
 import { VisualizarSolicitacao } from './pages/funcionario/visualizar-solicitacao/visualizar-solicitacao';
-//import { Orcamento } from './pages/funcionario/orcamento/orcamento';
-//import { EfetuarManutencao } from './pages/funcionario/efetuar-manutencao/efetuar-manutencao';
+import { Orcamento } from './pages/funcionario/orcamento/orcamento';
+import { Manutencao } from './pages/funcionario/efetuar-manutencao/efetuar-manutencao';
 
 
 export const routes: Routes = [
@@ -44,8 +44,8 @@ export const routes: Routes = [
       { path: 'finalizar-manutencao', component: FinalizarManutencao },
       { path: 'mover-manutencao', component: MoverManutencao },
       { path: 'visualizar-solicitacao', component: VisualizarSolicitacao },
-      //{ path: 'orcamento', component: Orcamento },
-      //{ path: 'efetuar-manutencao', component: EfetuarManutencao },
+      { path: 'orcamento', component: Orcamento },
+      { path: 'efetuar-manutencao', component: Manutencao },    
     ]
   }
 ];

@@ -13,10 +13,11 @@ import { Orcamento } from './pages/funcionario/orcamento/orcamento';
 import { MoverManutencao } from "./pages/funcionario/mover-manutencao/mover-manutencao";
 import { VisualizarSolicitacao } from './pages/funcionario/visualizar-solicitacao/visualizar-solicitacao';
 
+
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet, Solicitar, FuncionarioHomepage, Login, PaginaInicial, VisualizarSolicitacao,
-    Resgatar, VisualizarOrcamento, Cadastro, Manutencao, FinalizarManutencao, Orcamento, MoverManutencao],
+    Resgatar, VisualizarOrcamento, Cadastro, Manutencao, FinalizarManutencao, Orcamento, MoverManutencao,],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
