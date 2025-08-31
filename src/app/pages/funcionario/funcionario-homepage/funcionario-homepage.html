@@ -3,9 +3,10 @@
     <h2>Bem vindo, Maurício!</h2>
 
     <nav>
-        <a href="">Solicitações</a>
+        <a [routerLink]="['/funcionario/visualizar-solicitacao']">Visualizar Solicitações</a>
         <a href="">Orçamentos</a>
         <a href="">Seu perfil</a>
+        <a [routerLink]="['/funcionario/efetuar-manutencao']">Efetuar Manutenção</a>
     </nav>
 </header>
 <main>
@@ -26,7 +27,7 @@
                 <td>Notebook Lenovo S145</td>
                 <td>Troca de tela</td>
                 <td> 10/08/2025 - 15:48 </td>
-                <td class="efetuar_orcamento"><button>Efetuar Orçamento</button></td>
+                <td class="efetuar_orcamento"><button>Efetuar Orçamento</button></td>            
             </tr>
             <tr>
                 <td>Maria Assunção</td>

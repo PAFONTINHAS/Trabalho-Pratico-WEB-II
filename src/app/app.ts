@@ -12,12 +12,11 @@ import { FinalizarManutencao } from './pages/funcionario/finalizar-manutencao/fi
 import { Orcamento } from './pages/funcionario/orcamento/orcamento';
 import { MoverManutencao } from "./pages/funcionario/mover-manutencao/mover-manutencao";
 import { VisualizarSolicitacao } from './pages/funcionario/visualizar-solicitacao/visualizar-solicitacao';
-import { ResetPasswordComponent } from "./pages/redefinir-senha/redefinir-senha";
 
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet, Solicitar, FuncionarioHomepage, Login, PaginaInicial, VisualizarSolicitacao,
-    Resgatar, VisualizarOrcamento, Cadastro, Manutencao, FinalizarManutencao, Orcamento, MoverManutencao, ResetPasswordComponent],
+    Resgatar, VisualizarOrcamento, Cadastro, Manutencao, FinalizarManutencao, Orcamento, MoverManutencao],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
