@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common'; // Módulo para o pipe 'date' e diretivas como *ngFor
 import { FormsModule } from '@angular/forms'; // Módulo para a diretiva [(ngModel)]
+import { RouterLink } from '@angular/router';
 
 // Uma boa prática é definir interfaces para os objetos
 interface Solicitacao {
@@ -14,7 +15,7 @@ interface Solicitacao {
 @Component({
   selector: 'app-visualizar-solicitacao',
   standalone: true, // Indica que o componente é autônomo e gerencia suas próprias dependências
-  imports: [CommonModule, FormsModule], // Importa os módulos necessários
+  imports: [CommonModule, FormsModule, RouterLink], // Importa os módulos necessários
   templateUrl: './visualizar-solicitacao.html',
   styleUrl: './visualizar-solicitacao.css'
 })
