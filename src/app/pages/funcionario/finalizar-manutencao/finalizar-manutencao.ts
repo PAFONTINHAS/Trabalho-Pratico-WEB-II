@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-finalizar-manutencao',
-  imports: [],
+  imports: [RouterModule],
   templateUrl: './finalizar-manutencao.html',
   styleUrl: './finalizar-manutencao.css'
 })
