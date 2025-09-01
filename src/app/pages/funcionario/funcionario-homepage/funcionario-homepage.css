@@ -5,36 +5,66 @@
 
 */
 
+
+main{
+    background: linear-gradient(120deg, #1A467E 23.23%,#3D80BF 71.79%);
+    height: 100vh;
+    width: 100vw;
+}
+
 .titulo{
     text-align: center;
 }
+
 header{
-    margin: 20px;
+    background-color: white;
+    color: white;
+    padding-bottom: 8px;
+}
+
+.header-content{
+
+    background: linear-gradient(90.33deg, #3D80BF 2.39%, #1A467E 51.42%);
+    font-size: 2.25rem;
+    height: 126px;
+    width: 100%;
+    padding: 10px;  
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     position: relative;
-
+    
 }
 
-header h2{
-    margin: 0;
-}
-
-header nav a{ 
+.nome{
+    margin: 10px;
+    margin-left: 50px;
     color: white;
-    background-color: lightslategrey;
-    padding: 10px;
-    border-radius: 20px;
+    font-weight: bold;
+}
+
+header nav{
+    margin: 15px;
+}
+
+header nav button{ 
+    color: white;
+    background-color: #2D89CB;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    padding: 15px;
+    border-radius: 15px;
+    height: 59px;
     margin-left: 1.5rem;
     text-decoration: none;
-    font-weight: 500;
+    font-weight: bold;
+    font-size: 1.5rem;
 }
 
 header nav :hover{
-    background-color: darkslategrey;
-    transition: 0.7s;
+    background-color: #2e6892;
+    transition: 0.2s;
+    cursor: pointer;
 }
 
 /*
@@ -49,26 +79,46 @@ header nav :hover{
     padding: 0.5rem;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    margin: 10px;
+    margin-left: 50px;
+    padding: 10px;
+}
+
+.solicitacoes h2{
+    color: white;
+    font-size: 2rem;
+    font-weight: bold;
+
 }
 
 table{
-    width: 70%;
     border-collapse: collapse;
     background-color: #fff;
+    border-color: black;
     box-shadow: 0 2px 8px rgba(0,0,0,0.05);
     
 }
 
 table th, table td {
-    border: 1px solid #ddd;
+    border: 1px solid #2D89CB;
     padding: 8px;
     text-align: center;
+    font-weight: bold;
 }
 
-table th {
-    background-color: #f4f4f4;
+th{
+    color: white;
+    font-size: 1.5rem;
     font-weight: bold;
+    background-color: #2D89CB;
+}
+
+.colunas{
+    font-size: 1.5rem;
+}
+
+.status{
+    color: #515151;
 }
 
 /*
@@ -82,16 +132,19 @@ table th {
 .efetuar_orcamento button{
     border: none;
     color: white;
-    background-color: lightslategrey;
-    border-radius: 10px;
-    padding: 0.5rem;
+    background-color: #2D89CB;
+    border-radius: 20px;
+    width: 198px;
+    height: 43px;
+    
+    padding: 12px;
 
 }
 
 .efetuar_orcamento :hover{
 
-    background-color: darkslategrey;
+    background-color: #316f9b;
     cursor: pointer;
-    transition: 0.7s;
+    transition: 0.2s;
 
 }

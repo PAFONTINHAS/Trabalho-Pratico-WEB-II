@@ -1,62 +1,45 @@
-<h1 class="titulo">MM-TADS</h1>
-<header class="header">
-    <h2>Bem vindo, Maurício!</h2>
 
-    <nav>
-        <a [routerLink]="['/funcionario/visualizar-solicitacao']">Visualizar Solicitações</a>
-        <a href="">Orçamentos</a>
-        <a href="">Seu perfil</a>
-        <a [routerLink]="['/funcionario/efetuar-manutencao']">Efetuar Manutenção</a>
-    </nav>
-</header>
+
 <main>
+    <header class="header">
+        <div class="header-content">
+
+            <h2 class="nome">Bem vindo, {{nome}}!</h2>
+            
+            <h1 class="titulo">MM-TADS</h1>
+            <nav>
+                <button [routerLink]="">Administração</button>
+                <button [routerLink]="['/funcionario/visualizar-solicitacao']">Solicitações</button>
+                <button [routerLink]="">Orçamento</button>
+                <button [routerLink]="">Perfil</button>
+                <!-- <a [routerLink]="['/funcionario/visualizar-solicitacao']">Visualizar Solicitações</a>
+                <a href="">Orçamentos</a>
+                <a href="">Seu perfil</a>
+                <a [routerLink]="['/funcionario/efetuar-manutencao']">Efetuar Manutenção</a> -->
+            </nav>
+        </div>
+    </header>
 
     <section class="solicitacoes">
         <h2>Solicitações em Aberto: </h2>
         <table>
             <tr>
-                <th> Nome </th>
                 <th>dispositivo</th>
                 <th>descricao</th>
                 <th>data da solicitação</th>
+                <th>status</th>
                 <th></th>
 
             </tr>
-            <tr>
-                <td>Marcos de paula</td>
-                <td>Notebook Lenovo S145</td>
-                <td>Troca de tela</td>
-                <td> 10/08/2025 - 15:48 </td>
-                <td class="efetuar_orcamento"><button [routerLink]="['/funcionario/orcamento']">Efetuar Orçamento</button></td>
-            </tr>
-            <tr>
-                <td>Maria Assunção</td>
-                <td>Smartphone Samsung A04</td>
-                <td>Botão de ligar pifou</td>
-                <td> 07/08/2025 - 09:12 </td>
-                <td class="efetuar_orcamento"><button [routerLink]="['/funcionario/orcamento']">Efetuar Orçamento</button></td>
-            </tr>
-            <tr>
-                <td>João Silva</td>
-                <td>Tablet Apple iPad</td>
-                <td>Problema na bateria</td>
-                <td> 05/08/2025 - 11:30 </td>
-                <td class="efetuar_orcamento"><button [routerLink]="['/funcionario/orcamento']">Efetuar Orçamento</button></td>
-            </tr>
-            <tr>
-                <td>Ana Souza</td>
-                <td>Notebook Dell Inspiron</td>
-                <td>Teclado não funciona</td>
-                <td> 03/08/2025 - 14:20 </td>
-                <td class="efetuar_orcamento"><button [routerLink]="['/funcionario/orcamento']">Efetuar Orçamento</button></td>
-            </tr>
-            <tr>
-                <td>Carlos Mendes</td>
-                <td>Smartphone Xiaomi Redmi</td>
-                <td>Tela quebrada</td>
-                <td> 01/08/2025 - 16:45 </td>
-                <td class="efetuar_orcamento"><button [routerLink]="['/funcionario/orcamento']">Efetuar Orçamento</button></td>
-            </tr>
+            @for (solicitacao of solicitacoes; track solicitacao.id) {
+                <tr>
+                    <td class="colunas">{{solicitacao.dispositivo}}</td>
+                    <td class="colunas">{{solicitacao.descricao}}</td>
+                    <td class="colunas">{{solicitacao.dataSolicitacao}}</td>
+                    <td class="colunas status">{{solicitacao.status}}</td>
+                    <td class="efetuar_orcamento"><button [routerLink]="['/funcionario/orcamento']">Efetuar Orçamento</button></td>
+                </tr>
+            }
         </table>
     </section>
 </main>
