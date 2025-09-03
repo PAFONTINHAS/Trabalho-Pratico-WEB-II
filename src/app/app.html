@@ -22,20 +22,20 @@
                 </div>
             </div>
             <div class="flex items-center justify-end w-[45%] gap-2">
-                <button class="cursor-pointer rounded-md bg-transparent py-2 pl-4 pr-3 gap-1 flex items-center 
+                <button class="cursor-pointer rounded-md bg-transparent py-2 px-4 gap-1 flex items-center 
                                 border border-transparent text-center text-white transition-all
-                                 hover:bg-mm2-dark active:bg-mm2 active:shadow-lg" 
+                                 hover:bg-mm-light/30 hover:scale-105 hover:shadow-lg active:scale-95 active:bg-mm2-dark active:shadow-none" 
                         [routerLink]="['/login']"
                     >Login</button>
-                <button class="cursor-pointer rounded-md bg-transparent py-2 pl-4 pr-3 gap-1 flex items-center 
+                <button class="cursor-pointer rounded-md bg-transparent py-2 px-4 gap-1 flex items-center 
                                 border border-transparent text-center text-white transition-all
-                                 hover:bg-mm2-dark active:bg-mm2 active:shadow-lg" 
+                                 hover:bg-mm-light/30 hover:scale-105 hover:shadow-lg active:scale-95 active:bg-mm2-dark active:shadow-none" 
                         [routerLink]="['/cadastro']"
                     >Cadastro</button>
                 <div class="relative" #dropdownContainer>
                     <button 
                     (click)="toggleDropdown($event, 'cliente')"
-                    class="cursor-pointer rounded-md bg-transparent py-2 pl-4 pr-3 gap-1 flex items-center border border-transparent text-center text-white transition-all hover:bg-mm2-dark active:bg-mm2 active:shadow-lg" 
+                    class="cursor-pointer rounded-md bg-transparent py-2 pl-4 pr-3 gap-1 flex items-center border border-transparent text-center text-white transition-all hover:bg-mm-light/30 hover:scale-105 hover:shadow-lg active:scale-95 active:bg-mm2-dark active:shadow-none"
                     type="button">
                     Cliente
                     <svg
@@ -54,27 +54,27 @@
                     [class.hidden]="openDropdown !== 'cliente'"
                     class="absolute translate-x-[-20%] z-10 min-w-[180px] overflow-auto rounded-lg border border-slate-200 bg-white p-1.5 shadow-lg focus:outline-none mt-2">
                     <li role="menuitem" class="p-0">
-                        <a [routerLink]="['/cliente/pagina-inicial']" class="cursor-pointer text-slate-800 flex w-full text-sm items-center rounded-md p-3 transition-all hover:bg-slate-200 active:bg-slate-200">
+                        <a [routerLink]="['/cliente/pagina-inicial']" class="cursor-pointer text-slate-800 flex w-full text-sm items-center rounded-md p-3 transition-all hover:bg-slate-200 active:bg-slate-300 active:scale-95">
                             Página Inicial
                         </a>
                     </li>
                     <li role="menuitem" class="p-0">
-                        <a [routerLink]="['/cliente/solicitar']" class="cursor-pointer text-slate-800 flex w-full text-sm items-center rounded-md p-3 transition-all hover:bg-slate-200 active:bg-slate-200">
+                        <a [routerLink]="['/cliente/solicitar']" class="cursor-pointer text-slate-800 flex w-full text-sm items-center rounded-md p-3 transition-all hover:bg-slate-200 active:bg-slate-300 active:scale-95">
                             Solicitar
                         </a>
                     </li>
                     <li role="menuitem" class="p-0">
-                        <a [routerLink]="['/cliente/botao-pagar']" class="cursor-pointer text-slate-800 flex w-full text-sm items-center rounded-md p-3 transition-all hover:bg-slate-200 active:bg-slate-200">
+                        <a [routerLink]="['/cliente/botao-pagar']" class="cursor-pointer text-slate-800 flex w-full text-sm items-center rounded-md p-3 transition-all hover:bg-slate-200 active:bg-slate-300 active:scale-95">
                             Botão pagar
                         </a>
                     </li>
                     <li role="menuitem" class="p-0">
-                        <a [routerLink]="['/cliente/resgatar']" class="cursor-pointer text-slate-800 flex w-full text-sm items-center rounded-md p-3 transition-all hover:bg-slate-200 active:bg-slate-200">
+                        <a [routerLink]="['/cliente/resgatar']" class="cursor-pointer text-slate-800 flex w-full text-sm items-center rounded-md p-3 transition-all hover:bg-slate-200 active:bg-slate-300 active:scale-95">
                             Resgatar
                         </a>
                     </li>
                     <li role="menuitem" class="p-0">
-                        <a [routerLink]="['/cliente/resgatar']" class="cursor-pointer text-slate-800 flex w-full text-sm items-center rounded-md p-3 transition-all hover:bg-slate-200 active:bg-slate-200">
+                        <a [routerLink]="['/cliente/resgatar']" class="cursor-pointer text-slate-800 flex w-full text-sm items-center rounded-md p-3 transition-all hover:bg-slate-200 active:bg-slate-300 active:scale-95">
                             Visualizar orçamento
                         </a>
                     </li>
@@ -83,7 +83,7 @@
                 <div class="relative" #dropdownContainer>
                     <button 
                     (click)="toggleDropdown($event, 'funcionario')"
-                    class="cursor-pointer rounded-md bg-transparent py-2 pl-4 pr-3 gap-1 flex items-center border border-transparent text-center text-white transition-all focus:bg-mm2-dark hover:bg-mm2-dark active:bg-mm2 active:shadow-lg" 
+                    class="cursor-pointer rounded-md bg-transparent py-2 pl-4 pr-3 gap-1 flex items-center border border-transparent text-center text-white transition-all hover:bg-mm-light/30 hover:scale-105 hover:shadow-lg active:scale-95 active:bg-mm2-dark active:shadow-none"
                     type="button">
                     Funcionário
                     <svg
@@ -102,32 +102,37 @@
                     [class.hidden]="openDropdown !== 'funcionario'"
                     class="absolute translate-x-[-20%] z-10 min-w-[180px] overflow-auto rounded-lg border border-slate-200 bg-white p-1.5 shadow-lg focus:outline-none mt-2">
                     <li role="menuitem" class="p-0">
-                        <a [routerLink]="['/funcionario']" class="cursor-pointer text-slate-800 flex w-full text-sm items-center rounded-md p-3 transition-all hover:bg-slate-200 active:bg-slate-200">
+                        <a [routerLink]="['/funcionario']" class="cursor-pointer text-slate-800 flex w-full text-sm items-center rounded-md p-3 transition-all hover:bg-slate-200 active:bg-slate-300 active:scale-95">
                             Página Inicial
                         </a>
                     </li>
                     <li role="menuitem" class="p-0">
-                        <a [routerLink]="['/funcionario/efetuar-manutencao']" class="cursor-pointer text-slate-800 flex w-full text-sm items-center rounded-md p-3 transition-all hover:bg-slate-200 active:bg-slate-200">
+                        <a [routerLink]="['/funcionario/administracao']" class="cursor-pointer text-slate-800 flex w-full text-sm items-center rounded-md p-3 transition-all hover:bg-slate-200 active:bg-slate-300 active:scale-95">
+                            Administração
+                        </a>
+                    </li>
+                    <li role="menuitem" class="p-0">
+                        <a [routerLink]="['/funcionario/efetuar-manutencao']" class="cursor-pointer text-slate-800 flex w-full text-sm items-center rounded-md p-3 transition-all hover:bg-slate-200 active:bg-slate-300 active:scale-95">
                             Efetuar manutenção
                         </a>
                     </li>
                     <li role="menuitem" class="p-0">
-                        <a [routerLink]="['/funcionario/finalizar-manutencao']" class="cursor-pointer text-slate-800 flex w-full text-sm items-center rounded-md p-3 transition-all hover:bg-slate-200 active:bg-slate-200">
+                        <a [routerLink]="['/funcionario/finalizar-manutencao']" class="cursor-pointer text-slate-800 flex w-full text-sm items-center rounded-md p-3 transition-all hover:bg-slate-200 active:bg-slate-300 active:scale-95">
                             Finalizar manutenção
                         </a>
                     </li>
                     <li role="menuitem" class="p-0">
-                        <a [routerLink]="['/funcionario/mover-manutencao']" class="cursor-pointer text-slate-800 flex w-full text-sm items-center rounded-md p-3 transition-all hover:bg-slate-200 active:bg-slate-200">
+                        <a [routerLink]="['/funcionario/mover-manutencao']" class="cursor-pointer text-slate-800 flex w-full text-sm items-center rounded-md p-3 transition-all hover:bg-slate-200 active:bg-slate-300 active:scale-95">
                             Mover manutenção
                         </a>
                     </li>
                     <li role="menuitem" class="p-0">
-                        <a [routerLink]="['/funcionario/visualizar-solicitacao']" class="cursor-pointer text-slate-800 flex w-full text-sm items-center rounded-md p-3 transition-all hover:bg-slate-200 active:bg-slate-200">
+                        <a [routerLink]="['/funcionario/visualizar-solicitacao']" class="cursor-pointer text-slate-800 flex w-full text-sm items-center rounded-md p-3 transition-all hover:bg-slate-200 active:bg-slate-300 active:scale-95">
                             Visualizar solicitação
                         </a>
                     </li>
                     <li role="menuitem" class="p-0">
-                        <a [routerLink]="['/funcionario/orcamento']" class="cursor-pointer text-slate-800 flex w-full text-sm items-center rounded-md p-3 transition-all hover:bg-slate-200 active:bg-slate-200">
+                        <a [routerLink]="['/funcionario/orcamento']" class="cursor-pointer text-slate-800 flex w-full text-sm items-center rounded-md p-3 transition-all hover:bg-slate-200 active:bg-slate-300 active:scale-95">
                             Orçamento
                         </a>
                     </li>
