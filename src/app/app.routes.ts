@@ -8,6 +8,7 @@ import { Cadastro } from './pages/cadastro/cadastro';
 import { PaginaInicial } from './pages/cliente/pagina-inicial/pagina-inicial';
 import { Resgatar } from './pages/cliente/resgatar/resgatar';
 import { Solicitar } from './pages/cliente/solicitar/solicitar';
+import { BotaoPagar } from './pages/cliente/botao-pagar/botao-pagar';
 
 // Componentes do Funcionário
 import { FuncionarioHomepage } from './pages/funcionario/funcionario-homepage/funcionario-homepage';
@@ -16,9 +17,10 @@ import { MoverManutencao } from './pages/funcionario/mover-manutencao/mover-manu
 import { VisualizarSolicitacao } from './pages/funcionario/visualizar-solicitacao/visualizar-solicitacao';
 import { Orcamento } from './pages/funcionario/orcamento/orcamento';
 import { Manutencao } from './pages/funcionario/efetuar-manutencao/efetuar-manutencao';
-import { BotaoPagar } from './pages/cliente/botao-pagar/botao-pagar';
 import { Administracao } from './pages/funcionario/administracao/administracao';
 
+// Componentes de Administração
+import { EquipamentoComponent } from './pages/funcionario/administracao/crud-equipamento/crud-equipamento';
 
 export const routes: Routes = [
   // Rotas públicas de login e cadastro
@@ -26,7 +28,7 @@ export const routes: Routes = [
   { path: 'login', component: Login },
   { path: 'cadastro', component: Cadastro },
 
-   // Rotas para a área de cliente
+  // Rotas para a área de cliente
   {
     path: 'cliente',
     children: [
