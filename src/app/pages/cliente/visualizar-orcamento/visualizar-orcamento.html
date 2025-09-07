@@ -1,28 +1,27 @@
-<div class="modal-backdrop">
-  <div class="modal-container">
-    <button class="modal-close-button" (click)="onFecharModal()">X</button>
+<div class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+    <div class="bg-gradient-to-br from-white to-[#ccc] p-8 rounded-3xl shadow-xl max-w-lg w-full relative">
+        <button class="absolute top-4 left-4 text-gray-400 text-2xl font-bold cursor-pointer hover:text-gray-600 transition" (click)="onFecharModal()">X</button>
+        
+        <header class="text-center mb-6">
+            <h2 class="text-3xl font-extrabold text-gray-800 poppins">Detalhes da Solicitação</h2>
+        </header>
     
-    <header class="modal-header">
-      <h2 class="modal-title">Detalhes da Solicitação</h2>
-    </header>
-
-    <section class="modal-body">
-      <div class="solicitacao-info">
-        <p>Dispositivo: Notebook Lenovo S145</p>
-        <p>Descrição: Troca de tela</p>
-        <p>Data da solicitação: 10/08/2025 - 15:48</p>
-      </div>
-      
-      <div class="orcamento-info">
-        <h3>Orçamento</h3>
-        <p>Valor: R$300,00</p>
-      </div>
-    </section>
-
-    <footer class="modal-footer">
-      <button class="btn-rejeitar">Rejeitar Orçamento</button>
-      <button class="btn-aprovar">Aprovar Orçamento</button>
-    </footer>
-
-  </div>
+        <section class="space-y-4">
+            <div class="p-4 rounded-xl bg-gray-100 border border-gray-300">
+                <p class="text-sm text-gray-600">Dispositivo: <span class="font-semibold">{{ orcamento.dispositivo }}</span></p>
+                <p class="text-sm text-gray-600">Descrição: <span class="font-semibold">{{ orcamento.descricao }}</span></p>
+                <p class="text-sm text-gray-600">Data da solicitação: <span class="font-semibold">{{ orcamento.data }}</span></p>
+            </div>
+            
+            <div class="p-4 rounded-xl bg-gray-100 border border-gray-300">
+                <h3 class="text-lg font-bold text-gray-700">Orçamento</h3>
+                <p class="text-sm text-gray-600">Valor: <span class="font-semibold">{{ orcamento.valor }}</span></p>
+            </div>
+        </section>
+    
+        <footer class="flex justify-center gap-4 mt-8">
+            <button class="bg-red-500 text-white py-2 px-6 rounded-xl font-semibold hover:bg-red-600 transition">Rejeitar Orçamento</button>
+            <button class="bg-green-500 text-white py-2 px-6 rounded-xl font-semibold hover:bg-green-600 transition">Aprovar Orçamento</button>
+        </footer>
+    </div>
 </div>

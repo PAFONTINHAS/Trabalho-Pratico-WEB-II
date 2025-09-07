@@ -1,64 +1,38 @@
-<h1 class="titulo">MM-TADS</h1>
-<header class="header">
-    <h2>Bem vindo, Cliente!</h2>
+<div class="flex flex-col items-center justify-start min-h-screen bg-gradient-to-br from-mm to-mm2 p-10">
+    <div class="bg-gradient-to-br from-white to-[#ccc] rounded-3xl shadow-xl w-full max-w-4xl px-[70px] py-[60px]">
+        <h2 class="text-4xl font-semibold text-gray-800 mb-5 poppins">Histórico de Solicitações</h2>
 
-    <nav>
-        <a [routerLink]="['/cliente/pagina-inicial']">Histórico de Solicitações</a>
-        <a [routerLink]="['/cliente/solicitar']">Solicitar Manutenção</a>
-    </nav>
-</header>
-<main>
-
-    <section class="solicitacoes">
-        <h2>Histórico de Solicitações: </h2>
-        <table>
-            <tr>
-                <th>dispositivo</th>
-                <th>descricao</th>
-                <th>data da solicitação</th>
-                <th>estado</th>
-                <th></th>
-
-            </tr>
-            <tr>
-                <td>Notebook Lenovo S145</td>
-                <td>Troca de tela</td>
-                <td> 10/08/2025 - 15:48 </td>
-                <td> Orçada</td>
-                <td class="ver_detalhes"><button (click)="abrirModal()">Ver Detalhes</button></td>
-            </tr>
-            <tr>
-                <td>Smartphone Samsung A04</td>
-                <td>Botão de ligar pifou</td>
-                <td> 07/08/2025 - 09:12 </td>
-                <td> Orçada</td>
-                <td class="ver_detalhes"><button (click)="abrirModal()">Ver Detalhes</button></td>
-            </tr>
-            <tr>
-                <td>Tablet Apple iPad</td>
-                <td>Problema na bateria</td>
-                <td> 05/08/2025 - 11:30 </td>
-                <td> Orçada</td>
-                <td class="ver_detalhes"><button (click)="abrirModal()">Ver Detalhes</button></td>
-            </tr>
-            <tr>
-                <td>Notebook Dell Inspiron</td>
-                <td>Teclado não funciona</td>
-                <td> 03/08/2025 - 14:20 </td>
-                <td> Orçada</td>
-                <td class="ver_detalhes"><button (click)="abrirModal()">Ver Detalhes</button></td>
-            </tr>
-            <tr>
-                <td>Smartphone Xiaomi Redmi</td>
-                <td>Tela quebrada</td>
-                <td> 01/08/2025 - 16:45 </td>
-                <td> Orçada</td>
-                <td class="ver_detalhes"><button (click)="abrirModal()">Ver Detalhes</button></td>
-            </tr>
-        </table>
-    </section>
-</main>
+        <div class="overflow-x-auto">
+            <table class="min-w-full bg-white rounded-lg shadow-md overflow-hidden">
+                <thead class="bg-mm text-white">
+                    <tr>
+                        <th class="py-3 px-4 text-left font-bold">Dispositivo</th>
+                        <th class="py-3 px-4 text-left font-bold">Descrição</th>
+                        <th class="py-3 px-4 text-left font-bold">Data da solicitação</th>
+                        <th class="py-3 px-4 text-left font-bold">Estado</th>
+                        <th class="py-3 px-4"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (orcamento of orcamentos; track orcamento.id) {
+                        <tr>
+                            <td class="border-b-2 border-gray-200 py-3 px-4">{{ orcamento.dispositivo }}</td>
+                            <td class="border-b-2 border-gray-200 py-3 px-4">{{ orcamento.descricao }}</td>
+                            <td class="border-b-2 border-gray-200 py-3 px-4">{{ orcamento.data }}</td>
+                            <td class="border-b-2 border-gray-200 py-3 px-4 text-green-600 font-semibold">{{ orcamento.estado }}</td>
+                            <td class="border-b-2 border-gray-200 py-3 px-4">
+                                <button (click)="abrirModal(orcamento)" class="bg-mm text-white px-4 py-2 rounded-xl font-medium hover:bg-mm-dark transition">
+                                    Ver Detalhes
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 
 @if (mostrarModalOrcamento) {
-  <app-visualizar-orcamento (fecharModal)="fecharModal()"></app-visualizar-orcamento>
+  <app-visualizar-orcamento [orcamento]="orcamentoSelecionado" (fecharModal)="fecharModal()"></app-visualizar-orcamento>
 }
