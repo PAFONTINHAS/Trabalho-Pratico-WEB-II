@@ -1,0 +1,68 @@
+<h1>Editar Pessoa</h1>
+<div>
+    <form #formFunci="ngForm">
+        <div>
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="nome"
+                [(ngModel)]="funcionario.nome"
+                #nome="ngModel"
+                minlength="2" required/>
+            @if(nome.errors && (nome.dirty || nome.touched)) {
+                <div>
+                    <div [hidden]="!nome.errors['required']"> Digite o nome do funcionario. </div>
+                    <div [hidden]="!nome.errors['minlength']"> O nome deve conter ao menos 2 caracteres. </div>
+                </div>
+            }
+        </div>
+        <div>
+            <label for="email">Email:</label>
+            <input type="text" id="email" name="email" 
+                [(ngModel)]="funcionario.email"
+                #email="ngModel"
+                required>
+            
+            @if(email.errors && (email.dirty || email.touched)) {
+                <div>
+                    <div> Digite o email do funcionario. </div>
+                </div>
+            }
+        </div>
+        <div>
+            <label for="dataNasc">Data de Nascimento:</label>
+            <input type="text" id="dataNasc" name="dataNasc" 
+                [(ngModel)]="funcionario.dataNasc"
+                #dataNasc="ngModel"
+                required>
+
+            @if(dataNasc.errors && (dataNasc.dirty || dataNasc.touched)) {
+                <div>
+                    <div> Digite a data de nascimento do funcionario. </div>
+                </div>
+            }
+        </div>
+        <div>
+            <label for="senha">Senha:</label>
+            <input type="password" id="senha" name="senha" 
+                [(ngModel)]="funcionario.senha"
+                #senha="ngModel"
+                required>
+
+            @if(senha.errors && (senha.dirty || senha.touched)) {
+                <div>
+                    <div> Digite a senha do funcionario. </div>
+                </div>
+            }
+        </div>
+        <div>
+            <button type="button"
+            (click)="atualizar()"
+            [disabled]="!formFunci.form.valid">
+                Atualizar
+            </button>
+            <a [routerLink]="['/funcionario/gerenciar-funcionarios']">
+                Voltar
+            </a>
+        </div>
+    </form>
+</div>
+<div>

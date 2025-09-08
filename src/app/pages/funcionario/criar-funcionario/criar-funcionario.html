@@ -1,0 +1,67 @@
+<h1>Novo Funcionário</h1>
+<div>
+    <form #formFunci="ngForm">
+        <div>
+            <label for="nome">Nome:</label>
+            <input type="text" class="form-control" id="nome" name="nome"
+                [(ngModel)]="funcionario.nome"
+                #nome="ngModel"
+                minlength="2" required/>
+            @if(nome.errors && (nome.dirty || nome.touched)) {
+                <div>
+                    <div [hidden]="!nome.errors['required']"> Digite o nome do funcionario. </div>
+                    <div [hidden]="!nome.errors['minlength']"> O nome deve conter ao menos 2 caracteres. </div>
+                </div>
+            }
+        </div>
+        <div>
+            <label for="email">Email:</label>
+            <input type="text" class="form-control" id="email" name="email" 
+                [(ngModel)]="funcionario.email"
+                #email="ngModel"
+                required>
+            
+            @if(nome.errors && (nome.dirty || nome.touched)) {
+                <div class="alert alert-danger">
+                    <div> Digite o email do funcionario. </div>
+                </div>
+            }
+        </div>
+        <div>
+            <label for="dataNasc">Data de Nascimento:</label>
+            <input type="text" class="form-control" id="dataNasc" name="dataNasc" 
+                [(ngModel)]="funcionario.dataNasc"
+                #dataNasc="ngModel"
+                required>
+
+            @if(nome.errors && (nome.dirty || nome.touched)) {
+                <div class="alert alert-danger">
+                    <div> Digite a data de nascimento do funcionario. </div>
+                </div>
+            }
+        </div>
+        <div>
+            <label for="senha">Senha:</label>
+            <input type="password" class="form-control" id="senha" name="senha" 
+                [(ngModel)]="funcionario.senha"
+                #senha="ngModel"
+                required>
+
+            @if(senha.errors && (senha.dirty || senha.touched)) {
+                <div class="alert alert-danger">
+                    <div> Digite a senha do funcionario. </div>
+                </div>
+            }
+        </div>
+        <div class="form-group">
+            <button type="button" class="btn btn-primary"
+            (click)="inserir()"
+            [disabled]="!formFunci.form.valid">
+                Salvar
+            </button>
+                <a [routerLink]="['/funcionario/gerenciar-funcionarios']">
+                    Voltar
+                </a>
+        </div>
+    </form>
+</div>
