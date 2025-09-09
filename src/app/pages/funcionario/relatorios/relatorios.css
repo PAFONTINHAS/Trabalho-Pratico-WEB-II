@@ -1,0 +1,63 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+/* Estilo do header principal */
+.header {
+    background-color: #007bff; /* Um tom de azul */
+    color: #fff;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between; /* Alinha os itens para as pontas */
+    align-items: center; /* Centraliza verticalmente */
+    height: 60px; /* Altura fixa do header */
+}
+
+/* Estilo do texto de boas-vindas na esquerda */
+.welcome-text {
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+/* Estilo do logo no centro */
+.logo-container {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.logo {
+    font-size: 2.5rem;
+    font-weight: bold;
+    letter-spacing: 0.2rem;
+}
+
+.logo-subtitle {
+    font-size: 0.7rem;
+    text-align: center;
+    letter-spacing: 0.2rem;
+}
+
+/* Estilo do menu de navegação na direita */
+.nav {
+    list-style: none; /* Remove os pontos da lista */
+    margin: 0;
+    padding: 0;
+    display: flex; /* Alinha os itens da lista lado a lado */
+    gap: 25px; /* Espaço entre os links */
+}
+
+.nav a {
+    color: #fff;
+    text-decoration: none; /* Remove o sublinhado */
+    font-size: 1rem;
+    white-space: nowrap; /* Impede que os links quebrem a linha */
+}
+
+/* Estilo para a seta do dropdown */
+.nav a.dropdown-toggle::after {
+    content: ' ▼';
+    font-size: 0.75em;
+    vertical-align: top;
+}
