@@ -1,5 +1,3 @@
-
-
 <main>
     <header class="header">
         <div class="header-content">
@@ -10,7 +8,6 @@
             <nav>
                 <button [routerLink]="">Administração</button>
                 <button [routerLink]="['/funcionario/visualizar-solicitacao']">Solicitações</button>
-                <button [routerLink]="">Orçamento</button>
                 <button [routerLink]="">Perfil</button>
                 <!-- <a [routerLink]="['/funcionario/visualizar-solicitacao']">Visualizar Solicitações</a>
                 <a href="">Orçamentos</a>
@@ -24,20 +21,24 @@
         <h2>Solicitações em Aberto: </h2>
         <table>
             <tr>
-                <th>dispositivo</th>
-                <th>descricao</th>
-                <th>data da solicitação</th>
+                <th>data</th>
+                <th>Cliente</th>
+                <th>Descrição do equipamento</th>
+                <th>Categoria</th>
+                <th>Defeito</th>
                 <th>status</th>
                 <th></th>
 
             </tr>
             @for (solicitacao of solicitacoes; track solicitacao.id) {
                 <tr>
-                    <td class="colunas">{{solicitacao.dispositivo}}</td>
-                    <td class="colunas">{{solicitacao.descricao}}</td>
                     <td class="colunas">{{solicitacao.dataSolicitacao}}</td>
-                    <td class="colunas status">{{solicitacao.status}}</td>
-                    <td class="efetuar_orcamento"><button [routerLink]="['/funcionario/orcamento']">Efetuar Orçamento</button></td>
+                    <td class="colunas">{{solicitacao.cliente}}</td>
+                    <td class="colunas">{{solicitacao.equipamento}}</td>
+                    <td class="colunas">{{solicitacao.categoria}}</td>
+                    <td class="colunas">{{solicitacao.defeito}}</td>
+                    <td class="colunas cinza">{{solicitacao.status}}</td>
+                    <td class="efetuar_orcamento bold"><button [routerLink]="['/funcionario/orcamento']">Efetuar Orçamento</button></td>
                 </tr>
             }
         </table>

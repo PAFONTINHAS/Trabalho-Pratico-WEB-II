@@ -13,9 +13,8 @@ import { BotaoPagar } from './pages/cliente/botao-pagar/botao-pagar';
 // Componentes do Funcionário
 import { FuncionarioHomepage } from './pages/funcionario/funcionario-homepage/funcionario-homepage';
 import { FinalizarManutencao } from './pages/funcionario/finalizar-manutencao/finalizar-manutencao';
-import { MoverManutencao } from './pages/funcionario/mover-manutencao/mover-manutencao';
 import { VisualizarSolicitacao } from './pages/funcionario/visualizar-solicitacao/visualizar-solicitacao';
-import { Orcamento } from './pages/funcionario/orcamento/orcamento';
+import { DefinirOrcamento} from './pages/funcionario/definir-orcamento/definir-orcamento';
 import { Manutencao } from './pages/funcionario/efetuar-manutencao/efetuar-manutencao';
 import { Administracao } from './pages/funcionario/administracao/administracao';
 import { CriarFuncionario } from './pages/funcionario/criar-funcionario/criar-funcionario';
@@ -50,9 +49,9 @@ export const routes: Routes = [
       { path: '', redirectTo: 'homepage', pathMatch: 'full' },
       { path: 'homepage', component: FuncionarioHomepage },
       { path: 'finalizar-manutencao', component: FinalizarManutencao },
-      { path: 'mover-manutencao', component: MoverManutencao },
+      // { path: 'mover-manutencao', component: MoverManutencao },
       { path: 'visualizar-solicitacao', component: VisualizarSolicitacao },
-      { path: 'orcamento', component: Orcamento },
+      { path: 'orcamento', component: DefinirOrcamento },
       { path: 'efetuar-manutencao', component: Manutencao },    
       { path: 'administracao', component: Administracao },
       { path: 'gerenciar-funcionarios', component: GerenciarFuncionarios },

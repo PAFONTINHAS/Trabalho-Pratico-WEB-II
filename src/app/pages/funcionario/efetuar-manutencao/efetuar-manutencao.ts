@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { MoverManutencao } from '../mover-manutencao/mover-manutencao';
-import { Orcamento } from '../orcamento/orcamento';
+import { VisualizarSolicitacao } from '../visualizar-solicitacao/visualizar-solicitacao';
+import { DefinirOrcamento } from '../definir-orcamento/definir-orcamento';
 
 @Component({
   selector: 'app-efetuar-manutencao',

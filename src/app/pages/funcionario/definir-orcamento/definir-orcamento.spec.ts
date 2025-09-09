@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MoverManutencao } from './mover-manutencao';
+import { Orcamento } from './definir-orcamento';
 
-describe('MoverManutencao', () => {
-  let component: MoverManutencao;
-  let fixture: ComponentFixture<MoverManutencao>;
+describe('Orcamento', () => {
+  let component: Orcamento;
+  let fixture: ComponentFixture<Orcamento>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MoverManutencao]
+      imports: [Orcamento]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(MoverManutencao);
+    fixture = TestBed.createComponent(Orcamento);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

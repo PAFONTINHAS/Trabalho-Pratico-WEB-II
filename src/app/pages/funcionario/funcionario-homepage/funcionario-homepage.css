@@ -12,6 +12,21 @@ main{
     width: 100vw;
 }
 
+.bold{
+    font-weight: bold;
+}
+
+
+.roxo    { color: #800080; font-weight: bold;}
+.azul    { color: #0000FF; font-weight: bold;}
+.verde   { color: #008000; font-weight: bold;}
+.cinza   { color: #808080; font-weight: bold;} 
+.marrom  { color: #A52A2A; font-weight: bold;}
+.laranja { color: #FFA500; font-weight: bold;}
+.amarelo { color: #FFD025; font-weight: bold;}
+.vermelho{ color: #FF0000; font-weight: bold;}
+
+
 .titulo{
     text-align: center;
 }
@@ -58,7 +73,7 @@ header nav button{
     margin-left: 1.5rem;
     text-decoration: none;
     font-weight: bold;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
 }
 
 header nav :hover{
@@ -95,30 +110,31 @@ table{
     border-collapse: collapse;
     background-color: #fff;
     border-color: black;
+    border: 3px solid #2d89CB;
     box-shadow: 0 2px 8px rgba(0,0,0,0.05);
     
 }
 
 table th, table td {
     border: 1px solid #2D89CB;
-    padding: 8px;
+    /* padding: 8px; */
     text-align: center;
-    font-weight: bold;
 }
+
+
+
 
 th{
     color: white;
     font-size: 1.5rem;
+    padding: 20px;
     font-weight: bold;
     background-color: #2D89CB;
 }
 
 .colunas{
-    font-size: 1.5rem;
-}
-
-.status{
-    color: #515151;
+    font-size: 1.2rem;
+    padding: 20px;
 }
 
 /*
