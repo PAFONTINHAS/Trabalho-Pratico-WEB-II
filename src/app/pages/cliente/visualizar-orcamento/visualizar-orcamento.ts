@@ -15,4 +15,5 @@ export class VisualizarOrcamento {
   onFecharModal(): void {
     this.fecharModal.emit();
   }
+
 }

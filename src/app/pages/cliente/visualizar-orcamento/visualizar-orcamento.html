@@ -1,6 +1,6 @@
-<div class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-    <div class="bg-gradient-to-br from-white to-[#ccc] p-8 rounded-3xl shadow-xl max-w-lg w-full relative">
-        <button class="absolute top-4 left-4 text-gray-400 text-2xl font-bold cursor-pointer hover:text-gray-600 transition" (click)="onFecharModal()">X</button>
+<div class="fixed inset-0 z-50 flex items-center justify-center bg-black/50" (click)="onFecharModal()">
+    <div class="bg-gradient-to-br from-white to-[#ccc] p-8 rounded-3xl shadow-xl max-w-lg w-full relative" (click)="$event.stopPropagation()"> 
+        <button class="absolute top-4 left-4 text-gray-200 text-2xl font-bold cursor-pointer hover:text-gray-400 transition" (click)="onFecharModal()">X</button>
         
         <header class="text-center mb-6">
             <h2 class="text-3xl font-extrabold text-gray-800 poppins">Detalhes da Solicitação</h2>
@@ -8,20 +8,47 @@
     
         <section class="space-y-4">
             <div class="p-4 rounded-xl bg-gray-100 border border-gray-300">
-                <p class="text-sm text-gray-600">Dispositivo: <span class="font-semibold">{{ orcamento.dispositivo }}</span></p>
-                <p class="text-sm text-gray-600">Descrição: <span class="font-semibold">{{ orcamento.descricao }}</span></p>
-                <p class="text-sm text-gray-600">Data da solicitação: <span class="font-semibold">{{ orcamento.data }}</span></p>
+                <p class="text-md text-gray-600">Dispositivo: <span class="font-semibold">{{ orcamento.dispositivo }}</span></p>
+                <p class="text-md text-gray-600">Descrição: <span class="font-semibold">{{ orcamento.descricao }}</span></p>
+                <p class="text-md text-gray-600">Data da solicitação: <span class="font-semibold">{{ orcamento.data }}</span></p>
             </div>
             
             <div class="p-4 rounded-xl bg-gray-100 border border-gray-300">
                 <h3 class="text-lg font-bold text-gray-700">Orçamento</h3>
-                <p class="text-sm text-gray-600">Valor: <span class="font-semibold">{{ orcamento.valor }}</span></p>
+                <p class="text-md text-gray-600">Valor: <span class="font-semibold">{{ orcamento.valor }}</span></p>
             </div>
         </section>
     
         <footer class="flex justify-center gap-4 mt-8">
-            <button class="bg-red-500 text-white py-2 px-6 rounded-xl font-semibold hover:bg-red-600 transition">Rejeitar Orçamento</button>
-            <button class="bg-green-500 text-white py-2 px-6 rounded-xl font-semibold hover:bg-green-600 transition">Aprovar Orçamento</button>
+            @switch (orcamento.estado) {
+
+                @case ('Orçada') {
+                    <button (click)="onFecharModal()" class="bg-danger hover:bg-red-700 h-[50px] cursor-pointer active:scale-95 text-white px-6 py-2 rounded-xl font-regular transition">
+                        Rejeitar
+                    </button>
+                    <button (click)="onFecharModal()" class="bg-green-600 hover:bg-green-700 h-[50px] cursor-pointer active:scale-95 text-white px-6 py-2 rounded-xl font-regular transition">
+                        Aprovar
+                    </button>
+                }
+
+                @case ('Arrumada') {
+                    <button (click)="onFecharModal()" class="bg-green-600 hover:bg-green-700 h-[50px] cursor-pointer active:scale-95 text-white px-6 py-2 rounded-xl font-regular transition">
+                        Pagar
+                    </button>
+                }
+
+                @case ('Rejeitada') {
+                    <button (click)="onFecharModal()" class="bg-mm hover:bg-mm-dark h-[50px] cursor-pointer active:scale-95 text-white px-6 py-2 rounded-xl font-regular transition">
+                        Resgatar
+                    </button>
+                }
+
+                @default {
+                    <button (click)="onFecharModal()" class="bg-gray-500 hover:bg-gray-600 h-[50px] cursor-pointer active:scale-95 text-white px-6 py-2 rounded-xl font-regular transition">
+                        Fechar
+                    </button>
+                }
+            }
         </footer>
     </div>
 </div>
