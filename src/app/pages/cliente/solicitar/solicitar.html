@@ -1,51 +1,47 @@
-<div class="p-10">
-    <div class="ml-10 mb-5 w-full">
-        <!-- <a onclick="history.back()" class="inline-block text-5xl rounded-md bg-white border-solid border-2 border-gray-400 px-3 py-3 font-medium text-gray-400 transition hover:scale-110 hover:shadow-xl hover:bg-gray-400 hover:text-white" href="#" ><svg xmlns="http://www.w3.org/2000/svg" width="22.769" height="14.821" fill="currentColor"><path d="M10.212 12.007 7.645 9.414h15.124v-4H7.62l2.585-2.586L7.377 0 0 7.378l7.37 7.443 2.842-2.814z"/></svg></a> -->
-        <h1 class="text-4xl font-semibold text-gray-800">
+<div class="flex items-center justify-center min-h-screen bg-gradient-to-br from-mm to-mm2 p-10">
+    <div class="w-full max-w-2xl px-[70px] py-[60px] bg-gradient-to-br from-white to-[#ccc] rounded-3xl shadow-xl">
+        <h1 class="text-gray-800 font-semibold text-4xl mb-6 poppins text-center">
             Solicitar Manutenção
         </h1>
-    </div>
-    <div class="flex justify-center items-center gap-5">
-        <div class="w-full max-w-3xl border-2 border-gray-400 rounded-2xl radius p-10">
-            <label for="descricao">
-                <span class="text-md font-medium text-gray-800"> Descrição do Equipamento</span>
-                <input
-                    type="text"
-                    id="descricao"
-                    class="mt-1 w-full border rounded-xl border-gray-400 hover:shadow-md focus:border-blue-500 transition sm:text-sm p-2 mb-3"
-                />
-            </label>
-            <label for="categoria">
-                <span class="text-md font-medium text-gray-700"> Categoria</span>
-                <select
-                    name="categoria"
-                    id="categoria"
-                    class="mt-1 w-full rounded-xl border border-gray-400 hover:shadow-md focus:border-blue-500 sm:text-sm p-2 mb-3"
+
+        <div class="flex-col gap-3">
+            <p class="font-semibold text-md mb-2">Descrição do Equipamento</p>
+            <input
+                type="text"
+                class="border-gray-400 mb-5 rounded-lg border placeholder:text-gray-400 overflow-hidden h-10 px-3 transition w-full focus:border-mm focus:shadow-xl focus:shadow-mm-shadow hover:border-mm"
+                placeholder="Ex: Notebook Dell Inspiron 15 3000"
+                required
+            />
+
+            <p class="font-semibold text-md mb-2">Categoria</p>
+            <select
+                name="categoria"
+                id="categoria"
+                class="border-gray-400 mb-5 rounded-lg border overflow-hidden h-10 px-3 transition w-full focus:border-mm focus:shadow-xl focus:shadow-mm-shadow hover:border-mm"
+                required
+            >
+                <option value="">Selecione</option>
+                <option value="cat1">Notebook</option>
+                <option value="cat2">Impressora</option>
+                <option value="cat3">Desktop</option>
+                <option value="cat4">Tablet</option>
+                <option value="cat5">Celular</option>
+            </select>
+
+            <p class="font-semibold text-md mb-2">Qual o defeito?</p>
+            <textarea
+                id="defeito" rows="4"
+                class="border-gray-400 mb-5 rounded-lg border placeholder:text-gray-400 overflow-hidden p-3 transition w-full focus:border-mm focus:shadow-xl focus:shadow-mm-shadow hover:border-mm"
+                placeholder="Descreva o problema do seu equipamento..."
+            ></textarea>
+
+            <div class="flex justify-center mt-5">
+                <button
+                    class="bg-mm h-[50px] w-[60%] rounded-xl transition font-regular text-white text-lg cursor-pointer hover:shadow-xl hover:shadow-mm-shadow hover:bg-mm-dark hover:scale-[102%] active:scale-95"
+                    [routerLink]="['/cliente/']"
                 >
-                    <option value="">Selecione</option>
-                    <option value="cat1">Categoria 1</option>
-                    <option value="cat2">Categoria 2</option>
-                    <option value="cat3">Categoria 3</option>
-                    <option value="cat4">Categoria 4</option>
-                    
-                </select>
-            </label>
-            <label for="defeito">
-                <span class="text-md font-medium text-gray-700"> Qual o defeito?</span>
-                <textarea
-                    id="defeito" rows="4"
-                    class="mt-1 w-full border rounded-xl border-gray-400 hover:shadow-md focus:border-blue-500 transition sm:text-sm p-2 mb-3"
-                ></textarea>
-            </label>
-            <div class="w-full flex justify-center">
-                <a
-                class="
-                inline-block rounded-xl bg-blue-500 px-8 py-3 text-md 
-                font-medium text-white transition hover:scale-110 hover:shadow-xl 
-                focus:ring-3 focus:outline-hidden mt-3
-                "
-                [routerLink]="['/cliente/']"
-                >Solicitar</a>
+                    Solicitar
+                </button>
             </div>
         </div>
     </div>

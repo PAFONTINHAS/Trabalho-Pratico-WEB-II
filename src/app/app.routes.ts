@@ -6,9 +6,7 @@ import { Cadastro } from './pages/cadastro/cadastro';
 
 // Componentes do Cliente
 import { PaginaInicial } from './pages/cliente/pagina-inicial/pagina-inicial';
-import { Resgatar } from './pages/cliente/resgatar/resgatar';
 import { Solicitar } from './pages/cliente/solicitar/solicitar';
-import { BotaoPagar } from './pages/cliente/botao-pagar/botao-pagar';
 
 // Componentes do Funcionário
 import { FuncionarioHomepage } from './pages/funcionario/funcionario-homepage/funcionario-homepage';
@@ -36,9 +34,7 @@ export const routes: Routes = [
     children: [
       { path: '', redirectTo: 'pagina-inicial', pathMatch: 'full' },
       { path: 'pagina-inicial', component: PaginaInicial },
-      { path: 'resgatar', component: Resgatar },
       { path: 'solicitar', component: Solicitar },
-      { path: 'botao-pagar', component: BotaoPagar },
     ]
   },
 

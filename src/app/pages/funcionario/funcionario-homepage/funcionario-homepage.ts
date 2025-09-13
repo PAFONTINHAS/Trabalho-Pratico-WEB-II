@@ -5,7 +5,6 @@ import { RouterLink } from '@angular/router';
   selector: 'app-funcionario-homepage',
    imports: [RouterLink],
   templateUrl: './funcionario-homepage.html',
-  styleUrl: './funcionario-homepage.css'
 })
 export class FuncionarioHomepage {
 

@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   selector: 'app-relatorios',
   imports: [],
   templateUrl: './relatorios.html',
-  styleUrl: './relatorios.css'
+  styleUrls: ['./relatorios.css']
 })
 export class Relatorios {
 
