@@ -15,12 +15,13 @@ import { VisualizarSolicitacao } from './pages/funcionario/visualizar-solicitaca
 import { DefinirOrcamento} from './pages/funcionario/definir-orcamento/definir-orcamento';
 import { Manutencao } from './pages/funcionario/efetuar-manutencao/efetuar-manutencao';
 import { Administracao } from './pages/funcionario/administracao/administracao';
-import { CriarFuncionario } from './pages/funcionario/criar-funcionario/criar-funcionario';
-import { EditarFuncionario } from './pages/funcionario/editar-funcionario/editar-funcionario';
-import { GerenciarFuncionarios } from './pages/funcionario/gerenciar-funcionarios/gerenciar-funcionarios';
 
 // Componentes de Administração
 import { EquipamentoComponent } from './pages/funcionario/administracao/crud-equipamento/crud-equipamento';
+import { CriarFuncionario } from './pages/funcionario/criar-funcionario/criar-funcionario';
+import { EditarFuncionario } from './pages/funcionario/editar-funcionario/editar-funcionario';
+import { GerenciarFuncionarios } from './pages/funcionario/gerenciar-funcionarios/gerenciar-funcionarios';
+import { Relatorios } from './pages/funcionario/relatorios/relatorios';
 
 export const routes: Routes = [
   // Rotas públicas de login e cadastro
@@ -49,10 +50,17 @@ export const routes: Routes = [
       { path: 'visualizar-solicitacao', component: VisualizarSolicitacao },
       { path: 'orcamento', component: DefinirOrcamento },
       { path: 'efetuar-manutencao', component: Manutencao },    
-      { path: 'administracao', component: Administracao },
-      { path: 'gerenciar-funcionarios', component: GerenciarFuncionarios },
-      { path: 'criar-funcionario', component: CriarFuncionario },
-      { path: 'editar-funcionario/:id', component: EditarFuncionario }
+      { path: 'administracao', component: Administracao },    
+      { path: 'administracao',
+        children: [
+          { path: '', redirectTo: 'administracao', pathMatch: 'full' },
+          { path: 'relatorios', component: Relatorios},
+          { path: 'equipamentos', component: EquipamentoComponent},
+          { path: 'gerenciar-funcionarios', component: GerenciarFuncionarios },
+          { path: 'criar-funcionario', component: CriarFuncionario },
+          { path: 'editar-funcionario/:id', component: EditarFuncionario },
+        ]
+      }
     ]
   }
 ];
