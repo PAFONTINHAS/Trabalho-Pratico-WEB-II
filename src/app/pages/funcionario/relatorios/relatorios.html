@@ -1,30 +1,72 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Header</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+<header class="header">
+        <div class="header-content">
 
-    <header class="header">
-        <div class="welcome-text">Bem-vindo, Razer!</div>
+            <h2 class="nome">Bem vindo, Razer!</h2>
 
-        <div class="logo-container">
-            <div class="logo">MADS</div>
-            <div class="logo-subtitle">T A D S</div>
+            <h1 class="titulo">MM-TADS</h1>
+            <nav>
+                <button [routerLink]="">Administração</button>
+                <button [routerLink]="['/funcionario/visualizar-solicitacao']">Solicitações</button>
+                <button [routerLink]="">Perfil</button>
+            </nav>
         </div>
-
-        <nav>
-            <ul class="nav">
-                <li><a href="#">Login</a></li>
-                <li><a href="#">Cadastro</a></li>
-                <li><a href="#" class="dropdown-toggle">Cliente</a></li>
-                <li><a href="#" class="dropdown-toggle">Funcionário</a></li>
-            </ul>
-        </nav>
     </header>
 
-</body>
-</html>
+<div class="flex items-center justify-center min-h-screen bg-gradient-to-br from-mm to-mm2">
+  <div class="flex flex-col md:flex-row gap-10">
+
+    <div class="w-full max-w-xl px-[70px] py-[60px] bg-gradient-to-br from-white to-[#ccc] rounded-3xl shadow-xl flex flex-col justify-between">
+      <div>
+        <div class="flex justify-center items-center">
+          <div class="flex items-center justify-center rounded-full mb-6"> </div>
+        </div>
+        <p class="text-gray-800 font-semibold text-3xl mb-3 select-none poppins whitespace-nowrap">Receitas por período</p>
+        <div class="flex-col gap-3">
+          <p class="font-semibold text-md mb-2">Data Início:</p>
+          <input
+            type="date"
+            class="border-gray-400 mb-5 rounded-lg border placeholder:text-gray-400 overflow-hidden h-10 px-3 transition w-full focus:border-mm focus:shadow-xl focus:shadow-mm-shadow hover:border-mm"
+            required />
+
+          <p class="font-semibold text-md mb-2">Data Final:</p>
+          <input
+            type="date"
+            class="border-gray-400 mb-5 rounded-lg border placeholder:text-gray-400 overflow-hidden h-10 px-3 transition w-full focus:border-mm focus:shadow-xl focus:shadow-mm-shadow hover:border-mm"
+            required />
+        </div>
+      </div>
+
+      <div class="flex justify-end mt-5">
+        <button class="bg-mm h-[50px] w-[55%] rounded-xl transition font-regular text-white text-lg cursor-pointer hover:shadow-xl hover:shadow-mm-shadow hover:bg-mm-dark hover:scale-[102%]active:scale-95 whitespace-nowrap">
+          Gerar Relatório
+        </button>
+      </div>
+    </div>
+
+    <div class="w-full max-w-xl px-[70px] py-[60px] bg-gradient-to-br from-white to-[#ccc] rounded-3xl shadow-xl flex flex-col justify-between">
+      <div>
+        <div class="flex justify-center items-center">
+          <div class="flex items-center justify-center rounded-full mb-6"> </div>
+        </div>
+        <p class="text-gray-800 font-semibold text-3xl mb-3 select-none poppins whitespace-nowrap">Receitas por categoria</p>
+        <div class="flex-col gap-3">
+          <label class="block mb-2 font-semibold">Categoria</label>
+          <select class="border-gray-400 mb-5 rounded-lg border placeholder:text-gray-400 overflow-hidden h-10 px-3 transition w-full focus:border-mm focus:shadow-xl focus:shadow-mm-shadow hover:border-mm">
+            <option value="">Selecione a categoria</option>
+            <option value="1">Smartphone</option>
+            <option value="2">Notebook</option>
+            <option value="3">Televisão</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="flex justify-end mt-5">
+        <button class="bg-mm h-[50px] w-[55%] rounded-xl transition font-regular text-white text-lg cursor-pointer hover:shadow-xl hover:shadow-mm-shadow hover:bg-mm-dark hover:scale-[102%]active:scale-95 whitespace-nowrap">
+          Gerar Relatório
+        </button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
