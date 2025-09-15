@@ -9,7 +9,7 @@
                         <th class="py-3 px-6 text-left font-bold">Dispositivo</th>
                         <th class="py-3 px-6 text-left font-bold">Descrição</th>
                         <th class="py-3 px-6 text-left font-bold">Data da solicitação</th>
-                        <th class="py-3 px-6 text-left font-bold">Estado</th>
+                        <th class="py-3 px-6 text-left font-bold">Status</th>
                         <th class="py-3 px-6 text-center font-bold"></th>
                     </tr>
                 </thead>
@@ -26,18 +26,6 @@
                             <td class="border-t-2 border-gray-200 py-3 px-6">
                                 <button (click)="abrirModal(orcamento)" class="bg-mm text-nowrap h-[50px] cursor-pointer active:scale-95 text-white px-4 py-2 rounded-xl font-medium hover:bg-mm-dark transition">
                                     Ver Detalhes
-                                </button>
-                                <button *ngIf="orcamento.estado === 'Orçada'" class="bg-danger hover:bg-red-700 text-nowrap h-[50px] ml-3 cursor-pointer active:scale-95 text-white px-4 py-2 rounded-xl font-regular transition">
-                                    Rejeitar
-                                </button>
-                                <button *ngIf="orcamento.estado === 'Orçada'" class="bg-green-600 hover:bg-green-700 text-nowrap h-[50px] ml-3 cursor-pointer active:scale-95 text-white px-4 py-2 rounded-xl font-regular transition">
-                                    Aprovar
-                                </button>
-                                <button *ngIf="orcamento.estado === 'Arrumada'" class="bg-green-600 hover:bg-green-700 text-nowrap h-[50px] ml-3 cursor-pointer active:scale-95 text-white px-4 py-2 rounded-xl font-regular transition">
-                                    Pagar
-                                </button>
-                                <button *ngIf="orcamento.estado === 'Rejeitada'" class="bg-gray-500 hover:bg-gray-700 text-nowrap h-[50px] ml-3 cursor-pointer active:scale-95 text-white px-4 py-2 rounded-xl font-regular transition">
-                                    Resgatar
                                 </button>
                             </td>
                         </tr>

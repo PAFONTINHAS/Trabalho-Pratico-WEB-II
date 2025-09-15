@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { Router, RouterOutlet } from '@angular/router';
+import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-administracao',
   standalone: true,
-  imports: [CommonModule, RouterOutlet],
+  imports: [CommonModule],
   templateUrl: './administracao.html'
 })
 export class Administracao {
@@ -13,14 +13,15 @@ export class Administracao {
   constructor(private router: Router) {}
 
   gerenciarFuncionarios() {
-    this.router.navigate(['/funcionario/administracao/funcionarios']);
+    this.router.navigate(['/funcionario/criar-funcionario']);
   }
 
   gerenciarCategorias() {
-    this.router.navigate(['/funcionario/administracao/categorias']);
+    this.router.navigate(['/funcionario/crud-equipamento']);
   }
 
   gerarRelatorios() {
-    this.router.navigate(['/funcionario/administracao/relatorios']);
+    this.router.navigate(['/funcionario/relatorios']);
   }
 }
+
