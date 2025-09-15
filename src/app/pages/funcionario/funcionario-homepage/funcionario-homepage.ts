@@ -31,7 +31,7 @@ export class FuncionarioHomepage {
       descricao: 'Botão de ligar pifou', 
       dataSolicitacao: '07/08/2025 - 15:48', 
       categoria: 'Celular',
-      status:'ORÇADA',
+      status:'ABERTA',
       valor: 'R$ 300,00'
     },
     { 
@@ -41,7 +41,7 @@ export class FuncionarioHomepage {
       descricao: 'Problema na bateria', 
       dataSolicitacao: '05/08/2025 - 15:48', 
       categoria: 'Tablet',
-      status:'REJEITADA',
+      status:'ABERTA',
       valor: 'R$ 300,00'
     },
     { 
@@ -51,7 +51,7 @@ export class FuncionarioHomepage {
       descricao: 'Teclado não funciona', 
       dataSolicitacao: '03/08/2025 - 15:48', 
       categoria: 'Notebook',
-      status:'APROVADA',
+      status:'ABERTA',
       valor: 'R$ 300,00'
     },
     { 
@@ -61,39 +61,9 @@ export class FuncionarioHomepage {
       descricao: 'Carcaça estraçalhada pelo meu...', 
       dataSolicitacao: '01/08/2025 - 15:48', 
       categoria: 'Impressora',
-      status:'REDIRECIONADA',
+      status:'ABERTA',
       valor: 'R$ 300,00'
-    },
-    { 
-      id: 5, 
-      equipamento: 'Impresora HP 5300', 
-      cliente: 'Amauri Correia',
-      descricao: 'Carcaça estraçalhada pelo meu...', 
-      dataSolicitacao: '01/08/2025 - 15:48', 
-      categoria: 'Impressora',
-      status:'ARRUMADA',
-      valor: 'R$ 300,00'
-    },
-    { 
-      id: 6, 
-      equipamento: 'Impresora HP 5300', 
-      cliente: 'Amauri Correia',
-      descricao: 'Carcaça estraçalhada pelo meu...', 
-      dataSolicitacao: '01/08/2025 - 15:48', 
-      categoria: 'Impressora',
-      status:'PAGA',
-      valor: 'R$ 300,00'
-    },
-    { 
-      id: 7, 
-      equipamento: 'Impresora HP 5300', 
-      cliente: 'Amauri Correia',
-      descricao: 'Carcaça estraçalhada pelo meu...', 
-      dataSolicitacao: '01/08/2025 - 15:48', 
-      categoria: 'Impressora',
-      status:'FINALIZADA',
-      valor: 'R$ 300,00'
-    },
+    }
   ];
 
   abrirModal(solicitacao: any): void {

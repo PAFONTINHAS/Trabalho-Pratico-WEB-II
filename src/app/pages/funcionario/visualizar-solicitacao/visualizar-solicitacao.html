@@ -22,7 +22,14 @@
 
             <div class="p-4 rounded-xl bg-gray-100 border border-gray-300">
                 <h3 class="text-lg font-bold text-gray-700">Orçamento</h3>
-                <p class="text-lg text-gray-600">Valor: <span class="font-bold text-gray-800">{{ solicitacao.valor }}</span></p>
+                <div class="flex flex-row h-min gap-2">
+                    <!-- <p class="text-lg mt-1 text-gray-600">Valor: </p> -->
+                    <input
+                    type="text"
+                    class="border-gray-400 mb-4 mt-3 rounded-lg border placeholder:text-gray-400 overflow-hidden h-10 px-3 transition w-full focus:border-mm focus:shadow-xl focus:shadow-mm-shadow hover:border-mm"
+                    label="valor"
+                    placeholder="Digite o valor do orçamento aqui" />
+                </div>
             </div>
 
             <div class="right-content mb-4">
@@ -64,7 +71,9 @@
                     <p class="text-nowrap font-bold">Nome: <span class="font-normal">{{f.nome}}</span></p>
                     <p class="text-nowrap font-bold">Email: <span class="font-normal">{{f.email}}</span></p>
                 </div>
-Redirecionar            </div>
+                <button class="bg-mm text-nowrap hover:bg-mm-dark h-[50px] cursor-pointer active:scale-95 text-white px-6 py-2 rounded-xl font-regular transition">Redirecionar</button>
+                
+            </div>
             }
         </div>
 
