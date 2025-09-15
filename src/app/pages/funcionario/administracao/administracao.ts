@@ -13,15 +13,17 @@ export class Administracao {
   
   constructor(private router: Router) {}
 
+  //adiciona
   gerenciarFuncionarios() {
-    this.router.navigate(['/funcionario/administracao/funcionarios']);
+    this.router.navigate(['/funcionario/criar-funcionario']);
   }
 
   gerenciarCategorias() {
-    this.router.navigate(['/funcionario/administracao/categorias']);
+    this.router.navigate(['/funcionario/crud-equipamento']);
   }
 
   gerarRelatorios() {
-    this.router.navigate(['/funcionario/administracao/relatorios']);
+    this.router.navigate(['/funcionario/relatorios']);
   }
 }
+
