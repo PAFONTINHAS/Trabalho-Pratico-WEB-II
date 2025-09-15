@@ -15,11 +15,11 @@ export class Administracao {
 
   //adiciona
   gerenciarFuncionarios() {
-    this.router.navigate(['/funcionario/criar-funcionarios']);
+    this.router.navigate(['/funcionario/criar-funcionario']);
   }
 
   gerenciarCategorias() {
-    this.router.navigate(['/funcionario/administracao/crud-equipamento']);
+    this.router.navigate(['/funcionario/crud-equipamento']);
   }
 
   gerarRelatorios() {

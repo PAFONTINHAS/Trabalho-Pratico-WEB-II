@@ -18,7 +18,7 @@ import { Administracao } from './pages/funcionario/administracao/administracao';
 
 
 // Componentes de Administração
-import { EquipamentoComponent } from './pages/funcionario/administracao/crud-equipamento/crud-equipamento';
+import { EquipamentoComponent } from './pages/funcionario/crud-equipamento/crud-equipamento';
 import { CriarFuncionario } from './pages/funcionario/criar-funcionario/criar-funcionario';
 import { EditarFuncionario } from './pages/funcionario/editar-funcionario/editar-funcionario';
 import { GerenciarFuncionarios } from './pages/funcionario/gerenciar-funcionarios/gerenciar-funcionarios';
