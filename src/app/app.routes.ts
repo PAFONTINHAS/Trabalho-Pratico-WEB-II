@@ -15,15 +15,9 @@ import { VisualizarSolicitacao } from './pages/funcionario/visualizar-solicitaca
 import { DefinirOrcamento} from './pages/funcionario/definir-orcamento/definir-orcamento';
 import { Manutencao } from './pages/funcionario/efetuar-manutencao/efetuar-manutencao';
 import { Administracao } from './pages/funcionario/administracao/administracao';
-<<<<<<< HEAD
-import { Relatorios } from './pages/funcionario/relatorios/relatorios';
-import { CriarFuncionario } from './pages/funcionario/criar-funcionario/criar-funcionario';
-import { EditarFuncionario } from './pages/funcionario/editar-funcionario/editar-funcionario';
-import { GerenciarFuncionarios } from './pages/funcionario/gerenciar-funcionarios/gerenciar-funcionarios';
-=======
+
 
 // Componentes de Administração
->>>>>>> fdc75dc541136e10a8fbbaed15ca6f0e6c80b3ec
 import { EquipamentoComponent } from './pages/funcionario/administracao/crud-equipamento/crud-equipamento';
 import { CriarFuncionario } from './pages/funcionario/criar-funcionario/criar-funcionario';
 import { EditarFuncionario } from './pages/funcionario/editar-funcionario/editar-funcionario';
@@ -32,13 +26,11 @@ import { Relatorios } from './pages/funcionario/relatorios/relatorios';
 
 
 export const routes: Routes = [
-   // Rotas públicas de login e cadastro
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: Login },
   { path: 'cadastro', component: Cadastro },
 
   {
-     // Rotas para a área de cliente
     path: 'cliente',
     children: [
       { path: '', redirectTo: 'pagina-inicial', pathMatch: 'full' },
@@ -48,16 +40,13 @@ export const routes: Routes = [
   },
 
   {
-     // Rotas para a área de funcionário
     path: 'funcionario',
     children: [
       { path: '', redirectTo: 'homepage', pathMatch: 'full' },
       { path: 'homepage', component: FuncionarioHomepage },
       { path: 'finalizar-manutencao', component: FinalizarManutencao },
-      // { path: 'mover-manutencao', component: MoverManutencao },
       { path: 'visualizar-solicitacao', component: VisualizarSolicitacao },
       { path: 'orcamento', component: DefinirOrcamento },
-<<<<<<< HEAD
       { path: 'efetuar-manutencao', component: Manutencao },
       { path: 'administracao', component: Administracao },
 
@@ -71,21 +60,6 @@ export const routes: Routes = [
 
       // Relatórios
       { path: 'relatorios', component: Relatorios }
-=======
-      { path: 'efetuar-manutencao', component: Manutencao },    
-      { path: 'administracao', component: Administracao },    
-      { path: 'administracao',
-        children: [
-          { path: '', redirectTo: 'administracao', pathMatch: 'full' },
-          { path: 'relatorios', component: Relatorios},
-          { path: 'equipamentos', component: EquipamentoComponent},
-          { path: 'gerenciar-funcionarios', component: GerenciarFuncionarios },
-          { path: 'criar-funcionario', component: CriarFuncionario },
-          { path: 'editar-funcionario/:id', component: EditarFuncionario },
-        ]
-      }
->>>>>>> fdc75dc541136e10a8fbbaed15ca6f0e6c80b3ec
     ]
   }
 ];
-
