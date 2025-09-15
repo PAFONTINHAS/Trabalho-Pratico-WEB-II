@@ -20,6 +20,7 @@ import { Administracao } from './pages/funcionario/administracao/administracao';
 import { CriarFuncionario } from './pages/funcionario/criar-funcionario/criar-funcionario';
 import { EditarFuncionario } from './pages/funcionario/editar-funcionario/editar-funcionario';
 import { GerenciarFuncionarios } from './pages/funcionario/gerenciar-funcionarios/gerenciar-funcionarios';
+import { Relatorios } from './pages/funcionario/relatorios/relatorios';
 
 // Componentes de Administração
 import { EquipamentoComponent } from './pages/funcionario/administracao/crud-equipamento/crud-equipamento';
@@ -52,11 +53,12 @@ export const routes: Routes = [
       // { path: 'mover-manutencao', component: MoverManutencao },
       { path: 'visualizar-solicitacao', component: VisualizarSolicitacao },
       { path: 'orcamento', component: DefinirOrcamento },
-      { path: 'efetuar-manutencao', component: Manutencao },    
+      { path: 'efetuar-manutencao', component: Manutencao },
       { path: 'administracao', component: Administracao },
       { path: 'gerenciar-funcionarios', component: GerenciarFuncionarios },
       { path: 'criar-funcionario', component: CriarFuncionario },
-      { path: 'editar-funcionario/:id', component: EditarFuncionario }
+      { path: 'editar-funcionario/:id', component: EditarFuncionario },
+      { path: 'relatorios', component: Relatorios}
     ]
   }
 ];
