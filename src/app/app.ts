@@ -1,17 +1,22 @@
-import { Component, signal, ElementRef, HostListener, QueryList, ViewChildren } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { RouterModule } from '@angular/router';
+import { Component, signal, ElementRef, HostListener, QueryList, ViewChildren, OnInit } from '@angular/core';
+import { RouterOutlet, Router, RouterModule, NavigationEnd } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { filter } from 'rxjs';
+
+type TipoUsuarioVisual = 'cliente' | 'funcionario' | null;
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, RouterModule],
+  imports: [RouterOutlet, RouterModule, CommonModule],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
+
 export class App {
   protected readonly title = signal('MM-TADS');
-
   openDropdown: string | null = null;
+  
+  mostrarNavbar: boolean = true;
 
   @ViewChildren('dropdownContainer') dropdownContainers!: QueryList<ElementRef>;
 
@@ -33,5 +38,35 @@ export class App {
   
   closeAllDropdowns(): void {
     this.openDropdown = null;
+  }
+
+  tipoUsuarioAtual: TipoUsuarioVisual = null;
+
+  constructor(private router: Router) {}
+
+  ngOnInit() {
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe((event: NavigationEnd) => {
+      const url = event.urlAfterRedirects;
+
+      if (url.startsWith('/cliente')) {
+        this.tipoUsuarioAtual = 'cliente';
+      } else if (url.startsWith('/funcionario')) {
+        this.tipoUsuarioAtual = 'funcionario';
+      } else {
+        this.tipoUsuarioAtual = null;
+      }
+    });
+  }
+
+   alternarVisualizacao() {
+    if (this.tipoUsuarioAtual === 'cliente') {
+      this.tipoUsuarioAtual = 'funcionario';
+      this.router.navigate(['/funcionario']);
+    } else if (this.tipoUsuarioAtual === 'funcionario') {
+      this.tipoUsuarioAtual = 'cliente';
+      this.router.navigate(['/cliente']);
+    }
   }
 }

@@ -45,8 +45,12 @@
         </div>
 
         <footer class="modal-footer">
-            <button class="bg-mm text-nowrap hover:bg-mm-dark h-[50px] cursor-pointer active:scale-95 text-white px-6 py-2 rounded-xl font-regular transition" (click)="abrirModal()">Redirecionar</button>
-            <button class="bg-green-600 text-nowrap hover:bg-green-700 h-[50px] cursor-pointer active:scale-95 text-white px-6 py-2 rounded-xl font-regular transition" (click)="onFecharModal()">Efetuar Manutenção</button>
+            <button class="bg-mm text-nowrap hover:bg-mm-dark h-[46px] px-4 rounded-xl transition font-regular 
+                text-white text-md cursor-pointer hover:shadow-xl 
+                hover:scale-[102%] active:scale-95" (click)="abrirModal()">Redirecionar</button>
+            <button class="bg-green-600 text-nowrap hover:bg-green-700 h-[46px] px-4 rounded-xl transition font-regular 
+                text-white text-md cursor-pointer hover:shadow-xl 
+                hover:scale-[102%] active:scale-95" (click)="onFecharModal()">Efetuar Manutenção</button>
         </footer>
     </div>
 </div>
@@ -71,14 +75,18 @@
                     <p class="text-nowrap font-bold">Nome: <span class="font-normal">{{f.nome}}</span></p>
                     <p class="text-nowrap font-bold">Email: <span class="font-normal">{{f.email}}</span></p>
                 </div>
-                <button class="bg-mm text-nowrap hover:bg-mm-dark h-[50px] cursor-pointer active:scale-95 text-white px-6 py-2 rounded-xl font-regular transition">Redirecionar</button>
+                <button class="bg-mm text-nowrap hover:bg-mm-dark h-[46px] px-4 rounded-xl transition font-regular 
+                text-white text-md cursor-pointer hover:shadow-xl 
+                hover:scale-[102%] active:scale-95">Redirecionar</button>
                 
             </div>
             }
         </div>
 
         <footer class="modal-footer">
-            <button class="bg-danger hover:bg-red-700 h-[50px] cursor-pointer active:scale-95 text-white px-6 py-2 rounded-xl font-regular transition" (click)="fecharMover()">Cancelar</button>
+            <button class="bg-danger hover:bg-red-700 h-[46px] px-4 rounded-xl transition font-regular 
+                text-white text-md cursor-pointer hover:shadow-xl 
+                hover:scale-[102%] active:scale-95" (click)="fecharMover()">Cancelar</button>
         </footer>
     </div>
 </div>

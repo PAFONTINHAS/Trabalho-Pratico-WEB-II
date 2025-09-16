@@ -1,4 +1,4 @@
-<div class="flex flex-col items-center justify-start min-h-screen bg-gradient-to-br from-mm to-mm2 p-10">
+<div class="flex flex-col items-center justify-start p-10">
     <div class="bg-gradient-to-br from-white to-[#ccc] rounded-3xl shadow-xl min-w-[60%] max-w-[80%] px-[70px] py-[60px]">
         <h2 class="text-4xl font-semibold text-gray-800 mb-5 poppins">Histórico de Solicitações</h2>
 
@@ -19,12 +19,15 @@
                             <td class="border-t-2 border-gray-200 py-3 px-6">{{ orcamento.dispositivo }}</td>
                             <td class="border-t-2 border-gray-200 py-3 px-6">{{ orcamento.descricao }}</td>
                             <td class="border-t-2 border-gray-200 py-3 px-6">{{ orcamento.data }}</td>
-                            <td class="border-t-2 border-gray-200 py-3 px-6 text-lg font-semibold"
-                                [ngClass]="{'text-green-600': orcamento.estado === 'Arrumada', 'text-danger' : orcamento.estado === 'Rejeitada', 'text-yellow-600' : orcamento.estado === 'Orçada', 'text-mm' : orcamento.estado === 'Aprovada'}">
-                                {{ orcamento.estado }}
+                            <td class="border-t-2 border-gray-200 py-3 px-6 text-md font-semibold">
+                                <span [ngClass]="statusClasses(orcamento.estado.toUpperCase())">
+                                    {{orcamento.estado.toUpperCase()}}
+                                </span>
                             </td>
                             <td class="border-t-2 border-gray-200 py-3 px-6">
-                                <button (click)="abrirModal(orcamento)" class="bg-mm text-nowrap h-[50px] cursor-pointer active:scale-95 text-white px-4 py-2 rounded-xl font-medium hover:bg-mm-dark transition">
+                                <button (click)="abrirModal(orcamento)" class="bg-mm hover:bg-mm-dark h-[46px] px-4 rounded-xl transition font-regular 
+                                        text-white text-md cursor-pointer hover:shadow-xl hover:shadow-mm-shadow 
+                                        hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap">
                                     Ver Detalhes
                                 </button>
                             </td>

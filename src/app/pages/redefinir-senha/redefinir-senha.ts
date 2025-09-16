@@ -1,18 +1,18 @@
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 @Component({
-  imports: [],
+  imports: [RouterLink],
   selector: 'app-redefinir-senha',
   templateUrl: './redefinir-senha.html',
   styleUrl: './redefinir-senha.css'
 
 })
-export class ResetPasswordComponent {
+export class RedefinirSenha {
   email: string = '';
 
   onSubmit() {
     console.log('E-mail para redefinição:', this.email);
-    // Aqui você pode chamar o serviço que envia o e-mail
   }
 }
 

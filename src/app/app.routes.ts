@@ -3,6 +3,7 @@ import { Routes } from '@angular/router';
 // Componentes acessíveis a todos
 import { Login } from './pages/login/login';
 import { Cadastro } from './pages/cadastro/cadastro';
+import { RedefinirSenha } from './pages/redefinir-senha/redefinir-senha';
 
 // Componentes do Cliente
 import { PaginaInicial } from './pages/cliente/pagina-inicial/pagina-inicial';
@@ -30,6 +31,7 @@ export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: Login },
   { path: 'cadastro', component: Cadastro },
+  { path: 'redefinir-senha', component: RedefinirSenha },
 
   {
     path: 'cliente',

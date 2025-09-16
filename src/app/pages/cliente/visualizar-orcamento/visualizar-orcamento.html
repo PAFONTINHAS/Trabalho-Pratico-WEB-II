@@ -23,28 +23,33 @@
             @switch (orcamento.estado) {
 
                 @case ('Orçada') {
-                    <button (click)="onFecharModal()" class="bg-danger hover:bg-red-700 h-[50px] cursor-pointer active:scale-95 text-white px-6 py-2 rounded-xl font-regular transition">
+                    <button (click)="onFecharModal()" class="bg-danger hover:bg-red-700 h-[46px] px-4 rounded-xl transition font-regular 
+                                        text-white text-md cursor-pointer hover:shadow-xl hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap">
                         Rejeitar
                     </button>
-                    <button (click)="onFecharModal()" class="bg-green-600 hover:bg-green-700 h-[50px] cursor-pointer active:scale-95 text-white px-6 py-2 rounded-xl font-regular transition">
+                    <button (click)="onFecharModal()" class="bg-green-600 hover:bg-green-700 h-[46px] px-4 rounded-xl transition font-regular 
+                                        text-white text-md cursor-pointer hover:shadow-xl hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap">
                         Aprovar
                     </button>
                 }
 
                 @case ('Arrumada') {
-                    <button (click)="onFecharModal()" class="bg-green-600 hover:bg-green-700 h-[50px] cursor-pointer active:scale-95 text-white px-6 py-2 rounded-xl font-regular transition">
+                    <button (click)="onFecharModal()" class="bg-green-600 hover:bg-green-700 h-[46px] px-4 rounded-xl transition font-regular 
+                                        text-white text-md cursor-pointer hover:shadow-xl hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap">
                         Pagar
                     </button>
                 }
 
                 @case ('Rejeitada') {
-                    <button (click)="onFecharModal()" class="bg-mm hover:bg-mm-dark h-[50px] cursor-pointer active:scale-95 text-white px-6 py-2 rounded-xl font-regular transition">
+                    <button (click)="onFecharModal()" class="bg-mm hover:bg-mm-dark h-[46px] px-4 rounded-xl transition font-regular 
+                                        text-white text-md cursor-pointer hover:shadow-xl hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap">
                         Resgatar
                     </button>
                 }
 
                 @default {
-                    <button (click)="onFecharModal()" class="bg-gray-500 hover:bg-gray-600 h-[50px] cursor-pointer active:scale-95 text-white px-6 py-2 rounded-xl font-regular transition">
+                    <button (click)="onFecharModal()" class="bg-gray-500 hover:bg-gray-600 h-[46px] px-4 rounded-xl transition font-regular 
+                                        text-white text-md cursor-pointer hover:shadow-xl hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap">
                         Fechar
                     </button>
                 }
