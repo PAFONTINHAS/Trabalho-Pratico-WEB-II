@@ -36,11 +36,12 @@
                     <div class="selecionar-datas">
 
                         <h2 class="titulo-periodo">De:</h2>
-                        <input class="selecionar" type="date" name="inicio"> 
+                        <input class="selecionar" type="date" name="inicio" [(ngModel)]="dataInicioFiltro"> 
 
                         <h2 class="titulo-periodo">Até:</h2>
-                        <input class="selecionar" type="date" name="final"> 
+                        <input class="selecionar" type="date" name="final" [(ngModel)]="dataFimFiltro"> 
                         
+                        <button class="filtrarDatas" (click)="filtrarSolicitacoesPorData()">Filtrar</button>
                     </div>
                     
                 }
@@ -63,10 +64,14 @@
                 <tr>
                     <td class="colunas">{{solicitacao.equipamento}}</td>
                     <td class="colunas">{{solicitacao.descricao}}</td>
-                    <td class="colunas">{{solicitacao.dataSolicitacao}}</td>
+                    <td class="colunas">{{ formatarData(solicitacao.dataSolicitacao)}}</td>
                     <td class="colunas status">{{solicitacao.status}}</td>
                     <td class="efetuar_orcamento"><button [routerLink]="['/funcionario/orcamento']">Efetuar Orçamento</button></td>
                 </tr>
+            }
+
+            @if( solicitacoesFiltradas.length === 0){
+                <h2 style="color: black;">Sem Solicitações para hoje</h2>
             }
         </table>
     </section>

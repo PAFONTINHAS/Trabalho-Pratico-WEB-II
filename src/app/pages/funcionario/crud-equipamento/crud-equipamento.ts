@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { EquipamentoService } from '../../../../services/equipamento';
-import { Equipamento } from '../../../../shared/models/equipamento.model';
+import { EquipamentoService } from '../../../services/equipamento';
+import { Equipamento } from '../../../shared/models/equipamento.model';
 
 interface Categoria {
   id: number;

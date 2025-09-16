@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { EquipamentoComponent } from '../../funcionario/administracao/crud-equipamento/crud-equipamento';
+import { EquipamentoComponent } from '../../funcionario/crud-equipamento/crud-equipamento';
 import { EquipamentoService } from '../../../services/equipamento';
 
 @Component({

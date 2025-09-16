@@ -1,100 +1,79 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { FormsModule } from "@angular/forms";
+import { todasSolicitacoes } from './solicitacoes';
 
 @Component({
   selector: 'app-visualizar-solicitacoes',
-  imports: [RouterLink],
+  imports: [RouterLink, FormsModule],
   templateUrl: './visualizar-solicitacoes.html',
   styleUrl: './visualizar-solicitacoes.css'
 })
 export class VisualizarSolicitacoes {
 
-  nome = 'André'
+  nome = 'André';
 
-  solicitacoes = [
-    { 
-      id: 0, 
-      equipamento: 'Notebook Lenovo', 
-      cliente: 'Amauri Correia',        
-      descricao: 'Tela quebrada', 
-      dataSolicitacao: '16/09/2025 - 15:48',
-      categoria: 'Notebook', 
-      status:'ABERTA',
-      valor: 'R$ 300,00'
-    },
-    { 
-      id: 1, 
-      equipamento: 'Smartphone Samsung',
-      cliente: 'Amauri Correia',      
-      descricao: 'Botão de ligar pifou', 
-      dataSolicitacao: '16/09/2025 - 15:48', 
-      categoria: 'Celular',
-      status:'ABERTA',
-      valor: 'R$ 300,00'
-    },
-    { 
-      id: 2, 
-      equipamento: 'Tablet Apple iPad', 
-      cliente: 'Amauri Correia',      
-      descricao: 'Problema na bateria', 
-      dataSolicitacao: '05/08/2025 - 15:48', 
-      categoria: 'Tablet',
-      status:'ABERTA',
-      valor: 'R$ 300,00'
-    },
-    { 
-      id: 3, 
-      equipamento: 'Notebook Dell Inspiron', 
-      cliente: 'Amauri Correia', 
-      descricao: 'Teclado não funciona', 
-      dataSolicitacao: '03/08/2025 - 15:48', 
-      categoria: 'Notebook',
-      status:'ABERTA',
-      valor: 'R$ 300,00'
-    },
-    { 
-      id: 4, 
-      equipamento: 'Impresora HP 5300', 
-      cliente: 'Amauri Correia',
-      descricao: 'Carcaça estraçalhada pelo meu...', 
-      dataSolicitacao: '01/08/2025 - 15:48', 
-      categoria: 'Impressora',
-      status:'ABERTA',
-      valor: 'R$ 300,00'
-    }
-  ];
 
+  solicitacoes = todasSolicitacoes;
 
   solicitacoesFiltradas = this.solicitacoes;
 
   filtro = tipoFiltro.todas;
 
   mudarFiltro( valor: string){
-
     switch (valor){
-      case "todas": this.filtro = tipoFiltro.todas; 
+      case "todas":
 
-      this.solicitacoesFiltradas = this.solicitacoes;
-      
-      break;
-      case "hoje": this.filtro = tipoFiltro.hoje; 
+        this.filtro = tipoFiltro.todas;
+        this.solicitacoesFiltradas = this.solicitacoes;
 
-      this.solicitacoesFiltradas = this.solicitacoes.filter((solicitacao) => solicitacao.dataSolicitacao.startsWith('16/09/2025'));
+        break;
+      case "hoje":
 
-      
-      break;
-      case "entreDatas": this.filtro = tipoFiltro.entreDatas; 
+        this.filtro = tipoFiltro.hoje;
+        const hoje = new Date();
+        hoje.setHours(0,0,0,0);
+        this.solicitacoesFiltradas = this.solicitacoes.filter(s => {
+          const data = s.dataSolicitacao;
+          const dataSemHora = new Date(data);
+          dataSemHora.setHours(0,0,0,0);
+          return dataSemHora.getTime() === hoje.getTime();
+        });
+        break;
 
-    
-
-      
-      break;
+      case "entreDatas":
+        this.filtro = tipoFiltro.entreDatas;
+        break;
     }
   }
 
-  filtrarSolicitacoesPorData (valor : string){
+  formatarData(data: Date): string {
+    const dia = String(data.getDate()).padStart(2, '0');
+    const mes = String(data.getMonth() + 1).padStart(2, '0');
+    const ano = data.getFullYear();
+    const horas = String(data.getHours()).padStart(2, '0');
+    const minutos = String(data.getMinutes()).padStart(2, '0');
+    return `${dia}/${mes}/${ano} - ${horas}:${minutos}`;
+  }
+
+  dataInicioFiltro: string = '';
+  dataFimFiltro: string = '';
+
+  filtrarSolicitacoesPorData (){
+
+    if(this.dataInicioFiltro && this.dataFimFiltro){
+      const inicio = new Date(this.dataInicioFiltro);
+      const fim = new Date(this.dataFimFiltro);
+
+      this.solicitacoesFiltradas = this.solicitacoes.filter(s => {
+        const data = s.dataSolicitacao;
+        return data >= inicio && data <= fim;
+      });
+    }
 
   }
+
+
 
 }
 
