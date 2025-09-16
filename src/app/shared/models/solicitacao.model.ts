@@ -11,7 +11,7 @@ export class Solicitacao {
         public funcionario: Funcionario = new Funcionario(),
         public defeito: string = "",
         public cliente: string = "",
-        public dataSolicitacao: string
+        public dataSolicitacao: string = ""
 
         
    // categoria: Categoria;

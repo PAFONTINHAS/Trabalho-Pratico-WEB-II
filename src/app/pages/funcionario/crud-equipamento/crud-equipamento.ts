@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { EquipamentoService } from '../../../services/equipamento';
 import { Equipamento } from '../../../shared/models/equipamento.model';
+import { EquipamentoService } from '../../../services/equipamento';
+import { Router, RouterModule } from '@angular/router';
 
 interface Categoria {
   id: number;
@@ -10,21 +11,22 @@ interface Categoria {
 }
 
 @Component({
-  imports: [CommonModule,FormsModule ],
+  imports: [CommonModule,FormsModule, RouterModule],
   selector: 'app-equipamento',
   templateUrl: './crud-equipamento.html',
 })
-export class EquipamentoComponent {
-
-  ngOnInit(): void {
-    this.categorias = this.listarTodos()
-  }
+export class EquipamentoComponent implements OnInit {
 
   categorias: Equipamento[] = []
 
   constructor(
     private equipamentoService: EquipamentoService,
+    private router: Router
   ){}
+
+  ngOnInit(): void {
+    this.categorias = this.listarTodos()
+  }
 
   formVisivel = false;
   editando = false;
@@ -34,7 +36,6 @@ export class EquipamentoComponent {
   abrirFormulario() {
     this.formVisivel = true;
     this.editando = false;
-    this.equipamento = { id: 0, nome: '' };
   }
 
   // cancelar
@@ -48,7 +49,7 @@ export class EquipamentoComponent {
     if (this.equipamento.nome.trim() === '') return;
 
     if (this.editando) {
-     // this.atualizar(categoria)
+      this.atualizar()
     } else {
       this.inserir()
     }
@@ -56,10 +57,10 @@ export class EquipamentoComponent {
     this.cancelar();
   }
 
-  editarCategoria(categoria: any) {
+  editarForm(categoria: any) {
     this.formVisivel = true;
     this.editando = true;
-    this.atualizar(categoria)
+    this.equipamento = categoria
   }
 
   listarTodos(): Equipamento[] {
@@ -75,13 +76,11 @@ export class EquipamentoComponent {
   }
 
   inserir(): void {
-      this.equipamentoService.inserir(this.equipamento);
+    this.equipamentoService.inserir(this.equipamento);
+    this.router.navigate(['/funcionario/crud--equipamento']);
   }
 
-  atualizar(equipamento: any): void {
-    console.log(equipamento)
-    this.equipamentoService.atualizar(equipamento);
-    //this.router.navigate(['/funcionario/gerenciar-funcionarios']);
-    
+  atualizar(): void {
+    this.equipamentoService.atualizar(this.equipamento);
   }
 }

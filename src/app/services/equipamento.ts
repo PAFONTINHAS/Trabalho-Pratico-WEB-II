@@ -29,9 +29,9 @@ export class EquipamentoService {
   atualizar(equipamento: Equipamento): void {
     const equipamentos = this.listarTodos();
     equipamentos.forEach( (obj, index, objs) => {
-    if (equipamento.id === obj.id) {
-      objs[index] = equipamento
-    }
+      if (equipamento.id === obj.id) {
+        objs[index] = equipamento
+      }
     });
 
     localStorage[LS_CHAVE] = JSON.stringify(equipamentos);

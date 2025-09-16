@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
-import { EquipamentoComponent } from '../../funcionario/crud-equipamento/crud-equipamento';
+import { Component, OnInit } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
 import { EquipamentoService } from '../../../services/equipamento';
+import { EquipamentoComponent } from '../../funcionario/crud-equipamento/crud-equipamento';
+import { Equipamento } from '../../../shared/models/equipamento.model';
 
 @Component({
     selector: 'app-solicitar',
@@ -10,8 +11,16 @@ import { EquipamentoService } from '../../../services/equipamento';
     templateUrl: './solicitar.html',
     styleUrl: './solicitar.css'
 })
-export class Solicitar {
-    equipamentos :EquipamentoComponent = new EquipamentoComponent(new EquipamentoService)
-    categorias = this.equipamentos.categorias
+export class Solicitar implements OnInit {
+
+    categorias: Equipamento[] = []
+    component: EquipamentoService = new EquipamentoService()
+    
+      constructor() {}
+    
+      ngOnInit(): void {
+        this.categorias = this.component.listarTodos()    
+      }
+    
 }
 

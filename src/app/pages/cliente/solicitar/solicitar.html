@@ -21,11 +21,9 @@
                 required
             >
                 <option value="">Selecione</option>
-                <option value="cat1">Notebook</option>
-                <option value="cat2">Impressora</option>
-                <option value="cat3">Desktop</option>
-                <option value="cat4">Tablet</option>
-                <option value="cat5">Celular</option>
+                        @for(categoria of categorias; track categoria) {
+                <option value="cat1">{{categoria.nome}}</option>
+                        }
             </select>
 
             <p class="font-semibold text-md mb-2">Qual o defeito?</p>
