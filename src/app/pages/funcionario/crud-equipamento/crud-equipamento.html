@@ -19,8 +19,9 @@
     </h2>
     <input
       type="text"
-      [(ngModel)]="categoriaAtual.nome"
+      [(ngModel)]="equipamento.nome"
       placeholder="Digite o nome da categoria"
+      #nome="ngModel"
       class="w-full border border-gray-300 rounded-md p-3 mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
     />
     <div class="flex justify-end gap-2">
@@ -66,7 +67,7 @@
                 Editar
               </button>
               <button
-                (click)="removerCategoria(categoria.id)"
+                (click)="remover($event, categoria)"
                 class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-md transition-colors"
               >
                 Remover

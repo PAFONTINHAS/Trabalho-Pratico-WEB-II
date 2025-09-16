@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { EquipamentoService } from '../../../../services/equipamento';
+import { Equipamento } from '../../../../shared/models/equipamento.model';
 
 interface Categoria {
   id: number;
@@ -13,58 +15,73 @@ interface Categoria {
   templateUrl: './crud-equipamento.html',
 })
 export class EquipamentoComponent {
-  categorias: Categoria[] = [
-    { id: 1, nome: 'Notebook' },
-    { id: 2, nome: 'Impressora' },
-    { id: 3, nome: 'Desktop' },
-  ];
+
+  ngOnInit(): void {
+    this.categorias = this.listarTodos()
+  }
+
+  categorias: Equipamento[] = []
+
+  constructor(
+    private equipamentoService: EquipamentoService,
+  ){}
 
   formVisivel = false;
   editando = false;
-  categoriaAtual: Categoria = { id: 0, nome: '' };
+  equipamento: Equipamento = new Equipamento()
 
   // abrir 
   abrirFormulario() {
     this.formVisivel = true;
     this.editando = false;
-    this.categoriaAtual = { id: 0, nome: '' };
+    this.equipamento = { id: 0, nome: '' };
   }
 
   // cancelar
   cancelar() {
     this.formVisivel = false;
-    this.categoriaAtual = { id: 0, nome: '' };
+    this.equipamento = { id: 0, nome: '' };
   }
 
   // salvar 
   salvarCategoria() {
-    if (this.categoriaAtual.nome.trim() === '') return;
+    if (this.equipamento.nome.trim() === '') return;
 
     if (this.editando) {
-      const index = this.categorias.findIndex(c => c.id === this.categoriaAtual.id);
-      if (index !== -1) {
-        this.categorias[index] = { ...this.categoriaAtual };
-      }
+     // this.atualizar(categoria)
     } else {
-      const novoId =
-        this.categorias.length > 0
-          ? Math.max(...this.categorias.map(c => c.id)) + 1
-          : 1;
-      this.categorias.push({ id: novoId, nome: this.categoriaAtual.nome });
+      this.inserir()
     }
 
     this.cancelar();
   }
 
-  // editar
-  editarCategoria(categoria: Categoria) {
+  editarCategoria(categoria: any) {
     this.formVisivel = true;
     this.editando = true;
-    this.categoriaAtual = { ...categoria };
+    this.atualizar(categoria)
   }
 
-  // remover
-  removerCategoria(id: number) {
-    this.categorias = this.categorias.filter(c => c.id !== id);
+  listarTodos(): Equipamento[] {
+    return this.equipamentoService.listarTodos()
+  }
+
+  remover($event: any, equipamento: Equipamento): void {
+    $event.preventDefault();
+    if (confirm(`Deseja realmente remover o equipamento ${equipamento.nome}?`)) {
+      this.equipamentoService.remover(equipamento.id!);
+      this.categorias = this.listarTodos();
+    }
+  }
+
+  inserir(): void {
+      this.equipamentoService.inserir(this.equipamento);
+  }
+
+  atualizar(equipamento: any): void {
+    console.log(equipamento)
+    this.equipamentoService.atualizar(equipamento);
+    //this.router.navigate(['/funcionario/gerenciar-funcionarios']);
+    
   }
 }
