@@ -15,6 +15,7 @@ import { VisualizarSolicitacao } from './pages/funcionario/visualizar-solicitaca
 import { DefinirOrcamento} from './pages/funcionario/definir-orcamento/definir-orcamento';
 import { Manutencao } from './pages/funcionario/efetuar-manutencao/efetuar-manutencao';
 import { Administracao } from './pages/funcionario/administracao/administracao';
+import { VisualizarSolicitacoes } from './pages/funcionario/visualizar-solicitacoes/visualizar-solicitacoes';
 
 
 // Componentes de Administração
@@ -55,6 +56,7 @@ export const routes: Routes = [
       { path: 'criar-funcionario', component: CriarFuncionario },
       { path: 'editar-funcionario/:id', component: EditarFuncionario },
       { path: 'relatorios', component: Relatorios},
+      { path: 'solicitacoes', component: VisualizarSolicitacoes},
 
       // CRUD Equipamentos
       { path: 'crud-equipamento', component: EquipamentoComponent },

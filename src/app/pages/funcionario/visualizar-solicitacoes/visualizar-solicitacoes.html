@@ -1,0 +1,74 @@
+<main>
+        <header class="header">
+        <div class="header-content">
+
+            <h2 class="nome">Bem vindo, Pedro!</h2>
+            
+            <h1 class="titulo">MM-TADS</h1>
+            <nav>
+                <button [routerLink]="">Administração</button>
+                <button [routerLink]="['/funcionario/visualizar-solicitacao']">Solicitações</button>
+                <button [routerLink]="">Orçamento</button>
+                <button [routerLink]="">Perfil</button>
+                <!-- <a [routerLink]="['/funcionario/visualizar-solicitacao']">Visualizar Solicitações</a>
+                <a href="">Orçamentos</a>
+                <a href="">Seu perfil</a>
+                <a [routerLink]="['/funcionario/efetuar-manutencao']">Efetuar Manutenção</a> -->
+            </nav>
+        </div>
+    </header>
+
+    <section class="solicitacoes">
+
+        <div class="header-table">
+            <h2>Todas as solicitações</h2>
+            
+            <div class="filtro">
+                <h2>Filtrar por: </h2>
+                <select  class="selecionar" name="" id="">
+                    <option value="todas" (click)="mudarFiltro('todas')">Todas</option>
+                    <option value="hoje" (click)="mudarFiltro('hoje')">Hoje</option>
+                    <option value="entreDatas" (click)="mudarFiltro('entreDatas')" >Período de datas</option>
+                </select>
+
+                @if(filtro === 2){
+
+                    <div class="selecionar-datas">
+
+                        <h2 class="titulo-periodo">De:</h2>
+                        <input class="selecionar" type="date" name="inicio"> 
+
+                        <h2 class="titulo-periodo">Até:</h2>
+                        <input class="selecionar" type="date" name="final"> 
+                        
+                    </div>
+                    
+                }
+                
+
+            </div>
+
+        </div>
+
+        <table>
+            <tr>
+                <th>equipamento</th>
+                <th>descricao</th>
+                <th>data da solicitação</th>
+                <th>status</th>
+                <th></th>
+
+            </tr>
+            @for (solicitacao of solicitacoesFiltradas; track solicitacao.id) {
+                <tr>
+                    <td class="colunas">{{solicitacao.equipamento}}</td>
+                    <td class="colunas">{{solicitacao.descricao}}</td>
+                    <td class="colunas">{{solicitacao.dataSolicitacao}}</td>
+                    <td class="colunas status">{{solicitacao.status}}</td>
+                    <td class="efetuar_orcamento"><button [routerLink]="['/funcionario/orcamento']">Efetuar Orçamento</button></td>
+                </tr>
+            }
+        </table>
+    </section>
+
+</main>

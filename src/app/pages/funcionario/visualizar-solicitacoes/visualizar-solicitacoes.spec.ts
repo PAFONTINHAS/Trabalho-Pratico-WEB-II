@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DefinirOrcamento } from './definir-orcamento';
+import { VisualizarSolicitacoes } from './visualizar-solicitacoes';
 
-describe('Orcamento', () => {
-  let component: DefinirOrcamento;
-  let fixture: ComponentFixture<DefinirOrcamento>;
+describe('VisualizarSolicitacoes', () => {
+  let component: VisualizarSolicitacoes;
+  let fixture: ComponentFixture<VisualizarSolicitacoes>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DefinirOrcamento]
+      imports: [VisualizarSolicitacoes]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(DefinirOrcamento);
+    fixture = TestBed.createComponent(VisualizarSolicitacoes);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
