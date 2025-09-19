@@ -7,6 +7,8 @@
         <div class="flex-col gap-3">
             <p class="font-semibold text-md mb-2">Descrição do Equipamento</p>
             <input
+                [(ngModel)]="solicitacao.descricaoEquipamento"
+                #descricaoEquipamento="ngModel"
                 type="text"
                 class="border-gray-400 mb-5 rounded-lg border placeholder:text-gray-400 overflow-hidden h-10 px-3 transition w-full focus:border-mm focus:shadow-xl focus:shadow-mm-shadow hover:border-mm"
                 placeholder="Ex: Notebook Dell Inspiron 15 3000"
@@ -15,14 +17,14 @@
 
             <p class="font-semibold text-md mb-2">Categoria</p>
             <select
-                name="categoria"
-                id="categoria"
+                [(ngModel)]="solicitacao.equipamento"
+                #equipamento="ngModel"
                 class="border-gray-400 mb-5 rounded-lg border overflow-hidden h-10 px-3 transition w-full focus:border-mm focus:shadow-xl focus:shadow-mm-shadow hover:border-mm"
                 required
             >
                 <option value="">Selecione</option>
                         @for(categoria of categorias; track categoria) {
-                <option value="cat1">{{categoria.nome}}</option>
+                <option value=`${categoria}`>{{categoria.nome}}</option>
                         }
             </select>
 
@@ -31,6 +33,8 @@
                 id="defeito" rows="4"
                 class="border-gray-400 mb-5 rounded-lg border placeholder:text-gray-400 overflow-hidden p-3 transition w-full focus:border-mm focus:shadow-xl focus:shadow-mm-shadow hover:border-mm"
                 placeholder="Descreva o problema do seu equipamento..."
+                [(ngModel)]="solicitacao.defeito"
+                #defeito="ngModel"
             ></textarea>
 
             <div class="flex justify-center mt-5">
