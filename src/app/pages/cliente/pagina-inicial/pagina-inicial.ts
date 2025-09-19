@@ -20,7 +20,8 @@ export class PaginaInicial {
       descricao: 'Troca de tela',
       data: '10/08/2025 - 15:48',
       estado: 'Orçada',
-      valor: 'R$300,00'
+      valor: 'R$300,00',
+      funcionario: 'Lucas Silveira'
     },
     {
       id: 2,
@@ -28,7 +29,8 @@ export class PaginaInicial {
       descricao: 'Botão de ligar pifou',
       data: '07/08/2025 - 09:12',
       estado: 'Arrumada',
-      valor: 'R$200,00'
+      valor: 'R$200,00',
+      funcionario: 'Lucas Silveira'
     },
     {
       id: 3,
@@ -36,7 +38,8 @@ export class PaginaInicial {
       descricao: 'Problema na bateria',
       data: '05/08/2025 - 11:30',
       estado: 'Rejeitada',
-      valor: 'R$550,00'
+      valor: 'R$550,00',
+      funcionario: 'Lucas Silveira'
     },
     {
       id: 4,
@@ -44,7 +47,8 @@ export class PaginaInicial {
       descricao: 'Problema no teclado',
       data: '03/08/2025 - 14:15',
       estado: 'Aprovada',
-      valor: 'R$450,00'
+      valor: 'R$450,00',
+      funcionario: 'Lucas Silveira'
     }
   ];
 
