@@ -24,6 +24,8 @@ import { FinalizarManutencao } from './pages/funcionario/finalizar-manutencao/fi
 import { VisualizarSolicitacao } from './pages/funcionario/visualizar-solicitacao/visualizar-solicitacao';
 //import { DefinirOrcamento} from './pages/funcionario/definir-orcamento/definir-orcamento';
 import { VisualizarSolicitacoes } from './pages/funcionario/visualizar-solicitacoes/visualizar-solicitacoes';
+import { ConfirmarOrcamento } from './pages/funcionario/confirmar-orcamento/confirmar-orcamento';
+
 
 
 
@@ -56,11 +58,13 @@ export const routes: Routes = [
       //{ path: 'orcamento', component: DefinirOrcamento },
       { path: 'efetuar-manutencao', component: Manutencao },
       { path: 'administracao', component: Administracao },
+      { path: 'confirmar-orcamento', component: ConfirmarOrcamento },
 
       // CRUD Funcionários
       { path: 'criar-funcionario', component: CriarFuncionario },
       { path: 'relatorios', component: Relatorios},
       { path: 'solicitacoes', component: VisualizarSolicitacoes},
+      
 
       // CRUD Equipamentos
       { path: 'crud-equipamento', component: CategoriaComponent },
