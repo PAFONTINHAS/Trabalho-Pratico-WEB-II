@@ -1,7 +1,7 @@
 import { Status } from '../shared/models/enums/status.enum';
 import { Categoria } from '../shared/models/enums/categoria.enum';
 
-interface Funcionario {
+export interface Funcionario {
     id: number;
     nome: string;
     email: string;
@@ -9,7 +9,7 @@ interface Funcionario {
     senha: string;
 }
 
-interface Cliente {
+export interface Cliente {
     id: number;
     nome: string;
     cpf: string;
@@ -18,16 +18,16 @@ interface Cliente {
     telefone: string;
 }
 
-interface HistoricoStatus {
+export interface HistoricoStatus {
     data: string;
     hora: string;
     status: string;
 }
 
-interface Solicitacao {
+export interface Solicitacao {
     id: number;
     cliente: Cliente;
-    funcionario: Funcionario;
+    funcionario?: Funcionario | null;
     equipamento: string;
     defeito: string;
     categoria: Categoria;

@@ -154,7 +154,7 @@ th{
 */
 
 
-.efetuar_orcamento button, .filtrarDatas{
+.efetuar_orcamento button{
     border: none;
     color: white;
     background-color: #2D89CB;
@@ -166,7 +166,28 @@ th{
 
 }
 
-.efetuar_orcamento :hover, .filtrarDatas :hover{
+.filtrarDatas{
+    
+    border: none;
+    color: white;
+    background-color: #419ddf;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 20px;
+    width: 100px;
+    height: 43px;
+
+}
+
+.filtrarDatas button :hover{
+
+    background-color: #316f9b;
+    cursor: pointer;
+    transition: 0.2s;
+
+}
+
+.efetuar_orcamento :hover{
 
     background-color: #316f9b;
     cursor: pointer;
