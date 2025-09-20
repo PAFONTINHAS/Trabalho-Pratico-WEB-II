@@ -6,25 +6,26 @@ import { Cadastro } from './pages/cadastro/cadastro';
 import { RedefinirSenha } from './pages/redefinir-senha/redefinir-senha';
 
 // Componentes do Cliente
-import { PaginaInicial } from './pages/cliente/pagina-inicial/pagina-inicial';
 import { Solicitar } from './pages/cliente/solicitar/solicitar';
+import { PaginaInicial } from './pages/cliente/pagina-inicial/pagina-inicial';
+import { EditarSolicitacao } from './pages/cliente/editar-solicitacao/editar-solicitacao';
+import { DeletarSolicitacao } from './pages/cliente/deletar-solicitacao/deletar-solicitacao';
 
+// Componentes de Administração
+import { Relatorios } from './pages/funcionario/relatorios/relatorios';
+import { CriarFuncionario } from './pages/funcionario/criar-funcionario/criar-funcionario';
+import { EquipamentoComponent } from './pages/funcionario/crud-equipamento/crud-equipamento';
+import { EditarFuncionario } from './pages/funcionario/editar-funcionario/editar-funcionario';
+import { GerenciarFuncionarios } from './pages/funcionario/gerenciar-funcionarios/gerenciar-funcionarios';
 // Componentes do Funcionário
+import { Administracao } from './pages/funcionario/administracao/administracao';
+import { Manutencao } from './pages/funcionario/efetuar-manutencao/efetuar-manutencao';
+import { DefinirOrcamento} from './pages/funcionario/definir-orcamento/definir-orcamento';
 import { FuncionarioHomepage } from './pages/funcionario/funcionario-homepage/funcionario-homepage';
 import { FinalizarManutencao } from './pages/funcionario/finalizar-manutencao/finalizar-manutencao';
 import { VisualizarSolicitacao } from './pages/funcionario/visualizar-solicitacao/visualizar-solicitacao';
-import { DefinirOrcamento} from './pages/funcionario/definir-orcamento/definir-orcamento';
-import { Manutencao } from './pages/funcionario/efetuar-manutencao/efetuar-manutencao';
-import { Administracao } from './pages/funcionario/administracao/administracao';
 import { VisualizarSolicitacoes } from './pages/funcionario/visualizar-solicitacoes/visualizar-solicitacoes';
 
-
-// Componentes de Administração
-import { EquipamentoComponent } from './pages/funcionario/crud-equipamento/crud-equipamento';
-import { CriarFuncionario } from './pages/funcionario/criar-funcionario/criar-funcionario';
-import { EditarFuncionario } from './pages/funcionario/editar-funcionario/editar-funcionario';
-import { GerenciarFuncionarios } from './pages/funcionario/gerenciar-funcionarios/gerenciar-funcionarios';
-import { Relatorios } from './pages/funcionario/relatorios/relatorios';
 
 
 export const routes: Routes = [
@@ -37,8 +38,11 @@ export const routes: Routes = [
     path: 'cliente',
     children: [
       { path: '', redirectTo: 'pagina-inicial', pathMatch: 'full' },
-      { path: 'pagina-inicial', component: PaginaInicial },
       { path: 'solicitar', component: Solicitar },
+      { path: 'pagina-inicial', component: PaginaInicial },
+      { path: 'editar-solicitacao', component: EditarSolicitacao},
+      { path: 'deletar-solicitacao', component: DeletarSolicitacao},
+
     ]
   },
 
@@ -62,7 +66,6 @@ export const routes: Routes = [
 
       // CRUD Equipamentos
       { path: 'crud-equipamento', component: EquipamentoComponent },
-
 
     ]
   }

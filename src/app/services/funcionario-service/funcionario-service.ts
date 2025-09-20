@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Funcionario } from '../shared/models/funcionario.model';
+import { Funcionario } from '../../shared/entities/funcionario_entity';
 
 const LS_CHAVE = "funcionarios"
 

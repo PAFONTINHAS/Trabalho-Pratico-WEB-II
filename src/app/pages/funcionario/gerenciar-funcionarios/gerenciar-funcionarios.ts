@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { FuncionarioService } from '../../../services/funcionario-service';
-import { Funcionario } from '../../../shared/models/funcionario.model';
-import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { Funcionario } from '../../../../../backup/models/funcionario.model';
+import { FuncionarioService } from '../../../services/funcionario-service/funcionario-service';
 
 @Component({
   selector: 'app-gerenciar-funcionarios',

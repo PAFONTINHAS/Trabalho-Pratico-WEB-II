@@ -1,9 +1,9 @@
+import { CommonModule } from '@angular/common';
 import { Component, ViewChild } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
-import { Funcionario } from '../../../shared/models/funcionario.model';
-import { FuncionarioService } from '../../../services/funcionario-service';
 import { Router, RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
+import { Funcionario } from '../../../../../backup/models/funcionario.model';
+import { FuncionarioService } from '../../../services/funcionario-service/funcionario-service';
 
 @Component({
   selector: 'app-criar-funcionario',

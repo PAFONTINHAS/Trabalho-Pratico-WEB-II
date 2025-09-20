@@ -8,7 +8,7 @@
   },
   "include": [
     "src/**/*.ts"
-  ],
+, "backup/models/equipamento.model.spec.ts", "backup/models/equipamento.model.ts", "backup/models/funcionario.model.spec.ts", "backup/models/funcionario.model.ts", "backup/models/solicitacao.model.spec.ts", "backup/models/solicitacao.model.ts"  ],
   "exclude": [
     "src/**/*.spec.ts"
   ]
