@@ -11,6 +11,8 @@ export class ModaisConfirmacao {
   titulo: string="";
   texto: string="";
   botaoTexto: string="OK";
+  modalAberto = true;
+
 
   ngOnInit():void{
 
@@ -40,31 +42,10 @@ export class ModaisConfirmacao {
 
       }
 
-
-    if(this.tipoModalSolicitacao==="aprovarServico"){
-    alert("Modal de solicitacao aprovada");
   }
 
-  if(this.tipoModalSolicitacao==="rejeitarServico"){
-      alert("Modal de rejeitar serviço");
+  fecharModal(){
+    this.modalAberto = false;
   }
-
-  if(this.tipoModalSolicitacao==="resgatarServico"){
-    alert("Modal de resgatar serviço");
-  }
-
-  if(this.tipoModalSolicitacao==="solicitacaoCriada"){
-    alert("Modal de solicitacao criada");
-  }
-
-  if(this.tipoModalSolicitacao==="confirmarRejeicaoServico"){
-    alert("Modal de confirmar Rejeicao Servico");
-  }
-
-  if(this.tipoModalSolicitacao==="resgateConcluido"){
-    alert("Modal resgate oncluido");
-  }
-
-}
 
 }
