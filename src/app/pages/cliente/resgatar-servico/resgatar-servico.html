@@ -1,0 +1,43 @@
+<!-- MODAL -->
+<div id="modal" class="fixed inset-0 flex items-center justify-center bg-black/50 z-50 hidden">
+  <div class="w-full max-w-xl px-[70px] py-[60px] bg-gradient-to-br from-white to-[#ccc] rounded-3xl shadow-xl relative">
+
+    <!-- BOTÃO FECHAR -->
+    <button
+      onclick="document.getElementById('modal').classList.add('hidden')"
+      class="absolute top-4 left-4 text-gray-600 hover:text-red-500 text-2xl">
+      &times;
+    </button>
+
+    <p class="text-gray-800 font-semibold text-4xl p-2 mb-3 select-none poppins">
+      Resgatar Serviço
+    </p>
+
+    <p>Deseja resgatar o serviço? Essa ação indica que o orçamento proposto será aceito e a solicitação irá para a fila de manutenções</p>
+
+    <div class="flex-col gap-3">
+
+      <div class="flex flex-row gap-4 items-center justify-center mt-5">
+        <button
+          onclick="document.getElementById('modal').classList.add('hidden')"
+          class="bg-red-500 h-[50px] w-[35%] rounded-xl transition font-regular
+          text-white text-lg cursor-pointer hover:shadow-xl hover:shadow-mm-shadow
+          hover:bg-mm-dark hover:scale-[102%] active:scale-95 mr-10">
+          Cancelar
+        </button>
+
+        <button (click)="resgateConcluido()"
+          class="bg-blue-500 h-[50px] w-[45%] rounded-xl transition font-regular
+          text-white text-lg cursor-pointer hover:shadow-xl hover:shadow-mm-shadow
+          hover:bg-mm-dark hover:scale-[102%] active:scale-95">
+          Confirmar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+@if(modalResgateConcluido){
+    <app-modais-confirmacao [tipoModalSolicitacao]="resgateConcluido"></app-modais-confirmacao>
+
+}
