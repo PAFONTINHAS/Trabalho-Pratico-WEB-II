@@ -26,26 +26,14 @@
                                 </span>
                             </td>
 
-                            @if(solicitacao.estado == status){ 
-                                
-                                <td class="border-t-2 border-gray-200 py-3 px-6">
-                                    <button (click)="abrirModalAberta(solicitacao)" class="bg-mm hover:bg-mm-dark h-[46px] px-4 rounded-xl transition font-regular 
-                                            text-white text-md cursor-pointer hover:shadow-xl hover:shadow-mm-shadow 
-                                            hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap">
-                                        Ver Detalhes
-                                    </button>
-                                </td>
-
-                            } @else{
-
-                                <td class="border-t-2 border-gray-200 py-3 px-6">
-                                    <button (click)="abrirModalOrcamento(solicitacao)" class="bg-mm hover:bg-mm-dark h-[46px] px-4 rounded-xl transition font-regular 
-                                            text-white text-md cursor-pointer hover:shadow-xl hover:shadow-mm-shadow 
-                                            hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap">
-                                        Ver Detalhes
-                                    </button>
-                                </td>
-                            }
+                            <td class="border-t-2 border-gray-200 py-3 px-6">
+                                <button (click)="abrirModalOrcamento(solicitacao)" class="bg-mm hover:bg-mm-dark h-[46px] px-4 rounded-xl transition font-regular 
+                                        text-white text-md cursor-pointer hover:shadow-xl hover:shadow-mm-shadow 
+                                        hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap">
+                                    Ver Detalhes
+                                </button>
+                            </td>
+                            
 
                         </tr>
                     }
@@ -55,7 +43,7 @@
     </div>
 </div>
 
-@if (mostrarModalOrcamento) {
-  <app-visualizar-orcamento [orcamento]="orcamentoSelecionado" (fecharModal)="fecharModalOrcamento()"></app-visualizar-orcamento>
+@if (mostrarModalSolicitacao) {
+  <app-visualizar-orcamento [orcamento]="solicitacaoSelecionado" (fecharModal)="fecharModalOrcamento()"></app-visualizar-orcamento>
 }
 

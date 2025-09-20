@@ -5,7 +5,7 @@ import { DefinirOrcamento } from '../definir-orcamento/definir-orcamento';
 
 @Component({
   selector: 'app-efetuar-manutencao',
-  imports: [RouterLink],
+  // imports: [RouterLink],
   templateUrl: './efetuar-manutencao.html',
   styleUrl: './efetuar-manutencao.css'
 })

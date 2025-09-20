@@ -8,7 +8,7 @@
     
         <section class="space-y-4">
             <div class="p-4 rounded-xl bg-gray-50 border border-gray-300">
-                <p class="text-md text-gray-600">Dispositivo: <span class="font-semibold">{{ orcamento.dispositivo }}</span></p>
+                <p class="text-md text-gray-600">Dispositivo: <span class="font-semibold">{{orcamento.dispositivo }}</span></p>
                 <p class="text-md text-gray-600">Descrição: <span class="font-semibold">{{ orcamento.descricao }}</span></p>
                 <p class="text-md text-gray-600">Data da solicitação: <span class="font-semibold">{{ orcamento.data }}</span></p>
                 <p class="text-md text-gray-600">Funcionário: <span class="font-semibold">{{ orcamento.funcionario }}</span></p>
@@ -22,6 +22,19 @@
     
         <footer class="flex justify-center gap-4 mt-8">
             @switch (orcamento.estado) {
+
+                @case ('Aberta'){
+                    
+                    <button (click)="deletarSolicitacao()" class="bg-danger hover:bg-red-700 h-[46px] px-4 rounded-xl transition font-regular 
+                                        text-white text-md cursor-pointer hover:shadow-xl hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap">
+                        Deletar Solicitação
+                    </button>
+                    <button (click)="editarSolicitacao()" class="bg-green-600 hover:bg-green-700 h-[46px] px-4 rounded-xl transition font-regular 
+                                        text-white text-md cursor-pointer hover:shadow-xl hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap">
+                        Editar Solicitação
+                    </button>
+
+                }
 
                 @case ('Orçada') {
                     <button (click)="onFecharModal()" class="bg-danger hover:bg-red-700 h-[46px] px-4 rounded-xl transition font-regular 
@@ -58,3 +71,15 @@
         </footer>
     </div>
 </div>
+
+
+
+@if(modalDeletar && !modalEditar){
+
+   <app-deletar-solicitacao></app-deletar-solicitacao>
+}
+
+@if(modalEditar && !modalDeletar){
+
+   <app-editar-solicitacao></app-editar-solicitacao>
+}

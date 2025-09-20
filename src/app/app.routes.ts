@@ -24,6 +24,7 @@ import { DefinirOrcamento} from './pages/funcionario/definir-orcamento/definir-o
 import { FuncionarioHomepage } from './pages/funcionario/funcionario-homepage/funcionario-homepage';
 import { FinalizarManutencao } from './pages/funcionario/finalizar-manutencao/finalizar-manutencao';
 import { VisualizarSolicitacao } from './pages/funcionario/visualizar-solicitacao/visualizar-solicitacao';
+//import { DefinirOrcamento} from './pages/funcionario/definir-orcamento/definir-orcamento';
 import { VisualizarSolicitacoes } from './pages/funcionario/visualizar-solicitacoes/visualizar-solicitacoes';
 
 
@@ -53,7 +54,8 @@ export const routes: Routes = [
       { path: 'homepage', component: FuncionarioHomepage },
       { path: 'finalizar-manutencao', component: FinalizarManutencao },
       { path: 'visualizar-solicitacao', component: VisualizarSolicitacao },
-      { path: 'orcamento', component: DefinirOrcamento },
+      { path: 'orcamento', component: VisualizarSolicitacao},
+      //{ path: 'orcamento', component: DefinirOrcamento },
       { path: 'efetuar-manutencao', component: Manutencao },
       { path: 'administracao', component: Administracao },
 

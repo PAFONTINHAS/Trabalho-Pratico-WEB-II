@@ -8,4 +8,13 @@ import { Component } from '@angular/core';
 })
 export class EditarSolicitacao {
 
+  modalAberto = false;
+
+  abrirModal(): void {
+    this.modalAberto = true;
+  }
+
+  fecharModal(): void {
+    this.modalAberto = false;
+  }
 }

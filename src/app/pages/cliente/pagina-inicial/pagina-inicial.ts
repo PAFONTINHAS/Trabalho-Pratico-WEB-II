@@ -10,10 +10,12 @@ import { Status } from '../../../shared/models/enums/status.enum';
   styleUrl: './pagina-inicial.css'
 })
 export class PaginaInicial {
-  mostrarModalOrcamento: boolean = false;
+  mostrarModalSolicitacao: boolean = false;
   mostrarModalAberto: boolean = false;
-  orcamentoSelecionado: any = {};
-  status: Status = Status.Aberta;
+  
+  solicitacaoSelecionado: any = {};
+  
+  statusAberto: Status = Status.Aberta;
 
   //Dados fictícios para simular a tabela
   solicitacoes = [
@@ -31,7 +33,7 @@ export class PaginaInicial {
       dispositivo: 'Smartphone Samsung A04',
       descricao: 'Botão de ligar pifou',
       data: '07/08/2025 - 09:12',
-      estado: 'Arrumada',
+      estado: 'Orçada',
       valor: 'R$200,00',
       funcionario: 'Lucas Silveira'
     },
@@ -79,14 +81,14 @@ export class PaginaInicial {
     }
   }
 
-  abrirModalOrcamento(orcamento: any): void {
-    this.orcamentoSelecionado = orcamento; // Salva o orçamento selecionado
-    this.mostrarModalOrcamento = true;
+  abrirModalOrcamento(solicitacao: any): void {
+    this.solicitacaoSelecionado = solicitacao; // Salva o orçamento selecionado
+    this.mostrarModalSolicitacao = true;
   }
   
   fecharModalOrcamento(): void {
-    this.mostrarModalOrcamento = false;
-    this.orcamentoSelecionado = null; 
+    this.mostrarModalSolicitacao = false;
+    this.solicitacaoSelecionado= null; 
   }
 
   abrirModalAberta(solicitacao: any): void{
