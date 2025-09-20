@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { VisualizarOrcamento } from '../visualizar-orcamento/visualizar-orcamento';
+import { Status } from '../../../shared/models/enums/status.enum';
 
 @Component({
   selector: 'app-pagina-inicial',
@@ -10,16 +11,18 @@ import { VisualizarOrcamento } from '../visualizar-orcamento/visualizar-orcament
 })
 export class PaginaInicial {
   mostrarModalOrcamento: boolean = false;
+  mostrarModalAberto: boolean = false;
   orcamentoSelecionado: any = {};
+  status: Status = Status.Aberta;
 
   //Dados fictícios para simular a tabela
-  orcamentos = [
+  solicitacoes = [
     {
       id: 1,
       dispositivo: 'Notebook Lenovo S145',
       descricao: 'Troca de tela',
       data: '10/08/2025 - 15:48',
-      estado: 'Orçada',
+      estado: 'Aberta',
       valor: 'R$300,00',
       funcionario: 'Lucas Silveira'
     },
@@ -76,13 +79,21 @@ export class PaginaInicial {
     }
   }
 
-  abrirModal(orcamento: any): void {
+  abrirModalOrcamento(orcamento: any): void {
     this.orcamentoSelecionado = orcamento; // Salva o orçamento selecionado
     this.mostrarModalOrcamento = true;
   }
   
-  fecharModal(): void {
+  fecharModalOrcamento(): void {
     this.mostrarModalOrcamento = false;
     this.orcamentoSelecionado = null; 
+  }
+
+  abrirModalAberta(solicitacao: any): void{
+
+  }
+
+  fecharModalAberta() : void{
+
   }
 }
