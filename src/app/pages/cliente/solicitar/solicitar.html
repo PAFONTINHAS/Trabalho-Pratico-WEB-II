@@ -18,14 +18,13 @@
             <p class="font-semibold text-md mb-2">Categoria</p>
             <select
                 [(ngModel)]="solicitacao.categoria"
-                #equipamento="ngModel"
                 class="border-gray-400 mb-5 rounded-lg border overflow-hidden h-10 px-3 transition w-full focus:border-mm focus:shadow-xl focus:shadow-mm-shadow hover:border-mm"
                 required
             >
                 <option value="">Selecione</option>
-                        @for(categoria of categorias; track categoria) {
-                <option value=`${categoria}`>{{categoria.nome}}</option>
-                        }
+                @for(categoria of categoriasEnum; track categoria) {
+                <option [ngValue]="categoria">{{categoria}}</option>
+                }
             </select>
 
             <p class="font-semibold text-md mb-2">Qual o defeito?</p>
@@ -40,8 +39,9 @@
             <div class="flex justify-center mt-5">
                 <button
                     class="bg-mm h-[50px] w-[60%] rounded-xl transition font-regular text-white text-lg cursor-pointer hover:shadow-xl hover:shadow-mm-shadow hover:bg-mm-dark hover:scale-[102%] active:scale-95"
+                    (click)="realizarSolicitacao()"
                     [routerLink]="['/cliente/']"
-                >
+                    >
                     Solicitar
                 </button>
             </div>

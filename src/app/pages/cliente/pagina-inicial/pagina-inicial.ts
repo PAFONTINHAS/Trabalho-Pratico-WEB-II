@@ -1,7 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { VisualizarOrcamento } from '../visualizar-orcamento/visualizar-orcamento';
 import { Status } from '../../../shared/models/enums/status.enum';
+import { SolicitacaoService } from '../../../services/solicitacao_service/solicitacao-service';
+import { Solicitacao } from '../../../shared/entities/solicitacao_entity';
+
 
 @Component({
   selector: 'app-pagina-inicial',
@@ -9,7 +12,19 @@ import { Status } from '../../../shared/models/enums/status.enum';
   templateUrl: './pagina-inicial.html',
   styleUrl: './pagina-inicial.css'
 })
-export class PaginaInicial {
+export class PaginaInicial implements OnInit{
+
+
+  solicitacoes: Solicitacao[] = [];
+
+  constructor(private solicitacaoService: SolicitacaoService ){}
+
+  ngOnInit() : void{
+    this.solicitacaoService.inicializarMock();
+    this.solicitacoes = this.solicitacaoService.listarTodos();
+  }
+
+
   mostrarModalSolicitacao: boolean = false;
   mostrarModalAberto: boolean = false;
   
@@ -17,45 +32,7 @@ export class PaginaInicial {
   
   statusAberto: Status = Status.Aberta;
 
-  //Dados fictícios para simular a tabela
-  solicitacoes = [
-    {
-      id: 1,
-      dispositivo: 'Notebook Lenovo S145',
-      descricao: 'Troca de tela',
-      data: '10/08/2025 - 15:48',
-      estado: 'Aberta',
-      valor: 'R$300,00',
-      funcionario: 'Lucas Silveira'
-    },
-    {
-      id: 2,
-      dispositivo: 'Smartphone Samsung A04',
-      descricao: 'Botão de ligar pifou',
-      data: '07/08/2025 - 09:12',
-      estado: 'Orçada',
-      valor: 'R$200,00',
-      funcionario: 'Lucas Silveira'
-    },
-    {
-      id: 3,
-      dispositivo: 'Tablet Apple iPad',
-      descricao: 'Problema na bateria',
-      data: '05/08/2025 - 11:30',
-      estado: 'Rejeitada',
-      valor: 'R$550,00',
-      funcionario: 'Lucas Silveira'
-    },
-    {
-      id: 4,
-      dispositivo: 'Notebook Dell Inspiron',
-      descricao: 'Problema no teclado',
-      data: '03/08/2025 - 14:15',
-      estado: 'Aprovada',
-      valor: 'R$450,00',
-      funcionario: 'Lucas Silveira'
-    }
-  ];
+
 
   statusClasses(status: String) {
     

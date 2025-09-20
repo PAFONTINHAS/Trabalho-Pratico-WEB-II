@@ -8,12 +8,12 @@ import { Equipamento } from "./equipamento_entity";
 export interface Solicitacao {
 
 
-    id: number;
+    id?: number;
     cliente: Cliente;
     funcionario: Funcionario | null;
     equipamento: string;
     defeito: string;
-    categoria: Categoria;
+    categoria?: Categoria | null;
     dataSolicitacao: string;
     status: Status
     valorOrcamento? : number | null;

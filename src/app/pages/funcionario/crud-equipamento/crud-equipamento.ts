@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Equipamento } from '../../../../../backup/models/equipamento.model';
-import { EquipamentoService } from '../../../services/equipamento-service/equipamento';
+import { EquipamentoService } from '../../../services/equipamento-service/equipamento-service';
 import { Router, RouterModule } from '@angular/router';
 
 interface Categoria {

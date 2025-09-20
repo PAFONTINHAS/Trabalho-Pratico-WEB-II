@@ -18,15 +18,14 @@
 
       <div class="flex justify-center">
         <button
-          class="bg-mm bg-red-500 hover:bg-mm-dark font-regular text-md h-[46px] w-[30%] mr-3 cursor-pointer rounded-xl px-4 text-white transition hover:scale-[102%] hover:shadow-xl active:scale-95"
-          (click)="deletarSolicitacao()"
+          class="bg-red-500 hover:bg-red-800 font-regular text-md h-[46px] w-[30%] mr-3 cursor-pointer rounded-xl px-4 text-white transition hover:scale-[102%] hover:shadow-xl active:scale-95"
         >
           Não
         </button>
 
         <button
-          class="bg-mm bg-blue-500 hover:bg-mm-dark font-regular text-md h-[46px] w-[30%] cursor-pointer rounded-xl px-4 text-white transition hover:scale-[102%] hover:shadow-xl active:scale-95"
-          (click)="naoDeletarSolicitacao()"
+          class="bg-blue-500 hover:bg-mm-dark font-regular text-md h-[46px] w-[30%] cursor-pointer rounded-xl px-4 text-white transition hover:scale-[102%] hover:shadow-xl active:scale-95"
+          
         >
           Sim
         </button>
@@ -35,75 +34,39 @@
   </div>
   }
 
-  @if(deletar && !naoDeletar){
-      <div
-        class="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
-        (click)="fecharModal()"
-      >
-        <div
-          class="relative w-min rounded-3xl bg-gradient-to-br from-white to-[#ccc] px-10 pt-9 pb-7 shadow-xl"
-          (click)="$event.stopPropagation()"
-        >
-          <div class="mb-6 text-center">
-            <h2 class="poppins text-3xl font-bold text-nowrap text-gray-800">
-              Deseja Mesmo deletar <br />
-              sua solicitação? <br />
-            </h2>
-          </div>
+  @if(!deletar && naoDeletar && modalConfirmacaoAberto){
+
+        <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/50" (click)="fecharModal()">
+        <div class="bg-gradient-to-br from-white to-[#ccc] pt-9 px-10 pb-7 rounded-3xl shadow-xl w-min relative" (click)="$event.stopPropagation()">
+            <div class="text-center mb-6">
+                <h2 class="text-3xl font-bold text-gray-800 poppins text-nowrap">Solicitação Deletada <br> com Sucesso!</h2>
+            </div>
     
-          <div class="flex justify-center">
-            <button
-              class="bg-mm bg-red-500 hover:bg-mm-dark font-regular text-md h-[46px] w-[30%] mr-3 cursor-pointer rounded-xl px-4 text-white transition hover:scale-[102%] hover:shadow-xl active:scale-95"
-              (click)="deletarSolicitacao()"
-            >
-              Não
-            </button>
-    
-            <button
-              class="bg-mm bg-blue-500 hover:bg-mm-dark font-regular text-md h-[46px] w-[30%] cursor-pointer rounded-xl px-4 text-white transition hover:scale-[102%] hover:shadow-xl active:scale-95"
-              (click)="naoDeletarSolicitacao()"
-            >
-              Sim
-            </button>
-          </div>
+            <div class="flex justify-center">
+                <button class="bg-mm hover:bg-mm-dark h-[46px] px-4 rounded-xl transition font-regular 
+                    text-white text-md cursor-pointer hover:shadow-xl 
+                    hover:scale-[102%] active:scale-95 w-[50%]" (click)="fecharModalConfirmacao()">OK</button>
+            </div>
         </div>
-      </div>
-  } @else{
+    </div>
+    
+  } 
+  
+  @if ( deletar && !naoDeletar && modalConfirmacaoAberto){
 
-      <div
-        class="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
-        (click)="fecharModal()"
-      >
-        <div
-          class="relative w-min rounded-3xl bg-gradient-to-br from-white to-[#ccc] px-10 pt-9 pb-7 shadow-xl"
-          (click)="$event.stopPropagation()"
-        >
-          <div class="mb-6 text-center">
-            <h2 class="poppins text-3xl font-bold text-nowrap text-gray-800">
-              Deseja Mesmo deletar <br />
-              sua solicitação? <br />
-            </h2>
-          </div>
-    
-          <div class="flex justify-center">
-            <button
-              class="bg-mm bg-red-500 hover:bg-mm-dark font-regular text-md h-[46px] w-[30%] mr-3 cursor-pointer rounded-xl px-4 text-white transition hover:scale-[102%] hover:shadow-xl active:scale-95"
-              (click)="deletarSolicitacao()"
-            >
-              Não
-            </button>
-    
-            <button
-              class="bg-mm bg-blue-500 hover:bg-mm-dark font-regular text-md h-[46px] w-[30%] cursor-pointer rounded-xl px-4 text-white transition hover:scale-[102%] hover:shadow-xl active:scale-95"
-              (click)="naoDeletarSolicitacao()"
-            >
-              Sim
-            </button>
-          </div>
+        <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/50" (click)="fecharModal()">
+            <div class="bg-gradient-to-br from-white to-[#ccc] pt-9 px-10 pb-7 rounded-3xl shadow-xl w-min relative" (click)="$event.stopPropagation()">
+                <div class="text-center mb-6">
+                    <h2 class="text-3xl font-bold text-gray-800 poppins text-nowrap">Deleção Cancelada</h2>
+                </div>
+        
+                <div class="flex justify-center">
+                  <button class="bg-mm hover:bg-mm-dark h-[46px] px-4 rounded-xl transition font-regular 
+                        text-white text-md cursor-pointer hover:shadow-xl 
+                        hover:scale-[102%] active:scale-95 w-[50%]" (click)="fecharModalConfirmacao()">OK</button>
+                </div>
+            </div>
         </div>
-      </div>
-  }
-
-
+    }
 
 </main>

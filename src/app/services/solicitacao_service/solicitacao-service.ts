@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Solicitacao } from '../../shared/entities/solicitacao_entity';
+import { solicitacoes as solicitacoesMock} from '../../../assets/mock/solicitacoes_mocks';
 
 const LS_CHAVE = "solicitacoes"
 
@@ -8,6 +9,15 @@ const LS_CHAVE = "solicitacoes"
 })
 
 export class SolicitacaoService {
+
+  inicializarMock(): void{
+    // localStorage.removeItem(LS_CHAVE);
+
+    if(!localStorage[LS_CHAVE]){
+      localStorage[LS_CHAVE] = JSON.stringify(solicitacoesMock)
+    }
+  }
+
   listarTodos(): Solicitacao[] {
     const solicitacoes = localStorage[LS_CHAVE];
     return solicitacoes ? JSON.parse(solicitacoes) : [];

@@ -1,12 +1,14 @@
+import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
-import { EquipamentoService } from '../../../services/equipamento-service/equipamento';
-import { FormsModule } from '@angular/forms';
+import { clientes } from '../../../../assets/mock/clientes_mock';
+import { Status } from '../../../shared/models/enums/status.enum';
 import { Equipamento } from '../../../shared/entities/equipamento_entity';
-import { Solicitacao } from '../../../shared/entities/solicitacao_entity';
 import { SolicitacaoService } from '../../../services/solicitacao_service/solicitacao-service';
-import { solicitacoes } from '../../../../assets/mock/solicitacoes_mocks';
+import { EquipamentoService } from '../../../services/equipamento-service/equipamento-service';
+import { Solicitacao } from '../../../shared/entities/solicitacao_entity';
+import { Categoria } from '../../../shared/models/enums/categoria.enum';
 
 @Component({
     selector: 'app-solicitar',
@@ -16,22 +18,34 @@ import { solicitacoes } from '../../../../assets/mock/solicitacoes_mocks';
 })
 export class Solicitar{
 
-    categorias: Equipamento[] = []
-    component: EquipamentoService = new EquipamentoService()
-    solicitacao = solicitacoes[0];
-    
-    constructor(
-      private solicitacaoService: SolicitacaoService,
-      private router: Router
-    ) {}
-  
-    ngOnInit(): void {
-      this.categorias = this.component.listarTodos()    
-    }
+  constructor(
+    private solicitacaoService: SolicitacaoService,
+    private router: Router
+  ) {}
 
-    inserir(): void {
-      // this.solicitacaoService.inserir(this.solicitacao);
-      this.router.navigate( ["/cliente"] );
+  categoriasEnum = Object.values(Categoria);
+
+    solicitacao = {
+      cliente: clientes[0],
+      status: Status.Aberta,
+      funcionario: null,
+      defeito: "",
+      equipamento: "",
+      historicoStatus: [],
+      categoria: null,
+      dataSolicitacao: ""
+
+    };
+
+
+    realizarSolicitacao(){
+
+      if(!this.solicitacao.categoria) return;
+
+      const novaSolicitacao: Solicitacao = this.solicitacao;
+
+      this.solicitacaoService.inserir(this.solicitacao);
+      this.solicitacaoService.listarTodos();
     }
     
 }

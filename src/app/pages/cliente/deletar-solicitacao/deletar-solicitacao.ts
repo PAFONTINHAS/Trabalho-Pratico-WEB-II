@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-
+import { Component, Input } from '@angular/core';
+import { Solicitacao } from '../../../shared/entities/solicitacao_entity';
+import { SolicitacaoService } from '../../../services/solicitacao_service/solicitacao-service';
 @Component({
   selector: 'app-deletar-solicitacao',
   imports: [],
@@ -9,7 +10,14 @@ import { Component } from '@angular/core';
 
 export class DeletarSolicitacao {
 
+  @Input() solicitacao?: Solicitacao;
+
+  constructor(private solicitacaoService: SolicitacaoService){}
+
+
   modalAberto: boolean = true;
+  modalConfirmacaoAberto: boolean = true;
+
   deletar: boolean = false;
   naoDeletar: boolean = false;
   
@@ -17,15 +25,8 @@ export class DeletarSolicitacao {
     this.modalAberto = false;
   }
 
-  deletarSolicitacao(){
-    this.deletar = true;
-    this.naoDeletar = false;
-  }
-
-  naoDeletarSolicitacao(){
-    this.naoDeletar = true;
-    this.deletar = false
-
+  fecharModalConfirmacao() : void{
+    this.modalConfirmacaoAberto = false;
   }
 
 

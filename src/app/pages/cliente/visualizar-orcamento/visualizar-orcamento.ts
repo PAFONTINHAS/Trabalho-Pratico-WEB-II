@@ -2,6 +2,7 @@ import { Component, Output, EventEmitter, Input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { DeletarSolicitacao } from "../deletar-solicitacao/deletar-solicitacao";
 import { EditarSolicitacao } from "../editar-solicitacao/editar-solicitacao";
+import { Solicitacao } from '../../../shared/entities/solicitacao_entity';
 
 @Component({
   selector: 'app-visualizar-orcamento',
@@ -11,29 +12,18 @@ import { EditarSolicitacao } from "../editar-solicitacao/editar-solicitacao";
   styleUrl: './visualizar-orcamento.css'
 })
 export class VisualizarOrcamento {
-  @Input() orcamento: any;
+  @Input() solicitacao?: Solicitacao | null;
   @Output() fecharModal = new EventEmitter<void>();
 
-  modalDeletar: boolean = false;
-  modalEditar: boolean = false;
+  modalAberto: 'nenhum' | 'deletar' | 'editar' = 'nenhum';
+
+  abrirModal(tipo: 'deletar' | 'editar'){
+    this.modalAberto = tipo;
+  }
 
 
   onFecharModal(): void {
     this.fecharModal.emit();
+    this.modalAberto = 'nenhum';
   }
-
-
-  deletarSolicitacao(){
-    this.modalDeletar = true;
-    this.modalEditar = false;
-  }
-
-  editarSolicitacao(){
-    this.modalDeletar = false;
-    this.modalEditar = true;
-  }
-
-
-
-
 }

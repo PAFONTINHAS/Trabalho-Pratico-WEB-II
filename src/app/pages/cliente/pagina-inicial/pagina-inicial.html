@@ -1,49 +1,51 @@
-<div class="flex flex-col items-center justify-start p-5">
-    <div class="bg-gradient-to-br from-white to-[#ccc] rounded-3xl shadow-xl min-w-[60%] max-w-[80%] px-[70px] py-[60px]">
-        <h1 class="text-4xl font-semibold text-gray-800 mb-5 poppins">Página Inicial</h1>
-        <h2 class="text-2xl font-semibold text-mm mb-5 poppins">Histórico de Solicitações</h2>
-
-        <div class="overflow-x-auto shadow-lg shadow-black/20 rounded-xl">
-            <table class="min-w-full bg-white rounded-xl overflow-hidden">
-                <thead class="bg-mm text-white">
-                    <tr>
-                        <th class="py-3 px-6 text-left font-bold">Dispositivo</th>
-                        <th class="py-3 px-6 text-left font-bold">Descrição</th>
-                        <th class="py-3 px-6 text-left font-bold">Data da solicitação</th>
-                        <th class="py-3 px-6 text-left font-bold">Status</th>
-                        <th class="py-3 px-6 text-center font-bold"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @for (solicitacao of solicitacoes; track solicitacao.id) {
-                        <tr>
-                            <td class="border-t-2 border-gray-200 py-3 px-6">{{ solicitacao.dispositivo }}</td>
-                            <td class="border-t-2 border-gray-200 py-3 px-6">{{ solicitacao.descricao }}</td>
-                            <td class="border-t-2 border-gray-200 py-3 px-6">{{ solicitacao.data }}</td>
-                            <td class="border-t-2 border-gray-200 py-3 px-6 text-md font-semibold">
-                                <span [ngClass]="statusClasses(solicitacao.estado.toUpperCase())">
-                                    {{solicitacao.estado.toUpperCase()}}
-                                </span>
-                            </td>
-
-                            <td class="border-t-2 border-gray-200 py-3 px-6">
-                                <button (click)="abrirModalOrcamento(solicitacao)" class="bg-mm hover:bg-mm-dark h-[46px] px-4 rounded-xl transition font-regular 
-                                        text-white text-md cursor-pointer hover:shadow-xl hover:shadow-mm-shadow 
-                                        hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap">
-                                    Ver Detalhes
-                                </button>
-                            </td>
-                            
-
-                        </tr>
-                    }
-                </tbody>
-            </table>
+<main>
+        <div class="flex flex-col items-center justify-start p-5">
+            <div class="bg-gradient-to-br from-white to-[#ccc] rounded-3xl shadow-xl min-w-[60%] max-w-[80%] px-[70px] py-[60px]">
+                <h1 class="text-4xl font-semibold text-gray-800 mb-5 poppins">Página Inicial</h1>
+                <h2 class="text-2xl font-semibold text-mm mb-5 poppins">Histórico de Solicitações</h2>
+        
+                <div class="overflow-x-auto shadow-lg shadow-black/20 rounded-xl">
+                    <table class="min-w-full bg-white rounded-xl overflow-hidden">
+                        <thead class="bg-mm text-white">
+                            <tr>
+                                <th class="py-3 px-6 text-left font-bold">Dispositivo</th>
+                                <th class="py-3 px-6 text-left font-bold">Descrição</th>
+                                <th class="py-3 px-6 text-left font-bold">Data da solicitação</th>
+                                <th class="py-3 px-6 text-left font-bold">Status</th>
+                                <th class="py-3 px-6 text-center font-bold"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (solicitacao of solicitacoes; track solicitacao.id) {
+                                <tr>
+                                    <td class="border-t-2 border-gray-200 py-3 px-6">{{ solicitacao.equipamento }}</td>
+                                    <td class="border-t-2 border-gray-200 py-3 px-6">{{ solicitacao.defeito }}</td>
+                                    <td class="border-t-2 border-gray-200 py-3 px-6">{{ solicitacao.dataSolicitacao }}</td>
+                                    <td class="border-t-2 border-gray-200 py-3 px-6 text-md font-semibold">
+                                        <span [ngClass]="statusClasses(solicitacao.status.toUpperCase())">
+                                            {{solicitacao.status.toUpperCase()}}
+                                        </span>
+                                    </td>
+        
+                                    <td class="border-t-2 border-gray-200 py-3 px-6">
+                                        <button (click)="abrirModalOrcamento(solicitacao)" class="bg-mm hover:bg-mm-dark h-[46px] px-4 rounded-xl transition font-regular 
+                                                text-white text-md cursor-pointer hover:shadow-xl hover:shadow-mm-shadow 
+                                                hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap">
+                                            Ver Detalhes
+                                        </button>
+                                    </td>
+                                    
+        
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
-
-@if (mostrarModalSolicitacao) {
-  <app-visualizar-orcamento [orcamento]="solicitacaoSelecionado" (fecharModal)="fecharModalOrcamento()"></app-visualizar-orcamento>
-}
+        
+        @if (mostrarModalSolicitacao) {
+            <app-visualizar-orcamento [solicitacao]="solicitacaoSelecionado" (fecharModal)="fecharModalOrcamento()"></app-visualizar-orcamento>
+        }
+</main>
 

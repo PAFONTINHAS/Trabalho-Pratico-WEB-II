@@ -1,4 +1,4 @@
-import { Funcionario } from '../../../backup/models/funcionario.model';
+import { Funcionario } from "../../../backup/models/funcionario.model";
 
 export const funcionarios: Funcionario[] = [
   {
