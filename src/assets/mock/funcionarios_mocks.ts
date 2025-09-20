@@ -1,4 +1,4 @@
-import { Funcionario } from '../../../backup/models/funcionario.model';
+import { Funcionario } from "../../app/shared/entities/funcionario_entity";
 
 export const funcionarios: Funcionario[] = [
   {

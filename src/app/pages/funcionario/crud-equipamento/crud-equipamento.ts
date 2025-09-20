@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Equipamento } from '../../../../../backup/models/equipamento.model';
-import { EquipamentoService } from '../../../services/equipamento-service/equipamento';
+import { Equipamento } from '../../../shared/entities/equipamento_entity';
+import { EquipamentoService } from '../../../services/equipamento-service/equipamento-service';
 import { Router, RouterModule } from '@angular/router';
 
 interface Categoria {
@@ -18,6 +18,7 @@ interface Categoria {
 export class EquipamentoComponent implements OnInit {
 
   categorias: Equipamento[] = []
+  
 
   constructor(
     private equipamentoService: EquipamentoService,
@@ -32,7 +33,7 @@ export class EquipamentoComponent implements OnInit {
   editando = false;
   equipamento: Equipamento = new Equipamento()
 
-  // abrir 
+  // abrir
   abrirFormulario() {
     this.formVisivel = true;
     this.editando = false;
@@ -44,7 +45,7 @@ export class EquipamentoComponent implements OnInit {
     this.equipamento = { id: 0, nome: '' };
   }
 
-  // salvar 
+  // salvar
   salvarCategoria() {
     if (this.equipamento.nome.trim() === '') return;
 

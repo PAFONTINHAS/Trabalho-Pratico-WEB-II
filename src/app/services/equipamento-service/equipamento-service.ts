@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Equipamento } from '../../../../backup/models/equipamento.model';
-
+import { Equipamento } from '../../shared/entities/equipamento_entity';
 const LS_CHAVE = "equipamentos"
 
 @Injectable({
@@ -17,7 +16,7 @@ export class EquipamentoService {
     const equipamentos = this.listarTodos();
     equipamento.id = new Date().getTime();
     equipamentos.push(equipamento);
-    
+
     localStorage[LS_CHAVE] = JSON.stringify(equipamentos);
   }
 
@@ -35,7 +34,7 @@ export class EquipamentoService {
     });
 
     localStorage[LS_CHAVE] = JSON.stringify(equipamentos);
-  } 
+  }
 
   remover(id: number): void {
     let equipamentos = this.listarTodos();

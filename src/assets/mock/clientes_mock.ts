@@ -1,4 +1,4 @@
-import { Cliente } from '../../../backup/data/initial-data';
+import { Cliente } from "../../app/shared/entities/cliente_entity";
 
 export const clientes: Cliente[] = [
   {
