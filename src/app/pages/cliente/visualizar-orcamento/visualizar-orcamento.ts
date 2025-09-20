@@ -3,6 +3,9 @@ import { RouterLink } from '@angular/router';
 import { DeletarSolicitacao } from "../deletar-solicitacao/deletar-solicitacao";
 import { EditarSolicitacao } from "../editar-solicitacao/editar-solicitacao";
 import { Solicitacao } from '../../../shared/entities/solicitacao_entity';
+import { ModaisConfirmacao } from '../modais-confirmacao/modais-confirmacao';
+import { ResgatarServico } from '../resgatar-servico/resgatar-servico';
+import { RejeitarOrcamento } from '../rejeitar-orcamento/rejeitar-orcamento';
 
 @Component({
   selector: 'app-visualizar-orcamento',

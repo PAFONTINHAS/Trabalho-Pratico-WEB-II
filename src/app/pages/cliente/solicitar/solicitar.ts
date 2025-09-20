@@ -1,18 +1,17 @@
-import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { clientes } from '../../../../assets/mock/clientes_mock';
 import { Status } from '../../../shared/models/enums/status.enum';
-import { Equipamento } from '../../../shared/entities/equipamento_entity';
+import { FormsModule } from '@angular/forms';
 import { SolicitacaoService } from '../../../services/solicitacao_service/solicitacao-service';
-import { EquipamentoService } from '../../../services/equipamento-service/equipamento-service';
 import { Solicitacao } from '../../../shared/entities/solicitacao_entity';
 import { Categoria } from '../../../shared/models/enums/categoria.enum';
+import { ModaisConfirmacao } from '../modais-confirmacao/modais-confirmacao';
 
 @Component({
     selector: 'app-solicitar',
-    imports: [RouterLink, CommonModule, FormsModule],
+    imports: [RouterLink, CommonModule, FormsModule, ModaisConfirmacao],
     templateUrl: './solicitar.html',
     styleUrl: './solicitar.css'
 })
@@ -22,6 +21,8 @@ export class Solicitar{
     private solicitacaoService: SolicitacaoService,
     private router: Router
   ) {}
+
+  modalSolicitacaoCriada:boolean = false;
 
   categoriasEnum = Object.values(Categoria);
 
@@ -44,9 +45,10 @@ export class Solicitar{
 
       const novaSolicitacao: Solicitacao = this.solicitacao;
 
-      this.solicitacaoService.inserir(this.solicitacao);
+      this.solicitacaoService.inserir(novaSolicitacao);
       this.solicitacaoService.listarTodos();
+
+      this.modalSolicitacaoCriada = true;
     }
-    
 }
 

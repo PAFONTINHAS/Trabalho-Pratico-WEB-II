@@ -1,7 +1,7 @@
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { Funcionario } from '../../../../../backup/models/funcionario.model';
+import { Funcionario } from '../../../shared/entities/funcionario_entity';
 import { FuncionarioService } from '../../../services/funcionario-service/funcionario-service';
 
 @Component({

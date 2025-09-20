@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { Funcionario } from '../../../../../backup/models/funcionario.model';
+import { Funcionario } from '../../../shared/entities/funcionario_entity';
 import { FuncionarioService } from '../../../services/funcionario-service/funcionario-service';
 
 @Component({
@@ -14,7 +14,15 @@ import { FuncionarioService } from '../../../services/funcionario-service/funcio
 
 export class EditarFuncionario implements OnInit{
   @ViewChild('formFunci') formFunci! : NgForm
-  funcionario : Funcionario = new Funcionario()
+  // funcionario : Funcionario = new Funcionario()
+
+  funcionario = {
+    id: 0,
+    nome: '' ,
+    email: '',
+    dataNasc: '' ,
+    senha: '' ,
+  }
 
   constructor(
     private funciService: FuncionarioService,
@@ -28,7 +36,7 @@ export class EditarFuncionario implements OnInit{
 
     if (res !== undefined)
       this.funcionario = res;
-    else 
+    else
       throw new Error ("Pessoa não encontrada: id = " + id);
   }
 
