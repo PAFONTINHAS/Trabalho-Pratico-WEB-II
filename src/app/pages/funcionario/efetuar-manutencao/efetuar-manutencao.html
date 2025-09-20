@@ -1,87 +1,56 @@
-<!-- 
- 
-    MUDAR ESSA PÁGINA, SEGUINDO O DESIGN DO FIGMA
+<!-- BOTÃO PARA ABRIR O MODAL -->
+<button
+  onclick="document.getElementById('modal').classList.remove('hidden')"
+  class="bg-blue-500 px-4 py-2 text-white rounded-lg hover:bg-blue-600 transition">
+  Abrir Modal
+</button>
 
+<!-- MODAL -->
+<div id="modal" class="fixed inset-0 flex items-center justify-center bg-black/50 z-50 hidden">
+  <div class="w-full max-w-xl px-[70px] py-[60px] bg-gradient-to-br from-white to-[#ccc] rounded-3xl shadow-xl relative">
 
+    <!-- BOTÃO FECHAR -->
+    <button
+      onclick="document.getElementById('modal').classList.add('hidden')"
+      class="absolute top-4 left-4 text-gray-600 hover:text-red-500 text-2xl">
+      &times;
+    </button>
 
--->
+    <p class="text-gray-800 font-semibold text-4xl mb-3 select-none poppins">
+      Efetuar Manutenção
+    </p>
 
-<div>
-    <div>
-        <h1> Solicitação N</h1>
+    <div class="flex-col gap-3">
+      <p class="font-semibold text-md mb-2">Descrição da Manutenção:</p>
+      <textarea
+        class="border-gray-400 mb-5 rounded-lg border placeholder:text-gray-400 h-32 px-3 py-2 transition w-full focus:border-mm focus:shadow-xl focus:shadow-mm-shadow hover:border-mm resize-none"
+        name="descricao"
+        placeholder="Descreva o que foi feito no equipamento de forma técnica para a equipe técnica"
+        required></textarea>
+
+      <p class="font-semibold text-md mb-2">Orientações para o cliente:</p>
+      <textarea
+        class="border-gray-400 mb-5 rounded-lg border placeholder:text-gray-400 h-32 px-3 py-2 transition w-full focus:border-mm focus:shadow-xl focus:shadow-mm-shadow hover:border-mm resize-none"
+        name="orientacoes"
+        placeholder="Descreva o que foi feito de forma simples para o cliente e os devidos cuidados"
+        required></textarea>
+
+      <div class="flex flex-row gap-4 items-center justify-center mt-5">
+        <button
+          onclick="document.getElementById('modal').classList.add('hidden')"
+          class="bg-red-500 h-[50px] w-[35%] rounded-xl transition font-regular
+          text-white text-lg cursor-pointer hover:shadow-xl hover:shadow-mm-shadow
+          hover:bg-mm-dark hover:scale-[102%] active:scale-95">
+          Cancelar
+        </button>
+
+        <button
+          class="bg-green-500 h-[50px] w-[45%] rounded-xl transition font-regular
+          text-white text-lg cursor-pointer hover:shadow-xl hover:shadow-mm-shadow
+          hover:bg-mm-dark hover:scale-[102%] active:scale-95">
+          Efetuar Manutenção
+        </button>
+      </div>
     </div>
-
-    <div>
-        <table style="width: 100%;">
-            <caption>Dados do cliente</caption>
-            <tr>
-                <th>Nome</th>
-                <th>Telefone</th>
-                <th>Email</th>
-                <th>CPF</th>
-            </tr>
-
-            <tr style="text-align: center;">
-                <td>Joana</td>
-                <td>(41) 99898-9898</td>
-                <td>joana@email.com</td>
-                <td>967.275.220-22</td>
-            </tr>
-
-            <tr>
-                <th>Bairro</th>
-                <th>Rua</th>
-                <th>Número</th>
-                <th>Complemento</th>
-            </tr>
-
-            <tr style="text-align: center;">
-                <td>Mercês</td>
-                <td>Manoel Ribas</td>
-                <td>1230</td>
-                <td> - </td>
-            </tr>
-        </table>
-    </div>
-
-    <div>
-        <table style="width: 100%;">
-            <caption>Dados da solicitação</caption>
-            <tr>
-                <th>Descrição equipamento</th>
-                <th>Categoria</th>
-                <th>Descrição defeito</th>
-                <th> Data</th>
-                <th> Hora</th>
-                <th>Estado</th>
-            </tr>
-
-            <tr style="text-align: center;">
-                <td>lorem ipsum</td>
-                <td>categoria 1</td>
-                <td>lorem ipsum</td>
-                <td>13/08/2025</td>
-                <td>14:44</td>
-                <td> Aprovada</td>
-            </tr>
-        </table>
-    </div>
-
-    <div>
-        <form>
-            <div>
-                <label>Descrição da manutenção: </label>
-                <input type="text" />
-            </div>
-            <div>
-                <label>Orientações para o cliente: </label>
-                <input type="text"/>
-            </div>
-            <button type="submit">Cadastrar Manutenção</button>
-        </form>
-    </div>
-    
-    <button [routerLink]="['/funcionario/mover-manutencao']">Redirecionar Manutenção</button>
-
+  </div>
 </div>
-
