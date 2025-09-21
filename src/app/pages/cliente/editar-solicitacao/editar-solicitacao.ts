@@ -6,7 +6,7 @@ import { Categorias } from '../../../shared/models/enums/categoria.enum';
 import { SolicitacaoService } from '../../../services/solicitacao_service/solicitacao-service';
 @Component({
   selector: 'app-editar-solicitacao',
-  imports: [RouterLink, FormsModule],
+  imports: [FormsModule],
   templateUrl: './editar-solicitacao.html',
   styleUrl: './editar-solicitacao.css'
 })
