@@ -1,4 +1,4 @@
-export enum Categoria {
+export enum Categorias {
   Notebook = 'Notebook',
   Desktop = 'Desktop',
   Impressora = 'Impressora',

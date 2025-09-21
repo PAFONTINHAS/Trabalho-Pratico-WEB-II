@@ -6,7 +6,7 @@ import { Status } from '../../../shared/models/enums/status.enum';
 import { FormsModule } from '@angular/forms';
 import { SolicitacaoService } from '../../../services/solicitacao_service/solicitacao-service';
 import { Solicitacao } from '../../../shared/entities/solicitacao_entity';
-import { Categoria } from '../../../shared/models/enums/categoria.enum';
+import { Categorias } from '../../../shared/models/enums/categoria.enum';
 import { ModaisConfirmacao } from '../modais-confirmacao/modais-confirmacao';
 
 @Component({
@@ -24,7 +24,7 @@ export class Solicitar{
 
   modalSolicitacaoCriada:boolean = false;
 
-  categoriasEnum = Object.values(Categoria);
+  categoriasEnum = Object.values(Categorias);
 
     solicitacao = {
       cliente: clientes[0],
