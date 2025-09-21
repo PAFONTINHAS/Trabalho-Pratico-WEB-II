@@ -22,8 +22,8 @@
                 required
             >
                 <option value="">Selecione</option>
-                @for(categoria of categoriasEnum; track categoria) {
-                <option [ngValue]="categoria">{{categoria}}</option>
+                @for(categoria of categorias; track categoria) {
+                <option [ngValue]="categoria">{{categoria.nome}}</option>
                 }
             </select>
 

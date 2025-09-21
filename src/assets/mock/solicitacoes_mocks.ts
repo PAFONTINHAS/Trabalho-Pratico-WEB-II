@@ -13,7 +13,7 @@ export const solicitacoes: Solicitacao[] = [
     funcionario: funcionarios[0],
     equipamento: 'Notebook Dell XPS 13',
     defeito: 'Luzes piscando',
-    categoria: Categorias.Notebook,
+    categoria: Categorias[0],
     dataSolicitacao: '10/09/2025 - 09:30',
     status: Status.Aberta,
     historicoStatus: [
@@ -26,7 +26,7 @@ export const solicitacoes: Solicitacao[] = [
     funcionario: funcionarios[1],
     equipamento: 'Desktop HP Pavilion',
     defeito: 'Não liga',
-    categoria: Categorias.Desktop,
+    categoria: Categorias[1],
     dataSolicitacao: '10/09/2025 - 11:45',
     status: Status.Aberta,
     historicoStatus: [
@@ -39,7 +39,7 @@ export const solicitacoes: Solicitacao[] = [
     funcionario: funcionarios[0],
     equipamento: 'Impressora Epson EcoTank',
     defeito: 'Atolando papel',
-    categoria: Categorias.Impressora,
+    categoria: Categorias[2],
     dataSolicitacao: '11/09/2025 - 14:00',
     status: Status.Aberta,
     historicoStatus: [
@@ -52,7 +52,7 @@ export const solicitacoes: Solicitacao[] = [
     funcionario: funcionarios[1],
     equipamento: 'Mouse Logitech MX Master',
     defeito: 'Botão direito falhando',
-    categoria: Categorias.Mouse,
+    categoria: Categorias[3],
     dataSolicitacao: '11/09/2025 - 16:20',
     status: Status.Aberta,
     historicoStatus: [
@@ -67,7 +67,7 @@ export const solicitacoes: Solicitacao[] = [
     funcionario: funcionarios[0],
     equipamento: 'Teclado Redragon',
     defeito: 'Algumas teclas não respondem',
-    categoria: Categorias.Teclado,
+    categoria: Categorias[4],
     dataSolicitacao: '12/09/2025 - 10:10',
     status: Status.Orcada,
     valorOrcamento: 150.0,

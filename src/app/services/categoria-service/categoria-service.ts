@@ -53,4 +53,20 @@ export class CategoriaService {
     categorias = categorias.filter(categoria => categoria.id !== id);
     this.atualizarDados(categorias);
   }
+
+  inserirCategoriasBase(categoria: Categoria): void {
+    const categorias = this.listarTodos();
+    let exists: Boolean = false;
+    categorias.forEach( (obj) => {
+      if (categoria.nome === obj.nome) {
+        exists = true
+      }
+    });
+
+    if(!exists) {
+      categorias.push(categoria);
+      this.atualizarDados(categorias);
+    }
+
+  }
 }

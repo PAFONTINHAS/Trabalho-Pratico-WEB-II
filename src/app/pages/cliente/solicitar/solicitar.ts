@@ -6,8 +6,8 @@ import { Status } from '../../../shared/models/enums/status.enum';
 import { FormsModule } from '@angular/forms';
 import { SolicitacaoService } from '../../../services/solicitacao_service/solicitacao-service';
 import { Solicitacao } from '../../../shared/entities/solicitacao_entity';
-import { Categorias } from '../../../shared/models/enums/categoria.enum';
 import { ModaisConfirmacao } from '../modais-confirmacao/modais-confirmacao';
+import { CategoriaService } from '../../../services/categoria-service/categoria-service';
 
 @Component({
     selector: 'app-solicitar',
@@ -23,8 +23,9 @@ export class Solicitar{
   ) {}
 
   modalSolicitacaoCriada:boolean = false;
+  categoriaService: CategoriaService = new CategoriaService()
 
-  categoriasEnum = Object.values(Categorias);
+  categorias = this.categoriaService.listarTodos()
 
     solicitacao = {
       cliente: clientes[0],

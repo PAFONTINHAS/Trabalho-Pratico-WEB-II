@@ -5,6 +5,7 @@ import { Router, RouterModule } from '@angular/router';
 import { Categoria } from '../../../shared/entities/categoria_entity';
 import { CategoriaService } from '../../../services/categoria-service/categoria-service';
 import { Subscription } from 'rxjs';
+import { Categorias } from '../../../shared/models/enums/categoria.enum';
 
 
 @Component({
@@ -30,6 +31,7 @@ export class CategoriaComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    Categorias.forEach(categoria => this.categoriaService.inserirCategoriasBase(categoria))
     this.subscription = this.categoriaService.categorias$.subscribe(data => {
       this.categorias = data;
     });
