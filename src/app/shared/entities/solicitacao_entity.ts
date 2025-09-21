@@ -1,9 +1,8 @@
 import { Cliente } from "./cliente_entity";
 import { Status } from "../models/enums/status.enum";
 import { Funcionario } from "./funcionario_entity";
-import { Categoria } from "../models/enums/categoria.enum";
+import { Categorias } from "../models/enums/categoria.enum";
 import { HistoricoStatus } from "./historico_status_entity";
-import { Equipamento } from "./equipamento_entity";
 
 export interface Solicitacao {
 
@@ -13,7 +12,7 @@ export interface Solicitacao {
     funcionario: Funcionario | null;
     equipamento: string;
     defeito: string;
-    categoria?: Categoria | null;
+    categoria?: Categorias | null;
     dataSolicitacao: string;
     status: Status
     valorOrcamento? : number | null;

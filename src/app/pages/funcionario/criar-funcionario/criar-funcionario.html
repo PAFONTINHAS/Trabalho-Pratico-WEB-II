@@ -1,67 +1,137 @@
-<h1>Novo Funcionário</h1>
-<div>
-    <form #formFunci="ngForm">
-        <div>
-            <label for="nome">Nome:</label>
-            <input type="text" class="form-control" id="nome" name="nome"
-                [(ngModel)]="funcionario.nome"
-                #nome="ngModel"
-                minlength="2" required/>
-            @if(nome.errors && (nome.dirty || nome.touched)) {
-                <div>
-                    <div [hidden]="!nome.errors['required']"> Digite o nome do funcionario. </div>
-                    <div [hidden]="!nome.errors['minlength']"> O nome deve conter ao menos 2 caracteres. </div>
-                </div>
-            }
-        </div>
-        <div>
-            <label for="email">Email:</label>
-            <input type="text" class="form-control" id="email" name="email" 
-                [(ngModel)]="funcionario.email"
-                #email="ngModel"
-                required>
-            
-            @if(nome.errors && (nome.dirty || nome.touched)) {
-                <div class="alert alert-danger">
-                    <div> Digite o email do funcionario. </div>
-                </div>
-            }
-        </div>
-        <div>
-            <label for="dataNasc">Data de Nascimento:</label>
-            <input type="text" class="form-control" id="dataNasc" name="dataNasc" 
-                [(ngModel)]="funcionario.dataNasc"
-                #dataNasc="ngModel"
-                required>
-
-            @if(nome.errors && (nome.dirty || nome.touched)) {
-                <div class="alert alert-danger">
-                    <div> Digite a data de nascimento do funcionario. </div>
-                </div>
-            }
-        </div>
-        <div>
-            <label for="senha">Senha:</label>
-            <input type="password" class="form-control" id="senha" name="senha" 
-                [(ngModel)]="funcionario.senha"
-                #senha="ngModel"
-                required>
-
-            @if(senha.errors && (senha.dirty || senha.touched)) {
-                <div class="alert alert-danger">
-                    <div> Digite a senha do funcionario. </div>
-                </div>
-            }
-        </div>
-        <div class="form-group">
-            <button type="button" class="btn btn-primary"
-            (click)="inserir()"
-            [disabled]="!formFunci.form.valid">
-                Salvar
-            </button>
-                <a [routerLink]="['/funcionario/gerenciar-funcionarios']">
-                    Voltar
-                </a>
-        </div>
-    </form>
+<div class="flex flex-col items-center justify-start p-5">
+<div class="bg-gradient-to-br from-white to-[#ccc] rounded-3xl shadow-xl min-w-[60%] max-w-[80%] px-[70px] py-[60px]">
+  <h1 class="text-4xl font-semibold text-gray-800 mb-4">Gerenciar funcionários</h1>
+  
+  <!-- Botão Nova funcionario -->
+  <button
+    (click)="abrirFormulario()"
+    class="bg-mm hover:bg-mm-dark h-[46px] px-4 rounded-xl transition font-regular 
+      text-white text-md cursor-pointer hover:shadow-xl hover:shadow-mm-shadow 
+      hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap mb-4"
+  >
+    + Novo funcionário
+  </button>
+  
+  <!-- Formulário -->
+  <div
+    *ngIf="formVisivel"
+    class="bg-gray-50 border border-gray-200 rounded-xl p-6 w-full mb-6"
+  >
+    <h2 class="text-lg font-semibold mb-4 text-gray-800">
+      {{ editando ? 'Editar funcionario' : 'Nova funcionario' }}
+    </h2>
+    <div class="flex gap-3">
+      <div class="flex flex-col">
+        <p>Nome</p>
+        <input
+          type="text"
+          [(ngModel)]="funcionario.nome"
+          placeholder="Digite o nome"
+          #nome="ngModel"
+          class="w-full border border-gray-300 rounded-md p-3 mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
+      <div class="flex flex-col">
+        <p>Nome</p>
+        <input
+          type="text"
+          [(ngModel)]="funcionario.email"
+          placeholder="email@email.com"
+          #nome="ngModel"
+          class="w-full border border-gray-300 rounded-md p-3 mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
+      <div class="flex flex-col">
+        <p>Nome</p>
+        <input
+          type="text"
+          [(ngModel)]="funcionario.dataNasc"
+          placeholder="10/10/2000"
+          #nome="ngModel"
+          class="w-full border border-gray-300 rounded-md p-3 mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
+      <div class="flex flex-col">
+        <p>Nome</p>
+        <input
+          type="text"
+          [(ngModel)]="funcionario.senha"
+          placeholder="Digite a senha"
+          #nome="ngModel"
+          class="w-full border border-gray-300 rounded-md p-3 mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
+    </div>
+    <div class="flex justify-center gap-2">
+      <button
+        (click)="salvar()"
+        class="bg-green-600 hover:bg-green-700 h-[46px] px-4 rounded-xl transition font-regular 
+      text-white text-md cursor-pointer hover:shadow-xl
+      hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap"
+      >
+        Salvar
+      </button>
+      <button
+        (click)="cancelar()"
+        class="bg-red-600 hover:bg-red-700 h-[46px] px-4 rounded-xl transition font-regular 
+      text-white text-md cursor-pointer hover:shadow-xl
+      hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap"
+      >
+        Cancelar
+      </button>
+  </div>
+  </div>
+  
+  <!-- Listagem -->
+  <div class="bg-white border border-gray-200 rounded-xl p-4">
+    <h2 class="text-lg font-semibold mb-4 text-gray-800">Lista de funcionários</h2>
+    <div class="overflow-x-auto">
+      <table class="w-full border-collapse">
+        <thead>
+          <tr class="bg-gray-100 text-left">
+            <th class="p-3 border border-gray-300 font-semibold">E-mail</th>
+            <th class="p-3 border border-gray-300 font-semibold">Nome</th>
+            <th class="p-3 border border-gray-300 text-center font-semibold">Data de Nascimento</th>
+            <th class="p-3 border border-gray-300 text-center font-semibold">Senha</th>
+            <th class="p-3 border border-gray-300 text-center font-semibold">Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="let funcionario of funcionarios"
+            class="hover:bg-gray-50 transition-colors"
+          >
+            <td class="p-3 border border-gray-300">{{ funcionario.email }}</td>
+            <td class="p-3 border border-gray-300">{{ funcionario.nome }}</td>
+            <td class="p-3 border border-gray-300">{{ funcionario.dataNasc }}</td>
+            <td class="p-3 border border-gray-300">{{ funcionario.senha }}</td>
+            <td class="p-3 border border-gray-300 text-center">
+              <button
+                (click)="editarForm(funcionario)"
+                class="bg-yellow-500 hover:bg-yellow-600 h-[46px] px-4 rounded-xl transition font-regular 
+                  text-white text-md cursor-pointer hover:shadow-xl
+                  hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap mr-4"
+              >
+                Editar
+              </button>
+              <button
+                (click)="remover($event, funcionario)"
+                class="bg-red-500 hover:bg-red-600 h-[46px] px-4 rounded-xl transition font-regular 
+                text-white text-md cursor-pointer hover:shadow-xl
+                hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap"
+              >
+                Remover
+              </button>
+            </td>
+          </tr>
+          <tr *ngIf="funcionarios.length === 0">
+            <td colspan="5" class="p-4 text-center text-gray-500 border border-gray-300">
+              Nenhum funcionário cadastrado.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
 </div>

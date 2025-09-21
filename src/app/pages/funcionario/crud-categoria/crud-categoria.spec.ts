@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GerenciarFuncionarios } from './gerenciar-funcionarios';
+import { CategoriaComponent } from './crud-categoria';
 
-describe('GerenciarFuncionarios', () => {
-  let component: GerenciarFuncionarios;
-  let fixture: ComponentFixture<GerenciarFuncionarios>;
+describe('CategoriaComponent', () => {
+  let component: CategoriaComponent;
+  let fixture: ComponentFixture<CategoriaComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [GerenciarFuncionarios]
+      imports: [CategoriaComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(GerenciarFuncionarios);
+    fixture = TestBed.createComponent(CategoriaComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

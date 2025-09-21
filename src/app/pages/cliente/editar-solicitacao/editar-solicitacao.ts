@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { Solicitacao } from '../../../shared/entities/solicitacao_entity';
-import { Categoria } from '../../../shared/models/enums/categoria.enum';
+import { Categorias } from '../../../shared/models/enums/categoria.enum';
 import { SolicitacaoService } from '../../../services/solicitacao_service/solicitacao-service';
 @Component({
   selector: 'app-editar-solicitacao',
@@ -19,7 +19,7 @@ export class EditarSolicitacao {
 
   modalAberto:boolean = true;
 
-  categoriasEnum = Object.values(Categoria);
+  categoriasEnum = Object.values(Categorias);
 
   novaSolicitacao = this.solicitacao;
 
