@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, ViewChild } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
-import { Funcionario } from '../../../../../backup/models/funcionario.model';
+import { Funcionario } from '../../../shared/entities/funcionario_entity';
 import { FuncionarioService } from '../../../services/funcionario-service/funcionario-service';
 
 @Component({
@@ -14,7 +14,16 @@ import { FuncionarioService } from '../../../services/funcionario-service/funcio
 
 export class CriarFuncionario {
   @ViewChild("formFunci") formFunci!: NgForm
-  funcionario: Funcionario = new Funcionario()
+
+  funcionario = {
+    id: 0,
+    nome: '' ,
+    email: '',
+    dataNasc: '' ,
+    senha: '' ,
+  }
+
+  // funcionario: Funcionario = new Funcionario()
 
   constructor(
     private funcionarioService: FuncionarioService,
