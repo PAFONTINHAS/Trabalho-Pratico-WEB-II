@@ -1,57 +1,99 @@
-    <section class="solicitacoes">
+<main class="flex flex-col items-center justify-start p-5">
+  <div class="bg-gradient-to-br from-white to-[#ccc] rounded-3xl shadow-xl min-w-[60%] max-w-[80%] px-[70px] py-[60px]">
+      
+      <h1 class="text-4xl font-semibold text-gray-800 mb-5 poppins">Página de Solicitações</h1>
+      <h2 class="text-2xl font-semibold text-mm mb-5 poppins">Todas as Solicitações</h2>
+      
+      <div class="flex items-center justify-between mb-6">
+          <div class="flex items-center gap-3">
+              <span class="font-semibold">Filtrar por:</span>
+              <select (change)="mudarFiltro($any($event.target).value)"
+                  class="border-gray-400 rounded-lg border placeholder:text-gray-400 h-10 px-3 transition w-min focus:border-mm focus:shadow-xl focus:shadow-mm-shadow hover:border-mm cursor-pointer hover:shadow-md">
+                  <option value="todas">Todas</option>
+                  <option value="hoje">Hoje</option>
+                  <option value="entreDatas">Período de datas</option>
+              </select>
+          </div>
+          
+          @if(filtro === 2){
+              <div class="flex items-center gap-3">
+                  <span class="font-semibold">De:</span>
+                  <input type="date" [(ngModel)]="dataInicioFiltro"
+                      class="border-gray-400 rounded-lg border h-10 px-3 transition focus:border-mm focus:shadow-xl focus:shadow-mm-shadow hover:border-mm cursor-pointer hover:shadow-md" />
+                  
+                  <span class="font-semibold">Até:</span>
+                  <input type="date" [(ngModel)]="dataFimFiltro"
+                      class="border-gray-400 rounded-lg border h-10 px-3 transition focus:border-mm focus:shadow-xl focus:shadow-mm-shadow hover:border-mm cursor-pointer hover:shadow-md" />
+                  
+                  <button (click)="filtrarSolicitacoesPorData()"
+                      class="bg-mm hover:bg-mm-dark h-10 px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:shadow-mm-shadow hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap">
+                      Filtrar
+                  </button>
+              </div>
+          }
+      </div>
 
-        <div class="header-table">
-            <h2>Todas as solicitações</h2>
-            
-            <div class="filtro">
-                <h2>Filtrar por: </h2>
-                <select  class="selecionar" name="" id="">
-                    <option value="todas" (click)="mudarFiltro('todas')">Todas</option>
-                    <option value="hoje" (click)="mudarFiltro('hoje')">Hoje</option>
-                    <option value="entreDatas" (click)="mudarFiltro('entreDatas')" >Período de datas</option>
-                </select>
-
-                @if(filtro === 2){
-
-                    <div class="selecionar-datas">
-
-                        <h2 class="titulo-periodo">De:</h2>
-                        <input class="selecionar" type="date" name="inicio" [(ngModel)]="dataInicioFiltro"> 
-
-                        <h2 class="titulo-periodo">Até:</h2>
-                        <input class="selecionar" type="date" name="final" [(ngModel)]="dataFimFiltro"> 
-                        
-                        <button class="filtrarDatas" (click)="filtrarSolicitacoesPorData()">Filtrar</button>
-                    </div>
-                    
-                }
-                
-
-            </div>
-
-        </div>
-
-        <table>
-            <tr>
-                <th>equipamento</th>
-                <th>descricao</th>
-                <th>data da solicitação</th>
-                <th>status</th>
-                <th></th>
-
-            </tr>
-            @for (solicitacao of solicitacoesFiltradas; track solicitacao.id) {
-                <tr>
-                    <td class="colunas">{{solicitacao.equipamento}}</td>
-                    <td class="colunas">{{solicitacao.descricao}}</td>
-                    <td class="colunas">{{ formatarData(solicitacao.dataSolicitacao)}}</td>
-                    <td class="colunas status">{{solicitacao.status}}</td>
-                    <td class="efetuar_orcamento"><button [routerLink]="['/funcionario/orcamento']">Efetuar Orçamento</button></td>
-                </tr>
-            }
-
-            @if( solicitacoesFiltradas.length === 0){
-                <h2 style="color: black;">Sem Solicitações para hoje</h2>
-            }
-        </table>
-    </section>
+      <div class="overflow-x-auto shadow-lg shadow-black/20 rounded-xl">
+          <table class="min-w-full bg-white rounded-xl overflow-hidden">
+              <thead class="bg-mm text-white">
+                  <tr>
+                      <th class="py-3 px-6 text-left font-bold">Cliente</th>
+                      <th class="py-3 px-6 text-left font-bold">Equipamento</th>
+                      <th class="py-3 px-6 text-left font-bold">Descrição</th>
+                      <th class="py-3 px-6 text-left font-bold">Data da solicitação</th>
+                      <th class="py-3 px-6 text-left font-bold">Status</th>
+                      <th class="py-3 px-6 text-center font-bold"></th>
+                  </tr>
+              </thead>
+              <tbody>
+                  @for (solicitacao of solicitacoesFiltradas; track solicitacao.id) {
+                      <tr class="hover:bg-gray-50 transition-colors">
+                          <td class="border-t-2 border-gray-200 py-3 px-6">{{ solicitacao.cliente }}</td>
+                          <td class="border-t-2 border-gray-200 py-3 px-6">{{ solicitacao.equipamento }}</td>
+                          <td class="border-t-2 border-gray-200 py-3 px-6">{{ solicitacao.descricao }}</td>
+                          <td class="border-t-2 border-gray-200 py-3 px-6">{{ formatarData(solicitacao.dataSolicitacao) }}</td>
+                          <td class="border-t-2 border-gray-200 py-3 px-6 text-md font-semibold">
+                              <span [ngClass]="statusClasses(solicitacao.status.toUpperCase())">
+                                  {{ solicitacao.status }}
+                              </span>
+                          </td>
+                          <td class="border-t-2 border-gray-200 py-3 px-6 text-center">
+                              @switch (solicitacao.status) {
+                                  @case ('APROVADA') {
+                                    <button [routerLink]="['/funcionario/efetuar-manutencao']" class="bg-mm hover:bg-mm-dark h-[46px] px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:shadow-mm-shadow hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap">
+                                        Efetuar Manutenção
+                                    </button>
+                                  }
+                                  @case ('REDIRECIONADA') {
+                                    <button [routerLink]="['/funcionario/efetuar-manutencao']" class="bg-mm hover:bg-mm-dark h-[46px] px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:shadow-mm-shadow hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap">
+                                        Efetuar Manutenção
+                                    </button>
+                                  }
+                                  @case ('PAGA') {
+                                    <button [routerLink]="['/funcionario/finalizar-manutencao']" class="bg-mm hover:bg-mm-dark h-[46px] px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:shadow-mm-shadow hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap">
+                                        Finalizar Solicitação
+                                    </button>
+                                  }
+                                  @case ('ORÇADA') {
+                                      <span class="font-semibold text-gray-600">Esperando Resposta</span>
+                                  }
+                                  @case ('ARRUMADA') {
+                                      <span class="font-semibold text-gray-600">Esperando Pagamento</span>
+                                  }
+                                  @default {
+                                      <button [routerLink]="['/funcionario/orcamento']" class="bg-mm hover:bg-mm-dark h-[46px] px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:shadow-mm-shadow hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap">
+                                          Efetuar Orçamento
+                                      </button>
+                                  }
+                              }
+                          </td>
+                      </tr>
+                  }
+              </tbody>
+          </table>
+          @if( solicitacoesFiltradas.length === 0){
+              <p class="p-4 text-center text-gray-500">Nenhuma solicitação encontrada para o período selecionado.</p>
+          }
+      </div>
+  </div>
+</main>
