@@ -6,6 +6,7 @@ import { Solicitacao } from '../../../shared/entities/solicitacao_entity';
 import { ModaisConfirmacao } from '../modais-confirmacao/modais-confirmacao';
 import { ResgatarServico } from '../resgatar-servico/resgatar-servico';
 import { RejeitarOrcamento } from '../rejeitar-orcamento/rejeitar-orcamento';
+import { SolicitacaoService } from '../../../services/solicitacao_service/solicitacao-service';
 
 @Component({
   selector: 'app-visualizar-orcamento',
@@ -15,8 +16,10 @@ import { RejeitarOrcamento } from '../rejeitar-orcamento/rejeitar-orcamento';
   styleUrl: './visualizar-orcamento.css'
 })
 export class VisualizarOrcamento {
+
   @Input() solicitacao?: Solicitacao | null;
   @Output() fecharModal = new EventEmitter<void>();
+  @Output() operacaoConcluida = new EventEmitter<void>(); 
 
   modalAberto: 'nenhum' | 'deletar' | 'editar' = 'nenhum';
 
@@ -24,9 +27,17 @@ export class VisualizarOrcamento {
     this.modalAberto = tipo;
   }
 
+  fecharSubModal(): void{
+    this.modalAberto = 'nenhum';
+  }
 
   onFecharModal(): void {
     this.fecharModal.emit();
     this.modalAberto = 'nenhum';
   }
+
+  notificarOperacao(): void {
+    this.operacaoConcluida.emit();
+  }
+
 }

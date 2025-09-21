@@ -1,72 +1,28 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { VisualizarSolicitacao } from '../visualizar-solicitacao/visualizar-solicitacao';
 import { NgClass } from '@angular/common';
+import { Solicitacao } from '../../../shared/entities/solicitacao_entity';
+import { SolicitacaoService } from '../../../services/solicitacao_service/solicitacao-service';
 
 @Component({
   selector: 'app-funcionario-homepage',
    imports: [VisualizarSolicitacao, NgClass],
   templateUrl: './funcionario-homepage.html',
 })
-export class FuncionarioHomepage {
+export class FuncionarioHomepage implements OnInit{
+
+  solicitacoes: Solicitacao[] = [];
+  constructor( private solicitacoesService: SolicitacaoService){}
+
+  ngOnInit(): void {
+   this.solicitacoes = this.solicitacoesService.listarTodos();
+  }
+
   mostrarModalSolicitacao = false;
-  solicitacaoSelecionada: any;
+  solicitacaoSelecionada?: Solicitacao | null = null;
 
-  nome = 'André'
 
-  solicitacoes = [
-    { 
-      id: 0, 
-      equipamento: 'Notebook Lenovo', 
-      cliente: 'Amauri Correia',        
-      descricao: 'Tela quebrada', 
-      dataSolicitacao: '10/08/2025 - 15:48',
-      categoria: 'Notebook', 
-      status:'ABERTA',
-      valor: 'R$ 300,00'
-    },
-    { 
-      id: 1, 
-      equipamento: 'Smartphone Samsung',
-      cliente: 'Amauri Correia',      
-      descricao: 'Botão de ligar pifou', 
-      dataSolicitacao: '07/08/2025 - 15:48', 
-      categoria: 'Celular',
-      status:'ABERTA',
-      valor: 'R$ 300,00'
-    },
-    { 
-      id: 2, 
-      equipamento: 'Tablet Apple iPad', 
-      cliente: 'Amauri Correia',      
-      descricao: 'Problema na bateria', 
-      dataSolicitacao: '05/08/2025 - 15:48', 
-      categoria: 'Tablet',
-      status:'ABERTA',
-      valor: 'R$ 300,00'
-    },
-    { 
-      id: 3, 
-      equipamento: 'Notebook Dell Inspiron', 
-      cliente: 'Amauri Correia', 
-      descricao: 'Teclado não funciona', 
-      dataSolicitacao: '03/08/2025 - 15:48', 
-      categoria: 'Notebook',
-      status:'ABERTA',
-      valor: 'R$ 300,00'
-    },
-    { 
-      id: 4, 
-      equipamento: 'Impresora HP 5300', 
-      cliente: 'Amauri Correia',
-      descricao: 'Carcaça estraçalhada pelo meu...', 
-      dataSolicitacao: '01/08/2025 - 15:48', 
-      categoria: 'Impressora',
-      status:'ABERTA',
-      valor: 'R$ 300,00'
-    }
-  ];
-
-  abrirModal(solicitacao: any): void {
+  abrirModal(solicitacao: Solicitacao): void {
     this.solicitacaoSelecionada = solicitacao; // Salva o orçamento selecionado
     this.mostrarModalSolicitacao = true;
   }

@@ -68,11 +68,8 @@ export class PaginaInicial implements OnInit{
     this.solicitacaoSelecionado= null; 
   }
 
-  abrirModalAberta(solicitacao: any): void{
-
-  }
-
-  fecharModalAberta() : void{
-
+  atualizarLista(){
+    this.fecharModalOrcamento();
+    this.solicitacoes = this.solicitacaoService.listarTodos();
   }
 }

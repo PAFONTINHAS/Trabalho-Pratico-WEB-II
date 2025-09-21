@@ -25,6 +25,10 @@
       <section class="space-y-4">
         <div class="p-4 rounded-xl bg-gray-50 border border-gray-300">
           <p class="text-md text-gray-600">
+            Id:
+            <span class="font-semibold">{{ solicitacao.id }}</span>
+          </p>
+          <p class="text-md text-gray-600">
             Dispositivo:
             <span class="font-semibold">{{ solicitacao.equipamento }}</span>
           </p>
@@ -51,7 +55,8 @@
         <div class="p-4 rounded-xl bg-gray-100 border border-gray-300">
           <h3 class="text-lg font-bold text-gray-700">Orçamento</h3>
           <p class="text-md text-gray-600">
-            Valor: <span class="font-semibold">{{ solicitacao.valorOrcamento }}</span>
+            Valor:
+            <span class="font-semibold">{{ solicitacao.valorOrcamento }}</span>
           </p>
         </div>
         }
@@ -113,11 +118,18 @@
   </div>
 
   @if(modalAberto === 'deletar'){
-    <app-deletar-solicitacao></app-deletar-solicitacao>
-  } @if(modalAberto === 'editar'){
-    <app-editar-solicitacao [solicitacao]="solicitacao"></app-editar-solicitacao>
-  }
+  <app-deletar-solicitacao
+    [solicitacao]="solicitacao!"
+    (fecharModal)="fecharSubModal()"
+    (operacaoConcluida)="notificarOperacao()"
+  ></app-deletar-solicitacao>
 
+  } @if(modalAberto === 'editar'){
+  <app-editar-solicitacao
+    [solicitacao]="solicitacao!"
+    (fecharModal)="fecharSubModal()"
+  ></app-editar-solicitacao>
+  }
 </main>
 
 }

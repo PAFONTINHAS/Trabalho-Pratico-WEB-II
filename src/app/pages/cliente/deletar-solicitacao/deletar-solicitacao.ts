@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Solicitacao } from '../../../shared/entities/solicitacao_entity';
 import { SolicitacaoService } from '../../../services/solicitacao_service/solicitacao-service';
 @Component({
@@ -10,25 +10,40 @@ import { SolicitacaoService } from '../../../services/solicitacao_service/solici
 
 export class DeletarSolicitacao {
 
-  @Input() solicitacao?: Solicitacao;
+  @Input() solicitacao?: Solicitacao | null;
+  @Output() fecharModal = new EventEmitter<void>();
+  @Output() operacaoConcluida = new EventEmitter<void>();
 
   constructor(private solicitacaoService: SolicitacaoService){}
 
+  modalConfirmacaoAberto: 'sim' | 'nao' | 'nenhum' = 'nenhum';
 
-  modalAberto: boolean = true;
-  modalConfirmacaoAberto: boolean = true;
-
-  deletar: boolean = false;
-  naoDeletar: boolean = false;
+  abrirSubModal(tipo: 'sim' | 'nao'){
+    this.modalConfirmacaoAberto = tipo;
+  }
   
-  fecharModal(): void {
-    this.modalAberto = false;
+  onfecharModal(): void {
+    this.fecharModal.emit();
   }
 
-  fecharModalConfirmacao() : void{
-    this.modalConfirmacaoAberto = false;
+  fecharApenasSubModal() : void{
+    this.modalConfirmacaoAberto = 'nenhum';
+    this.onfecharModal();
   }
 
+  finalizarEFecharTudo() : void{
+    this.operacaoConcluida.emit();
+  }
+  
+  deletarSolicitacao(){
+    if(this.solicitacao?.id === null) return;
+    
+    const id_solicitacao = this.solicitacao?.id as number;
 
+    console.log(id_solicitacao);
+
+    this.solicitacaoService.remover(id_solicitacao);
+    this.abrirSubModal('sim');
+  }
 
 }

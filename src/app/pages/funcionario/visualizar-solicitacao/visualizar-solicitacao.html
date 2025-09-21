@@ -1,95 +1,168 @@
+@if(solicitacao){
+
 <main>
-@if(!modalAberto){
-<div class="fixed inset-0 z-50 flex items-center justify-center bg-black/50" (click)="onFecharModal()">
-    <div class="bg-gradient-to-br from-white to-[#ccc] p-8 rounded-3xl shadow-xl w-min min-w-lg relative" (click)="$event.stopPropagation()">
-        <button class="absolute top-4 left-4 text-gray-200 text-2xl font-bold cursor-pointer hover:text-gray-400 transition" (click)="onFecharModal()">X</button>
+  @if(!modalAberto){
+  <div
+    class="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
+    (click)="onFecharModal()"
+  >
+    <div
+      class="bg-gradient-to-br from-white to-[#ccc] p-8 rounded-3xl shadow-xl w-min min-w-lg relative"
+      (click)="$event.stopPropagation()"
+    >
+      <button
+        class="absolute top-4 left-4 text-gray-200 text-2xl font-bold cursor-pointer hover:text-gray-400 transition"
+        (click)="onFecharModal()"
+      >
+        X
+      </button>
 
-        <div class="text-center mb-6">
-            <h2 class="text-3xl font-extrabold text-gray-800 poppins">Detalhes da Solicitação</h2>
+      <div class="text-center mb-6">
+        <h2 class="text-3xl font-extrabold text-gray-800 poppins">
+          Detalhes da Solicitação
+        </h2>
+      </div>
+
+      <div class="space-y-4">
+        <div class="p-4 rounded-xl bg-gray-50 border border-gray-300">
+          <div class="solicitacao-info">
+            <p class="text-md text-gray-600">
+              <span class="font-semibold">Cliente: </span
+              >{{ solicitacao.cliente.nome }}
+            </p>
+            <p class="text-md text-gray-600">
+              <span class="font-semibold">Equipamento: </span>
+              {{ solicitacao.equipamento }}
+            </p>
+            <p class="text-md text-gray-600">
+              <span class="font-semibold">Defeito: </span
+              >{{ solicitacao.defeito }}
+            </p>
+            <p class="text-md text-gray-600">
+              <span class="font-semibold">Funcionario Responsável: </span>
+              {{ funcionarioResponsavel.nome }}
+            </p>
+            <p class="text-md text-gray-600 font-bold">
+              Status:
+              <span [ngClass]="statusClasses()">{{ solicitacao.status }}</span>
+            </p>
+          </div>
         </div>
 
-        <div class="space-y-4">
-            <div class="p-4 rounded-xl bg-gray-50 border border-gray-300">
-                <div class="solicitacao-info">
-                    <p class="text-md text-gray-600"><span class="font-semibold">Cliente:</span>{{solicitacao.cliente}} </p>
-                    <p class="text-md text-gray-600"><span class="font-semibold">Equipamento:</span> {{solicitacao.equipamento}}</p>
-                    <p class="text-md text-gray-600"><span class="font-semibold">Descrição:</span>{{solicitacao.descricao}} </p>
-                    <p class="text-md text-gray-600"><span class="font-semibold">Funcionario Responsável:</span> {{ funcionarioResponsavel.nome }}</p>
-                    <p class="text-md text-gray-600 font-bold">Status: <span [ngClass]="statusClasses()">{{solicitacao.status}}</span></p>
-
-                </div>
-            </div>
-
-            <div class="p-4 rounded-xl bg-gray-100 border border-gray-300">
-                <h3 class="text-lg font-bold text-gray-700">Orçamento</h3>
-                <div class="flex flex-row h-min gap-2">
-                    <!-- <p class="text-lg mt-1 text-gray-600">Valor: </p> -->
-                    <input
-                    type="text"
-                    class="border-gray-400 mb-4 mt-3 rounded-lg border placeholder:text-gray-400 overflow-hidden h-10 px-3 transition w-full focus:border-mm focus:shadow-xl focus:shadow-mm-shadow hover:border-mm"
-                    label="valor"
-                    placeholder="Digite o valor do orçamento aqui" />
-                </div>
-            </div>
-
-            <div class="right-content mb-4">
-                <h2 class="bold">Histórico de status</h2>
-                <ul>
-                    <li class="bold py-2">10/08 - 12:22 - <span class="cursor-default bg-yellow-100 px-2 py-1 border-1 border-yellow-400 rounded-lg text-yellow-500">APROVADA</span></li>
-                    <li class="bold py-2">08/08 - 16:12 - <span class="cursor-default bg-yellow-700/20 px-2 py-1 border-1 border-yellow-800 rounded-lg text-yellow-800">ORÇADA</span></li>
-                    <li class="bold py-2">07/08 - 15:48 - <span class="cursor-default bg-gray-100 px-2 py-1 border-1 border-gray-400 rounded-lg text-gray-600">ABERTA</span></li>
-                    
-                </ul>
-            </div>
-
+        <div class="p-4 rounded-xl bg-gray-100 border border-gray-300">
+          <h3 class="text-lg font-bold text-gray-700">Orçamento</h3>
+          <div class="flex flex-row h-min gap-2">
+            <!-- <p class="text-lg mt-1 text-gray-600">Valor: </p> -->
+            <input
+              type="text"
+              class="border-gray-400 mb-4 mt-3 rounded-lg border placeholder:text-gray-400 overflow-hidden h-10 px-3 transition w-full focus:border-mm focus:shadow-xl focus:shadow-mm-shadow hover:border-mm"
+              label="valor"
+              placeholder="Digite o valor do orçamento aqui"
+            />
+          </div>
         </div>
 
-        <footer class="modal-footer">
-            <button class="bg-mm text-nowrap hover:bg-mm-dark h-[46px] px-4 rounded-xl transition font-regular 
-                text-white text-md cursor-pointer hover:shadow-xl 
-                hover:scale-[102%] active:scale-95" (click)="abrirModal()">Redirecionar</button>
-            <button class="bg-green-600 text-nowrap hover:bg-green-700 h-[46px] px-4 rounded-xl transition font-regular 
-                text-white text-md cursor-pointer hover:shadow-xl 
-                hover:scale-[102%] active:scale-95" (click)="onFecharModal()">Efetuar Orçamento</button>
-        </footer>
+        <div class="right-content mb-4">
+          <h2 class="bold">Histórico de status</h2>
+          <ul>
+            <li class="bold py-2">
+              10/08 - 12:22 -
+              <span
+                class="cursor-default bg-yellow-100 px-2 py-1 border-1 border-yellow-400 rounded-lg text-yellow-500"
+                >APROVADA</span
+              >
+            </li>
+            <li class="bold py-2">
+              08/08 - 16:12 -
+              <span
+                class="cursor-default bg-yellow-700/20 px-2 py-1 border-1 border-yellow-800 rounded-lg text-yellow-800"
+                >ORÇADA</span
+              >
+            </li>
+            <li class="bold py-2">
+              07/08 - 15:48 -
+              <span
+                class="cursor-default bg-gray-100 px-2 py-1 border-1 border-gray-400 rounded-lg text-gray-600"
+                >ABERTA</span
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <footer class="modal-footer">
+        <button
+          class="bg-mm text-nowrap hover:bg-mm-dark h-[46px] px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:scale-[102%] active:scale-95"
+          (click)="abrirModal()"
+        >
+          Redirecionar
+        </button>
+        <button
+          class="bg-green-600 text-nowrap hover:bg-green-700 h-[46px] px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:scale-[102%] active:scale-95"
+          (click)="onFecharModal()"
+        >
+          Efetuar Orçamento
+        </button>
+      </footer>
     </div>
-</div>
-}
+  </div>
+  } @if(modalAberto){
 
-@if(modalAberto){
+  <div
+    class="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
+    (click)="fecharMover()"
+  >
+    <div
+      class="bg-gradient-to-br from-white to-[#ccc] p-8 rounded-3xl shadow-xl w-min relative"
+      (click)="$event.stopPropagation()"
+    >
+      <button
+        class="absolute top-4 left-4 text-gray-200 text-2xl font-bold cursor-pointer hover:text-gray-400 transition"
+        (click)="fecharMover()"
+      >
+        X
+      </button>
 
-<div class="fixed inset-0 z-50 flex items-center justify-center bg-black/50" (click)="fecharMover()">
-    <div class="bg-gradient-to-br from-white to-[#ccc] p-8 rounded-3xl shadow-xl w-min relative" (click)="$event.stopPropagation()">
-        <button class="absolute top-4 left-4 text-gray-200 text-2xl font-bold cursor-pointer hover:text-gray-400 transition" (click)="fecharMover()">X</button>
-
-
-        <div class="text-center mb-6">
-            <h2 class="text-3xl font-extrabold text-gray-800 poppins">Redirecionar manutenção</h2>
-            <br />
-            <h3 class="text-lg">Escolha o funcionário para redirecionar a manunteção</h3>
-        </div>  
-        <div class="funcionarios w-min">
-            @for (f of funcionarios; track f.id){
-            <div class="funcionario-card w-min">
-                <div class="funcioario-info">
-                    <p class="text-nowrap font-bold">Nome: <span class="font-normal">{{f.nome}}</span></p>
-                    <p class="text-nowrap font-bold">Email: <span class="font-normal">{{f.email}}</span></p>
-                </div>
-                <button class="bg-mm text-nowrap hover:bg-mm-dark h-[46px] px-4 rounded-xl transition font-regular 
-                text-white text-md cursor-pointer hover:shadow-xl 
-                hover:scale-[102%] active:scale-95">Redirecionar</button>
-                
-            </div>
-            }
+      <div class="text-center mb-6">
+        <h2 class="text-3xl font-extrabold text-gray-800 poppins">
+          Redirecionar manutenção
+        </h2>
+        <br />
+        <h3 class="text-lg">
+          Escolha o funcionário para redirecionar a manunteção
+        </h3>
+      </div>
+      <div class="funcionarios w-min">
+        @for (f of funcionarios; track f.id){
+        <div class="funcionario-card w-min">
+          <div class="funcioario-info">
+            <p class="text-nowrap font-bold">
+              Nome: <span class="font-normal">{{ f.nome }}</span>
+            </p>
+            <p class="text-nowrap font-bold">
+              Email: <span class="font-normal">{{ f.email }}</span>
+            </p>
+          </div>
+          <button
+            class="bg-mm text-nowrap hover:bg-mm-dark h-[46px] px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:scale-[102%] active:scale-95"
+          >
+            Redirecionar
+          </button>
         </div>
+        }
+      </div>
 
-        <footer class="modal-footer">
-            <button class="bg-danger hover:bg-red-700 h-[46px] px-4 rounded-xl transition font-regular 
-                text-white text-md cursor-pointer hover:shadow-xl 
-                hover:scale-[102%] active:scale-95" (click)="fecharMover()">Cancelar</button>
-        </footer>
+      <footer class="modal-footer">
+        <button
+          class="bg-danger hover:bg-red-700 h-[46px] px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:scale-[102%] active:scale-95"
+          (click)="fecharMover()"
+        >
+          Cancelar
+        </button>
+      </footer>
     </div>
-</div>
-}
-
+  </div>
+  }
 </main>
+
+}

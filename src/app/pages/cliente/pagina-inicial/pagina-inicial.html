@@ -8,9 +8,9 @@
                     <table class="min-w-full bg-white rounded-xl overflow-hidden">
                         <thead class="bg-mm text-white">
                             <tr>
+                                <th class="py-3 px-6 text-left font-bold">Data da solicitação</th>
                                 <th class="py-3 px-6 text-left font-bold">Dispositivo</th>
                                 <th class="py-3 px-6 text-left font-bold">Descrição</th>
-                                <th class="py-3 px-6 text-left font-bold">Data da solicitação</th>
                                 <th class="py-3 px-6 text-left font-bold">Status</th>
                                 <th class="py-3 px-6 text-center font-bold"></th>
                             </tr>
@@ -18,9 +18,9 @@
                         <tbody>
                             @for (solicitacao of solicitacoes; track solicitacao.id) {
                                 <tr>
+                                    <td class="border-t-2 border-gray-200 py-3 px-6">{{ solicitacao.dataSolicitacao }}</td>
                                     <td class="border-t-2 border-gray-200 py-3 px-6">{{ solicitacao.equipamento }}</td>
                                     <td class="border-t-2 border-gray-200 py-3 px-6">{{ solicitacao.defeito }}</td>
-                                    <td class="border-t-2 border-gray-200 py-3 px-6">{{ solicitacao.dataSolicitacao }}</td>
                                     <td class="border-t-2 border-gray-200 py-3 px-6 text-md font-semibold">
                                         <span [ngClass]="statusClasses(solicitacao.status.toUpperCase())">
                                             {{solicitacao.status.toUpperCase()}}
@@ -45,7 +45,7 @@
         </div>
         
         @if (mostrarModalSolicitacao) {
-            <app-visualizar-orcamento [solicitacao]="solicitacaoSelecionado" (fecharModal)="fecharModalOrcamento()"></app-visualizar-orcamento>
+            <app-visualizar-orcamento [solicitacao]="solicitacaoSelecionado" (fecharModal)="fecharModalOrcamento()" (operacaoConcluida)="atualizarLista()"></app-visualizar-orcamento>
         }
 </main>
 

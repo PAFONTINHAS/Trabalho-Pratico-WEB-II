@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { Solicitacao } from '../../../shared/entities/solicitacao_entity';
@@ -12,27 +12,40 @@ import { SolicitacaoService } from '../../../services/solicitacao_service/solici
 })
 export class EditarSolicitacao {
 
+  
   constructor(private solicitacaoService: SolicitacaoService){}
-
-
+  
+  
   @Input() solicitacao?: Solicitacao | null;
+  @Output() fecharModal = new EventEmitter<void>();
 
-  modalAberto:boolean = true;
 
   categoriasEnum = Object.values(Categoria);
 
-  novaSolicitacao = this.solicitacao;
+  novaSolicitacao = this.solicitacao!;
 
-  fecharModal(){
+  modalConfirmacaoAberto: 'sim' | 'nao' | 'nenhum' = 'nenhum';
 
-    this.modalAberto = false;
-
+  abrirSubModal(tipo: 'sim' | 'nao'){
+    this.modalConfirmacaoAberto = tipo;
   }
+  
+
+  onfecharModal(){
+
+    this.fecharModal.emit();
+  }
+
+  fecharApenasSubModal() : void{
+    this.modalConfirmacaoAberto = 'nenhum';
+    this.onfecharModal();
+  }
+
 
   editarSolicitacao(){
 
-    alert(JSON.stringify(this.solicitacao));
-
+    // alert(JSON.stringify(this.solicitacao));
+    this.onfecharModal();
   }
 
 }

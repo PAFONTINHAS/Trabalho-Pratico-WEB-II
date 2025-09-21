@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { RedirectCommand, Router, RouterLink } from '@angular/router';
 import { clientes } from '../../../../assets/mock/clientes_mock';
 import { Status } from '../../../shared/models/enums/status.enum';
 import { FormsModule } from '@angular/forms';
@@ -38,17 +38,43 @@ export class Solicitar{
 
     };
 
-
+    
+    
     realizarSolicitacao(){
-
+      
       if(!this.solicitacao.categoria) return;
 
+      const dataSolicitacao: string = converterDataParaString();
+
       const novaSolicitacao: Solicitacao = this.solicitacao;
+
+      novaSolicitacao.dataSolicitacao = dataSolicitacao;
 
       this.solicitacaoService.inserir(novaSolicitacao);
       this.solicitacaoService.listarTodos();
 
       this.modalSolicitacaoCriada = true;
+
     }
+}
+
+export function converterDataParaString() : string{
+  const dia = zeroAEsquerda( new Date().getDate());
+  const mes = zeroAEsquerda( new Date().getMonth());
+  const ano = zeroAEsquerda( new Date().getFullYear());
+
+  const horas = zeroAEsquerda( new Date().getHours());
+  const minutos = zeroAEsquerda( new Date().getMinutes());
+
+  return `${dia}/${mes}/${ano} - ${horas}:${minutos}`;
+  
+}
+
+function zeroAEsquerda (numero : number){
+  if(numero < 10){
+    return String(numero).padStart(2, '0');
+  }
+
+  return String(numero);
 }
 

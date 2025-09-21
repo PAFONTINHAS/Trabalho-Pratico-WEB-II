@@ -7,31 +7,33 @@
                 <table class="min-w-full bg-white rounded-xl overflow-hidden">
                     <thead class="bg-mm text-white">
                         <tr>
+                            <th class="py-3 px-6 text-left font-bold">Data da solicitação</th>
                             <th class="py-3 px-6 text-left font-bold">Cliente</th>
                             <th class="py-3 px-6 text-left font-bold">Dispositivo</th>
                             <th class="py-3 px-6 text-left font-bold">Descrição</th>
-                            <th class="py-3 px-6 text-left font-bold">Data da solicitação</th>
                             <th class="py-3 px-6 text-left font-bold">Status</th>
                             <th class="py-3 px-6 text-center font-bold"></th>
                         </tr>
                     </thead>
                     <tbody>
                         @for (solicitacao of solicitacoes; track solicitacao.id) {
-                            <tr class="hover:bg-gray-50 transition-colors">
-                                <td class="border-t-2 border-gray-200 py-3 px-6">{{solicitacao.cliente}}</td>
-                                <td class="border-t-2 border-gray-200 py-3 px-6">{{solicitacao.equipamento}}</td>
-                                <td class="border-t-2 border-gray-200 py-3 px-6">{{solicitacao.descricao}}</td>
-                                <td class="border-t-2 border-gray-200 py-3 px-6">{{solicitacao.dataSolicitacao}}</td>
-                                <td class="border-t-2 border-gray-200 py-3 px-6"><span [ngClass]="statusClasses(solicitacao.status)">{{solicitacao.status}}</span></td>
-                                <td class="border-t-2 border-gray-200 py-3 px-6 text-center">
-                                    <button (click)="abrirModal(solicitacao)" 
-                                    class="bg-mm hover:bg-mm-dark h-[46px] px-4 rounded-xl transition font-regular 
-                                        text-white text-md cursor-pointer hover:shadow-xl hover:shadow-mm-shadow 
-                                        hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap">
-                                       Efetuar Orçamento
-                                    </button>
-                                </td>
-                            </tr>
+                            @if (solicitacao.status === 'Aberta') {
+                                <tr class="hover:bg-gray-50 transition-colors">
+                                    <td class="border-t-2 border-gray-200 py-3 px-6">{{solicitacao.dataSolicitacao}}</td>
+                                    <td class="border-t-2 border-gray-200 py-3 px-6">{{solicitacao.cliente.nome}}</td>
+                                    <td class="border-t-2 border-gray-200 py-3 px-6">{{solicitacao.equipamento}}</td>
+                                    <td class="border-t-2 border-gray-200 py-3 px-6">{{solicitacao.defeito}}</td>
+                                    <td class="border-t-2 border-gray-200 py-3 px-6"><span [ngClass]="statusClasses(solicitacao.status)">{{solicitacao.status}}</span></td>
+                                    <td class="border-t-2 border-gray-200 py-3 px-6 text-center">
+                                        <button (click)="abrirModal(solicitacao)" 
+                                        class="bg-mm hover:bg-mm-dark h-[46px] px-4 rounded-xl transition font-regular 
+                                            text-white text-md cursor-pointer hover:shadow-xl hover:shadow-mm-shadow 
+                                            hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap">
+                                           Efetuar Orçamento
+                                        </button>
+                                    </td>
+                                </tr>
+                            }
                         }
                     </tbody>
                 </table>
@@ -41,5 +43,5 @@
 </main>
 
 @if (mostrarModalSolicitacao) {
-  <app-visualizar-solicitacao [solicitacao]="solicitacaoSelecionada" (fecharModal)="fecharModal()"></app-visualizar-solicitacao>
+  <app-visualizar-solicitacao [solicitacao]="solicitacaoSelecionada!" (fecharModal)="fecharModal()"></app-visualizar-solicitacao>
 }
