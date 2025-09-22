@@ -3,22 +3,34 @@ import { RouterLink } from '@angular/router';
 import { FormsModule } from "@angular/forms";
 import { todasSolicitacoes } from './solicitacoes';
 import { CommonModule } from '@angular/common'; 
+import { VisualizarSolicitacao } from '../visualizar-solicitacao/visualizar-solicitacao';
+import { Solicitacao } from '../../../shared/entities/solicitacao_entity';
 
 @Component({
   selector: 'app-visualizar-solicitacoes',
-  imports: [RouterLink, FormsModule, CommonModule],
+  imports: [RouterLink, FormsModule, CommonModule, VisualizarSolicitacao],
   templateUrl: './visualizar-solicitacoes.html'
 })
 export class VisualizarSolicitacoes {
 
   nome = 'André';
-
-
   solicitacoes = todasSolicitacoes;
-
   solicitacoesFiltradas = this.solicitacoes;
 
   filtro = tipoFiltro.todas;
+
+  mostrarModalSolicitacao = false;
+  solicitacaoSelecionada?: any = null;
+
+  abrirModal(solicitacao: any): void {
+    this.solicitacaoSelecionada = solicitacao;
+    this.mostrarModalSolicitacao = true;
+  }
+
+  fecharModal(): void {
+    this.mostrarModalSolicitacao = false;
+    this.solicitacaoSelecionada = null;
+  }
 
   mudarFiltro( valor: string){
     switch (valor){
