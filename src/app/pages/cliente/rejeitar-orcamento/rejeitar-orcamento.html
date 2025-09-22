@@ -1,51 +1,56 @@
-<div id="modal" class="fixed inset-0 flex items-center justify-center bg-black/50 z-50 hidden">
-  <div class="w-full max-w-xl px-[70px] py-[60px] bg-gradient-to-br from-white to-[#ccc] rounded-3xl shadow-xl relative">
 
-    <!-- BOTÃO FECHAR -->
-    <button
-      onclick="document.getElementById('modal').classList.add('hidden')"
-      class="absolute top-4 left-4 text-gray-600 hover:text-red-500 text-2xl">
-      &times;
-    </button>
+@if(solicitacao){
+  <main>
 
-    <p class="text-gray-800 font-semibold text-4xl mb-3 select-none poppins">
-      Rejeitar Orçamento
-    </p>
+    <div id="modal" class="fixed inset-0 flex items-center justify-center bg-black/50 z-50" (click)="onfecharModal()">
+      <div class="relative rounded-3xl w-1/4 bg-gradient-to-br from-white to-[#ccc] px-10 pt-9 pb-7 shadow-xl"
+      (click)="$event.stopPropagation()"
+      >
 
-    <p>Dispositivo:{{dispositivo}} </p>
-    <p>Descrição: {{descricao}}</p>
-    <p>Valor orçado{{valor}}</p>
-
-    <div class="flex-col gap-3">
-
-
-      <p class="font-semibold text-md m-2">Motivo:</p>
-      <textarea
-        class="border-gray-400 mb-5 rounded-lg border placeholder:text-gray-400 h-32 px-3 py-2 transition w-full focus:border-mm focus:shadow-xl focus:shadow-mm-shadow hover:border-mm resize-none"
-        name="orientacoes"
-        placeholder="Escreva o motivo da recusa"
-        required></textarea>
-
-      <div class="flex flex-row gap-4 items-center justify-center mt-5">
-        <button
-          onclick="document.getElementById('modal').classList.add('hidden')"
-          class="bg-red-500 h-[50px] w-[35%] rounded-xl transition font-regular
-          text-white text-lg cursor-pointer hover:shadow-xl hover:shadow-mm-shadow
-          hover:bg-mm-dark hover:scale-[102%] active:scale-95">
-          Cancelar
+        <button (click)="onfecharModal()"
+          class="absolute top-4 left-4 text-gray-200 hover:text-red-500 text-3xl cursor-pointer hover:font-bold transition">
+          &times;
         </button>
 
-        <button (click)="confirmarRejeicaoServico()"
-          class="bg-blue-500 h-[50px] w-[45%] rounded-xl transition font-regular
-          text-white text-lg cursor-pointer hover:shadow-xl hover:shadow-mm-shadow
-          hover:bg-mm-dark hover:scale-[102%] active:scale-95">
-          Confirmar
-        </button>
+        <p class="text-gray-800 font-semibold text-3xl mt-3 mb-3 text-center select-none poppins">
+          Rejeitar Orçamento
+        </p>
+
+        <!-- <p>Dispositivo:{{solicitacao.equipamento}} </p>
+        <p>Descrição: {{solicitacao.defeito}}</p>
+        <p>Valor orçado: R${{solicitacao.valorOrcamento}}</p> -->
+
+        <div class="flex-col gap-3">
+
+
+          <p class="font-semibold text-2xl mt-3 mb-2">Motivo:</p>
+          <textarea
+            [(ngModel)]="motivo"
+            class="border-gray-400 mb-5 rounded-lg border placeholder:text-gray-400 h-32 px-3 py-2 transition w-full focus:border-mm focus:shadow-xl focus:shadow-mm-shadow hover:border-mm resize-none"
+            name="orientacoes"
+            placeholder="Escreva o motivo da recusa"
+            required></textarea>
+
+          <div class="flex flex-row gap-4 items-center justify-center mt-5">
+            <button (click)="onfecharModal()"
+              class="bg-gray-500 hover:bg-gray-600 h-[46px] px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap">
+              Cancelar
+            </button>
+
+            <button (click)="rejeitarServico()"
+              class="bg-danger hover:bg-danger-dark h-[46px] px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap">
+              Rejeitar orçamento
+            </button>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
 
-@if(modalConfirmarRejeicaoServico){
-  <app-modais-confirmacao [tipoModalSolicitacao]="'confirmarRejeicaoServico'"></app-modais-confirmacao>
+    @if(modalConfirmarRejeicaoServico){
+      <app-modais-confirmacao [tipoModalSolicitacao]="'rejeitarServico'" (fechar)="finalizarEFecharTudo()"></app-modais-confirmacao>
+    }
+
+
+  </main>
 }
+

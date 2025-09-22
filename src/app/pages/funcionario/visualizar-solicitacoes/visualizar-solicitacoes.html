@@ -1,7 +1,7 @@
-<main class="flex flex-col items-center justify-start p-5">
+<div class="flex flex-col items-center justify-start p-5">
   <div class="bg-gradient-to-br from-white to-[#ccc] rounded-3xl shadow-xl min-w-[60%] max-w-[80%] px-[70px] py-[60px]">
       
-      <h1 class="text-4xl font-semibold text-gray-800 mb-5 poppins">Página de Solicitações</h1>
+      <h1 class="text-4xl font-semibold text-gray-800 mb-5 poppins">Solicitações</h1>
       <h2 class="text-2xl font-semibold text-mm mb-5 poppins">Todas as Solicitações</h2>
       
       <div class="flex items-center justify-between mb-6">
@@ -54,49 +54,54 @@
                           <td class="border-t-2 border-gray-200 py-3 px-6">{{ solicitacao.dataSolicitacao}}</td>
                           <td class="border-t-2 border-gray-200 py-3 px-6 text-md font-semibold">
                               <span [ngClass]="statusClasses(solicitacao.status.toUpperCase())">
-                                  {{ solicitacao.status }}
+                                  {{ solicitacao.status.toUpperCase() }}
                               </span>
                           </td>
-                          <td class="border-t-2 border-gray-200 py-3 px-6 text-center">
+                          <td class=" border-t-2 border-gray-200 py-3 px-6 text-center">
                             @switch (solicitacao.status) {
                                 @case ('Aprovada') {
-                                <button (click)="abrirModal(solicitacao)" class="bg-mm hover:bg-mm-dark h-[46px] px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:shadow-mm-shadow hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap w-48">
+                                <button (click)="abrirModal(solicitacao)" class="bg-mm hover:bg-mm-dark h-[46px] w-full px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:shadow-mm-shadow hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap">
                                     Efetuar Manutenção
                                 </button>
                                 }
                                 @case ('Rejeitada') {
-                                <!-- <button (click)="abrirModal(solicitacao)" class="bg-mm hover:bg-mm-dark h-[46px] px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:shadow-mm-shadow hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap w-48">
-                                    Efetuar Manutenção
-                                </button> -->
+                                <button (click)="abrirModal(solicitacao)" class="bg-gray-400 hover:bg-gray-500 h-[46px] w-full px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:shadow-gray-100 hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap">
+                                    Ver Detalhes
+                                </button>
+                                <!-- <div class="flex items-center justify-center h-[46px] w-min">
+                                    <p class="text-danger text-sm text-center font-bold">Orçamento rejeitado</p>
+                                </div> -->
                                 }
                                 @case ('Redirecionada') {
-                                <button (click)="abrirModal(solicitacao)" class="bg-mm hover:bg-mm-dark h-[46px] px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:shadow-mm-shadow hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap w-48">
+                                <button (click)="abrirModal(solicitacao)" class="bg-mm hover:bg-mm-dark h-[46px] w-full px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:shadow-mm-shadow hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap">
                                     Efetuar Manutenção
                                 </button>
                                 }
                                 @case ('Paga') {
-                                <button (click)="abrirModal(solicitacao)" class="bg-mm hover:bg-mm-dark h-[46px] px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:shadow-mm-shadow hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap w-48">
+                                <button (click)="abrirModal(solicitacao)" class="bg-mm hover:bg-mm-dark h-[46px] w-full px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:shadow-mm-shadow hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap">
                                     Finalizar Solicitação
                                 </button>
                                 }
                                 @case ('Orçada') {
-                                <button (click)="abrirModal(solicitacao)" class="bg-mm hover:bg-mm-dark h-[46px] px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:shadow-mm-shadow hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap w-48">
+                                <button (click)="abrirModal(solicitacao)" class="bg-gray-400 hover:bg-gray-500 h-[46px] w-full px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:shadow-gray-100 hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap">
                                     Ver Detalhes
                                 </button>
                                 }
                                 @case ('Arrumada') {
-                                <!-- <button (click)="abrirModal(solicitacao)" class="bg-mm hover:bg-mm-dark h-[46px] px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:shadow-mm-shadow hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap w-48">
+                                <button (click)="abrirModal(solicitacao)" class="bg-gray-400 hover:bg-gray-500 h-[46px] w-full px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:shadow-gray-100 hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap">
                                     Ver Detalhes
-                                </button> -->
-                                    <p class="text-orange-600 font-bold">Aguardando Pagamento</p>
+                                </button>
+                                <!-- <div class="flex items-center justify-center h-[46px] w-min">
+                                    <p class="text-orange-600 text-center text-sm font-bold">Aguardando Pagamento</p>
+                                </div> -->
                                 }
                                 @case ('Finalizada') {
-                                <button (click)="abrirModal(solicitacao)" class="bg-mm hover:bg-mm-dark h-[46px] px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:shadow-mm-shadow hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap w-48">
+                                <button (click)="abrirModal(solicitacao)" class="bg-gray-400 hover:bg-gray-500 h-[46px] w-full px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:shadow-gray-100 hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap">
                                     Ver Detalhes
                                 </button>
                                 }
                                 @default {
-                                <button (click)="abrirModal(solicitacao)" class="bg-mm hover:bg-mm-dark h-[46px] px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:shadow-mm-shadow hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap w-48">
+                                <button (click)="abrirModal(solicitacao)" class="bg-mm hover:bg-mm-dark h-[46px] w-full px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:shadow-mm-shadow hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap">
                                     Efetuar Orçamento
                                 </button>
                                 }
@@ -104,18 +109,31 @@
                           </td>
                       </tr>
                   }
+                  @if( solicitacoesFiltradas.length === 0){
+                        @if(filtro === 2){
+                            <tr>
+                                <td colspan="6" class="p-4 text-center text-gray-500 border border-gray-300">
+                                    Nenhuma solicitação encontrada para o período selecionado.
+                                </td>
+                            </tr>
+                        }
+                        @if(filtro === 1){
+                            <tr>
+                                <td colspan="6" class="p-4 text-center text-gray-500 border border-gray-300">
+                                    Nenhuma solicitação encontrada para hoje.
+                                </td>
+                            </tr>
+                        }
+                  }
+                  @if (solicitacoes.length === 0){
+                    <tr>
+                        <td colspan="6" class="p-4 text-center text-gray-500 border border-gray-300">
+                            Nenhuma solicitação.
+                        </td>
+                    </tr>
+                  }
               </tbody>
           </table>
-          @if( solicitacoesFiltradas.length === 0){
-                @if(filtro === 2){
-                    
-                    <p class="p-4 text-center text-gray-500">Nenhuma solicitação encontrada para o período selecionado.</p>
-                }
-                @if(filtro === 1){
-                    
-                    <p class="p-4 text-center text-gray-500">Nenhuma solicitação encontrada para hoje.</p>
-                }
-          }
       </div>
   </div>
   
@@ -123,4 +141,4 @@
       <app-visualizar-solicitacao [solicitacao]="solicitacaoSelecionada" (fecharModal)="fecharModal()"></app-visualizar-solicitacao>
   }
 
-</main>
+</div>

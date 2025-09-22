@@ -58,6 +58,22 @@ export class PaginaInicial implements OnInit{
     }
   }
 
+  temAcoes(status: String){
+    if ( status === 'ORÇADA' || status === 'REJEITADA' || status === 'ARRUMADA') {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  buttonClass(status: String){
+    // if (this.temAcoes(status)) {
+    //   return {'bg-mm hover:bg-mm-dark  border-4 border-white ring-2 ring-mm h-[46px] px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:shadow-mm-shadow hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap': true};
+    // } else {
+      return {'bg-mm hover:bg-mm-dark h-[46px] px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:shadow-mm-shadow hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap': true};
+    // }
+  }
+
   abrirModalOrcamento(solicitacao: any): void {
     this.solicitacaoSelecionado = solicitacao; // Salva o orçamento selecionado
     this.mostrarModalSolicitacao = true;

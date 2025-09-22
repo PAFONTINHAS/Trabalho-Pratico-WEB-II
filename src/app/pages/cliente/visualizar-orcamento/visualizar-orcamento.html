@@ -2,7 +2,7 @@
 
 <main>
   <div
-    class="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
+    class="fixed inset-0 z-50 flex justify-center items-start overflow-y-auto bg-black/50 py-20"
     (click)="onFecharModal()"
   >
     <div
@@ -10,14 +10,13 @@
       (click)="$event.stopPropagation()"
     >
       <button
-        class="absolute top-4 left-4 text-gray-200 text-2xl font-bold cursor-pointer hover:text-gray-400 transition"
         (click)="onFecharModal()"
-      >
-        X
+        class="absolute top-4 left-4 text-gray-200 hover:text-red-500 text-3xl cursor-pointer hover:font-bold transition">
+          &times;
       </button>
 
       <header class="text-center mb-6">
-        <h2 class="text-3xl font-extrabold text-gray-800 poppins">
+        <h2 class="text-3xl font-semibold text-gray-800 poppins">
           Detalhes da Solicitação
         </h2>
       </header>
@@ -55,7 +54,7 @@
           <p class="text-md text-gray-600">
             Valor:
             <span class="font-semibold">
-              R$ {{ solicitacao.valorOrcamento }}</span
+              R$ {{ solicitacao.valorOrcamento }},00</span
             >
           </p>
         </div>
@@ -89,7 +88,7 @@
         </button>
         <button
           (click)="abrirModal('editar')"
-          class="bg-green-600 hover:bg-green-700 h-[46px] px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap"
+          class="bg-mm hover:bg-mm-dark h-[46px] px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap"
         >
           Editar Solicitação
         </button>
@@ -102,7 +101,7 @@
           Rejeitar
         </button>
         <button
-          (click)="aprovarServico()"
+          (click)="abrirModal('aprovar')"
           class="bg-green-600 hover:bg-green-700 h-[46px] px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap"
         >
           Aprovar
@@ -140,19 +139,27 @@
     (operacaoConcluida)="notificarOperacao()"
   ></app-deletar-solicitacao>
 
-  } @if(modalAberto === 'editar'){
+  } 
+  @if(modalAberto === 'editar'){
   <app-editar-solicitacao
     [solicitacao]="solicitacao!"
     (fecharModal)="fecharSubModal()"
   ></app-editar-solicitacao>
-  } @if(modalAberto === 'rejeitar'){
+  } 
+  @if(modalAberto === 'rejeitar'){
 
   <app-rejeitar-orcamento
     [solicitacao]="solicitacao!"
     (fecharModal)="fecharSubModal()"
     (operacaoConcluida)="notificarOperacao()"
   ></app-rejeitar-orcamento>
-
+  }
+  @if(modalAberto === 'aprovar'){
+    <app-modais-confirmacao 
+      [tipoModalSolicitacao]="'aprovarServico'" 
+      [valor]="solicitacao.valorOrcamento ?? 0"
+      (fechar)="fecharSubModal(); aprovarServico(); notificarOperacao()"
+    ></app-modais-confirmacao>
   }
 </main>
 

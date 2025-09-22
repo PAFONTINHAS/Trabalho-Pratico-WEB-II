@@ -2,7 +2,7 @@
 
   @if(!modalAberto){
   <div
-    class="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
+    class="fixed inset-0 z-50 flex justify-center items-start overflow-y-auto bg-black/50 py-20"
     (click)="onFecharModal()"
   >
     <div
@@ -10,10 +10,9 @@
       (click)="$event.stopPropagation()"
     >
       <button
-        class="absolute top-4 left-4 text-gray-200 text-2xl font-bold cursor-pointer hover:text-gray-400 transition"
         (click)="onFecharModal()"
-      >
-        X
+        class="absolute top-4 left-4 text-gray-200 hover:text-red-500 text-3xl cursor-pointer hover:font-bold transition">
+          &times;
       </button>
 
       <div class="text-center mb-6">
@@ -95,7 +94,7 @@
         @switch (solicitacao.status) {
           @case (statusEnum.Aberta) {
             <button
-              class="bg-green-600 text-nowrap hover:bg-green-700 h-[46px] px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:scale-[102%] active:scale-95"
+              class="bg-mm text-nowrap hover:bg-mm-dark h-[46px] px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:scale-[102%] active:scale-95"
               [disabled]="orcamento === null"
               (click)="efetuarOrcamento()"
             >
@@ -111,7 +110,7 @@
             </button>
           
             <button
-              class="bg-mm text-nowrap hover:bg-mm-dark h-[46px] px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:scale-[102%] active:scale-95"
+              class="bg-success text-nowrap hover:bg-success-dark h-[46px] px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:scale-[102%] active:scale-95"
               (click)="efetuarManutencao()"
             >
               Efetuar Manutenção
@@ -120,10 +119,18 @@
           @case (statusEnum.Redirecionada) {
             <button
               class="bg-mm text-nowrap hover:bg-mm-dark h-[46px] px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:scale-[102%] active:scale-95"
+              (click)="abrirModal()"
+            >
+              Redirecionar
+            </button>
+          
+            <button
+              class="bg-success text-nowrap hover:bg-success-dark h-[46px] px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:scale-[102%] active:scale-95"
               (click)="efetuarManutencao()"
             >
               Efetuar Manutenção
             </button>
+            
           }
           @case (statusEnum.Paga) {
             <button

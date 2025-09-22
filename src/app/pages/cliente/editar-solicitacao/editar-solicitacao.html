@@ -1,11 +1,15 @@
 @if(solicitacao){
 
 <main>
-  <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+  <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/50" (click)="onfecharModal()">
     <div
-      class="w-full max-w-2xl px-[70px] py-[60px] bg-gradient-to-br from-white to-[#ccc] rounded-3xl shadow-xl"
+      class="relative w-1/3 rounded-3xl bg-gradient-to-br from-white to-[#ccc] px-10 pt-9 pb-7 shadow-xl" (click)="$event.stopPropagation()"
     >
-      <h1 class="text-gray-800 font-medium text-4xl mb-6 poppins">
+      <button (click)="onfecharModal()"
+        class="absolute top-4 left-4 text-gray-200 hover:text-red-500 text-3xl cursor-pointer hover:font-bold transition">
+        &times;
+      </button>
+      <h1 class="text-gray-800 mt-2 text-center font-medium text-3xl mb-6 poppins">
         Editar Manutenção
       </h1>
 
@@ -36,20 +40,20 @@
           [(ngModel)]="solicitacao.defeito"
           id="defeito"
           rows="4"
-          class="border-gray-400 mb-5 rounded-lg border placeholder:text-gray-400 overflow-hidden p-3 transition w-full focus:border-mm focus:shadow-xl focus:shadow-mm-shadow hover:border-mm"
+          class="border-gray-400 mb-3 rounded-lg border placeholder:text-gray-400 overflow-hidden p-3 transition w-full focus:border-mm focus:shadow-xl focus:shadow-mm-shadow hover:border-mm"
           placeholder="Descreva o problema do seu equipamento..."
         ></textarea>
 
-        <div class="flex justify-center mt-5">
+        <div class="flex justify-center mt-3">
           <button
-            class="bg-red-500 h-[50px] mr-3 w-[30%] rounded-xl transition font-regular text-white text-lg cursor-pointer hover:shadow-xl hover:shadow-mm-shadow hover:bg-red-800 hover:scale-[102%] active:scale-95"
+            class="bg-gray-500 text-center hover:bg-gray-600 font-regular text-md h-[46px] mr-3 cursor-pointer rounded-xl px-4 text-white transition hover:scale-[102%] hover:shadow-xl active:scale-95"
             (click)="fecharApenasSubModal()"
           >
             Cancelar
           </button>
 
           <button
-            class="bg-mm h-[50px] w-[30%] rounded-xl transition font-regular text-white text-lg cursor-pointer hover:shadow-xl hover:shadow-mm-shadow hover:bg-mm-dark hover:scale-[102%] active:scale-95"
+            class="bg-mm text-center hover:bg-mm-dark font-regular text-md h-[46px] mr-3 cursor-pointer rounded-xl px-4 text-white transition hover:scale-[102%] hover:shadow-xl active:scale-95"
             (click)="fecharApenasSubModal()"
 
           >

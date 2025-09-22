@@ -12,7 +12,7 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-visualizar-orcamento',
-  imports: [DeletarSolicitacao, EditarSolicitacao, CommonModule, RejeitarOrcamento],
+  imports: [DeletarSolicitacao, EditarSolicitacao, CommonModule, RejeitarOrcamento, ModaisConfirmacao],
   standalone: true,
   templateUrl: './visualizar-orcamento.html',
   styleUrl: './visualizar-orcamento.css'
@@ -25,7 +25,7 @@ export class VisualizarOrcamento {
   @Output() fecharModal = new EventEmitter<void>();
   @Output() operacaoConcluida = new EventEmitter<void>(); 
 
-  modalAberto: 'nenhum' | 'deletar' | 'editar' | 'rejeitar' = 'nenhum';
+  modalAberto: 'nenhum' | 'deletar' | 'editar' | 'rejeitar' | 'aprovar' = 'nenhum';
 
   historico ={
     data: '',
@@ -34,7 +34,7 @@ export class VisualizarOrcamento {
 
   }
 
-  abrirModal(tipo: 'deletar' | 'editar' | 'rejeitar'){
+  abrirModal(tipo: 'deletar' | 'editar' | 'rejeitar' | 'aprovar'){
     this.modalAberto = tipo;
   }
 

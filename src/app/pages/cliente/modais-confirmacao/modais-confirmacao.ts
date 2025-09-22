@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { Input } from '@angular/core';
 @Component({
   selector: 'app-modais-confirmacao',
@@ -7,11 +7,13 @@ import { Input } from '@angular/core';
   styleUrl: './modais-confirmacao.css'
 })
 export class ModaisConfirmacao {
-  @Input() tipoModalSolicitacao?: string;
+  @Input() tipoModalSolicitacao?: string; 
+  @Input() valor?: number;
+  @Output() fechar = new EventEmitter<void>();
+
   titulo: string="";
   texto: string="";
   botaoTexto: string="OK";
-  modalAberto = true;
 
 
   ngOnInit():void{
@@ -19,8 +21,8 @@ export class ModaisConfirmacao {
     switch(this.tipoModalSolicitacao) {
 
       case "aprovarServico":
-      this.titulo="Serviço aprovado"
-      this.texto="Serviço aprovado no valor de R$300,00"
+      this.titulo="Orçamento aprovado"
+      this.texto="Serviço aprovado no valor de R$ "+this.valor+",00 !"
       break;
 
       case "rejeitarServico":
@@ -45,7 +47,7 @@ export class ModaisConfirmacao {
   }
 
   fecharModal(){
-    this.modalAberto = false;
+    this.fechar.emit();
   }
 
 }

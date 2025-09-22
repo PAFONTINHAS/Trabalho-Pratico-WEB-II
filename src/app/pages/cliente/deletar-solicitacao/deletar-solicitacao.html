@@ -9,26 +9,30 @@
       class="relative w-min rounded-3xl bg-gradient-to-br from-white to-[#ccc] px-10 pt-9 pb-7 shadow-xl"
       (click)="$event.stopPropagation()"
     >
-      <div class="mb-6 text-center">
-        <h2 class="poppins text-3xl font-bold text-nowrap text-gray-800">
-          Deseja Mesmo deletar <br />
+      <button (click)="onfecharModal()"
+        class="absolute top-4 left-4 text-gray-200 hover:text-red-500 text-3xl cursor-pointer hover:font-bold transition">
+        &times;
+      </button>
+      <div class="mb-6 mt-2 text-center">
+        <h2 class="poppins text-3xl font-semibold text-nowrap text-gray-800">
+          Deseja mesmo deletar <br />
           sua solicitação? 
         </h2>
       </div>
 
       <div class="flex justify-center">
         <button
-          class="bg-red-500 hover:bg-red-800 font-regular text-md h-[46px] w-[30%] mr-3 cursor-pointer rounded-xl px-4 text-white transition hover:scale-[102%] hover:shadow-xl active:scale-95"
+          class="bg-gray-500 text-center hover:bg-gray-600 font-regular text-md h-[46px] mr-3 cursor-pointer rounded-xl px-4 text-white transition hover:scale-[102%] hover:shadow-xl active:scale-95"
           (click)="fecharApenasSubModal()"
         >
-          Não
+          Cancelar
         </button>
 
         <button
-          class="bg-blue-500 hover:bg-mm-dark font-regular text-md h-[46px] w-[30%] cursor-pointer rounded-xl px-4 text-white transition hover:scale-[102%] hover:shadow-xl active:scale-95"
+          class="bg-danger hover:bg-danger-dark font-regular text-md h-[46px] cursor-pointer rounded-xl px-4 text-white transition hover:scale-[102%] hover:shadow-xl active:scale-95"
           (click)="deletarSolicitacao()"
         >
-          Sim
+          Deletar
         </button>
       </div>
     </div>

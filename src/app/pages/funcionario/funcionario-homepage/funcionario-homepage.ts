@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { VisualizarSolicitacao } from '../visualizar-solicitacao/visualizar-solicitacao';
 import { NgClass } from '@angular/common';
 import { Solicitacao } from '../../../shared/entities/solicitacao_entity';
@@ -6,13 +7,17 @@ import { SolicitacaoService } from '../../../services/solicitacao_service/solici
 
 @Component({
   selector: 'app-funcionario-homepage',
-   imports: [VisualizarSolicitacao, NgClass],
+   imports: [VisualizarSolicitacao, NgClass, CommonModule],
   templateUrl: './funcionario-homepage.html',
 })
 export class FuncionarioHomepage implements OnInit{
 
   solicitacoes: Solicitacao[] = [];
   constructor( private solicitacoesService: SolicitacaoService){}
+
+  countAbertas(): number {
+    return this.solicitacoes.filter(solicitacao => solicitacao.status.toUpperCase() === 'ABERTA').length;
+  }
 
   ngOnInit(): void {
    this.solicitacoes = this.solicitacoesService.listarTodos();
