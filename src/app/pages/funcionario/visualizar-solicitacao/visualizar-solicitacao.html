@@ -27,24 +27,24 @@
         <div class="p-4 rounded-xl bg-gray-50 border border-gray-300">
           <div class="solicitacao-info">
             <p class="text-md text-gray-600">
-              <span class="font-semibold">Cliente: </span
-              >{{ solicitacao.cliente.nome }}
+              <span class="font-semibold">Cliente: </span>
+              {{ solicitacao.cliente.nome }}
             </p>
             <p class="text-md text-gray-600">
-              <span class="font-semibold">Email: </span
-              >{{ solicitacao.cliente.email }}
+              <span class="font-semibold">Email: </span>
+              {{ solicitacao.cliente.email }}
             </p>
             <p class="text-md text-gray-600">
-              <span class="font-semibold">Contato: </span
-              >{{ solicitacao.cliente.telefone }}
+              <span class="font-semibold">Contato: </span>
+              {{ solicitacao.cliente.telefone }}
             </p>
             <p class="text-md text-gray-600">
               <span class="font-semibold">Equipamento: </span>
               {{ solicitacao.equipamento }}
             </p>
             <p class="text-md text-gray-600">
-              <span class="font-semibold">Defeito: </span
-              >{{ solicitacao.defeito }}
+              <span class="font-semibold">Defeito: </span>
+              {{ solicitacao.defeito }}
             </p>
             <p class="text-md text-gray-600">
               <span class="font-semibold">Funcionario Responsável: </span>
@@ -52,125 +52,158 @@
             </p>
             <p class="text-md text-gray-600 font-bold">
               Status:
-              <span [ngClass]="statusClasses()">{{ solicitacao.status }}</span>
+              <span [ngClass]="statusClasses(solicitacao.status)">{{ solicitacao.status }}</span>
             </p>
           </div>
         </div>
 
-        <div class="p-4 rounded-xl bg-gray-100 border border-gray-300">
-          <h3 class="text-lg font-bold text-gray-700">Orçamento</h3>
-          <div class="flex flex-row h-min gap-2">
-            <!-- <p class="text-lg mt-1 text-gray-600">Valor: </p> -->
-            <input
-              type="text"
-              class="border-gray-400 mb-4 mt-3 rounded-lg border placeholder:text-gray-400 overflow-hidden h-10 px-3 transition w-full focus:border-mm focus:shadow-xl focus:shadow-mm-shadow hover:border-mm"
-              label="valor"
-              placeholder="Digite o valor do orçamento aqui"
-            />
-          </div>
-        </div>
+        @if(solicitacao.status === statusEnum.Aberta || solicitacao.status === statusEnum.Orcada) {
+            <div class="p-4 rounded-xl bg-gray-100 border border-gray-300">
+                <h3 class="text-lg font-bold text-gray-700">Orçamento</h3>
 
-        <div class="right-content mb-4">
-          <h2 class="bold">Histórico de status</h2>
+                @if(solicitacao.status === statusEnum.Aberta) {
+                    <div class="flex flex-row h-min gap-2">
+                        <input
+                            type="number"
+                            [(ngModel)]="orcamento"
+                            class="border-gray-400 mb-4 mt-3 rounded-lg border placeholder:text-gray-400 overflow-hidden h-10 px-3 transition w-full focus:border-mm focus:shadow-xl focus:shadow-mm-shadow hover:border-mm"
+                            placeholder="Digite o valor do orçamento aqui"
+                        />
+                    </div>
+                } @else {
+                    <p class="text-md text-gray-600">
+                        Valor: <span class="font-semibold">R$ {{ solicitacao.valorOrcamento }}</span>
+                    </p>
+                }
+            </div>
+        }
+
+        <div class="p-4 rounded-xl bg-gray-100 border border-gray-300">
+          <h3 class="text-lg font-bold text-gray-700">Histórico de status</h3>
           <ul>
-            <li class="bold py-2">
-              10/08 - 12:22 -
-              <span
-                class="cursor-default bg-yellow-100 px-2 py-1 border-1 border-yellow-400 rounded-lg text-yellow-500"
-                >APROVADA</span
-              >
-            </li>
-            <li class="bold py-2">
-              08/08 - 16:12 -
-              <span
-                class="cursor-default bg-yellow-700/20 px-2 py-1 border-1 border-yellow-800 rounded-lg text-yellow-800"
-                >ORÇADA</span
-              >
-            </li>
-            <li class="bold py-2">
-              07/08 - 15:48 -
-              <span
-                class="cursor-default bg-gray-100 px-2 py-1 border-1 border-gray-400 rounded-lg text-gray-600"
-                >ABERTA</span
-              >
-            </li>
+            @for (historico of solicitacao.historicoStatus; track historico.data){
+              <li class="py-2">
+                <span class="font-semibold">{{ historico.data }}</span> -
+                <span class="font-semibold">{{ historico.hora }}</span> -
+                <span [ngClass]="statusClasses(historico.status)">{{ historico.status }}</span>
+              </li>
+            }
           </ul>
         </div>
       </div>
 
-      <footer class="modal-footer">
-        <button
-          class="bg-mm text-nowrap hover:bg-mm-dark h-[46px] px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:scale-[102%] active:scale-95"
-          (click)="abrirModal()"
-        >
-          Redirecionar
-        </button>
-        <button
-          class="bg-green-600 text-nowrap hover:bg-green-700 h-[46px] px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:scale-[102%] active:scale-95"
-          (click)="onFecharModal()"
-        >
-          Efetuar Orçamento
-        </button>
+      <footer class="modal-footer flex justify-center gap-4 mt-8">
+        @switch (solicitacao.status) {
+          @case (statusEnum.Aberta) {
+            <button
+              class="bg-green-600 text-nowrap hover:bg-green-700 h-[46px] px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:scale-[102%] active:scale-95"
+              [disabled]="orcamento === null"
+              (click)="efetuarOrcamento()"
+            >
+              Efetuar Orçamento
+            </button>
+          }
+          @case (statusEnum.Orcada) {
+            <button
+              class="bg-mm text-nowrap hover:bg-mm-dark h-[46px] px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:scale-[102%] active:scale-95"
+              (click)="abrirModal()"
+            >
+              Redirecionar
+            </button>
+          }
+          @case (statusEnum.Aprovada) {
+            <button
+              class="bg-mm text-nowrap hover:bg-mm-dark h-[46px] px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:scale-[102%] active:scale-95"
+              (click)="efetuarManutencao()"
+            >
+              Efetuar Manutenção
+            </button>
+          }
+          @case (statusEnum.Redirecionada) {
+            <button
+              class="bg-mm text-nowrap hover:bg-mm-dark h-[46px] px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:scale-[102%] active:scale-95"
+              (click)="efetuarManutencao()"
+            >
+              Efetuar Manutenção
+            </button>
+          }
+          @case (statusEnum.Paga) {
+            <button
+              class="bg-mm text-nowrap hover:bg-mm-dark h-[46px] px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:scale-[102%] active:scale-95"
+              (click)="finalizarManutencao()"
+            >
+              Finalizar Manutenção
+            </button>
+          }
+          @default {
+            <button
+              class="bg-gray-500 hover:bg-gray-600 text-nowrap h-[46px] px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:scale-[102%] active:scale-95"
+              (click)="onFecharModal()"
+            >
+              Fechar
+            </button>
+          }
+        }
       </footer>
     </div>
   </div>
   } @if(modalAberto){
 
-  <div
-    class="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
-    (click)="fecharMover()"
-  >
     <div
-      class="bg-gradient-to-br from-white to-[#ccc] p-8 rounded-3xl shadow-xl w-min relative"
-      (click)="$event.stopPropagation()"
+      class="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
+      (click)="fecharMover()"
     >
-      <button
-        class="absolute top-4 left-4 text-gray-200 text-2xl font-bold cursor-pointer hover:text-gray-400 transition"
-        (click)="fecharMover()"
+      <div
+        class="bg-gradient-to-br from-white to-[#ccc] p-8 rounded-3xl shadow-xl w-min relative"
+        (click)="$event.stopPropagation()"
       >
-        X
-      </button>
-
-      <div class="text-center mb-6">
-        <h2 class="text-3xl font-extrabold text-gray-800 poppins">
-          Redirecionar manutenção
-        </h2>
-        <br />
-        <h3 class="text-lg">
-          Escolha o funcionário para redirecionar a manunteção
-        </h3>
-      </div>
-      <div class="funcionarios w-min">
-        @for (f of funcionarios; track f.id){
-        <div class="funcionario-card w-min">
-          <div class="funcioario-info">
-            <p class="text-nowrap font-bold">
-              Nome: <span class="font-normal">{{ f.nome }}</span>
-            </p>
-            <p class="text-nowrap font-bold">
-              Email: <span class="font-normal">{{ f.email }}</span>
-            </p>
-          </div>
-          <button
-            class="bg-mm text-nowrap hover:bg-mm-dark h-[46px] px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:scale-[102%] active:scale-95"
-          >
-            Redirecionar
-          </button>
-        </div>
-        }
-      </div>
-
-      <footer class="modal-footer">
         <button
-          class="bg-danger hover:bg-red-700 h-[46px] px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:scale-[102%] active:scale-95"
+          class="absolute top-4 left-4 text-gray-200 text-2xl font-bold cursor-pointer hover:text-gray-400 transition"
           (click)="fecharMover()"
         >
-          Cancelar
+          X
         </button>
-      </footer>
+  
+        <div class="text-center mb-6">
+          <h2 class="text-3xl font-extrabold text-gray-800 poppins">
+            Redirecionar manutenção
+          </h2>
+          <br />
+          <h3 class="text-lg">
+            Escolha o funcionário para redirecionar a manunteção
+          </h3>
+        </div>
+        <div class="funcionarios w-min">
+          @for (f of funcionarios; track f.id){
+          <div class="funcionario-card w-min">
+            <div class="funcioario-info">
+              <p class="text-nowrap font-bold">
+                Nome: <span class="font-normal">{{ f.nome }}</span>
+              </p>
+              <p class="text-nowrap font-bold">
+                Email: <span class="font-normal">{{ f.email }}</span>
+              </p>
+            </div>
+            <button
+              (click)="mudarFuncionario(f.id!)"
+              class="bg-mm text-nowrap hover:bg-mm-dark h-[46px] px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:scale-[102%] active:scale-95"
+            >
+              Redirecionar
+            </button>
+          </div>
+          }
+        </div>
+  
+        <footer class="modal-footer">
+          <button
+            class="bg-danger hover:bg-red-700 h-[46px] px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:scale-[102%] active:scale-95"
+            (click)="fecharMover()"
+          >
+            Cancelar
+          </button>
+        </footer>
+      </div>
     </div>
-  </div>
   }
 </main>
-
 }

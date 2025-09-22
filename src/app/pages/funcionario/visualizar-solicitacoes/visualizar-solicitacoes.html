@@ -58,34 +58,38 @@
                               </span>
                           </td>
                           <td class="border-t-2 border-gray-200 py-3 px-6 text-center">
-                              @switch (solicitacao.status) {
-                                  @case ('APROVADA') {
-                                    <button [routerLink]="['/funcionario/efetuar-manutencao']" class="bg-mm hover:bg-mm-dark h-[46px] px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:shadow-mm-shadow hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap">
-                                        Efetuar Manutenção
-                                    </button>
-                                  }
-                                  @case ('REDIRECIONADA') {
-                                    <button [routerLink]="['/funcionario/efetuar-manutencao']" class="bg-mm hover:bg-mm-dark h-[46px] px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:shadow-mm-shadow hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap">
-                                        Efetuar Manutenção
-                                    </button>
-                                  }
-                                  @case ('PAGA') {
-                                    <button [routerLink]="['/funcionario/finalizar-manutencao']" class="bg-mm hover:bg-mm-dark h-[46px] px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:shadow-mm-shadow hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap">
-                                        Finalizar Solicitação
-                                    </button>
-                                  }
-                                  @case ('ORÇADA') {
-                                      <span class="font-semibold text-gray-600">Esperando Resposta</span>
-                                  }
-                                  @case ('ARRUMADA') {
-                                      <span class="font-semibold text-gray-600">Esperando Pagamento</span>
-                                  }
-                                  @default {
-                                      <button [routerLink]="['/funcionario/orcamento']" class="bg-mm hover:bg-mm-dark h-[46px] px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:shadow-mm-shadow hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap">
-                                          Efetuar Orçamento
-                                      </button>
-                                  }
-                              }
+                            @switch (solicitacao.status) {
+                                @case ('APROVADA') {
+                                <button (click)="abrirModal(solicitacao)" class="bg-mm hover:bg-mm-dark h-[46px] px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:shadow-mm-shadow hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap w-48">
+                                    Efetuar Manutenção
+                                </button>
+                                }
+                                @case ('REDIRECIONADA') {
+                                <button (click)="abrirModal(solicitacao)" class="bg-mm hover:bg-mm-dark h-[46px] px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:shadow-mm-shadow hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap w-48">
+                                    Efetuar Manutenção
+                                </button>
+                                }
+                                @case ('PAGA') {
+                                <button (click)="abrirModal(solicitacao)" class="bg-mm hover:bg-mm-dark h-[46px] px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:shadow-mm-shadow hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap w-48">
+                                    Finalizar Solicitação
+                                </button>
+                                }
+                                @case ('ORÇADA') {
+                                <button (click)="abrirModal(solicitacao)" class="bg-mm hover:bg-mm-dark h-[46px] px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:shadow-mm-shadow hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap w-48">
+                                    Ver Detalhes
+                                </button>
+                                }
+                                @case ('ARRUMADA') {
+                                <button (click)="abrirModal(solicitacao)" class="bg-mm hover:bg-mm-dark h-[46px] px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:shadow-mm-shadow hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap w-48">
+                                    Ver Detalhes
+                                </button>
+                                }
+                                @default {
+                                <button (click)="abrirModal(solicitacao)" class="bg-mm hover:bg-mm-dark h-[46px] px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:shadow-mm-shadow hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap w-48">
+                                    Efetuar Orçamento
+                                </button>
+                                }
+                            }
                           </td>
                       </tr>
                   }
@@ -96,4 +100,9 @@
           }
       </div>
   </div>
+  
+  @if (mostrarModalSolicitacao) {
+      <app-visualizar-solicitacao [solicitacao]="solicitacaoSelecionada" (fecharModal)="fecharModal()"></app-visualizar-solicitacao>
+  }
+
 </main>
