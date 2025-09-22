@@ -68,6 +68,40 @@
         <form>
             <button type="submit" [routerLink]="['/funcionario/visualizar-solicitacao']">Recusar Orçamento</button>
         </form>
+        
    </div> 
+   <div>
+  <h1> Solicitação N </h1>
+
+  <!-- ... tabelas cliente e solicitação ... -->
+
+  <div>
+    <form>
+      <label>Orçamento: </label>
+      <input type="text" placeholder="R$ 0,00"/>
+      <button type="button" (click)="abrirModalConfirmacao()">Cadastrar Orçamento</button>
+    </form>
+
+    <form>
+      <button type="button" (click)="abrirModalRejeitar()">Recusar Orçamento</button>
+    </form>
+  </div>
+</div>
+
+                    <!-- Modal de Confirmação -->
+                    <app-modais-confirmacao
+                    *ngIf="modalConfirmacaoAberto"
+                    tipoModalSolicitacao="aprovarServico"
+                    (fechar)="fecharModalConfirmacao()">
+                    </app-modais-confirmacao>
+
+                    <!-- Modal de Rejeição -->
+                    <app-rejeitar-orcamento
+                    *ngIf="modalRejeitarAberto"
+                    (fecharModal)="fecharModalRejeitar()"
+                    (operacaoConcluida)="fecharModalRejeitar()">
+                    </app-rejeitar-orcamento>
+
+                      
 </div>
 
