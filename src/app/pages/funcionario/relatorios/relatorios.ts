@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { CategoriaService } from '../../../services/categoria-service/categoria-service';
 
 @Component({
   selector: 'app-relatorios',
@@ -8,6 +9,10 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./relatorios.css']
 })
 export class Relatorios {
+  categoriaService: CategoriaService = new CategoriaService()
+  
+  categorias = this.categoriaService.listarTodos()
+
   modalAberto = false;
 
   abrirModal(): void {

@@ -35,9 +35,9 @@
             <label class="block mb-2 font-semibold">Categoria</label>
             <select class="border-gray-400 mb-5 rounded-lg border placeholder:text-gray-400 overflow-hidden h-10 px-3 transition w-full focus:border-mm focus:shadow-xl focus:shadow-mm-shadow hover:border-mm">
               <option value="">Selecione a categoria</option>
-              <option value="1">Smartphone</option>
-              <option value="2">Notebook</option>
-              <option value="3">Televisão</option>
+             @for(categoria of categorias; track categoria.id) {
+              <option value="">{{categoria.nome}}</option>
+             }
             </select>
           </div>
         </div>
