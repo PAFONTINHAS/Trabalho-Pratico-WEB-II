@@ -1,23 +1,106 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { FormsModule } from "@angular/forms";
-import { todasSolicitacoes } from './solicitacoes';
 import { CommonModule } from '@angular/common'; 
 import { VisualizarSolicitacao } from '../visualizar-solicitacao/visualizar-solicitacao';
 import { Solicitacao } from '../../../shared/entities/solicitacao_entity';
+import { SolicitacaoService } from '../../../services/solicitacao_service/solicitacao-service';
+import { Status } from '../../../shared/models/enums/status.enum';
 
 @Component({
   selector: 'app-visualizar-solicitacoes',
-  imports: [RouterLink, FormsModule, CommonModule, VisualizarSolicitacao],
+  imports: [FormsModule, CommonModule, VisualizarSolicitacao],
   templateUrl: './visualizar-solicitacoes.html'
 })
-export class VisualizarSolicitacoes {
+export class VisualizarSolicitacoes implements OnInit{
 
-  nome = 'André';
-  solicitacoes = todasSolicitacoes;
-  solicitacoesFiltradas = this.solicitacoes;
-
+  constructor(private solicitacaoService: SolicitacaoService){}
+  
+  solicitacoes: Solicitacao[] = [];
+  solicitacoesFiltradas: Solicitacao[] = [];
   filtro = tipoFiltro.todas;
+
+  dataInicioFiltro: string = '';
+  dataFimFiltro: string = '';
+
+  ngOnInit(): void {
+    this.solicitacoes = this.solicitacaoService.listarTodos();  
+    this.solicitacoesFiltradas = this.solicitacoes;
+  }
+
+ mudarFiltro( valor: string){
+    switch (valor){
+      case "todas":
+        this.filtro = tipoFiltro.todas;
+        this.solicitacoesFiltradas = this.solicitacoes;
+        break;
+
+      case "hoje":
+        this.filtro = tipoFiltro.hoje;
+        const hoje = new Date();
+        hoje.setHours(0, 0, 0, 0);
+
+        this.solicitacoesFiltradas = this.solicitacoes.filter(s => {
+          
+          const dataDaSolicitacao = this.parsearDataString(s.dataSolicitacao);
+          dataDaSolicitacao.setHours(0, 0, 0, 0);
+          
+          const resultado = dataDaSolicitacao.getTime() === hoje.getTime();
+          
+          return resultado;
+        });
+        break;
+
+      case "entreDatas":
+        this.filtro = tipoFiltro.entreDatas;
+        this.solicitacoesFiltradas = [];
+        break;
+    }
+  }
+
+  parsearDataString(dataString: string): Date {
+    // Se a string de data for nula ou vazia, retorna uma data inválida
+    if (!dataString || dataString.trim() === '') {
+      return new Date('invalid');
+    }
+
+    if (dataString.includes('/')) {
+      // Formato: "dd/MM/yyyy - HH:mm"
+      const parteData = dataString.split(' - ')[0]; // Pega só "dd/MM/yyyy"
+      const [dia, mes, ano] = parteData.split('/').map(Number);
+      return new Date(ano, mes - 1, dia);
+    }
+    
+    // Se não tiver barra, asumimos o formato do input: "yyyy-MM-dd"
+    if (dataString.includes('-')) {
+      const [ano, mes, dia] = dataString.split('-').map(Number);
+      return new Date(ano, mes - 1, dia);
+    }
+
+    // Se não for nenhum dos formatos esperados, retorna data inválida
+    return new Date('invalid');
+  }
+
+  filtrarSolicitacoesPorData() {
+
+    if (this.dataInicioFiltro && this.dataFimFiltro) {
+      const inicio = this.parsearDataString(this.dataInicioFiltro);
+      const fim = this.parsearDataString(this.dataFimFiltro);
+
+      fim.setHours(23, 59, 59, 999);
+
+      this.solicitacoesFiltradas = this.solicitacoes.filter(s => {
+        const dataDaSolicitacao = this.parsearDataString(s.dataSolicitacao);
+        
+        const resultado = dataDaSolicitacao >= inicio && dataDaSolicitacao <= fim;
+        
+        return resultado;
+      });
+      
+    } else {
+        console.warn("[ENTRE DATAS] Filtro não executado: uma ou ambas as datas estão vazias.");
+    }
+  }
 
   mostrarModalSolicitacao = false;
   solicitacaoSelecionada?: any = null;
@@ -32,58 +115,7 @@ export class VisualizarSolicitacoes {
     this.solicitacaoSelecionada = null;
   }
 
-  mudarFiltro( valor: string){
-    switch (valor){
-      case "todas":
 
-        this.filtro = tipoFiltro.todas;
-        this.solicitacoesFiltradas = this.solicitacoes;
-
-        break;
-      case "hoje":
-
-        this.filtro = tipoFiltro.hoje;
-        const hoje = new Date();
-        hoje.setHours(0,0,0,0);
-        this.solicitacoesFiltradas = this.solicitacoes.filter(s => {
-          const data = s.dataSolicitacao;
-          const dataSemHora = new Date(data);
-          dataSemHora.setHours(0,0,0,0);
-          return dataSemHora.getTime() === hoje.getTime();
-        });
-        break;
-
-      case "entreDatas":
-        this.filtro = tipoFiltro.entreDatas;
-        break;
-    }
-  }
-
-  formatarData(data: Date): string {
-    const dia = String(data.getDate()).padStart(2, '0');
-    const mes = String(data.getMonth() + 1).padStart(2, '0');
-    const ano = data.getFullYear();
-    const horas = String(data.getHours()).padStart(2, '0');
-    const minutos = String(data.getMinutes()).padStart(2, '0');
-    return `${dia}/${mes}/${ano} - ${horas}:${minutos}`;
-  }
-
-  dataInicioFiltro: string = '';
-  dataFimFiltro: string = '';
-
-  filtrarSolicitacoesPorData (){
-
-    if(this.dataInicioFiltro && this.dataFimFiltro){
-      const inicio = new Date(this.dataInicioFiltro);
-      const fim = new Date(this.dataFimFiltro);
-
-      this.solicitacoesFiltradas = this.solicitacoes.filter(s => {
-        const data = s.dataSolicitacao;
-        return data >= inicio && data <= fim;
-      });
-    }
-
-  }
   
   statusClasses(status: string) {
     switch (status) {

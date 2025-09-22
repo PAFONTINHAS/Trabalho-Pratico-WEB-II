@@ -24,7 +24,6 @@
 
       <section class="space-y-4">
         <div class="p-4 rounded-xl bg-gray-50 border border-gray-300">
-
           <p class="text-md text-gray-600">
             Dispositivo:
             <span class="font-semibold">{{ solicitacao.equipamento }}</span>
@@ -38,11 +37,13 @@
             <span class="font-semibold">{{ solicitacao.dataSolicitacao }}</span>
           </p>
 
-          @if (solicitacao.status !== "Aberta" ) {
+          @if (solicitacao.status !== "Aberta" && solicitacao.funcionario) {
 
           <p class="text-md text-gray-600">
             Funcionário:
-            <span class="font-semibold">{{ solicitacao.funcionario }}</span>
+            <span class="font-semibold">{{
+              solicitacao.funcionario.nome
+            }}</span>
           </p>
           }
         </div>
@@ -52,11 +53,29 @@
         <div class="p-4 rounded-xl bg-gray-100 border border-gray-300">
           <h3 class="text-lg font-bold text-gray-700">Orçamento</h3>
           <p class="text-md text-gray-600">
-            Valor: 
-            <span class="font-semibold"> R$ {{ solicitacao.valorOrcamento }}</span>
+            Valor:
+            <span class="font-semibold">
+              R$ {{ solicitacao.valorOrcamento }}</span
+            >
           </p>
         </div>
         }
+
+        <div class="p-4 rounded-xl bg-gray-100 border border-gray-300">
+          <h3 class="text-lg font-bold text-gray-700">Histórico de status</h3>
+          <ul>
+            @for (historico of solicitacao.historicoStatus; track
+            historico.data){
+            <li class="py-3 flex items-center border-t mt-2 border-gray-300">
+              <p class="font-semibold mr-6">{{ historico.data }}</p>
+              <p class="font-semibold mr-6">{{ historico.hora }}</p>
+              <p [ngClass]="statusClasses(historico.status)">
+                {{ historico.status.toUpperCase() }}
+              </p>
+            </li>
+            }
+          </ul>
+        </div>
       </section>
 
       <footer class="flex justify-center gap-4 mt-8">
@@ -77,27 +96,27 @@
 
         } @case ('Orçada') {
         <button
-          (click)="onFecharModal()"
+          (click)="abrirModal('rejeitar')"
           class="bg-danger hover:bg-red-700 h-[46px] px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap"
         >
           Rejeitar
         </button>
         <button
-          (click)="onFecharModal()"
+          (click)="aprovarServico()"
           class="bg-green-600 hover:bg-green-700 h-[46px] px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap"
         >
           Aprovar
         </button>
         } @case ('Arrumada') {
         <button
-          (click)="onFecharModal()"
+          (click)="pagarServico()"
           class="bg-green-600 hover:bg-green-700 h-[46px] px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap"
         >
           Pagar
         </button>
         } @case ('Rejeitada') {
         <button
-          (click)="onFecharModal()"
+          (click)="resgatarServico()"
           class="bg-mm hover:bg-mm-dark h-[46px] px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap"
         >
           Resgatar
@@ -126,6 +145,14 @@
     [solicitacao]="solicitacao!"
     (fecharModal)="fecharSubModal()"
   ></app-editar-solicitacao>
+  } @if(modalAberto === 'rejeitar'){
+
+  <app-rejeitar-orcamento
+    [solicitacao]="solicitacao!"
+    (fecharModal)="fecharSubModal()"
+    (operacaoConcluida)="notificarOperacao()"
+  ></app-rejeitar-orcamento>
+
   }
 </main>
 

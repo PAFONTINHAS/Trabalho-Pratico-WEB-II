@@ -1,13 +1,14 @@
+import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { RedirectCommand, Router, RouterLink } from '@angular/router';
 import { clientes } from '../../../../assets/mock/clientes_mock';
 import { Status } from '../../../shared/models/enums/status.enum';
-import { FormsModule } from '@angular/forms';
-import { SolicitacaoService } from '../../../services/solicitacao_service/solicitacao-service';
+import { RedirectCommand, Router, RouterLink } from '@angular/router';
 import { Solicitacao } from '../../../shared/entities/solicitacao_entity';
 import { ModaisConfirmacao } from '../modais-confirmacao/modais-confirmacao';
+import { HistoricoStatus } from '../../../shared/entities/historico_status_entity';
 import { CategoriaService } from '../../../services/categoria-service/categoria-service';
+import { SolicitacaoService } from '../../../services/solicitacao_service/solicitacao-service';
 
 @Component({
     selector: 'app-solicitar',
@@ -38,22 +39,19 @@ export class Solicitar{
       dataSolicitacao: ""
 
     };
-
-    
     
     realizarSolicitacao(){
       
       if(!this.solicitacao.categoria) return;
 
       const dataSolicitacao: string = converterDataParaString();
-
       const novaSolicitacao: Solicitacao = this.solicitacao;
 
       novaSolicitacao.dataSolicitacao = dataSolicitacao;
 
       this.solicitacaoService.inserir(novaSolicitacao);
       this.solicitacaoService.listarTodos();
-
+      
       this.modalSolicitacaoCriada = true;
 
     }
@@ -71,11 +69,32 @@ export function converterDataParaString() : string{
   
 }
 
-function zeroAEsquerda (numero : number){
-  if(numero < 10){
-    return String(numero).padStart(2, '0');
+export function pegarDataFormatada(opcao: String) : string{
+
+  if(opcao === "data"){
+
+    const dia = zeroAEsquerda( new Date().getDate());
+    const mes = zeroAEsquerda( new Date().getMonth());
+    const ano = zeroAEsquerda( new Date().getFullYear());
+
+    return `${dia}/${mes}/${ano}`
   }
 
-  return String(numero);
+  if(opcao === "hora"){
+
+    const horas = zeroAEsquerda( new Date().getHours());
+    const minutos = zeroAEsquerda( new Date().getMinutes());
+
+    return `${horas}:${minutos}`;
+
+  }
+  
+  return '';
+}
+
+function zeroAEsquerda (numero : number){
+  
+  return String(numero).padStart(2, '0');
+
 }
 
