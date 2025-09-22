@@ -48,71 +48,49 @@ export class VisualizarSolicitacao implements OnInit {
   }
   
   mudarFuncionario(numeroFuncionario: number){
-    this.funcionarioResponsavel = this.funcionarios[numeroFuncionario];
+
+    if(!this.solicitacao) return;
+    
+    const funcionario = funcionarios[numeroFuncionario];
+
+    if(this.solicitacao.funcionario == funcionario) return;
+
+    this.solicitacao.funcionario = funcionario;
+
+    this.solicitacaoService.atualizarStatus(this.solicitacao, Status.Redirecionada);
+
     this.modalAberto = false;
   };
 
-  // Lógica para efetuar orçamento
   efetuarOrcamento(): void {
     if (this.solicitacao && this.orcamento !== null) {
-      this.solicitacao.status = Status.Orcada;
+
       this.solicitacao.valorOrcamento = this.orcamento;
-      const dataHora = this.formatarDataHora();
-      const novoHistorico: HistoricoStatus = {
-        data: dataHora.data,
-        hora: dataHora.hora,
-        status: Status.Orcada
-      };
-      this.solicitacao.historicoStatus.push(novoHistorico);
-      this.solicitacaoService.atualizar(this.solicitacao);
+
+      this.solicitacaoService.atualizarStatus(this.solicitacao, Status.Orcada);
+
       this.operacaoConcluida.emit();
     }
   }
 
-  // Lógica para efetuar manutenção
   efetuarManutencao(): void {
     if (this.solicitacao) {
-      this.solicitacao.status = Status.Arrumada;
-      const dataHora = this.formatarDataHora();
-      const novoHistorico: HistoricoStatus = {
-        data: dataHora.data,
-        hora: dataHora.hora,
-        status: Status.Arrumada
-      };
-      this.solicitacao.historicoStatus.push(novoHistorico);
-      this.solicitacaoService.atualizar(this.solicitacao);
+
+      this.solicitacaoService.atualizarStatus(this.solicitacao, Status.Arrumada);
+
       this.operacaoConcluida.emit();
     }
   }
 
-  // Lógica para finalizar manutenção
   finalizarManutencao(): void {
     if (this.solicitacao) {
-      this.solicitacao.status = Status.Finalizada;
-      const dataHora = this.formatarDataHora();
-      const novoHistorico: HistoricoStatus = {
-        data: dataHora.data,
-        hora: dataHora.hora,
-        status: Status.Finalizada
-      };
-      this.solicitacao.historicoStatus.push(novoHistorico);
-      this.solicitacaoService.atualizar(this.solicitacao);
+
+      this.solicitacaoService.atualizarStatus(this.solicitacao, Status.Finalizada);
+
       this.operacaoConcluida.emit();
     }
   }
 
-  formatarDataHora(): { data: string, hora: string } {
-    const now = new Date();
-    const dia = String(now.getDate()).padStart(2, '0');
-    const mes = String(now.getMonth() + 1).padStart(2, '0');
-    const ano = now.getFullYear();
-    const horas = String(now.getHours()).padStart(2, '0');
-    const minutos = String(now.getMinutes()).padStart(2, '0');
-    return {
-      data: `${dia}/${mes}/${ano}`,
-      hora: `${horas}:${minutos}`
-    };
-  }
 
   statusClasses(status: Status): object {
     switch (status) {

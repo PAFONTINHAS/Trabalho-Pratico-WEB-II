@@ -48,10 +48,10 @@
               <tbody>
                   @for (solicitacao of solicitacoesFiltradas; track solicitacao.id) {
                       <tr class="hover:bg-gray-50 transition-colors">
-                          <td class="border-t-2 border-gray-200 py-3 px-6">{{ solicitacao.cliente }}</td>
+                          <td class="border-t-2 border-gray-200 py-3 px-6">{{ solicitacao.cliente.nome }}</td>
                           <td class="border-t-2 border-gray-200 py-3 px-6">{{ solicitacao.equipamento }}</td>
-                          <td class="border-t-2 border-gray-200 py-3 px-6">{{ solicitacao.descricao }}</td>
-                          <td class="border-t-2 border-gray-200 py-3 px-6">{{ formatarData(solicitacao.dataSolicitacao) }}</td>
+                          <td class="border-t-2 border-gray-200 py-3 px-6">{{ solicitacao.defeito }}</td>
+                          <td class="border-t-2 border-gray-200 py-3 px-6">{{ solicitacao.dataSolicitacao}}</td>
                           <td class="border-t-2 border-gray-200 py-3 px-6 text-md font-semibold">
                               <span [ngClass]="statusClasses(solicitacao.status.toUpperCase())">
                                   {{ solicitacao.status }}
@@ -59,27 +59,38 @@
                           </td>
                           <td class="border-t-2 border-gray-200 py-3 px-6 text-center">
                             @switch (solicitacao.status) {
-                                @case ('APROVADA') {
+                                @case ('Aprovada') {
                                 <button (click)="abrirModal(solicitacao)" class="bg-mm hover:bg-mm-dark h-[46px] px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:shadow-mm-shadow hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap w-48">
                                     Efetuar Manutenção
                                 </button>
                                 }
-                                @case ('REDIRECIONADA') {
+                                @case ('Rejeitada') {
+                                <!-- <button (click)="abrirModal(solicitacao)" class="bg-mm hover:bg-mm-dark h-[46px] px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:shadow-mm-shadow hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap w-48">
+                                    Efetuar Manutenção
+                                </button> -->
+                                }
+                                @case ('Redirecionada') {
                                 <button (click)="abrirModal(solicitacao)" class="bg-mm hover:bg-mm-dark h-[46px] px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:shadow-mm-shadow hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap w-48">
                                     Efetuar Manutenção
                                 </button>
                                 }
-                                @case ('PAGA') {
+                                @case ('Paga') {
                                 <button (click)="abrirModal(solicitacao)" class="bg-mm hover:bg-mm-dark h-[46px] px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:shadow-mm-shadow hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap w-48">
                                     Finalizar Solicitação
                                 </button>
                                 }
-                                @case ('ORÇADA') {
+                                @case ('Orçada') {
                                 <button (click)="abrirModal(solicitacao)" class="bg-mm hover:bg-mm-dark h-[46px] px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:shadow-mm-shadow hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap w-48">
                                     Ver Detalhes
                                 </button>
                                 }
-                                @case ('ARRUMADA') {
+                                @case ('Arrumada') {
+                                <!-- <button (click)="abrirModal(solicitacao)" class="bg-mm hover:bg-mm-dark h-[46px] px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:shadow-mm-shadow hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap w-48">
+                                    Ver Detalhes
+                                </button> -->
+                                    <p class="text-orange-600 font-bold">Aguardando Pagamento</p>
+                                }
+                                @case ('Finalizada') {
                                 <button (click)="abrirModal(solicitacao)" class="bg-mm hover:bg-mm-dark h-[46px] px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:shadow-mm-shadow hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap w-48">
                                     Ver Detalhes
                                 </button>
@@ -96,7 +107,14 @@
               </tbody>
           </table>
           @if( solicitacoesFiltradas.length === 0){
-              <p class="p-4 text-center text-gray-500">Nenhuma solicitação encontrada para o período selecionado.</p>
+                @if(filtro === 2){
+                    
+                    <p class="p-4 text-center text-gray-500">Nenhuma solicitação encontrada para o período selecionado.</p>
+                }
+                @if(filtro === 1){
+                    
+                    <p class="p-4 text-center text-gray-500">Nenhuma solicitação encontrada para hoje.</p>
+                }
           }
       </div>
   </div>

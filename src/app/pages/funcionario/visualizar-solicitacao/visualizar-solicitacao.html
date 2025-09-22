@@ -79,17 +79,17 @@
 
         <div class="p-4 rounded-xl bg-gray-100 border border-gray-300">
           <h3 class="text-lg font-bold text-gray-700">Histórico de status</h3>
-          <ul>
-            @for (historico of solicitacao.historicoStatus; track historico.data){
-              <li class="py-3 flex items-center border-t mt-2 border-gray-300">
-                <p class="font-semibold mr-6">{{ historico.data }}</p>
-                <p class="font-semibold mr-6">{{ historico.hora }}</p>
-                <p [ngClass]="statusClasses(historico.status)">{{ historico.status.toUpperCase() }}</p>
-              </li>
-            }
-          </ul>
+            <ul>
+              @for (historico of solicitacao.historicoStatus; track $index){
+                <li class="py-3 flex items-center border-t mt-2 border-gray-300">
+                  <p class="font-semibold mr-6">{{ historico.data }}</p>
+                  <p class="font-semibold mr-6">{{ historico.hora }}</p>
+                  <p [ngClass]="statusClasses(historico.status)">{{ historico.status.toUpperCase() }}</p>
+                </li>
+              }
+            </ul>
+          </div>
         </div>
-      </div>
 
       <footer class="modal-footer flex justify-center gap-4 mt-8">
         @switch (solicitacao.status) {
@@ -102,15 +102,14 @@
               Efetuar Orçamento
             </button>
           }
-          @case (statusEnum.Orcada) {
+          @case (statusEnum.Aprovada) {
             <button
               class="bg-mm text-nowrap hover:bg-mm-dark h-[46px] px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:scale-[102%] active:scale-95"
               (click)="abrirModal()"
             >
               Redirecionar
             </button>
-          }
-          @case (statusEnum.Aprovada) {
+          
             <button
               class="bg-mm text-nowrap hover:bg-mm-dark h-[46px] px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:scale-[102%] active:scale-95"
               (click)="efetuarManutencao()"
