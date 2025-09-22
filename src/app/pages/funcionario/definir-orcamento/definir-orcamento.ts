@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ModaisConfirmacao } from '../modais-confirmacao/modais-confirmacao';
 import { RejeitarOrcamento } from '../rejeitar-orcamento/rejeitar-orcamento';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-definir-orcamento',
   standalone: true,
-  imports: [CommonModule, ModaisConfirmacao, RejeitarOrcamento],
+  imports: [CommonModule, ModaisConfirmacao, RejeitarOrcamento, RouterLink],
   templateUrl: './definir-orcamento.html',
   styleUrls: ['./definir-orcamento.css']
 })
