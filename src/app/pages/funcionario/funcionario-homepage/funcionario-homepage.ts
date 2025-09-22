@@ -34,7 +34,7 @@ export class FuncionarioHomepage implements OnInit{
   
   statusClasses(status: String) {
     
-    switch (status){
+    switch (status.toUpperCase()) {
       case 'ABERTA': 
        return {'cursor-default bg-gray-100 px-2 py-1 border-1 border-gray-400 rounded-lg text-gray-600': true};
       case 'ORÇADA':

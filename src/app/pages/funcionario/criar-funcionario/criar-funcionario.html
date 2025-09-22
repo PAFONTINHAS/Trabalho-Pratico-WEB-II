@@ -15,10 +15,10 @@
   <!-- Formulário -->
   <div
     *ngIf="formVisivel"
-    class="bg-gray-50 border border-gray-200 rounded-xl p-6 w-full mb-6"
+    class="bg-gray-50 border-2 mb-10 border-mm rounded-3xl shadow-xl p-6 w-full"
   >
-    <h2 class="text-lg font-semibold mb-4 text-gray-800">
-      {{ editando ? 'Editar funcionario' : 'Nova funcionario' }}
+    <h2 class="text-2xl font-semibold text-mm mb-5 poppins">
+      {{ editando ? 'Editar funcionário' : 'Novo funcionário' }}
     </h2>
     <div class="flex gap-3">
       <div class="flex flex-col">
@@ -28,41 +28,41 @@
           [(ngModel)]="funcionario.nome"
           placeholder="Digite o nome"
           #nome="ngModel"
-          class="w-full border border-gray-300 rounded-md p-3 mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          class="border-gray-400 mb-5 rounded-lg border placeholder:text-gray-400 overflow-hidden h-10 px-3 transition w-full focus:border-mm focus:shadow-xl focus:shadow-mm-shadow hover:border-mm"
         />
       </div>
       <div class="flex flex-col">
-        <p>Nome</p>
+        <p>E-mail</p>
         <input
           type="text"
           [(ngModel)]="funcionario.email"
           placeholder="email@email.com"
           #nome="ngModel"
-          class="w-full border border-gray-300 rounded-md p-3 mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          class="border-gray-400 mb-5 rounded-lg border placeholder:text-gray-400 overflow-hidden h-10 px-3 transition w-full focus:border-mm focus:shadow-xl focus:shadow-mm-shadow hover:border-mm"
         />
       </div>
       <div class="flex flex-col">
-        <p>Nome</p>
+        <p>Data de Nascimento</p>
         <input
           type="text"
           [(ngModel)]="funcionario.dataNasc"
-          placeholder="10/10/2000"
+          placeholder="01/01/2000"
           #nome="ngModel"
-          class="w-full border border-gray-300 rounded-md p-3 mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          class="border-gray-400 mb-5 rounded-lg border placeholder:text-gray-400 overflow-hidden h-10 px-3 transition w-full focus:border-mm focus:shadow-xl focus:shadow-mm-shadow hover:border-mm"
         />
       </div>
       <div class="flex flex-col">
-        <p>Nome</p>
+        <p>Senha</p>
         <input
           type="text"
           [(ngModel)]="funcionario.senha"
           placeholder="Digite a senha"
           #nome="ngModel"
-          class="w-full border border-gray-300 rounded-md p-3 mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          class="border-gray-400 mb-5 rounded-lg border placeholder:text-gray-400 overflow-hidden h-10 px-3 transition w-full focus:border-mm focus:shadow-xl focus:shadow-mm-shadow hover:border-mm"
         />
       </div>
     </div>
-    <div class="flex justify-center gap-2">
+    <div class="flex justify-center gap-3">
       <button
         (click)="salvar()"
         class="bg-green-600 hover:bg-green-700 h-[46px] px-4 rounded-xl transition font-regular 
@@ -83,29 +83,27 @@
   </div>
   
   <!-- Listagem -->
-  <div class="bg-white border border-gray-200 rounded-xl p-4">
-    <h2 class="text-lg font-semibold mb-4 text-gray-800">Lista de funcionários</h2>
-    <div class="overflow-x-auto">
-      <table class="w-full border-collapse">
-        <thead>
-          <tr class="bg-gray-100 text-left">
-            <th class="p-3 border border-gray-300 font-semibold">E-mail</th>
-            <th class="p-3 border border-gray-300 font-semibold">Nome</th>
-            <th class="p-3 border border-gray-300 text-center font-semibold">Data de Nascimento</th>
-            <th class="p-3 border border-gray-300 text-center font-semibold">Senha</th>
-            <th class="p-3 border border-gray-300 text-center font-semibold">Ações</th>
+    <h2 class="text-2xl font-semibold text-mm mb-5 mt-3 poppins">Lista de Funcionários</h2>
+    <div class="overflow-x-auto shadow-lg shadow-black/20 rounded-xl">
+      <table class="min-w-full bg-white rounded-xl overflow-hidden">
+        <thead class="bg-mm text-white">
+          <tr>
+            <th class="py-3 px-6 text-left font-bold">E-mail</th>
+            <th class="py-3 px-6 text-left font-bold">Nome</th>
+            <th class="py-3 px-6 text-left font-bold">Data de Nascimento</th>
+            <th class="py-3 px-6 text-left font-bold">Senha</th>
+            <th class="py-3 px-6 text-left font-bold">Ações</th>
           </tr>
         </thead>
         <tbody>
           <tr
             *ngFor="let funcionario of funcionarios"
-            class="hover:bg-gray-50 transition-colors"
           >
-            <td class="p-3 border border-gray-300">{{ funcionario.email }}</td>
-            <td class="p-3 border border-gray-300">{{ funcionario.nome }}</td>
-            <td class="p-3 border border-gray-300">{{ funcionario.dataNasc }}</td>
-            <td class="p-3 border border-gray-300">{{ funcionario.senha }}</td>
-            <td class="p-3 border border-gray-300 text-center">
+            <td class="border-t-2 border-gray-200 py-3 px-6">{{ funcionario.email }}</td>
+            <td class="border-t-2 border-gray-200 py-3 px-6">{{ funcionario.nome }}</td>
+            <td class="border-t-2 border-gray-200 py-3 px-6">{{ funcionario.dataNasc }}</td>
+            <td class="border-t-2 border-gray-200 py-3 px-6">{{ funcionario.senha }}</td>
+            <td class="border-t-2 border-gray-200 py-3 px-6 text-center">
               <button
                 (click)="editarForm(funcionario)"
                 class="bg-yellow-500 hover:bg-yellow-600 h-[46px] px-4 rounded-xl transition font-regular 
@@ -116,7 +114,7 @@
               </button>
               <button
                 (click)="remover($event, funcionario)"
-                class="bg-red-500 hover:bg-red-600 h-[46px] px-4 rounded-xl transition font-regular 
+                class="bg-red-600 hover:bg-red-700 h-[46px] px-4 rounded-xl transition font-regular 
                 text-white text-md cursor-pointer hover:shadow-xl
                 hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap"
               >
@@ -133,5 +131,4 @@
       </table>
     </div>
   </div>
-</div>
 </div>

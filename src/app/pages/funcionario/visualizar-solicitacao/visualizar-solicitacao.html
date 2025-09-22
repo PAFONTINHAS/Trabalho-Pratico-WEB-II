@@ -1,6 +1,5 @@
 @if(solicitacao){
 
-<main>
   @if(!modalAberto){
   <div
     class="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
@@ -52,7 +51,7 @@
             </p>
             <p class="text-md text-gray-600 font-bold">
               Status:
-              <span [ngClass]="statusClasses(solicitacao.status)">{{ solicitacao.status }}</span>
+              <span [ngClass]="statusClasses(solicitacao.status)">{{ solicitacao.status.toUpperCase() }}</span>
             </p>
           </div>
         </div>
@@ -82,10 +81,10 @@
           <h3 class="text-lg font-bold text-gray-700">Histórico de status</h3>
           <ul>
             @for (historico of solicitacao.historicoStatus; track historico.data){
-              <li class="py-2">
-                <span class="font-semibold">{{ historico.data }}</span> -
-                <span class="font-semibold">{{ historico.hora }}</span> -
-                <span [ngClass]="statusClasses(historico.status)">{{ historico.status }}</span>
+              <li class="py-3 flex items-center border-t mt-2 border-gray-300">
+                <p class="font-semibold mr-6">{{ historico.data }}</p>
+                <p class="font-semibold mr-6">{{ historico.hora }}</p>
+                <p [ngClass]="statusClasses(historico.status)">{{ historico.status.toUpperCase() }}</p>
               </li>
             }
           </ul>
@@ -205,5 +204,4 @@
       </div>
     </div>
   }
-</main>
 }

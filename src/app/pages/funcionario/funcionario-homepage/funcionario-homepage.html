@@ -23,7 +23,7 @@
                                     <td class="border-t-2 border-gray-200 py-3 px-6">{{solicitacao.cliente.nome}}</td>
                                     <td class="border-t-2 border-gray-200 py-3 px-6">{{solicitacao.equipamento}}</td>
                                     <td class="border-t-2 border-gray-200 py-3 px-6">{{solicitacao.defeito}}</td>
-                                    <td class="border-t-2 border-gray-200 py-3 px-6"><span [ngClass]="statusClasses(solicitacao.status)">{{solicitacao.status}}</span></td>
+                                    <td class="border-t-2 border-gray-200 py-3 px-6"><span [ngClass]="statusClasses(solicitacao.status)">{{solicitacao.status.toUpperCase()}}</span></td>
                                     <td class="border-t-2 border-gray-200 py-3 px-6 text-center">
                                         <button (click)="abrirModal(solicitacao)" 
                                         class="bg-mm hover:bg-mm-dark h-[46px] px-4 rounded-xl transition font-regular 
