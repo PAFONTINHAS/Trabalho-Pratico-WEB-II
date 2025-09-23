@@ -20,7 +20,7 @@ export class FuncionarioService {
   
   private atualizarDados(funcionarios: Funcionario[]) {
     localStorage[LS_CHAVE] = JSON.stringify(funcionarios);
-    this.funcionariosSubject.next(funcionarios); // Emite a nova lista
+    this.funcionariosSubject.next(funcionarios);
   }
 
   listarTodos(): Funcionario[] {
@@ -35,7 +35,8 @@ export class FuncionarioService {
   }
 
   buscarPorId(id: number): Funcionario | undefined {
-    return this.listarTodos().find(f => f.id === id);
+    const funcionarios = this.listarTodos();
+    return funcionarios.find(funcionario => funcionario.id === id);
   }
 
   atualizar(funcionario: Funcionario): void {
@@ -51,5 +52,21 @@ export class FuncionarioService {
     let funcionarios = this.listarTodos();
     funcionarios = funcionarios.filter(f => f.id !== id);
     this.atualizarDados(funcionarios);
+  }
+  
+  inserirFuncionariosBase(funcionario: Funcionario): void {
+    const funcionarios = this.listarTodos();
+    let exists: Boolean = false;
+    funcionarios.forEach( (obj) => {
+      if (funcionario.nome === obj.nome) {
+        exists = true
+      }
+    });
+
+    if(!exists) {
+      funcionarios.push(funcionario);
+      this.atualizarDados(funcionarios);
+    }
+
   }
 }

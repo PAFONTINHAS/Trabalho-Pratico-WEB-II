@@ -88,19 +88,19 @@
       <table class="min-w-full bg-white rounded-xl overflow-hidden">
         <thead class="bg-mm text-white">
           <tr>
-            <th class="py-3 px-6 text-left font-bold">E-mail</th>
             <th class="py-3 px-6 text-left font-bold">Nome</th>
+            <th class="py-3 px-6 text-left font-bold">E-mail</th>
             <th class="py-3 px-6 text-left font-bold">Data de Nascimento</th>
             <th class="py-3 px-6 text-left font-bold">Senha</th>
-            <th class="py-3 px-6 text-left font-bold">Ações</th>
+            <th class="py-3 px-6 text-center font-bold">Ações</th>
           </tr>
         </thead>
         <tbody>
           <tr
             *ngFor="let funcionario of funcionarios"
           >
+          <td class="border-t-2 border-gray-200 py-3 px-6">{{ funcionario.nome }}</td>
             <td class="border-t-2 border-gray-200 py-3 px-6">{{ funcionario.email }}</td>
-            <td class="border-t-2 border-gray-200 py-3 px-6">{{ funcionario.nome }}</td>
             <td class="border-t-2 border-gray-200 py-3 px-6">{{ funcionario.dataNasc }}</td>
             <td class="border-t-2 border-gray-200 py-3 px-6">{{ funcionario.senha }}</td>
             <td class="border-t-2 border-gray-200 py-3 px-6 text-center">

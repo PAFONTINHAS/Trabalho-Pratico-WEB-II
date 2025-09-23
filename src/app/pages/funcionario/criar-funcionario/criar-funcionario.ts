@@ -5,6 +5,7 @@ import { Router, RouterModule } from '@angular/router';
 import { Funcionario } from '../../../shared/entities/funcionario_entity';
 import { FuncionarioService } from '../../../services/funcionario-service/funcionario-service';
 import { Subscription } from 'rxjs';
+import { Funcionarios } from '../../../shared/models/enums/funcionarios.enum'
 
 @Component({
   imports: [CommonModule, RouterModule, FormsModule],
@@ -25,6 +26,7 @@ export class CriarFuncionario implements OnInit, OnDestroy {
   editando = false;
 
   ngOnInit(): void {
+    Funcionarios.forEach(funcionario => this.funcionarioService.inserirFuncionariosBase(funcionario))
     this.subscription = this.funcionarioService.funcionarios$.subscribe(data => {
       this.funcionarios = data;
     });
