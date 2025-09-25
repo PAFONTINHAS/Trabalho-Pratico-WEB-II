@@ -59,7 +59,7 @@ export class Solicitar{
 
 export function converterDataParaString() : string{
   const dia = zeroAEsquerda( new Date().getDate());
-  const mes = zeroAEsquerda( new Date().getMonth());
+  const mes = zeroAEsquerda( new Date().getMonth() + 1);
   const ano = zeroAEsquerda( new Date().getFullYear());
 
   const horas = zeroAEsquerda( new Date().getHours());
@@ -74,7 +74,7 @@ export function pegarDataFormatada(opcao: String) : string{
   if(opcao === "data"){
 
     const dia = zeroAEsquerda( new Date().getDate());
-    const mes = zeroAEsquerda( new Date().getMonth());
+    const mes = zeroAEsquerda( new Date().getMonth() + 1) ;
     const ano = zeroAEsquerda( new Date().getFullYear());
 
     return `${dia}/${mes}/${ano}`

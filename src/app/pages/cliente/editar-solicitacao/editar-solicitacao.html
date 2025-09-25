@@ -31,7 +31,7 @@
           >
               <option value="">Selecione</option>
               @for(categoria of categoriasEnum; track categoria) {
-              <option [ngValue]="categoria">{{categoria}}</option>
+              <option [ngValue]="categoria">{{categoria.nome}}</option>
               }
           </select>
 

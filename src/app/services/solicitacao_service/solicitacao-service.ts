@@ -81,7 +81,7 @@ export class SolicitacaoService {
     if(opcao === "data"){
   
       const dia = this.zeroAEsquerda( new Date().getDate());
-      const mes = this.zeroAEsquerda( new Date().getMonth());
+      const mes = this.zeroAEsquerda( new Date().getMonth() + 1);
       const ano = this.zeroAEsquerda( new Date().getFullYear());
   
       return `${dia}/${mes}/${ano}`

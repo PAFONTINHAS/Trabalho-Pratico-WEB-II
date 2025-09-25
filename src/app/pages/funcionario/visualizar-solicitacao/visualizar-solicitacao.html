@@ -55,7 +55,7 @@
           </div>
         </div>
 
-        @if(solicitacao.status === statusEnum.Aberta || solicitacao.status === statusEnum.Orcada) {
+        <!-- @if(solicitacao.status === statusEnum.Aberta || solicitacao.status === statusEnum.Orcada) { -->
             <div class="p-4 rounded-xl bg-gray-100 border border-gray-300">
                 <h3 class="text-lg font-bold text-gray-700">Orçamento</h3>
 
@@ -69,12 +69,14 @@
                         />
                     </div>
                 } @else {
-                    <p class="text-md text-gray-600">
-                        Valor: <span class="font-semibold">R$ {{ solicitacao.valorOrcamento }}</span>
-                    </p>
+
+                  <p class="text-md text-gray-600">
+                      Valor: <span class="font-semibold">R$ {{ solicitacao.valorOrcamento }}</span>
+                  </p>
                 }
+                
             </div>
-        }
+        <!-- } -->
 
         <div class="p-4 rounded-xl bg-gray-100 border border-gray-300">
           <h3 class="text-lg font-bold text-gray-700">Histórico de status</h3>
@@ -111,7 +113,7 @@
           
             <button
               class="bg-success text-nowrap hover:bg-success-dark h-[46px] px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:scale-[102%] active:scale-95"
-              (click)="efetuarManutencao()"
+              (click)="abrirModalEfetuar()"
             >
               Efetuar Manutenção
             </button>
@@ -126,7 +128,7 @@
           
             <button
               class="bg-success text-nowrap hover:bg-success-dark h-[46px] px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:scale-[102%] active:scale-95"
-              (click)="efetuarManutencao()"
+              (click)="abrirModalEfetuar()"
             >
               Efetuar Manutenção
             </button>
@@ -152,6 +154,8 @@
       </footer>
     </div>
   </div>
+
+
   } @if(modalAberto){
 
     <div
@@ -210,4 +214,9 @@
       </div>
     </div>
   }
+
+    @if(modalEfetuarAberto){
+
+        <app-efetuar-manutencao [solicitacao]="solicitacao" (fecharModal)="onFecharModal()" (operacaoConcluida)="notificarOperacao()"></app-efetuar-manutencao>
+    }
 }

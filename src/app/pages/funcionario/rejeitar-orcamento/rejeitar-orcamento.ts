@@ -8,7 +8,7 @@ import { Status } from '../../../shared/models/enums/status.enum';
 
 @Component({
   selector: 'app-rejeitar-orcamento',
-  imports: [ModaisConfirmacao, FormsModule],
+  imports: [FormsModule],
   templateUrl: './rejeitar-orcamento.html',
   styleUrl: './rejeitar-orcamento.css'
 })

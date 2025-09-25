@@ -7,10 +7,11 @@ import { FormsModule } from '@angular/forms';
 import { SolicitacaoService } from '../../../services/solicitacao_service/solicitacao-service';
 import { funcionarios } from '../../../../assets/mock/funcionarios_mocks';
 import { HistoricoStatus } from '../../../shared/entities/historico_status_entity';
+import { Manutencao } from '../efetuar-manutencao/efetuar-manutencao';
 
 @Component({
   selector: 'app-visualizar-solicitacao',
-  imports: [ CommonModule, RouterModule, FormsModule],
+  imports: [ CommonModule, RouterModule, FormsModule, Manutencao],
   standalone: true,
   templateUrl: './visualizar-solicitacao.html',
   styleUrls: ['./visualizar-solicitacao.css']
@@ -27,6 +28,8 @@ export class VisualizarSolicitacao implements OnInit {
   public funcionarios = funcionarios;
   public statusEnum = Status;
   public modalAberto = false;
+
+  public modalEfetuarAberto: boolean = false;
 
   ngOnInit(): void {
     if (this.solicitacao) {
@@ -45,6 +48,10 @@ export class VisualizarSolicitacao implements OnInit {
   
   fecharMover(){
     this.modalAberto = false;
+  }
+
+  abrirModalEfetuar(){
+    this.modalEfetuarAberto = true;
   }
   
   mudarFuncionario(numeroFuncionario: number){
@@ -89,6 +96,12 @@ export class VisualizarSolicitacao implements OnInit {
 
       this.operacaoConcluida.emit();
     }
+  }
+
+
+  
+  notificarOperacao(): void {
+    this.operacaoConcluida.emit();
   }
 
 
