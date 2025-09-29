@@ -62,10 +62,11 @@
                 @if(solicitacao.status === statusEnum.Aberta) {
                     <div class="flex flex-row h-min gap-2">
                         <input
-                            type="number"
+                            type="text"
                             [(ngModel)]="orcamento"
                             class="border-gray-400 mb-4 mt-3 rounded-lg border placeholder:text-gray-400 overflow-hidden h-10 px-3 transition w-full focus:border-mm focus:shadow-xl focus:shadow-mm-shadow hover:border-mm"
                             placeholder="Digite o valor do orçamento aqui"
+                            (keyup)="handleOrcamento($event)"
                         />
                     </div>
                 } @else {

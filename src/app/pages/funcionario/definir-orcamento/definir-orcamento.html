@@ -78,7 +78,7 @@
   <div>
     <form>
       <label>Orçamento: </label>
-      <input type="text" placeholder="R$ 0,00"/>
+      <input type="text" placeholder="R$ 0,00" (keyup)="handleOrcamento($event)" />
       <button type="button" (click)="abrirModalConfirmacao()">Cadastrar Orçamento</button>
     </form>
 
