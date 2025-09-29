@@ -34,11 +34,13 @@
 
         <p class="font-semibold text-md mb-2">CPF</p>
         <input
-        type="text"
-        class="border-gray-400 mb-5 rounded-lg border placeholder:text-gray-400 overflow-hidden h-10 px-3 transition w-full focus:border-mm focus:shadow-xl focus:shadow-mm-shadow hover:border-mm"
-        label="cpf"
-        placeholder="000.000.000-00"
-        required />
+          type="text"
+          maxlength="14" 
+          (keyup)="handleCpf($event)" 
+          class="border-gray-400 mb-5 rounded-lg border placeholder:text-gray-400 overflow-hidden h-10 px-3 transition w-full focus:border-mm focus:shadow-xl focus:shadow-mm-shadow hover:border-mm"
+          label="cpf"
+          placeholder="000.000.000-00"
+          required />
 
         <p class="font-semibold text-md mb-2">Nome</p>
         <input
@@ -139,11 +141,13 @@
 
         <p class="font-semibold text-md mb-2">Telefone</p>
         <input
-        type="text"
-        class="border-gray-400 mb-5 rounded-lg border placeholder:text-gray-400 overflow-hidden h-10 px-3 transition w-full focus:border-mm focus:shadow-xl focus:shadow-mm-shadow hover:border-mm"
-        label="telefone"
-        placeholder="(00) 90000-0000"
-        required />
+          type="tel" 
+          maxlength="15" 
+          (keyup)="handlePhone($event)" 
+          class="border-gray-400 mb-5 rounded-lg border placeholder:text-gray-400 overflow-hidden h-10 px-3 transition w-full focus:border-mm focus:shadow-xl focus:shadow-mm-shadow hover:border-mm"
+          label="telefone"
+          placeholder="(00) 90000-0000"
+          required />
       </div>
     </div>
     <div class="flex justify-center mt-5">
