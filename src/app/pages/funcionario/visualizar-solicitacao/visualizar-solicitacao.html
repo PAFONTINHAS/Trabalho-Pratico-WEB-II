@@ -55,19 +55,25 @@
           </div>
         </div>
 
-        <!-- @if(solicitacao.status === statusEnum.Aberta || solicitacao.status === statusEnum.Orcada) { -->
-            <div class="p-4 rounded-xl bg-gray-100 border border-gray-300">
+        <div class="p-4 rounded-xl bg-gray-100 border border-gray-300">
                 <h3 class="text-lg font-bold text-gray-700">Orçamento</h3>
 
                 @if(solicitacao.status === statusEnum.Aberta) {
-                    <div class="flex flex-row h-min gap-2">
+                    <div class="flex flex-col gap-2">
                         <input
                             type="text"
                             [(ngModel)]="orcamento"
-                            class="border-gray-400 mb-4 mt-3 rounded-lg border placeholder:text-gray-400 overflow-hidden h-10 px-3 transition w-full focus:border-mm focus:shadow-xl focus:shadow-mm-shadow hover:border-mm"
+                            [class.border-red-500]="orcamentoSubmitted && !orcamento"
+                            [class.border-gray-400]="!(orcamentoSubmitted && !orcamento)"
+                            [class.focus:border-mm]="!(orcamentoSubmitted && !orcamento)"
+                            [class.hover:border-mm]="!(orcamentoSubmitted && !orcamento)"
+                            class="mb-1 mt-3 rounded-lg border placeholder:text-gray-400 overflow-hidden h-10 px-3 transition w-full focus:shadow-xl focus:shadow-mm-shadow"
                             placeholder="Digite o valor do orçamento aqui"
                             (keyup)="handleOrcamento($event)"
                         />
+                        @if(orcamentoSubmitted && !orcamento){
+                            <p class="text-red-500 text-sm mb-4">O valor do orçamento é obrigatório.</p>
+                        }
                     </div>
                 } @else {
 
@@ -77,8 +83,6 @@
                 }
                 
             </div>
-        <!-- } -->
-
         <div class="p-4 rounded-xl bg-gray-100 border border-gray-300">
           <h3 class="text-lg font-bold text-gray-700">Histórico de status</h3>
             <ul>
@@ -98,7 +102,6 @@
           @case (statusEnum.Aberta) {
             <button
               class="bg-mm text-nowrap hover:bg-mm-dark h-[46px] px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:scale-[102%] active:scale-95"
-              [disabled]="orcamento === null"
               (click)="efetuarOrcamento()"
             >
               Efetuar Orçamento

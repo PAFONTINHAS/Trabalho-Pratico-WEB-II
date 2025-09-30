@@ -5,8 +5,7 @@ import { CategoriaService } from '../../../services/categoria-service/categoria-
 @Component({
   selector: 'app-relatorios',
   imports: [CommonModule],
-  templateUrl: './relatorios.html',
-  styleUrls: ['./relatorios.css']
+  templateUrl: './relatorios.html'
 })
 export class Relatorios {
   categoriaService: CategoriaService = new CategoriaService()

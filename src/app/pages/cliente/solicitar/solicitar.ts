@@ -27,6 +27,9 @@ export class Solicitar{
   categoriaService: CategoriaService = new CategoriaService()
 
   categorias = this.categoriaService.listarTodos()
+  
+  // Variável para rastrear se o formulário foi submetido (para exibir erros)
+  formSubmitted: boolean = false;
 
     solicitacao = {
       cliente: clientes[0],
@@ -40,10 +43,36 @@ export class Solicitar{
 
     };
     
+    validateForm(): boolean {
+      this.formSubmitted = true;
+      let isValid = true;
+
+      // Verifica se a descrição do equipamento está preenchida
+      if (!this.solicitacao.equipamento || this.solicitacao.equipamento.trim() === "") {
+          isValid = false;
+      }
+      
+      // Verifica se a categoria foi selecionada
+      if (!this.solicitacao.categoria) {
+          isValid = false;
+      }
+
+      // Verifica se o defeito está preenchido
+      if (!this.solicitacao.defeito || this.solicitacao.defeito.trim() === "") {
+          isValid = false;
+      }
+
+      return isValid;
+  }
+
     realizarSolicitacao(){
       
-      if(!this.solicitacao.categoria) return;
+      if (!this.validateForm()) {
+        // Se a validação falhar, impede a submissão. Os erros serão exibidos no template.
+          return;
+      }
 
+      // Lógica de submissão só continua se o formulário for válido
       const dataSolicitacao: string = converterDataParaString();
       const novaSolicitacao: Solicitacao = this.solicitacao;
 
@@ -53,8 +82,7 @@ export class Solicitar{
       this.solicitacaoService.listarTodos();
       
       this.modalSolicitacaoCriada = true;
-
-    }
+  }
 }
 
 export function converterDataParaString() : string{
@@ -97,4 +125,3 @@ function zeroAEsquerda (numero : number){
   return String(numero).padStart(2, '0');
 
 }
-

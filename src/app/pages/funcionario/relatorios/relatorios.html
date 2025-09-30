@@ -1,21 +1,23 @@
 <div class="flex items-center justify-center pt-5">
-  <div class="flex flex-col py-12 px-15 rounded-4xl bg-gradient-to-br from-white to-[#ccc]">
+  <div class="flex flex-col py-12 px-[70px] rounded-3xl bg-gradient-to-br from-white to-[#ccc] shadow-xl">
     <h1 class="text-4xl font-semibold text-gray-800 mb-6 poppins">Relatórios</h1>
     <div class="flex gap-10">
-      <div class="w-full max-w-xl px-[50px] py-[50px] border-2 border-mm rounded-3xl shadow-xl flex flex-col justify-between">
+      
+      <div class="w-full max-w-xl p-10 border-2 border-mm rounded-3xl shadow-xl flex flex-col justify-between">
         <div>
           <p class="text-mm font-semibold text-3xl mb-3 select-none poppins whitespace-nowrap">Receitas por período</p>
-          <div class="flex-col gap-3">
-            <p class="font-semibold text-md mb-2">Data Início:</p>
+          <div class="flex flex-col gap-3">
+            
+            <label class="font-semibold text-md mb-2 block">Data Início:</label>
             <input
               type="date"
-              class="border-gray-400 mb-5 rounded-lg border placeholder:text-gray-400 overflow-hidden h-10 px-3 transition w-full focus:border-mm focus:shadow-xl focus:shadow-mm-shadow hover:border-mm"
+              class="border-gray-400 mb-5 rounded-lg border placeholder:text-gray-400 h-10 px-3 transition w-full focus:border-mm focus:shadow-xl focus:shadow-mm-shadow hover:border-mm"
               required />
   
-            <p class="font-semibold text-md mb-2">Data Final:</p>
+            <label class="font-semibold text-md mb-2 block">Data Final:</label>
             <input
               type="date"
-              class="border-gray-400 mb-5 rounded-lg border placeholder:text-gray-400 overflow-hidden h-10 px-3 transition w-full focus:border-mm focus:shadow-xl focus:shadow-mm-shadow hover:border-mm"
+              class="border-gray-400 mb-5 rounded-lg border placeholder:text-gray-400 h-10 px-3 transition w-full focus:border-mm focus:shadow-xl focus:shadow-mm-shadow hover:border-mm"
               required />
           </div>
         </div>
@@ -28,12 +30,12 @@
         </div>
       </div>
   
-      <div class="w-full max-w-xl px-[50px] py-[50px] border-2 border-mm rounded-3xl shadow-xl flex flex-col justify-between">
+      <div class="w-full max-w-xl p-10 border-2 border-mm rounded-3xl shadow-xl flex flex-col justify-between">
         <div>
           <p class="text-mm font-semibold text-3xl mb-3 select-none poppins whitespace-nowrap">Receitas por categoria</p>
-          <div class="flex-col gap-3">
+          <div class="flex flex-col gap-3">
             <label class="block mb-2 font-semibold">Categoria</label>
-            <select class="border-gray-400 mb-5 rounded-lg border placeholder:text-gray-400 overflow-hidden h-10 px-3 transition w-full focus:border-mm focus:shadow-xl focus:shadow-mm-shadow hover:border-mm">
+            <select class="border-gray-400 mb-5 rounded-lg border placeholder:text-gray-400 h-10 px-3 transition w-full focus:border-mm focus:shadow-xl focus:shadow-mm-shadow hover:border-mm">
               <option value="">Selecione a categoria</option>
              @for(categoria of categorias; track categoria.id) {
               <option value="">{{categoria.nome}}</option>
@@ -53,7 +55,6 @@
     </div>
   </div>
 </div>
-
 
 <div *ngIf="modalAberto" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50" (click)="fecharModal()">
     <div class="bg-gradient-to-br from-white to-[#ccc] pt-9 px-10 pb-7 rounded-3xl shadow-xl w-min relative" (click)="$event.stopPropagation()">

@@ -30,6 +30,9 @@ export class VisualizarSolicitacao implements OnInit {
   public modalAberto = false;
 
   public modalEfetuarAberto: boolean = false;
+  
+  // NOVO: Flag para rastrear se o botão de submissão do orçamento foi clicado.
+  public orcamentoSubmitted: boolean = false;
 
   ngOnInit(): void {
     if (this.solicitacao) {
@@ -70,8 +73,11 @@ export class VisualizarSolicitacao implements OnInit {
   };
 
   efetuarOrcamento(): void {
-    if (this.solicitacao && this.orcamento !== null) {
-
+    // 1. Marca como submetido para exibir erros no template
+    this.orcamentoSubmitted = true;
+    
+    // 2. Validação: verifica se o orçamento é null, zero ou negativo (considerando que só números válidos são esperados)
+    if (this.solicitacao && this.orcamento !== null && this.orcamento > 0) {
       this.solicitacao.valorOrcamento = this.orcamento;
 
       this.solicitacaoService.atualizarStatus(this.solicitacao, Status.Orcada);
@@ -107,6 +113,11 @@ export class VisualizarSolicitacao implements OnInit {
   handleOrcamento(e: any) {
     let input = e.target
     input.value = this.orcamentoMask(input.value)
+    
+    // Se o usuário está digitando, remove o estado de submissão/erro para que o estilo volte ao normal
+    if (this.orcamentoSubmitted) {
+        this.orcamentoSubmitted = false;
+    }
   }
 
   orcamentoMask(value: any) {
