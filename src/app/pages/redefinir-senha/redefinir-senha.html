@@ -26,24 +26,73 @@
         </div>
         <p class="text-gray-800 font-semibold text-4xl mb-3 select-none poppins">Redefinir senha</p>
         <p class="mb-5">Digite seu e-mail para receber as instruções de redefinição de senha.</p>
-        <div class="flex-col gap-3">
+        
+       
+        <div *ngIf="submitSuccess" 
+             class="mb-5 p-4 bg-green-100 border border-green-400 text-green-700 rounded-lg flex items-start gap-3"
+             role="alert">
+            <svg class="w-5 h-5 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+            </svg>
+            <div>
+                <p class="font-semibold">E-mail enviado com sucesso!</p>
+                <p class="text-sm mt-1">Verifique sua caixa de entrada e siga as instruções.</p>
+            </div>
+        </div>
+      
+        
+       
+        <form (ngSubmit)="onSubmit($event)" class="flex-col gap-3">
             <p class="font-semibold text-md mb-2">E-mail</p>
+            
+            <!-- ✅ MODIFICAR - Adicionar ngModel, classes de erro e disabled -->
             <input
-            type="email"
-            class="border-gray-400 mb-5 rounded-lg border placeholder:text-gray-400 overflow-hidden h-10 px-3 transition w-full focus:border-mm focus:shadow-xl focus:shadow-mm-shadow hover:border-mm"
-            label="email"
-            placeholder="exemplo@email.com"
-            required />
+                type="email"
+                name="email"
+                [(ngModel)]="email"
+                (input)="onEmailInput()"
+                [class.border-red-500]="emailError"
+                [class.border-gray-400]="!emailError"
+                [disabled]="isSubmitting"
+                class="mb-2 rounded-lg border placeholder:text-gray-400 overflow-hidden h-10 px-3 transition w-full focus:border-mm focus:shadow-xl focus:shadow-mm-shadow hover:border-mm disabled:opacity-50 disabled:cursor-not-allowed"
+                label="email"
+                placeholder="exemplo@email.com"
+                required />
+            
+            
+            <p *ngIf="emailError" class="text-red-500 text-sm mb-5 flex items-center gap-1">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                </svg>
+                {{ emailError }}
+            </p>
+        
+            
             <div class="flex flex-col gap-4 items-center justify-center mt-5">
-                <button routerLink="/login" class="bg-mm h-[50px] w-min px-4 rounded-xl transition font-regular 
-                  text-white text-lg cursor-pointer hover:shadow-xl hover:shadow-mm-shadow 
-                  hover:bg-mm-dark hover:scale-[102%] active:scale-95 text-nowrap">
-                  Solicitar redefinição
+               
+                <button 
+                    type="submit"
+                    [disabled]="isSubmitting"
+                    class="bg-mm h-[50px] w-min px-4 rounded-xl transition font-regular 
+                           text-white text-lg cursor-pointer hover:shadow-xl hover:shadow-mm-shadow 
+                           hover:bg-mm-dark hover:scale-[102%] active:scale-95 text-nowrap
+                           disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100
+                           flex items-center justify-center gap-2">
+                    
+                   
+                    <svg *ngIf="isSubmitting" class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    
+                    <span>{{ isSubmitting ? 'Enviando...' : 'Solicitar redefinição' }}</span>
                 </button>
+                
                 <a routerLink="/login" class="transition cursor-pointer font-medium text-mm hover:text-mm-dark hover:font-semibold">
                     Voltar ao login
                 </a>
             </div>
-        </div>
+        </form>
+      
     </div>
 </div>
