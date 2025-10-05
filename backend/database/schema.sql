@@ -69,3 +69,70 @@ CREATE TABLE CATEGORIA (
     nomeCategoria VARCHAR(50) NOT NULL,
     isDelete BOOLEAN DEFAULT FALSE
 );
+
+-- TABELA SOLICITACAO
+
+CREATE TABLE SOLICITACAO (
+    idSolicitacao INT AUTO_INCREMENT PRIMARY KEY,
+    idCliente INT NOT NULL,
+    idFuncionario INT,
+    idCategoria INT NOT NULL,
+    idStatus INT NOT NULL,
+    descricaoEquipamento VARCHAR(100),
+    descricaoDefeito TEXT,
+    motivoRejeicao TEXT,
+    dataHoraAbertura DATETIME NOT NULL,
+    FOREIGN KEY (idFuncionario) REFERENCES FUNCIONARIO(idFuncionario),
+    FOREIGN KEY (idCliente) REFERENCES CLIENTE(idCliente),
+    FOREIGN KEY (idStatus) REFERENCES STATUS(idStatus),
+    FOREIGN KEY (idCategoria) REFERENCES CATEGORIA(idCategoria)
+);
+
+-- TABELA ORCAMENTO
+
+CREATE TABLE ORCAMENTO (
+    idOrcamento INT AUTO_INCREMENT PRIMARY KEY,
+    idSolicitacao INT NOT NULL,
+    idFuncionario INT NOT NULL,
+    valor DECIMAL(10, 2) NOT NULL,
+    dataHora DATETIME NOT NULL,
+    FOREIGN KEY (idSolicitacao) REFERENCES SOLICITACAO(idSolicitacao),
+    FOREIGN KEY (idFuncionario) REFERENCES FUNCIONARIO(idFuncionario)
+);
+
+
+-- TABEALA PAGAMENTO
+
+CREATE TABLE PAGAMENTO(
+    idPagamento INT AUTO_INCREMENT PRIMARY KEY,
+    idSolicitacao INT NOT NULL,
+    valor DECIMAL(10, 2) NOT NULL,
+    dataHora DATETIME NOT NULL,
+    FOREIGN KEY (idSolicitacao) REFERENCES SOLICITACAO(idSolicitacao)
+);
+
+-- TABELA MANUTENCAO
+
+CREATE TABLE MANUTENCAO(
+    idManutencao INT AUTO_INCREMENT PRIMARY KEY,
+    idSolicitacao INT NOT NULL,
+    descricaoManutencao TEXT,
+    orientacaoCliente VARCHAR(150),
+    FOREIGN KEY (idSolicitacao) REFERENCES SOLICITACAO(idSolicitacao)
+);
+
+-- TABELA HISTORICO SOLICITACAO
+
+CREATE TABLE HISTORICO(
+    idHistorico INT AUTO_INCREMENT PRIMARY KEY,
+    idSolicitacao INT NOT NULL,
+    idStatus INT NOT NULL,
+    funciOrigem INT,
+    funciDestino INT,
+    dataHora INT NOT NULL,
+    observacao TEXT,
+    FOREIGN KEY (funciDestino) REFERENCES FUNCIONARIO(idFuncionario),
+    FOREIGN KEY (funciOrigem) REFERENCES FUNCIONARIO(idFuncionario),
+    FOREIGN KEY (idSolicitacao) REFERENCES SOLICITACAO(idSolicitacao),
+    FOREIGN KEY (idStatus) REFERENCES STATUS(idStatus)
+);
