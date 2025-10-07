@@ -1,4 +1,4 @@
-import { Component, signal, ElementRef, HostListener, QueryList, ViewChildren, OnInit } from '@angular/core';
+import { Component, signal, ElementRef, HostListener, QueryList, ViewChildren, OnInit, ApplicationConfig } from '@angular/core';
 import { RouterOutlet, Router, RouterModule, NavigationEnd } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { filter } from 'rxjs';
@@ -11,6 +11,7 @@ type TipoUsuarioVisual = 'cliente' | 'funcionario' | null;
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
+
 
 export class App {
   protected readonly title = signal('MM-TADS');

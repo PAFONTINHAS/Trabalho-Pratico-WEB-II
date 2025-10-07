@@ -9,6 +9,7 @@ import { ModaisConfirmacao } from '../modais-confirmacao/modais-confirmacao';
 import { HistoricoStatus } from '../../../shared/entities/historico_status_entity';
 import { CategoriaService } from '../../../services/categoria-service/categoria-service';
 import { SolicitacaoService } from '../../../services/solicitacao_service/solicitacao-service';
+import { Categoria } from '../../../shared/entities/categoria_entity';
 
 @Component({
     selector: 'app-solicitar',
@@ -16,17 +17,40 @@ import { SolicitacaoService } from '../../../services/solicitacao_service/solici
     templateUrl: './solicitar.html',
     styleUrl: './solicitar.css'
 })
-export class Solicitar{
+export class Solicitar implements OnInit{
+
+  categorias: Categoria[] = [];
 
   constructor(
     private solicitacaoService: SolicitacaoService,
+    private categoriaService: CategoriaService,
     private router: Router
   ) {}
 
-  modalSolicitacaoCriada:boolean = false;
-  categoriaService: CategoriaService = new CategoriaService()
 
-  categorias = this.categoriaService.listarTodos()
+  modalSolicitacaoCriada:boolean = false;
+
+  ngOnInit(): void {
+    this.carregarCategorias();
+      
+  }
+
+  carregarCategorias(): void {
+    this.categoriaService.listarTodos().subscribe({
+      next: (dados) => {
+        this.categorias = dados;
+        console.log('Categorias carregadas com sucesso!');
+      },
+      error: (erro) => {
+        console.error('Erro ao carregar categorias', erro);
+      },
+
+      complete: () => {
+        console.log('Requisição de categorias completa');
+      },
+    });
+  }
+
   
   // Variável para rastrear se o formulário foi submetido (para exibir erros)
   formSubmitted: boolean = false;
