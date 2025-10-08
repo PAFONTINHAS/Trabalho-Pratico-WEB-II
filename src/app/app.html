@@ -1,106 +1,77 @@
 <main class="bg-gradient-to-br from-mm to-mm2 min-h-screen">
-    <div [ngSwitch]="tipoUsuarioAtual" class="items-center justify-center p-3 text-white mb-5">
-        <nav *ngSwitchCase="'cliente'" class="bg-gradient-to-br from-white to-[#dfdfdf] rounded-2xl w-full px-7 py-4">
-            <div class="flex justify-between w-full">
-                <div class="flex items-center w-[45%]" id="titulo">
-                    <h2 class="text-2xl text-gray-800">
-                        Bem-vindo, 
-                        <span class="text-mm font-bold">Cliente</span>!
-                    </h2>
-                    <p (click)="alternarVisualizacao()" class="text-mm ml-2 transition text-sm hover:underline cursor-pointer hover:font-bold hover:scale-110 active:scale-105">(trocar)</p>
-                </div>
-                <div class="w-[10%] flex justify-center" id="logo">
-                    <div [routerLink]="['/login']" class="flex items-center justify-center transition-all rounded-full w-[80px] focus:outline-none  cursor-pointer hover:scale-[102%] active:opacity-90 active:scale-[97%]">
-                        <svg
-                            class="h-[50px] w-[240px]" 
-                            viewBox="0 0 1600 1024" 
-                            fill="url(#myGrad)"
-                            aria-hidden="true">
-                            <defs>
-                            <linearGradient id="myGrad" x1="0%" y1="0%" x2="100%" y2="100%" gradientUnits="userSpaceOnUse">
-                                <stop offset="0%" style="stop-color:#2D89CB" />
-                                <stop offset="100%" style="stop-color:#164BAE" />
-                            </linearGradient>
-                            </defs>
-                            <g id="Profile_blank" data-name="Profile blank" >
-                                <path d="M445.063 258.969C452.207 268.432 466.389 268.524 473.655 259.154L662.584 15.4898C670.161 5.71833 681.831 0 694.195 0H911.749C924.295 0 936.115 5.88684 943.674 15.9006L1127.16 258.969C1134.3 268.432 1148.49 268.524 1155.75 259.154L1344.68 15.4898C1352.26 5.71833 1363.93 0 1376.29 0H1558.85C1580.94 0 1598.85 17.9086 1598.85 40V823.433H1351.75V317.44L1148.56 580.294C1141.35 589.625 1127.26 589.614 1120.06 580.27L916.844 316.488V823.433H669.653V317.44L466.466 580.294C459.253 589.625 445.164 589.614 437.966 580.271L234.748 316.49L234.749 823.433H0V39.9999C0 17.9086 17.9086 0 40 0H229.653C242.199 0 254.019 5.88684 261.578 15.9006L445.063 258.969Z"/>
-                                <path d="M1526.58 877.672C1537.14 877.672 1546.57 878.54 1554.86 880.277C1563.29 882.015 1570.64 884.22 1576.93 886.893C1583.35 889.431 1588.63 891.903 1592.78 894.309L1574.92 923.775C1570.51 921.637 1565.36 919.833 1559.48 918.363C1553.73 916.893 1547.84 915.757 1541.82 914.955C1535.8 914.02 1530.12 913.552 1524.77 913.552C1519.69 913.552 1515.14 913.819 1511.13 914.353C1507.12 914.754 1503.91 915.624 1501.5 916.96C1499.23 918.163 1498.09 919.967 1498.09 922.372C1498.09 924.51 1499.36 926.18 1501.9 927.383C1504.44 928.585 1507.58 929.455 1511.33 929.989C1515.21 930.524 1519.09 930.924 1522.96 931.191C1526.98 931.325 1530.32 931.526 1533 931.793C1541.02 932.461 1548.98 933.397 1556.87 934.6C1564.89 935.669 1572.11 937.606 1578.53 940.412C1585.09 943.218 1590.3 947.428 1594.18 953.041C1598.06 958.52 1600 966.003 1600 975.491C1600 985.915 1596.79 994.735 1590.37 1001.95C1583.95 1009.17 1575.26 1014.65 1564.29 1018.39C1553.32 1022.13 1541.09 1024 1527.58 1024C1515.27 1024 1503.97 1023 1493.68 1020.99C1483.51 1018.85 1474.28 1016.18 1465.99 1012.98C1457.83 1009.77 1450.41 1006.49 1443.72 1003.15L1460.78 968.876C1473.48 975.825 1486.12 980.837 1498.69 983.91C1511.26 986.984 1522.3 988.52 1531.79 988.52C1534.47 988.52 1537.54 988.386 1541.02 988.119C1544.63 987.852 1547.77 987.118 1550.45 985.915C1553.12 984.579 1554.46 982.373 1554.46 979.3C1554.46 977.83 1553.99 976.627 1553.06 975.691C1552.12 974.622 1550.65 973.754 1548.64 973.086C1546.64 972.418 1544.1 971.883 1541.02 971.482C1538.08 970.948 1534.53 970.547 1530.39 970.279C1526.24 969.878 1521.49 969.478 1516.14 969.077C1506.52 968.409 1497.75 967.005 1489.86 964.867C1482.11 962.595 1475.42 959.656 1469.8 956.048C1464.19 952.44 1459.84 948.096 1456.76 943.018C1453.69 937.807 1452.15 931.927 1452.15 925.379C1452.15 917.628 1454.09 910.812 1457.97 904.933C1461.85 898.919 1467.2 893.908 1474.02 889.899C1480.97 885.89 1488.93 882.883 1497.89 880.879C1506.85 878.741 1516.41 877.672 1526.58 877.672Z"/>
-                                <path d="M159.285 918.563H100.707V1022H57.375V918.563H0V881.681H159.285V918.563Z"/>
-                                <path d="M636.854 1022H593.121L583.486 1003.15H511.226L501.643 1022H458.712L529.327 881.681H566.641L636.854 1022ZM547.438 930.297C547.161 930.991 546.876 931.69 546.579 932.394C545.509 934.933 544.305 937.539 542.968 940.212C541.764 942.884 540.427 945.691 538.956 948.631L526.212 973.687H568.419L555.606 948.631C554.002 945.424 552.531 942.484 551.193 939.811C549.99 937.005 548.92 934.332 547.983 931.793C547.798 931.289 547.618 930.79 547.438 930.297Z"/>
-                                <path d="M1037.96 881.681C1051.47 881.681 1063.51 883.618 1074.07 887.493C1084.64 891.235 1093.6 896.381 1100.95 902.929C1108.31 909.477 1113.93 916.96 1117.8 925.379C1121.68 933.798 1123.62 942.617 1123.62 951.838C1123.62 961.192 1121.68 970.079 1117.8 978.498C1113.93 986.917 1108.24 994.4 1100.75 1000.95C1093.4 1007.5 1084.44 1012.64 1073.87 1016.38C1063.3 1020.12 1051.33 1022 1037.96 1022H960.124V881.681H1037.96ZM1003.46 985.113H1036.96C1044.18 985.113 1050.4 984.111 1055.61 982.106C1060.96 980.102 1065.31 977.495 1068.65 974.288C1072.13 970.947 1074.67 967.339 1076.28 963.464C1078.02 959.589 1078.89 955.713 1078.89 951.838C1078.89 947.963 1078.02 944.087 1076.28 940.212C1074.67 936.337 1072.13 932.795 1068.65 929.588C1065.31 926.247 1060.96 923.575 1055.61 921.57C1050.4 919.566 1044.18 918.563 1036.96 918.563H1003.46V985.113Z"/>
-                            </g>
-                        </svg>
+    <div class="items-center justify-center p-3 text-white mb-5">
+        @if (usuarioLogado) {
+            <nav class="bg-gradient-to-br from-white to-[#dfdfdf] rounded-2xl w-full px-7 py-4">
+                <div class="flex justify-between w-full">
+                    <div class="flex items-center w-[45%]" id="titulo">
+                        <h2 class="text-2xl text-gray-800">
+                            {{saudacao}},
+                            <span class="text-mm font-bold">{{usuarioLogado.nome.split(' ')[0]}}</span>!
+                        </h2>
+                    </div>
+                    <div class="w-[10%] flex justify-center" id="logo">
+                        <div [routerLink]="['/login']" class="flex items-center justify-center transition-all rounded-full w-[80px] focus:outline-none  cursor-pointer hover:scale-[102%] active:opacity-90 active:scale-[97%]">
+                            <svg
+                                class="h-[50px] w-[240px]" 
+                                viewBox="0 0 1600 1024" 
+                                fill="url(#myGrad)"
+                                aria-hidden="true">
+                                <defs>
+                                <linearGradient id="myGrad" x1="0%" y1="0%" x2="100%" y2="100%" gradientUnits="userSpaceOnUse">
+                                    <stop offset="0%" style="stop-color:#2D89CB" />
+                                    <stop offset="100%" style="stop-color:#164BAE" />
+                                </linearGradient>
+                                </defs>
+                                <g id="Profile_blank" data-name="Profile blank" >
+                                    <path d="M445.063 258.969C452.207 268.432 466.389 268.524 473.655 259.154L662.584 15.4898C670.161 5.71833 681.831 0 694.195 0H911.749C924.295 0 936.115 5.88684 943.674 15.9006L1127.16 258.969C1134.3 268.432 1148.49 268.524 1155.75 259.154L1344.68 15.4898C1352.26 5.71833 1363.93 0 1376.29 0H1558.85C1580.94 0 1598.85 17.9086 1598.85 40V823.433H1351.75V317.44L1148.56 580.294C1141.35 589.625 1127.26 589.614 1120.06 580.27L916.844 316.488V823.433H669.653V317.44L466.466 580.294C459.253 589.625 445.164 589.614 437.966 580.271L234.748 316.49L234.749 823.433H0V39.9999C0 17.9086 17.9086 0 40 0H229.653C242.199 0 254.019 5.88684 261.578 15.9006L445.063 258.969Z"/>
+                                    <path d="M1526.58 877.672C1537.14 877.672 1546.57 878.54 1554.86 880.277C1563.29 882.015 1570.64 884.22 1576.93 886.893C1583.35 889.431 1588.63 891.903 1592.78 894.309L1574.92 923.775C1570.51 921.637 1565.36 919.833 1559.48 918.363C1553.73 916.893 1547.84 915.757 1541.82 914.955C1535.8 914.02 1530.12 913.552 1524.77 913.552C1519.69 913.552 1515.14 913.819 1511.13 914.353C1507.12 914.754 1503.91 915.624 1501.5 916.96C1499.23 918.163 1498.09 919.967 1498.09 922.372C1498.09 924.51 1499.36 926.18 1501.9 927.383C1504.44 928.585 1507.58 929.455 1511.33 929.989C1515.21 930.524 1519.09 930.924 1522.96 931.191C1526.98 931.325 1530.32 931.526 1533 931.793C1541.02 932.461 1548.98 933.397 1556.87 934.6C1564.89 935.669 1572.11 937.606 1578.53 940.412C1585.09 943.218 1590.3 947.428 1594.18 953.041C1598.06 958.52 1600 966.003 1600 975.491C1600 985.915 1596.79 994.735 1590.37 1001.95C1583.95 1009.17 1575.26 1014.65 1564.29 1018.39C1553.32 1022.13 1541.09 1024 1527.58 1024C1515.27 1024 1503.97 1023 1493.68 1020.99C1483.51 1018.85 1474.28 1016.18 1465.99 1012.98C1457.83 1009.77 1450.41 1006.49 1443.72 1003.15L1460.78 968.876C1473.48 975.825 1486.12 980.837 1498.69 983.91C1511.26 986.984 1522.3 988.52 1531.79 988.52C1534.47 988.52 1537.54 988.386 1541.02 988.119C1544.63 987.852 1547.77 987.118 1550.45 985.915C1553.12 984.579 1554.46 982.373 1554.46 979.3C1554.46 977.83 1553.99 976.627 1553.06 975.691C1552.12 974.622 1550.65 973.754 1548.64 973.086C1546.64 972.418 1544.1 971.883 1541.02 971.482C1538.08 970.948 1534.53 970.547 1530.39 970.279C1526.24 969.878 1521.49 969.478 1516.14 969.077C1506.52 968.409 1497.75 967.005 1489.86 964.867C1482.11 962.595 1475.42 959.656 1469.8 956.048C1464.19 952.44 1459.84 948.096 1456.76 943.018C1453.69 937.807 1452.15 931.927 1452.15 925.379C1452.15 917.628 1454.09 910.812 1457.97 904.933C1461.85 898.919 1467.2 893.908 1474.02 889.899C1480.97 885.89 1488.93 882.883 1497.89 880.879C1506.85 878.741 1516.41 877.672 1526.58 877.672Z"/>
+                                    <path d="M159.285 918.563H100.707V1022H57.375V918.563H0V881.681H159.285V918.563Z"/>
+                                    <path d="M636.854 1022H593.121L583.486 1003.15H511.226L501.643 1022H458.712L529.327 881.681H566.641L636.854 1022ZM547.438 930.297C547.161 930.991 546.876 931.69 546.579 932.394C545.509 934.933 544.305 937.539 542.968 940.212C541.764 942.884 540.427 945.691 538.956 948.631L526.212 973.687H568.419L555.606 948.631C554.002 945.424 552.531 942.484 551.193 939.811C549.99 937.005 548.92 934.332 547.983 931.793C547.798 931.289 547.618 930.79 547.438 930.297Z"/>
+                                    <path d="M1037.96 881.681C1051.47 881.681 1063.51 883.618 1074.07 887.493C1084.64 891.235 1093.6 896.381 1100.95 902.929C1108.31 909.477 1113.93 916.96 1117.8 925.379C1121.68 933.798 1123.62 942.617 1123.62 951.838C1123.62 961.192 1121.68 970.079 1117.8 978.498C1113.93 986.917 1108.24 994.4 1100.75 1000.95C1093.4 1007.5 1084.44 1012.64 1073.87 1016.38C1063.3 1020.12 1051.33 1022 1037.96 1022H960.124V881.681H1037.96ZM1003.46 985.113H1036.96C1044.18 985.113 1050.4 984.111 1055.61 982.106C1060.96 980.102 1065.31 977.495 1068.65 974.288C1072.13 970.947 1074.67 967.339 1076.28 963.464C1078.02 959.589 1078.89 955.713 1078.89 951.838C1078.89 947.963 1078.02 944.087 1076.28 940.212C1074.67 936.337 1072.13 932.795 1068.65 929.588C1065.31 926.247 1060.96 923.575 1055.61 921.57C1050.4 919.566 1044.18 918.563 1036.96 918.563H1003.46V985.113Z"/>
+                                </g>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-end w-[45%] gap-3">
+                        @if (temPermissao('CLIENTE')) {
+                            <button class="cursor-pointer rounded-lg bg-mm py-2 px-4 gap-1 flex items-center 
+                                            border border-transparent text-center text-white transition-all
+                                            hover:bg-mm-dark hover:scale-[102%] hover:shadow-lg active:scale-95 active:shadow-none" 
+                                    [routerLink]="['/cliente/pagina-inicial']"
+                                >Página Inicial
+                            </button>
+                            <button class="cursor-pointer rounded-lg bg-mm py-2 px-4 gap-1 flex items-center 
+                                            border border-transparent text-center text-white transition-all
+                                            hover:bg-mm-dark hover:scale-[102%] hover:shadow-lg active:scale-95 active:shadow-none" 
+                                    [routerLink]="['/cliente/solicitar']"
+                                >Solicitar
+                            </button>
+                        }
+                        @if (temPermissao('FUNCIONARIO')) {
+                            <button class="cursor-pointer rounded-lg bg-mm py-2 px-4 gap-1 flex items-center 
+                                        border border-transparent text-center text-white transition-all
+                                        hover:bg-mm-dark hover:scale-[102%] hover:shadow-lg active:scale-95 active:shadow-none" 
+                                [routerLink]="['/funcionario']"
+                            >Página Inicial
+                            </button>
+                            <button class="cursor-pointer rounded-lg bg-mm py-2 px-4 gap-1 flex items-center 
+                                            border border-transparent text-center text-white transition-all
+                                            hover:bg-mm-dark hover:scale-[102%] hover:shadow-lg active:scale-95 active:shadow-none" 
+                                    [routerLink]="['/funcionario/administracao']"
+                                >Administração
+                            </button>
+                            <button class="cursor-pointer rounded-lg bg-mm py-2 px-4 gap-1 flex items-center 
+                                            border border-transparent text-center text-white transition-all
+                                            hover:bg-mm-dark hover:scale-[102%] hover:shadow-lg active:scale-95 active:shadow-none" 
+                                    [routerLink]="['/funcionario/solicitacoes']"
+                                >Solicitações
+                            </button>
+                        }
+                        <a (click)="logout()" class="mr-4 ml-5 font-bold hover:scale-105 text-mm hover:text-red-500 transition cursor-pointer active:scale-95">Sair</a>
                     </div>
                 </div>
-                <div class="flex items-center justify-end w-[45%] gap-3">
-                    <button class="cursor-pointer rounded-lg bg-mm py-2 px-4 gap-1 flex items-center 
-                                    border border-transparent text-center text-white transition-all
-                                    hover:bg-mm-dark hover:scale-[102%] hover:shadow-lg active:scale-95 active:shadow-none" 
-                            [routerLink]="['/cliente/pagina-inicial']"
-                        >Página Inicial
-                    </button>
-                    <button class="cursor-pointer rounded-lg bg-mm py-2 px-4 gap-1 flex items-center 
-                                    border border-transparent text-center text-white transition-all
-                                    hover:bg-mm-dark hover:scale-[102%] hover:shadow-lg active:scale-95 active:shadow-none" 
-                            [routerLink]="['/cliente/solicitar']"
-                        >Solicitar
-                    </button>
-                    <a routerLink="/login" class="mr-4 ml-5 font-bold hover:scale-105 text-mm hover:text-red-500 transition active:scale-95">Sair</a>
-                </div>
-            </div>
-        </nav>
-        <nav *ngSwitchCase="'funcionario'" class="bg-gradient-to-br from-white to-[#dfdfdf] rounded-2xl w-full px-7 py-4">
-            <div class="flex justify-between w-full">
-                <div class="flex items-center w-[45%]" id="titulo">
-                    <h2 class="text-2xl text-gray-800">Bem-vindo, <span class="text-mm font-bold">Funcionário</span>!</h2>
-                    <p (click)="alternarVisualizacao()" class="text-mm ml-2 transition text-sm hover:underline cursor-pointer hover:font-bold hover:scale-110 active:scale-105">(trocar)</p>
-                </div>
-                <div class="w-[10%] flex justify-center" id="logo">
-                    <div [routerLink]="['/login']" class="flex items-center justify-center transition-all rounded-full w-[80px] focus:outline-none  cursor-pointer hover:scale-[102%] active:opacity-90 active:scale-[97%]">
-                        <svg
-                            class="h-[50px] w-[240px]" 
-                            viewBox="0 0 1600 1024" 
-                            fill="url(#myGrad)"
-                            aria-hidden="true">
-                            <defs>
-                            <linearGradient id="myGrad" x1="0%" y1="0%" x2="100%" y2="100%" gradientUnits="userSpaceOnUse">
-                                <stop offset="0%" style="stop-color:#2D89CB" />
-                                <stop offset="100%" style="stop-color:#164BAE" />
-                            </linearGradient>
-                            </defs>
-                            <g id="Profile_blank" data-name="Profile blank" >
-                                <path d="M445.063 258.969C452.207 268.432 466.389 268.524 473.655 259.154L662.584 15.4898C670.161 5.71833 681.831 0 694.195 0H911.749C924.295 0 936.115 5.88684 943.674 15.9006L1127.16 258.969C1134.3 268.432 1148.49 268.524 1155.75 259.154L1344.68 15.4898C1352.26 5.71833 1363.93 0 1376.29 0H1558.85C1580.94 0 1598.85 17.9086 1598.85 40V823.433H1351.75V317.44L1148.56 580.294C1141.35 589.625 1127.26 589.614 1120.06 580.27L916.844 316.488V823.433H669.653V317.44L466.466 580.294C459.253 589.625 445.164 589.614 437.966 580.271L234.748 316.49L234.749 823.433H0V39.9999C0 17.9086 17.9086 0 40 0H229.653C242.199 0 254.019 5.88684 261.578 15.9006L445.063 258.969Z"/>
-                                <path d="M1526.58 877.672C1537.14 877.672 1546.57 878.54 1554.86 880.277C1563.29 882.015 1570.64 884.22 1576.93 886.893C1583.35 889.431 1588.63 891.903 1592.78 894.309L1574.92 923.775C1570.51 921.637 1565.36 919.833 1559.48 918.363C1553.73 916.893 1547.84 915.757 1541.82 914.955C1535.8 914.02 1530.12 913.552 1524.77 913.552C1519.69 913.552 1515.14 913.819 1511.13 914.353C1507.12 914.754 1503.91 915.624 1501.5 916.96C1499.23 918.163 1498.09 919.967 1498.09 922.372C1498.09 924.51 1499.36 926.18 1501.9 927.383C1504.44 928.585 1507.58 929.455 1511.33 929.989C1515.21 930.524 1519.09 930.924 1522.96 931.191C1526.98 931.325 1530.32 931.526 1533 931.793C1541.02 932.461 1548.98 933.397 1556.87 934.6C1564.89 935.669 1572.11 937.606 1578.53 940.412C1585.09 943.218 1590.3 947.428 1594.18 953.041C1598.06 958.52 1600 966.003 1600 975.491C1600 985.915 1596.79 994.735 1590.37 1001.95C1583.95 1009.17 1575.26 1014.65 1564.29 1018.39C1553.32 1022.13 1541.09 1024 1527.58 1024C1515.27 1024 1503.97 1023 1493.68 1020.99C1483.51 1018.85 1474.28 1016.18 1465.99 1012.98C1457.83 1009.77 1450.41 1006.49 1443.72 1003.15L1460.78 968.876C1473.48 975.825 1486.12 980.837 1498.69 983.91C1511.26 986.984 1522.3 988.52 1531.79 988.52C1534.47 988.52 1537.54 988.386 1541.02 988.119C1544.63 987.852 1547.77 987.118 1550.45 985.915C1553.12 984.579 1554.46 982.373 1554.46 979.3C1554.46 977.83 1553.99 976.627 1553.06 975.691C1552.12 974.622 1550.65 973.754 1548.64 973.086C1546.64 972.418 1544.1 971.883 1541.02 971.482C1538.08 970.948 1534.53 970.547 1530.39 970.279C1526.24 969.878 1521.49 969.478 1516.14 969.077C1506.52 968.409 1497.75 967.005 1489.86 964.867C1482.11 962.595 1475.42 959.656 1469.8 956.048C1464.19 952.44 1459.84 948.096 1456.76 943.018C1453.69 937.807 1452.15 931.927 1452.15 925.379C1452.15 917.628 1454.09 910.812 1457.97 904.933C1461.85 898.919 1467.2 893.908 1474.02 889.899C1480.97 885.89 1488.93 882.883 1497.89 880.879C1506.85 878.741 1516.41 877.672 1526.58 877.672Z"/>
-                                <path d="M159.285 918.563H100.707V1022H57.375V918.563H0V881.681H159.285V918.563Z"/>
-                                <path d="M636.854 1022H593.121L583.486 1003.15H511.226L501.643 1022H458.712L529.327 881.681H566.641L636.854 1022ZM547.438 930.297C547.161 930.991 546.876 931.69 546.579 932.394C545.509 934.933 544.305 937.539 542.968 940.212C541.764 942.884 540.427 945.691 538.956 948.631L526.212 973.687H568.419L555.606 948.631C554.002 945.424 552.531 942.484 551.193 939.811C549.99 937.005 548.92 934.332 547.983 931.793C547.798 931.289 547.618 930.79 547.438 930.297Z"/>
-                                <path d="M1037.96 881.681C1051.47 881.681 1063.51 883.618 1074.07 887.493C1084.64 891.235 1093.6 896.381 1100.95 902.929C1108.31 909.477 1113.93 916.96 1117.8 925.379C1121.68 933.798 1123.62 942.617 1123.62 951.838C1123.62 961.192 1121.68 970.079 1117.8 978.498C1113.93 986.917 1108.24 994.4 1100.75 1000.95C1093.4 1007.5 1084.44 1012.64 1073.87 1016.38C1063.3 1020.12 1051.33 1022 1037.96 1022H960.124V881.681H1037.96ZM1003.46 985.113H1036.96C1044.18 985.113 1050.4 984.111 1055.61 982.106C1060.96 980.102 1065.31 977.495 1068.65 974.288C1072.13 970.947 1074.67 967.339 1076.28 963.464C1078.02 959.589 1078.89 955.713 1078.89 951.838C1078.89 947.963 1078.02 944.087 1076.28 940.212C1074.67 936.337 1072.13 932.795 1068.65 929.588C1065.31 926.247 1060.96 923.575 1055.61 921.57C1050.4 919.566 1044.18 918.563 1036.96 918.563H1003.46V985.113Z"/>
-                            </g>
-                        </svg>
-                    </div>
-                </div>
-                <div class="flex items-center justify-end w-[45%] gap-3">
-                    <button class="cursor-pointer rounded-lg bg-mm py-2 px-4 gap-1 flex items-center 
-                                    border border-transparent text-center text-white transition-all
-                                    hover:bg-mm-dark hover:scale-[102%] hover:shadow-lg active:scale-95 active:shadow-none" 
-                            [routerLink]="['/funcionario']"
-                        >Página Inicial
-                    </button>
-                    <button class="cursor-pointer rounded-lg bg-mm py-2 px-4 gap-1 flex items-center 
-                                    border border-transparent text-center text-white transition-all
-                                    hover:bg-mm-dark hover:scale-[102%] hover:shadow-lg active:scale-95 active:shadow-none" 
-                            [routerLink]="['/funcionario/administracao']"
-                        >Administração
-                    </button>
-                    <button class="cursor-pointer rounded-lg bg-mm py-2 px-4 gap-1 flex items-center 
-                                    border border-transparent text-center text-white transition-all
-                                    hover:bg-mm-dark hover:scale-[102%] hover:shadow-lg active:scale-95 active:shadow-none" 
-                            [routerLink]="['/funcionario/solicitacoes']"
-                        >Solicitações
-                    </button>
-                    <a routerLink="/login" class="mr-4 ml-5 font-bold hover:scale-105 text-mm hover:text-red-500 transition active:scale-95">Sair</a>
-                </div>
-            </div>
-        </nav>
+            </nav>
+        }
     </div>
     
     <router-outlet></router-outlet>

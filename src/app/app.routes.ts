@@ -1,9 +1,10 @@
 import { Routes } from '@angular/router';
+import { authGuard } from './auth/auth-guard';
 
-// Componentes acessíveis a todos
-import { Login } from './pages/login/login';
-import { Cadastro } from './pages/cadastro/cadastro';
-import { RedefinirSenha } from './pages/redefinir-senha/redefinir-senha';
+// Componentes de autenticação
+import { LoginComponent } from './auth/login/login';
+import { Cadastro } from './auth/cadastro/cadastro';
+import { RedefinirSenha } from './auth/redefinir-senha/redefinir-senha';
 
 // Componentes do Cliente
 import { Solicitar } from './pages/cliente/solicitar/solicitar';
@@ -18,11 +19,9 @@ import { CategoriaComponent } from './pages/funcionario/crud-categoria/crud-cate
 // Componentes do Funcionário
 import { Administracao } from './pages/funcionario/administracao/administracao';
 import { Manutencao } from './pages/funcionario/efetuar-manutencao/efetuar-manutencao';
-import { DefinirOrcamento} from './pages/funcionario/definir-orcamento/definir-orcamento';
 import { FuncionarioHomepage } from './pages/funcionario/funcionario-homepage/funcionario-homepage';
 import { FinalizarManutencao } from './pages/funcionario/finalizar-manutencao/finalizar-manutencao';
 import { VisualizarSolicitacao } from './pages/funcionario/visualizar-solicitacao/visualizar-solicitacao';
-//import { DefinirOrcamento} from './pages/funcionario/definir-orcamento/definir-orcamento';
 import { VisualizarSolicitacoes } from './pages/funcionario/visualizar-solicitacoes/visualizar-solicitacoes';
 
 
@@ -30,7 +29,7 @@ import { VisualizarSolicitacoes } from './pages/funcionario/visualizar-solicitac
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: 'login', component: Login },
+  { path: 'login', component: LoginComponent },
   { path: 'cadastro', component: Cadastro },
   { path: 'redefinir-senha', component: RedefinirSenha },
 
@@ -43,7 +42,9 @@ export const routes: Routes = [
       { path: 'editar-solicitacao', component: EditarSolicitacao},
       { path: 'deletar-solicitacao', component: DeletarSolicitacao},
 
-    ]
+    ],
+    canActivate: [authGuard],
+    data: { perfil: ['CLIENTE'] }
   },
 
   {
@@ -54,7 +55,6 @@ export const routes: Routes = [
       { path: 'finalizar-manutencao', component: FinalizarManutencao },
       { path: 'visualizar-solicitacao', component: VisualizarSolicitacao },
       { path: 'orcamento', component: VisualizarSolicitacao},
-      //{ path: 'orcamento', component: DefinirOrcamento },
       { path: 'efetuar-manutencao', component: Manutencao },
       { path: 'administracao', component: Administracao },
 
@@ -67,6 +67,8 @@ export const routes: Routes = [
       // CRUD Equipamentos
       { path: 'crud-equipamento', component: CategoriaComponent },
 
-    ]
+    ],
+    canActivate: [authGuard],
+    data: { perfil: ['FUNCIONARIO'] }
   }
 ];
