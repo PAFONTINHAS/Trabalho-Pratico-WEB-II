@@ -56,21 +56,13 @@ export class SolicitacaoService {
   }
 
 
-  // atualizarStatus( solicitacao: Solicitacao, status: Status): void{
+  atualizarStatus( solicitacao: Solicitacao, status: Status): Observable<Solicitacao>{
 
-  //   solicitacao.status = status;
+    const url = `${this.apiUrl}/${solicitacao.id}/status/${status}`;
 
-  //   const historico : HistoricoStatus  = {
-  //     data: this.pegarDataFormatada('data'),
-  //     hora: this.pegarDataFormatada('hora'),
-  //     status: status
-  //   }
+    return this.http.put<Solicitacao>(url, status);
 
-  //   solicitacao.historicoStatus.push(historico);
-
-  //   this.atualizar(solicitacao);
-
-  // }
+  }
 
   // pegarDataFormatada(opcao: String) : string{
   

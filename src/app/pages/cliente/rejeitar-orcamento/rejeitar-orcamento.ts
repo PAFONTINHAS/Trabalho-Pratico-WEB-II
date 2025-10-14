@@ -14,7 +14,7 @@ import { Status } from '../../../shared/models/enums/status.enum';
 })
 export class RejeitarOrcamento {
 
-  constructor(private solicitacaoService: SolicitacaoService){}
+  constructor(private readonly solicitacaoService: SolicitacaoService){}
 
   @Input() solicitacao?: Solicitacao | null;
   @Output() fecharModal = new EventEmitter<void>();

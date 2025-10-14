@@ -14,7 +14,7 @@ export class DeletarSolicitacao {
   @Output() fecharModal = new EventEmitter<void>();
   @Output() operacaoConcluida = new EventEmitter<void>();
 
-  constructor(private solicitacaoService: SolicitacaoService){}
+  constructor(private readonly solicitacaoService: SolicitacaoService){}
 
   modalConfirmacaoAberto: 'sim' | 'nao' | 'nenhum' = 'nenhum';
 

@@ -12,17 +12,17 @@ import { Solicitacao } from '../../../shared/entities/solicitacao_entity';
   templateUrl: './pagina-inicial.html',
   styleUrl: './pagina-inicial.css'
 })
-export class PaginaInicial implements OnInit{
+export class PaginaInicial {
 
 
   solicitacoes: Solicitacao[] = [];
 
   constructor(private solicitacaoService: SolicitacaoService ){}
 
-  ngOnInit() : void{
-    this.solicitacaoService.inicializarMock();
-    this.solicitacoes = this.solicitacaoService.listarTodos();
-  }
+  // ngOnInit() : void{
+  //   this.solicitacaoService.inicializarMock();
+  //   this.solicitacoes = this.solicitacaoService.listarTodos();
+  // }
 
 
   mostrarModalSolicitacao: boolean = false;
