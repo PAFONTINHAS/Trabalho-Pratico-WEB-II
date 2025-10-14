@@ -1,87 +1,39 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http'; // Importar HttpClient
+import { Observable } from 'rxjs';
 import { Categoria } from '../../shared/entities/categoria_entity';
-import { HttpClient } from '@angular/common/http';
-import {  Observable } from 'rxjs';
 
-const LS_CHAVE = "categorias";
+// URL base da API (Ajuste a porta se o backend não estiver em 8080)
+const API_URL = 'http://localhost:8080/api/categorias';
 
 @Injectable({
   providedIn: 'root'
 })
-
-// AGORA O ARQUIVO ESTÁ LIDANDO COM REQUISIÇÕES REST
-// COMANDOS ANTIGOS COMENTADOS POR SEGURANÇA (REMOVER NO FINAL)
 export class CategoriaService {
 
-  private readonly apiUrl = 'http://localhost:8080/api/categorias';
+  // Removendo a lógica de BehaviorSubject e localStorage.
+  // Injetando HttpClient.
+  constructor(private http: HttpClient) { }
 
-  // private categoriasSubject: BehaviorSubject<Categoria[]>;
-  // public categorias$: Observable<Categoria[]>;
-
-  constructor(private readonly http: HttpClient) {
-    // const categorias = localStorage[LS_CHAVE] ? JSON.parse(localStorage[LS_CHAVE]) : [];
-    // this.categoriasSubject = new BehaviorSubject<Categoria[]>(categorias);
-    // this.categorias$ = this.categoriasSubject.asObservable();
-  }
-  
-  // private atualizarDados(categorias: Categoria[]) {
-  //   // localStorage[LS_CHAVE] = JSON.stringify(categorias);
-  //   // this.categoriasSubject.next(categorias); 
-  // }
-
+  // Listar Todas (Read All) - GET /api/categorias
   listarTodos(): Observable<Categoria[]> {
-
-    return this.http.get<Categoria[]>(this.apiUrl);
-    // return this.categoriasSubject.getValue();
+    return this.http.get<Categoria[]>(API_URL);
   }
 
+  // Inserir (Create) - POST /api/categorias
   inserir(categoria: Categoria): Observable<Categoria> {
-    return this.http.post<Categoria>(this.apiUrl, categoria);
-    // const categorias = this.listarTodos();
-    // categoria.id = new Date().getTime();
-    // categorias.push(categoria);
-    // this.atualizarDados(categorias);
+    // O backend irá gerar o ID e retornar a categoria salva.
+    return this.http.post<Categoria>(API_URL, categoria);
   }
 
-  buscarPorId(id: number): Observable<Categoria> {
-    const url = `${this.apiUrl}/${id}`;
-    return this.http.get<Categoria>(url);
-    // const categorias = this.listarTodos();
-    // return categorias.find(categoria => categoria.id === id);
-  }
-
+  // Atualizar (Update) - PUT /api/categorias/{id}
   atualizar(categoria: Categoria): Observable<Categoria> {
-    const url = `${this.apiUrl}/${categoria.id}`;
-    return this.http.put<Categoria>(url, categoria);
-    // const categorias = this.listarTodos();
-    // const index = categorias.findIndex(c => c.id === categoria.id);
-    // if (index > -1) {
-    //   categorias[index] = categoria;
-    //   this.atualizarDados(categorias);
-    // }
+    return this.http.put<Categoria>(`${API_URL}/${categoria.id}`, categoria);
   }
 
+  // Remover (Delete) - DELETE /api/categorias/{id}
   remover(id: number): Observable<void> {
-    const url = `${this.apiUrl}/${id}`;
-    return this.http.delete<void>(url);
-    // let categorias = this.listarTodos();
-    // categorias = categorias.filter(categoria => categoria.id !== id);
-    // this.atualizarDados(categorias);
+    // A resposta é vazia (204 No Content), então usamos Observable<void>.
+    return this.http.delete<void>(`${API_URL}/${id}`);
   }
-
-  // inserirCategoriasBase(categoria: Categoria): void {
-  //   const categorias = this.listarTodos();
-  //   let exists: Boolean = false;
-  //   categorias.forEach( (obj) => {
-  //     if (categoria.nome === obj.nome) {
-  //       exists = true
-  //     }
-  //   });
-
-  //   if(!exists) {
-  //     categorias.push(categoria);
-  //     this.atualizarDados(categorias);
-  //   }
-
-  // }
 }
