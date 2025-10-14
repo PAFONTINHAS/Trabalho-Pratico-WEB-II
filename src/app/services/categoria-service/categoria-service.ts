@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http'; // Importar HttpClient
+import { Observable } from 'rxjs';
 import { Categoria } from '../../shared/entities/categoria_entity';
-import { HttpClient } from '@angular/common/http';
-import {  Observable } from 'rxjs';
 
 
 @Injectable({
@@ -19,11 +19,13 @@ export class CategoriaService {
   //   // this.categoriasSubject.next(categorias); 
   // }
 
+  // Listar Todas (Read All) - GET /api/categorias
   listarTodos(): Observable<Categoria[]> {
 
     return this.http.get<Categoria[]>(this.apiUrl);
   }
 
+  // Inserir (Create) - POST /api/categorias
   inserir(categoria: Categoria): Observable<Categoria> {
     return this.http.post<Categoria>(this.apiUrl, categoria);
   }
@@ -33,29 +35,15 @@ export class CategoriaService {
     return this.http.get<Categoria>(url);
   }
 
+  // Atualizar (Update) - PUT /api/categorias/{id}
   atualizar(categoria: Categoria): Observable<Categoria> {
     const url = `${this.apiUrl}/${categoria.id}`;
     return this.http.put<Categoria>(url, categoria);
   }
 
+  // Remover (Delete) - DELETE /api/categorias/{id}
   remover(id: number): Observable<void> {
     const url = `${this.apiUrl}/${id}`;
     return this.http.delete<void>(url);
   }
-
-  // inserirCategoriasBase(categoria: Categoria): void {
-  //   const categorias = this.listarTodos();
-  //   let exists: Boolean = false;
-  //   categorias.forEach( (obj) => {
-  //     if (categoria.nome === obj.nome) {
-  //       exists = true
-  //     }
-  //   });
-
-  //   if(!exists) {
-  //     categorias.push(categoria);
-  //     this.atualizarDados(categorias);
-  //   }
-
-  // }
 }
