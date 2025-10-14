@@ -14,22 +14,37 @@ import { Funcionarios } from '../../../shared/models/enums/funcionarios.enum'
 })
 export class CriarFuncionario implements OnInit, OnDestroy {
   funcionarios: Funcionario[] = [];
-  private subscription: Subscription = new Subscription();
+  private readonly subscription: Subscription = new Subscription();
 
   constructor(
-    private funcionarioService: FuncionarioService,
-    private router: Router
+    private readonly funcionarioService: FuncionarioService,
+    private readonly router: Router
   ) {}
 
   funcionario = { id: 0, nome: '', email: '', dataNasc: '', senha: '' };
   formVisivel = false;
   editando = false;
 
-  ngOnInit(): void {
-    Funcionarios.forEach(funcionario => this.funcionarioService.inserirFuncionariosBase(funcionario))
-    this.subscription = this.funcionarioService.funcionarios$.subscribe(data => {
-      this.funcionarios = data;
+  carregarFuncionarios(){
+    this.funcionarioService.listarTodos().subscribe({
+      next: (data) => {
+        this.funcionarios = data;
+      },
+
+      error: (e) =>{
+        console.error('Erro ao carregar funcionários: ', e);
+      }
+
     });
+  }
+
+  ngOnInit(): void {
+    this.carregarFuncionarios();
+  
+    // Funcionarios.forEach(funcionario => this.funcionarioService.inserirFuncionariosBase(funcionario))
+    // this.subscription = this.funcionarioService.funcionarios$.subscribe(data => {
+    //   this.funcionarios = data;
+    // });
   }
 
   ngOnDestroy(): void {
@@ -65,7 +80,7 @@ export class CriarFuncionario implements OnInit, OnDestroy {
   remover($event: any, funcionario: Funcionario): void {
     $event.preventDefault();
     if (confirm(`Deseja realmente remover o funcionario ${funcionario.nome}?`)) {
-      this.funcionarioService.remover(funcionario.id!);
+      this.funcionarioService.remover(funcionario.id);
     }
   }
 

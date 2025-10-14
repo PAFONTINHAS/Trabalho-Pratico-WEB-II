@@ -10,7 +10,7 @@ import { Categoria } from '../../shared/entities/categoria_entity';
 
 export class CategoriaService {
 
-  private readonly apiUrl = 'http://localhost:8080/api/categorias';
+  private readonly apiUrl = 'http://localhost:8081/api/categorias';
 
   constructor(private readonly http: HttpClient) {}
   

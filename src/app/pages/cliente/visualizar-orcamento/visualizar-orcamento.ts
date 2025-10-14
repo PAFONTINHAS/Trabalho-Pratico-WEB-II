@@ -19,7 +19,7 @@ import { CommonModule } from '@angular/common';
 })
 export class VisualizarOrcamento {
 
-  constructor(private solicitacaoService: SolicitacaoService){}
+  constructor(private readonly solicitacaoService: SolicitacaoService){}
 
   @Input() solicitacao?: Solicitacao | null;
   @Output() fecharModal = new EventEmitter<void>();

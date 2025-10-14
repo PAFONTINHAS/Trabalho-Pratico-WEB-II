@@ -10,7 +10,7 @@ import { CommonModule } from '@angular/common';
 })
 export class Administracao {
   
-  constructor(private router: Router) {}
+  constructor(private readonly router: Router) {}
 
   gerenciarFuncionarios() {
     this.router.navigate(['/funcionario/criar-funcionario']);

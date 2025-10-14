@@ -38,7 +38,7 @@ export class CategoriaComponent implements OnInit, OnDestroy {
         this.categorias = data;
       },
       error: (e) => {
-        console.error('Erro ao carregar categorias:', e);
+        console.error('Erro ao carregar categorias: ', e);
         // Lógica de feedback de erro aqui
       }
     });

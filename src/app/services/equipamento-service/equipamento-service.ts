@@ -9,7 +9,7 @@ const LS_CHAVE = "equipamentos"
 })
 
 export class EquipamentoService {
-  private readonly apiUrl = 'http://localhost:8080/api/equipamentos';
+  private readonly apiUrl = 'http://localhost:8081/api/equipamentos';
 
   constructor(private readonly http: HttpClient){}
   

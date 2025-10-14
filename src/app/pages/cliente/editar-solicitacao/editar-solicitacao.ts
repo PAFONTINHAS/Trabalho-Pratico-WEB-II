@@ -12,6 +12,7 @@ import { SolicitacaoService } from '../../../services/solicitacao_service/solici
 })
 export class EditarSolicitacao {
 
+  // APLICAR O SERVICE AO ATUALIZAR A SOLICITAÇÃO
   
   constructor(private solicitacaoService: SolicitacaoService){}
   

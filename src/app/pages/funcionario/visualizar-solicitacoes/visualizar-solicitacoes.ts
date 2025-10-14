@@ -14,7 +14,7 @@ import { Status } from '../../../shared/models/enums/status.enum';
 })
 export class VisualizarSolicitacoes implements OnInit{
 
-  constructor(private solicitacaoService: SolicitacaoService){}
+  constructor(private readonly solicitacaoService: SolicitacaoService){}
   
   solicitacoes: Solicitacao[] = [];
   solicitacoesFiltradas: Solicitacao[] = [];
@@ -23,8 +23,22 @@ export class VisualizarSolicitacoes implements OnInit{
   dataInicioFiltro: string = '';
   dataFimFiltro: string = '';
 
+  carregarSolicitacoes(){
+    this.solicitacaoService.listarTodos().subscribe({
+      next: (data) =>{
+        this.solicitacoes = data;
+      },
+      error: (e) => {
+
+        console.error('Erro ao carregar solicitações: ', e);
+
+      }
+    });
+  }
+
   ngOnInit(): void {
-    this.solicitacoes = this.solicitacaoService.listarTodos();  
+    this.carregarSolicitacoes();
+    
     this.solicitacoesFiltradas = this.solicitacoes;
   }
 

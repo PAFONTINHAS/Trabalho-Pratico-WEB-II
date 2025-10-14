@@ -13,14 +13,26 @@ import { SolicitacaoService } from '../../../services/solicitacao_service/solici
 export class FuncionarioHomepage implements OnInit{
 
   solicitacoes: Solicitacao[] = [];
-  constructor( private solicitacoesService: SolicitacaoService){}
+  constructor( private readonly solicitacaoService: SolicitacaoService){}
 
   countAbertas(): number {
     return this.solicitacoes.filter(solicitacao => solicitacao.status.toUpperCase() === 'ABERTA').length;
   }
 
+  carregarSolicitacoes(){
+    this.solicitacaoService.listarTodos().subscribe({
+      next: (data) =>{
+        this.solicitacoes = data;
+      },
+      
+      error: (e) =>{
+        console.error('Erro ao carregar solicitações: ', e);
+      }
+    });
+  }
+
   ngOnInit(): void {
-   this.solicitacoes = this.solicitacoesService.listarTodos();
+    this.carregarSolicitacoes();
   }
 
   mostrarModalSolicitacao = false;

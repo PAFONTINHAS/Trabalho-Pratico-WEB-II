@@ -14,7 +14,7 @@ const LS_CHAVE = "solicitacoes"
 
 export class SolicitacaoService {
 
-  private readonly apiUrl = 'http://localhost:8080/api/solicitacoes';
+  private readonly apiUrl = 'http://localhost:8081/api/solicitacoes';
 
   constructor(private readonly http: HttpClient){
 
@@ -28,8 +28,8 @@ export class SolicitacaoService {
   //   }
   // }
 
-  listarTodos(): Observable<Solicitacao> {
-    return this.http.get<Solicitacao>(this.apiUrl);
+  listarTodos(): Observable<Solicitacao[]> {
+    return this.http.get<Solicitacao[]>(this.apiUrl);
   }
 
   inserir(solicitacao: Solicitacao): Observable<Solicitacao> {

@@ -4,6 +4,7 @@ import { VisualizarOrcamento } from '../visualizar-orcamento/visualizar-orcament
 import { Status } from '../../../shared/models/enums/status.enum';
 import { SolicitacaoService } from '../../../services/solicitacao_service/solicitacao-service';
 import { Solicitacao } from '../../../shared/entities/solicitacao_entity';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -12,17 +13,30 @@ import { Solicitacao } from '../../../shared/entities/solicitacao_entity';
   templateUrl: './pagina-inicial.html',
   styleUrl: './pagina-inicial.css'
 })
-export class PaginaInicial {
+export class PaginaInicial implements OnInit {
 
 
   solicitacoes: Solicitacao[] = [];
+  
+  private readonly subscription: Subscription = new Subscription();
+  constructor(private readonly solicitacaoService: SolicitacaoService ){}
 
-  constructor(private solicitacaoService: SolicitacaoService ){}
 
-  // ngOnInit() : void{
-  //   this.solicitacaoService.inicializarMock();
-  //   this.solicitacoes = this.solicitacaoService.listarTodos();
-  // }
+  carregarSolicitacoes() : void{
+    this.solicitacaoService.listarTodos().subscribe({
+      next: (data) => {
+        this.solicitacoes = data;
+      },
+
+      error: (e) =>{
+        console.error('Erro ao carregar solicitações: ', e);
+      }
+    });
+  }
+
+  ngOnInit() : void{
+    this.carregarSolicitacoes();
+  }
 
 
   mostrarModalSolicitacao: boolean = false;
@@ -34,7 +48,7 @@ export class PaginaInicial {
 
 
 
-  statusClasses(status: String) {
+  statusClasses(status: string) {
     
     switch (status){
       case 'ABERTA': 
@@ -58,7 +72,7 @@ export class PaginaInicial {
     }
   }
 
-  temAcoes(status: String){
+  temAcoes(status: string){
     if ( status === 'ORÇADA' || status === 'REJEITADA' || status === 'ARRUMADA') {
       return true;
     } else {
@@ -66,12 +80,8 @@ export class PaginaInicial {
     }
   }
 
-  buttonClass(status: String){
-    // if (this.temAcoes(status)) {
-    //   return {'bg-mm hover:bg-mm-dark  border-4 border-white ring-2 ring-mm h-[46px] px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:shadow-mm-shadow hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap': true};
-    // } else {
+  buttonClass(status: string){
       return {'bg-mm hover:bg-mm-dark h-[46px] px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:shadow-mm-shadow hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap': true};
-    // }
   }
 
   abrirModalOrcamento(solicitacao: any): void {
@@ -85,7 +95,6 @@ export class PaginaInicial {
   }
 
   atualizarLista(){
-    this.fecharModalOrcamento();
-    this.solicitacoes = this.solicitacaoService.listarTodos();
+    this.carregarSolicitacoes();
   }
 }

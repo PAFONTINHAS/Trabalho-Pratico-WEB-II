@@ -10,7 +10,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class FuncionarioService {
 
-  private readonly apiUrl = 'http://localhost:8080/api/funcionarios';
+  private readonly apiUrl = 'http://localhost:8081/api/funcionarios';
 
   // private funcionariosSubject: BehaviorSubject<Funcionario[]>;
   // public funcionarios$: Observable<Funcionario[]>;

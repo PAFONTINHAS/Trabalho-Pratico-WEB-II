@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Input } from '@angular/core';
 @Component({
   selector: 'app-modais-confirmacao',
@@ -6,7 +6,7 @@ import { Input } from '@angular/core';
   templateUrl: './modais-confirmacao.html',
   styleUrl: './modais-confirmacao.css'
 })
-export class ModaisConfirmacao {
+export class ModaisConfirmacao implements OnInit{
   @Input() tipoModalSolicitacao?: string; 
   @Input() valor?: number;
   @Output() fechar = new EventEmitter<void>();
