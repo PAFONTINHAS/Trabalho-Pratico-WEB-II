@@ -1,72 +1,72 @@
 import { Injectable } from '@angular/core';
 import { Funcionario } from '../../shared/entities/funcionario_entity';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
-const LS_CHAVE = "funcionarios";
+// const LS_CHAVE = "funcionarios";
 
 @Injectable({
   providedIn: 'root'
 })
 export class FuncionarioService {
 
-  private funcionariosSubject: BehaviorSubject<Funcionario[]>;
-  public funcionarios$: Observable<Funcionario[]>;
+  private readonly apiUrl = 'http://localhost:8080/api/funcionarios';
 
-  constructor() {
-    const funcionarios = localStorage[LS_CHAVE] ? JSON.parse(localStorage[LS_CHAVE]) : [];
-    this.funcionariosSubject = new BehaviorSubject<Funcionario[]>(funcionarios);
-    this.funcionarios$ = this.funcionariosSubject.asObservable();
+  // private funcionariosSubject: BehaviorSubject<Funcionario[]>;
+  // public funcionarios$: Observable<Funcionario[]>;
+
+  constructor(private readonly http: HttpClient) {
+    // const funcionarios = localStorage[LS_CHAVE] ? JSON.parse(localStorage[LS_CHAVE]) : [];
+    // this.funcionariosSubject = new BehaviorSubject<Funcionario[]>(funcionarios);
+    // this.funcionarios$ = this.funcionariosSubject.asObservable();
   }
   
-  private atualizarDados(funcionarios: Funcionario[]) {
-    localStorage[LS_CHAVE] = JSON.stringify(funcionarios);
-    this.funcionariosSubject.next(funcionarios);
+  // private atualizarDados(funcionarios: Funcionario[]) : Observable<Funcionario> {
+  //   localStorage[LS_CHAVE] = JSON.stringify(funcionarios);
+  //   this.funcionariosSubject.next(funcionarios);
+  // }
+
+  listarTodos(): Observable<Funcionario[]> {
+    return this.http.get<Funcionario[]>(this.apiUrl);
   }
 
-  listarTodos(): Funcionario[] {
-    return this.funcionariosSubject.getValue();
+  inserir(funcionario: Funcionario): Observable<Funcionario>{
+    return this.http.post<Funcionario>(this.apiUrl, funcionario);
   }
 
-  inserir(funcionario: Funcionario): void {
-    const funcionarios = this.listarTodos();
-    funcionario.id = new Date().getTime();
-    funcionarios.push(funcionario);
-    this.atualizarDados(funcionarios);
+  buscarPorId(id: number): Observable<Funcionario> {
+    const url = `${this.apiUrl}/${id}`;
+
+    return this.http.get<Funcionario>(url);
   }
 
-  buscarPorId(id: number): Funcionario | undefined {
-    const funcionarios = this.listarTodos();
-    return funcionarios.find(funcionario => funcionario.id === id);
-  }
+  atualizar(funcionario: Funcionario): Observable<Funcionario> {
 
-  atualizar(funcionario: Funcionario): void {
-    const funcionarios = this.listarTodos();
-    const index = funcionarios.findIndex(f => f.id === funcionario.id);
-    if (index > -1) {
-      funcionarios[index] = funcionario;
-      this.atualizarDados(funcionarios);
-    }
+    const url = `${this.apiUrl}/${funcionario.id}`;
+
+    return this.http.put<Funcionario>(url, funcionario);
   } 
+  
 
-  remover(id: number): void {
-    let funcionarios = this.listarTodos();
-    funcionarios = funcionarios.filter(f => f.id !== id);
-    this.atualizarDados(funcionarios);
+  remover(id: number): Observable<void>{
+    const url = `${this.apiUrl}/${id}`;
+
+    return this.http.delete<void>(url);
   }
   
-  inserirFuncionariosBase(funcionario: Funcionario): void {
-    const funcionarios = this.listarTodos();
-    let exists: Boolean = false;
-    funcionarios.forEach( (obj) => {
-      if (funcionario.nome === obj.nome) {
-        exists = true
-      }
-    });
+  // inserirFuncionariosBase(funcionario: Funcionario): void {
+  //   const funcionarios = this.listarTodos();
+  //   let exists: Boolean = false;
+  //   funcionarios.forEach( (obj) => {
+  //     if (funcionario.nome === obj.nome) {
+  //       exists = true
+  //     }
+  //   });
 
-    if(!exists) {
-      funcionarios.push(funcionario);
-      this.atualizarDados(funcionarios);
-    }
+  //   if(!exists) {
+  //     funcionarios.push(funcionario);
+  //     this.atualizarDados(funcionarios);
+  //   }
 
-  }
+  // }
 }

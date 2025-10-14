@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Equipamento } from '../../shared/entities/equipamento_entity';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 const LS_CHAVE = "equipamentos"
 
 @Injectable({
@@ -7,39 +9,38 @@ const LS_CHAVE = "equipamentos"
 })
 
 export class EquipamentoService {
-  listarTodos(): Equipamento[] {
-    const equipamentos = localStorage[LS_CHAVE];
-    return equipamentos ? JSON.parse(equipamentos) : [];
+  private readonly apiUrl = 'http://localhost:8080/api/equipamentos';
+
+  constructor(private readonly http: HttpClient){}
+  
+  listarTodos(): Observable<Equipamento[]> {
+
+    return this.http.get<Equipamento[]>(this.apiUrl);
   }
 
-  inserir(equipamento: Equipamento): void {
-    const equipamentos = this.listarTodos();
-    equipamento.id = new Date().getTime();
-    equipamentos.push(equipamento);
+  inserir(equipamento: Equipamento): Observable<Equipamento> {
+    const url = `${this.apiUrl}/${equipamento.id}`;
 
-    localStorage[LS_CHAVE] = JSON.stringify(equipamentos);
+    return this.http.post<Equipamento>(url, equipamento);
+  }
+  
+  buscarPorId(id: number): Observable<Equipamento> {
+    const url = `${this.apiUrl}/${id}`;
+
+    return this.http.get<Equipamento>(url);
   }
 
-  buscarPorId(id: number): Equipamento | undefined {
-    const equipamentos = this.listarTodos();
-    return equipamentos.find(equipamento => equipamento.id === id);
+  atualizar(equipamento: Equipamento): Observable<Equipamento> {
+
+    const url = `${this.apiUrl}/${equipamento.id}`;
+
+    return this.http.put<Equipamento>(url, equipamento);
+
   }
 
-  atualizar(equipamento: Equipamento): void {
-    const equipamentos = this.listarTodos();
-    equipamentos.forEach( (obj, index, objs) => {
-      if (equipamento.id === obj.id) {
-        objs[index] = equipamento
-      }
-    });
+  remover(id: number): Observable<void>{
+    const url = `${this.apiUrl}/${id}`;
 
-    localStorage[LS_CHAVE] = JSON.stringify(equipamentos);
-  }
-
-  remover(id: number): void {
-    let equipamentos = this.listarTodos();
-    equipamentos = equipamentos.filter(equipamento => equipamento.id !== id);
-
-    localStorage[LS_CHAVE] = JSON.stringify(equipamentos);
+    return this.http.delete<void>(url);
   }
 }

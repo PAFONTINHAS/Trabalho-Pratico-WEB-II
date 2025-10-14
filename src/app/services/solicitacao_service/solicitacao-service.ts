@@ -4,6 +4,8 @@ import { solicitacoes as solicitacoesMock} from '../../../assets/mock/solicitaco
 import { HistoricoStatus } from '../../shared/entities/historico_status_entity';
 import { Status } from '../../shared/models/enums/status.enum';
 import { Funcionario } from '../../shared/entities/funcionario_entity';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 const LS_CHAVE = "solicitacoes"
 
 @Injectable({
@@ -12,99 +14,93 @@ const LS_CHAVE = "solicitacoes"
 
 export class SolicitacaoService {
 
-  inicializarMock(): void{
-    // localStorage.removeItem(LS_CHAVE);
+  private readonly apiUrl = 'http://localhost:8080/api/solicitacoes';
 
-    if(!localStorage[LS_CHAVE]){
-      localStorage[LS_CHAVE] = JSON.stringify(solicitacoesMock)
-    }
+  constructor(private readonly http: HttpClient){
+
   }
 
-  listarTodos(): Solicitacao[] {
-    const solicitacoes = localStorage[LS_CHAVE];
-    return solicitacoes ? JSON.parse(solicitacoes) : [];
+  // inicializarMock(): void{
+  //   // localStorage.removeItem(LS_CHAVE);
+
+  //   if(!localStorage[LS_CHAVE]){
+  //     localStorage[LS_CHAVE] = JSON.stringify(solicitacoesMock)
+  //   }
+  // }
+
+  listarTodos(): Observable<Solicitacao> {
+    return this.http.get<Solicitacao>(this.apiUrl);
   }
 
-  inserir(solicitacao: Solicitacao): void {
-    const solicitacoes = this.listarTodos();
-    solicitacao.id = new Date().getTime();
-    solicitacoes.push(solicitacao);
-    
-    localStorage[LS_CHAVE] = JSON.stringify(solicitacoes);
+  inserir(solicitacao: Solicitacao): Observable<Solicitacao> {
 
-    this.atualizarStatus(solicitacao, Status.Aberta);
+    return this.http.post<Solicitacao>(this.apiUrl, solicitacao);
   }
 
-  buscarPorId(id: number): Solicitacao | undefined {
-    const solicitacoes = this.listarTodos();
-    return solicitacoes.find(solicitacao => solicitacao.id === id);
+  buscarPorId(id: number): Observable<Solicitacao> {
+    const url = `${this.apiUrl}/${id}`;
+
+    return this.http.get<Solicitacao>(url);
   }
 
-  atualizar(solicitacao: Solicitacao): void {
-    const solicitacoes = this.listarTodos();
-    solicitacoes.forEach( (obj, index, objs) => {
-    if (solicitacao.id === obj.id) {
-      objs[index] = solicitacao
-    }
-    });
+  atualizar(solicitacao: Solicitacao): Observable<Solicitacao> {
+    const url = `${this.apiUrl}/${solicitacao.id}`;
 
-    localStorage[LS_CHAVE] = JSON.stringify(solicitacoes);
+    return this.http.put<Solicitacao>(url, solicitacao);
   } 
 
-  remover(id: number): void {
-    let solicitacoes = this.listarTodos();
-    solicitacoes = solicitacoes.filter(solicitacao => solicitacao.id !== id);
+  remover(id: number): Observable<void> {
+    const url = `${this.apiUrl}/${id}`;
 
-    localStorage[LS_CHAVE] = JSON.stringify(solicitacoes);
+    return this.http.delete<void>(url);
   }
 
 
-  atualizarStatus( solicitacao: Solicitacao, status: Status): void{
+  // atualizarStatus( solicitacao: Solicitacao, status: Status): void{
 
-    solicitacao.status = status;
+  //   solicitacao.status = status;
 
-    const historico : HistoricoStatus  = {
-      data: this.pegarDataFormatada('data'),
-      hora: this.pegarDataFormatada('hora'),
-      status: status
-    }
+  //   const historico : HistoricoStatus  = {
+  //     data: this.pegarDataFormatada('data'),
+  //     hora: this.pegarDataFormatada('hora'),
+  //     status: status
+  //   }
 
-    solicitacao.historicoStatus.push(historico);
+  //   solicitacao.historicoStatus.push(historico);
 
-    this.atualizar(solicitacao);
+  //   this.atualizar(solicitacao);
 
-  }
+  // }
 
-
-  pegarDataFormatada(opcao: String) : string{
+  // pegarDataFormatada(opcao: String) : string{
   
-    if(opcao === "data"){
+  //   if(opcao === "data"){
   
-      const dia = this.zeroAEsquerda( new Date().getDate());
-      const mes = this.zeroAEsquerda( new Date().getMonth() + 1);
-      const ano = this.zeroAEsquerda( new Date().getFullYear());
+  //     const dia = this.zeroAEsquerda( new Date().getDate());
+  //     const mes = this.zeroAEsquerda( new Date().getMonth() + 1);
+  //     const ano = this.zeroAEsquerda( new Date().getFullYear());
   
-      return `${dia}/${mes}/${ano}`
-    }
+  //     return `${dia}/${mes}/${ano}`
+  //   }
   
-    if(opcao === "hora"){
+  //   if(opcao === "hora"){
   
-      const horas = this.zeroAEsquerda( new Date().getHours());
-      const minutos = this.zeroAEsquerda( new Date().getMinutes());
+  //     const horas = this.zeroAEsquerda( new Date().getHours());
+  //     const minutos = this.zeroAEsquerda( new Date().getMinutes());
   
-      return `${horas}:${minutos}`;
+  //     return `${horas}:${minutos}`;
   
-    }
+  //   }
     
-    return '';
-  }
+  //   return '';
+  // }
 
   
-  zeroAEsquerda (numero : number){
+  // zeroAEsquerda (numero : number){
 
-    return String(numero).padStart(2, '0');
+  //   return String(numero).padStart(2, '0');
 
-  }
+  // }
 
   
 }
