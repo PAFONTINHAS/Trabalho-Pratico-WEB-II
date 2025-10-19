@@ -1,6 +1,6 @@
 package com.mmtads.backend.controller;
 
-import com.mmtads.backend.Model.Solicitacao;
+import com.mmtads.backend.Model.SolicitacaoModel;
 import com.mmtads.backend.Repository.solicitacaoRepository;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
@@ -17,24 +17,24 @@ public class SolicitacaoController {
     }
 
     @GetMapping
-    public List<Solicitacao> listarTodas() {
+    public List<SolicitacaoModel> listarTodas() {
         return solicitacaoRepository.findAll();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Solicitacao> buscarPorId(@PathVariable Long id) {
+    public ResponseEntity<SolicitacaoModel> buscarPorId(@PathVariable Long id) {
         return solicitacaoRepository.findById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public Solicitacao criar(@RequestBody Solicitacao solicitacao) {
+    public SolicitacaoModel criar(@RequestBody SolicitacaoModel solicitacao) {
         return solicitacaoRepository.save(solicitacao);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Solicitacao> atualizar(@PathVariable Long id, @RequestBody Solicitacao solicitacao) {
+    public ResponseEntity<SolicitacaoModel> atualizar(@PathVariable Long id, @RequestBody SolicitacaoModel solicitacao) {
         if (!solicitacaoRepository.existsById(id)) {
             return ResponseEntity.notFound().build();
         }
