@@ -1,7 +1,7 @@
 package com.mmtads.backend.controller;
 
 import com.mmtads.backend.Model.Solicitacao;
-import com.mmtads.backend.Repository.SolicitacaoRepository;
+import com.mmtads.backend.Repository.solicitacaoRepository;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 import java.util.List;
@@ -10,9 +10,9 @@ import java.util.List;
 @RequestMapping("/api/solicitacoes")
 public class SolicitacaoController {
 
-    private final SolicitacaoRepository solicitacaoRepository;
+    private final solicitacaoRepository solicitacaoRepository;
 
-    public SolicitacaoController(SolicitacaoRepository solicitacaoRepository) {
+    public SolicitacaoController(solicitacaoRepository solicitacaoRepository) {
         this.solicitacaoRepository = solicitacaoRepository;
     }
 
