@@ -34,7 +34,7 @@
           </p>
 
           <p class="font-semibold text-md mb-2">CPF</p>
-          <input type="text" maxlength="14" (input)="handleInput($event, cpfMask)"
+          <input type="text" mask="000.000.000-00" (input)="handleInput($event, cpfMask)"
             class="border-gray-400 mb-5 rounded-lg border placeholder:text-gray-400 overflow-hidden h-10 px-3 transition w-full focus:border-mm focus:shadow-xl focus:shadow-mm-shadow hover:border-mm"
             [class.border-red-500]="cpf?.invalid && cpf?.touched" placeholder="000.000.000-00"
             formControlName="cpf" />
@@ -115,7 +115,7 @@
           </div>
 
           <p class="font-semibold text-md mb-2">Telefone</p>
-          <input type="tel" maxlength="15" (input)="handleInput($event, phoneMask)"
+          <input type="tel" mask="(00) 00000-0000" (input)="handleInput($event, phoneMask)"
             class="border-gray-400 mb-5 rounded-lg border placeholder:text-gray-400 overflow-hidden h-10 px-3 transition w-full focus:border-mm focus:shadow-xl focus:shadow-mm-shadow hover:border-mm"
             [class.border-red-500]="telefone?.invalid && telefone?.touched" placeholder="(00) 90000-0000"
             formControlName="telefone" />
