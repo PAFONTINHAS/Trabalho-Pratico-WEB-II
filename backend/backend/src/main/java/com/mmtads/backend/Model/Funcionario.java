@@ -4,14 +4,10 @@ import jakarta.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "funcio")
-public class Funcionario {
+@PrimaryKeyJoinColumn(name="idUsuario")
+@Table(name = "funcionario")
+public class Funcionario extends Usuario{
     
-    @Id()
-    @Column(name="idFuncionario")
-    @OneToOne(mappedBy="usuario")
-    private Long id;
-
     @Column(name="cpf", nullable = false, unique = true, length = 14)
     private String cpf;
 
@@ -24,20 +20,6 @@ public class Funcionario {
     public Funcionario(String cpf, Date data_nasc) {
         this.cpf = cpf;
         this.data_nasc = data_nasc;
-    }
-
-    /**
-     * @return the id
-     */
-    public Long getId() {
-        return id;
-    }
-
-    /**
-     * @param id the id to set
-     */
-    public void setId(Long id) {
-        this.id = id;
     }
 
     /**
