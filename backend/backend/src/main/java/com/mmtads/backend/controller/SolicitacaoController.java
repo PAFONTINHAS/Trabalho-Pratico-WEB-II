@@ -1,7 +1,7 @@
 package com.mmtads.backend.controller;
 
-import com.mmtads.backend.Model.SolicitacaoModel;
-import com.mmtads.backend.Repository.solicitacaoRepository;
+import com.mmtads.backend.Model.Solicitacao;
+import com.mmtads.backend.Repository.SolicitacaoRepository;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 import java.util.List;
@@ -10,31 +10,31 @@ import java.util.List;
 @RequestMapping("/api/solicitacoes")
 public class SolicitacaoController {
 
-    private final solicitacaoRepository solicitacaoRepository;
+    private final SolicitacaoRepository solicitacaoRepository;
 
-    public SolicitacaoController(solicitacaoRepository solicitacaoRepository) {
+    public SolicitacaoController(SolicitacaoRepository solicitacaoRepository) {
         this.solicitacaoRepository = solicitacaoRepository;
     }
 
     @GetMapping
-    public List<SolicitacaoModel> listarTodas() {
+    public List<Solicitacao> listarTodas() {
         return solicitacaoRepository.findAll();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<SolicitacaoModel> buscarPorId(@PathVariable Long id) {
+    public ResponseEntity<Solicitacao> buscarPorId(@PathVariable Long id) {
         return solicitacaoRepository.findById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public SolicitacaoModel criar(@RequestBody SolicitacaoModel solicitacao) {
+    public Solicitacao criar(@RequestBody Solicitacao solicitacao) {
         return solicitacaoRepository.save(solicitacao);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<SolicitacaoModel> atualizar(@PathVariable Long id, @RequestBody SolicitacaoModel solicitacao) {
+    public ResponseEntity<Solicitacao> atualizar(@PathVariable Long id, @RequestBody Solicitacao solicitacao) {
         if (!solicitacaoRepository.existsById(id)) {
             return ResponseEntity.notFound().build();
         }

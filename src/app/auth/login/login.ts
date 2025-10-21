@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, RouterLink, ActivatedRoute } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Login } from '../../shared/models';
@@ -11,7 +11,7 @@ import { Usuario } from '../../shared/models/usuario.model';
   standalone: true,
   imports: [
     RouterLink,
-    ReactiveFormsModule, 
+    ReactiveFormsModule,
     CommonModule
   ],
   templateUrl: './login.html',
@@ -25,9 +25,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private loginService: LoginService,
     private router: Router,
-    private route: ActivatedRoute,
     private fb: FormBuilder
-  ) { 
+  ) {
     this.loginForm = this.fb.group({
       login: ['', [Validators.required, Validators.email]],
       senha: ['', [Validators.required]]
@@ -35,19 +34,16 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.loginService.usuarioLogado) {
-      this.redirecionarPorPerfil(this.loginService.usuarioLogado);
-    } else {
-      this.route.queryParams.subscribe(params => {
-        this.message = params['error'];
-      });
+    const usuarioLogado = this.loginService.usuarioLogado;
+    if (usuarioLogado) {
+      this.redirecionarPorPerfil(usuarioLogado);
     }
   }
 
   onSubmit(): void {
     this.loginForm.markAllAsTouched();
     if (this.loginForm.invalid) {
-      return; 
+      return;
     }
 
     this.loading = true;
@@ -56,18 +52,21 @@ export class LoginComponent implements OnInit {
     const loginData: Login = this.loginForm.value;
 
     this.loginService.login(loginData).subscribe({
-      next: (usu) => {
-        this.loginService.usuarioLogado = usu;
-        this.redirecionarPorPerfil(usu);
+      next: () => {
+        const usu = this.loginService.usuarioLogado;
+        if (usu) {
+          this.redirecionarPorPerfil(usu);
+        }
         this.loading = false;
       },
       error: (err) => {
-        if (err === 'EMAIL_NAO_ENCONTRADO') {
-          this.login?.setErrors({ emailNaoEncontrado: true });
-        } else if (err === 'SENHA_INCORRETA') {
-          this.senha?.setErrors({ senhaIncorreta: true });
+        const erroMsg = err.error; 
+
+        if (erroMsg === 'LOGIN_INVALIDO') {
+          this.message = 'Email ou senha inválidos.';
+          
         } else {
-          this.message = 'Ocorreu um erro no servidor.';
+          this.message = 'Ocorreu um erro no servidor. Tente novamente.';
         }
         this.loading = false;
       }
@@ -83,7 +82,7 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/funcionario/homepage']);
         break;
       default:
-        this.router.navigate(['/']); 
+        this.router.navigate(['/']);
         break;
     }
   }

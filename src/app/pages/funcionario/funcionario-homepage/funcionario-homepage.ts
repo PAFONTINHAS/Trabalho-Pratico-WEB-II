@@ -15,10 +15,6 @@ export class FuncionarioHomepage implements OnInit{
   solicitacoes: Solicitacao[] = [];
   constructor( private readonly solicitacaoService: SolicitacaoService){}
 
-  countAbertas(): number {
-    return this.solicitacoes.filter(solicitacao => solicitacao.status.toUpperCase() === 'ABERTA').length;
-  }
-
   carregarSolicitacoes(){
     this.solicitacaoService.listarTodos().subscribe({
       next: (data) =>{
@@ -31,6 +27,10 @@ export class FuncionarioHomepage implements OnInit{
     });
   }
 
+  countAbertas(): number {
+    return this.solicitacoes.filter(solicitacao => solicitacao.status.toUpperCase() === 'ABERTA').length;
+  }
+
   ngOnInit(): void {
     this.carregarSolicitacoes();
   }
@@ -40,7 +40,7 @@ export class FuncionarioHomepage implements OnInit{
 
 
   abrirModal(solicitacao: Solicitacao): void {
-    this.solicitacaoSelecionada = solicitacao; // Salva o orçamento selecionado
+    this.solicitacaoSelecionada = solicitacao;
     this.mostrarModalSolicitacao = true;
   }
 
