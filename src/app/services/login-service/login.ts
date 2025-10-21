@@ -1,41 +1,58 @@
 import { Injectable } from '@angular/core';
-import { Observable, of, throwError } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Observable, tap } from 'rxjs';
+import { jwtDecode } from 'jwt-decode';
+
 import { Login } from '../../shared/models/login.model';
 import { Usuario } from '../../shared/models/usuario.model';
-import { USUARIOS_MOCK } from '../../shared/mocks/mock-usuarios';
 
-const LS_CHAVE: string = "usuarioLogado";
+const AUTH_TOKEN_KEY = "auth_token";
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
+  private apiUrl = 'http://localhost:8081/api/auth';
+
+  constructor(private http: HttpClient) { }
+
   public get usuarioLogado(): Usuario | null {
-    let usuario = localStorage[LS_CHAVE];
-    return (usuario ? JSON.parse(usuario) : null);
-  }
-  public set usuarioLogado(usuario: Usuario) {
-    localStorage[LS_CHAVE] = JSON.stringify(usuario);
+    const token = localStorage.getItem(AUTH_TOKEN_KEY); 
+
+    if (!token) {
+      return null;
+    }
+
+    try {
+      const decodedToken: any = jwtDecode(token);
+      
+      return {
+        id: 0, 
+        nome: decodedToken.nome, 
+        email: decodedToken.sub, 
+        perfil: decodedToken.role 
+      } as Usuario; 
+      
+    } catch (error) {
+      console.error("Erro ao decodificar token:", error);
+      return null;
+    }
   }
 
-  logout() {
-    delete localStorage[LS_CHAVE];
+  logout(): void {
+    localStorage.removeItem(AUTH_TOKEN_KEY);
   }
 
-   login(login: Login): Observable<Usuario> { 
-    const usuarioEncontrado = USUARIOS_MOCK.find(
-      user => user.email === login.login
+  login(login: Login): Observable<{ token: string }> {
+    const credentials = {
+      email: login.login,
+      senha: login.senha
+    };
+
+    return this.http.post<{ token: string }>(`${this.apiUrl}/login`, credentials).pipe(
+      tap(response => {
+        localStorage.setItem(AUTH_TOKEN_KEY, response.token);
+      })
     );
-
-    if (!usuarioEncontrado) {
-      return throwError(() => 'EMAIL_NAO_ENCONTRADO');
-    }
-
-    if (usuarioEncontrado.senha !== login.senha) {
-      return throwError(() => 'SENHA_INCORRETA');
-    }
-
-    console.log('Usuário autenticado:', usuarioEncontrado);
-    return of({ ...usuarioEncontrado });
   }
 }

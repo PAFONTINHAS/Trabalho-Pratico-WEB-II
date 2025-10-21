@@ -32,11 +32,11 @@
           class="border-gray-400 mb-5 rounded-lg border placeholder:text-gray-400 overflow-hidden h-10 px-3 transition w-full focus:border-mm focus:shadow-xl focus:shadow-mm-shadow hover:border-mm"
           [class.border-red-500]="login?.invalid && login?.touched"
           placeholder="exemplo@email.com"
-          formControlName="login" />
+          formControlName="login"
+          (focus)="message = ''" />
         <div *ngIf="login?.invalid && login?.touched" class="text-red-500 text-sm -mt-4 mb-5">
             <p *ngIf="login?.errors?.['required']">O e-mail é obrigatório.</p>
             <p *ngIf="login?.errors?.['email']">E-mail inválido.</p>
-            <p *ngIf="login?.errors?.['emailNaoEncontrado']">Este e-mail não está cadastrado.</p>
         </div>
 
         <p class="font-semibold text-md mb-2">Senha</p>
@@ -44,11 +44,12 @@
           class="border-gray-400 mb-5 rounded-lg border placeholder:text-gray-400 overflow-hidden h-10 px-3 transition w-full focus:border-mm focus:shadow-xl focus:shadow-mm-shadow hover:border-mm"
           [class.border-red-500]="senha?.invalid && senha?.touched"
           placeholder="Digite sua senha"
-          formControlName="senha" />
+          formControlName="senha"
+          (focus)="message = ''" />
         <div *ngIf="senha?.invalid && senha?.touched" class="text-red-500 text-sm -mt-4 mb-5">
-            <p *ngIf="senha?.errors?.['required']">A senha é obrigatória.</p>
-            <p *ngIf="senha?.errors?.['senhaIncorreta']">A senha está incorreta.</p>
+          <p *ngIf="senha?.errors?.['required']">A senha é obrigatória.</p>
         </div>
+        <p *ngIf="message" class="text-red-500 text-lg text-center font-bold">{{message}}</p>
 
         <div class="flex flex-col gap-4 items-center justify-center mt-5">
           <button type="submit" [disabled]="loginForm.invalid"

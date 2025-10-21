@@ -4,48 +4,46 @@ import jakarta.persistence.*;
 import java.util.Date;
 
 @Entity
-@PrimaryKeyJoinColumn(name="idUsuario")
 @Table(name = "funcionario")
-public class Funcionario extends Usuario{
+public class Funcionario {
     
-    @Column(name="cpf", nullable = false, unique = true, length = 14)
-    private String cpf;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    @Column(name="dataNascimento", nullable = false)
+    @Column(name="dataNasc", nullable = false)
     private Date data_nasc;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "usuario_id", referencedColumnName = "id")
+    private Usuario usuario;
 
     public Funcionario() {
     }
     
-    public Funcionario(String cpf, Date data_nasc) {
-        this.cpf = cpf;
+    public Funcionario(Date data_nasc) {
         this.data_nasc = data_nasc;
     }
-
-    /**
-     * @return the cpf
-     */
-    public String getCpf() {
-        return cpf;
+    public Long getId() {
+        return id;
     }
 
-    /**
-     * @param cpf the cpf to set
-     */
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    /**
-     * @return the data_nasc
-     */
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
     public Date getData_nasc() {
         return data_nasc;
     }
 
-    /**
-     * @param data_nasc the data_nasc to set
-     */
     public void setData_nasc(Date data_nasc) {
         this.data_nasc = data_nasc;
     }

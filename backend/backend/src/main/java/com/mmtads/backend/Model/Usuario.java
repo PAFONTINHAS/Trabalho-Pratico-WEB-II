@@ -1,27 +1,19 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.mmtads.backend.Model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Inheritance;
-import jakarta.persistence.InheritanceType;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
-/**
- *
- * @author gabriela
- */
+import java.util.Collection;
+import java.util.List;
+
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
-@Table(name = "usuario")
-public class Usuario {
-    
-    @Id()
-    @Column(name="idUsuario")
+@Table(name = "usuarios")
+public class Usuario implements UserDetails {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name="nome", nullable = false, length = 100)
@@ -29,9 +21,6 @@ public class Usuario {
 
     @Column(name="email", nullable = false, length = 100, unique = true)
     private String email;
-    
-    @Column(name="telefone", length = 20)
-    private String telefone;
     
     @Column(name="senhaHash", length = 256, nullable = false)
     private String senhaHash;
@@ -41,120 +30,119 @@ public class Usuario {
     
     @Column(name="isDelete")
     private boolean isDelete = false;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Role role;
     
-    @Column(name="tipo", nullable = false)
-    private String tipo;
-    /**
-     * @return the id
-     */
+    @Transient
+    private String senha;
+
+    // --- Getters e Setters ---
+    
     public Long getId() {
         return id;
     }
 
-    /**
-     * @param id the id to set
-     */
     public void setId(Long id) {
         this.id = id;
     }
 
-    /**
-     * @return the nome
-     */
     public String getNome() {
         return nome;
     }
 
-    /**
-     * @param nome the nome to set
-     */
     public void setNome(String nome) {
         this.nome = nome;
     }
 
-    /**
-     * @return the email
-     */
     public String getEmail() {
         return email;
     }
 
-    /**
-     * @param email the email to set
-     */
     public void setEmail(String email) {
         this.email = email;
     }
 
-    /**
-     * @return the telefone
-     */
-    public String getTelefone() {
-        return telefone;
-    }
-
-    /**
-     * @param telefone the telefone to set
-     */
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
-    }
-
-    /**
-     * @return the senhaHash
-     */
     public String getSenhaHash() {
         return senhaHash;
     }
 
-    /**
-     * @param senhaHash the senhaHash to set
-     */
     public void setSenhaHash(String senhaHash) {
         this.senhaHash = senhaHash;
     }
 
-    /**
-     * @return the senhaSalt
-     */
     public String getSenhaSalt() {
         return senhaSalt;
     }
 
-    /**
-     * @param senhaSalt the senhaSalt to set
-     */
     public void setSenhaSalt(String senhaSalt) {
         this.senhaSalt = senhaSalt;
     }
+    
+    // getter/setter do @Transient
+    public String getSenha() {
+        return senha;
+    }
 
-    /**
-     * @return the isDeleted
-     */
-    public boolean isIsDeleted() {
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
+    public boolean isDelete() {
         return isDelete;
     }
 
-    /**
-     * @param isDeleted the isDeleted to set
-     */
-    public void setIsDeleted(boolean isDeleted) {
-        this.isDelete = isDeleted;
+    public void setDelete(boolean isDelete) {
+        this.isDelete = isDelete;
     }
 
-    /**
-     * @return the tipo
-     */
-    public String getTipo() {
-        return tipo;
+    public Role getRole() {
+        return role;
     }
 
-    /**
-     * @param tipo the tipo to set
-     */
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
+    public void setRole(Role role) {
+        this.role = role;
     }
     
-    
-}   
+    // --- Métodos do UserDetails ---
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        if (this.role == Role.FUNCIONARIO) {
+            return List.of(new SimpleGrantedAuthority("ROLE_FUNCIONARIO"), new SimpleGrantedAuthority("ROLE_CLIENTE"));
+        } else {
+            return List.of(new SimpleGrantedAuthority("ROLE_CLIENTE"));
+        }
+    }
+
+    @Override
+    public String getPassword() {
+        return this.senhaHash;
+    }
+
+    @Override
+    public String getUsername() {
+        return this.email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return !this.isDelete;
+    }
+}

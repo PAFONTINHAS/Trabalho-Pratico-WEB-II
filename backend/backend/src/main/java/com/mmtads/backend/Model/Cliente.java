@@ -1,13 +1,9 @@
 package com.mmtads.backend.Model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
-public class ClienteModel {
+public class Cliente {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,18 +13,15 @@ public class ClienteModel {
   private String cpf;
 
   @Column(nullable = false)
-  private String nome;
-
-  @Column(nullable = false)
-  private String email;
-
-  @Column(nullable = false)
   private String endereco;
 
   @Column(nullable = false)
   private String telefone;
 
-  // Getters e Setters
+  @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "usuario_id", referencedColumnName = "id")
+    private Usuario usuario;
+
   public Long getId() {
     return id;
   }
@@ -37,28 +30,20 @@ public class ClienteModel {
     this.id = id;
   }
 
+  public Usuario getUsuario() {
+    return usuario;
+  }
+
+  public void setUsuario(Usuario usuario) {
+    this.usuario = usuario;
+  }
+
   public String getCpf() {
     return cpf;
   }
 
   public void setCpf(String cpf) {
     this.cpf = cpf;
-  }
-
-  public String getNome() {
-    return nome;
-  }
-
-  public void setNome(String nome) {
-    this.nome = nome;
-  }
-
-  public String getEmail() {
-    return email;
-  }
-
-  public void setEmail(String email) {
-    this.email = email;
   }
 
   public String getEndereco() {
