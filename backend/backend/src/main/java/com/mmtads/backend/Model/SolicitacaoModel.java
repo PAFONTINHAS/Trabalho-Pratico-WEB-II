@@ -43,11 +43,11 @@ public class SolicitacaoModel {
     
     @ManyToOne
     @JoinColumn(name = "idCategoria", nullable = false)
-    private CategoriaModel categoria;
+    private Categoria categoria;
     
     @ManyToOne
     @JoinColumn(name = "idStatus", nullable = false)
-    private StatusModel status;
+    private SolicitacaoModel status;
     
     // Getters e Setters
     public Long getIdSolicitacao() {
@@ -106,19 +106,19 @@ public class SolicitacaoModel {
         this.funcionario = funcionario;
     }
     
-    public CategoriaModel getCategoria() {
+    public Categoria getCategoria() {
         return categoria;
     }
     
-    public void setCategoria(CategoriaModel categoria) {
+    public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
     }
     
-    public StatusModel getStatus() {
+    public SolicitacaoModel getStatus() {
         return status;
     }
     
-    public void setStatus(StatusModel status) {
+    public void setStatus(SolicitacaoModel status) {
         this.status = status;
     }
 }
