@@ -49,7 +49,16 @@
         <div *ngIf="senha?.invalid && senha?.touched" class="text-red-500 text-sm -mt-4 mb-5">
           <p *ngIf="senha?.errors?.['required']">A senha é obrigatória.</p>
         </div>
-        <p *ngIf="message" class="text-red-500 text-lg text-center font-bold">{{message}}</p>
+        <div *ngIf="message" 
+            class="mb-5 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg flex items-start gap-3"
+            role="alert">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 512 512" class="w-5 h-5 mt-0.5">
+  <path d="M256 512a256 256 0 1 0 0-512 256 256 0 1 0 0 512zM167 167c9.4-9.4 24.6-9.4 33.9 0l55 55 55-55c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-55 55 55 55c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-55-55-55 55c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l55-55-55-55c-9.4-9.4-9.4-24.6 0-33.9z"/>
+</svg>
+          <div>
+            <p class="font-semibold">{{message}}</p>
+          </div>
+        </div>
 
         <div class="flex flex-col gap-4 items-center justify-center mt-5">
           <button type="submit" [disabled]="loginForm.invalid"

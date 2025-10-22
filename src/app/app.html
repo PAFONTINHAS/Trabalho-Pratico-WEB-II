@@ -10,7 +10,7 @@
                         </h2>
                     </div>
                     <div class="w-[10%] flex justify-center" id="logo">
-                        <div [routerLink]="['/login']" class="flex items-center justify-center transition-all rounded-full w-[80px] focus:outline-none  cursor-pointer hover:scale-[102%] active:opacity-90 active:scale-[97%]">
+                        <div [routerLink]="['/login']" class=" items-center justify-center hidden transition-all xl:flex rounded-full w-[80px] focus:outline-none  cursor-pointer hover:scale-[102%] active:opacity-90 active:scale-[97%]">
                             <svg
                                 class="h-[50px] w-[240px]" 
                                 viewBox="0 0 1600 1024" 
@@ -34,9 +34,9 @@
                     </div>
                     <div class="flex items-center justify-end w-[45%] gap-3">
                         @if (temPermissao('CLIENTE')) {
-                            <button class="cursor-pointer rounded-lg bg-mm py-2 px-4 gap-1 flex items-center 
+                            <button class="cursor-pointer rounded-lg bg-mm py-2 px-4 gap-1 w-max flex items-center 
                                             border border-transparent text-center text-white transition-all
-                                            hover:bg-mm-dark hover:scale-[102%] hover:shadow-lg active:scale-95 active:shadow-none" 
+                                            hover:bg-mm-dark hover:scale-[102%] hover:shadow-lg active:scale-95 active:shadow-none text-nowrap" 
                                     [routerLink]="['/cliente/pagina-inicial']"
                                 >Página Inicial
                             </button>
@@ -50,7 +50,7 @@
                         @if (temPermissao('FUNCIONARIO')) {
                             <button class="cursor-pointer rounded-lg bg-mm py-2 px-4 gap-1 flex items-center 
                                         border border-transparent text-center text-white transition-all
-                                        hover:bg-mm-dark hover:scale-[102%] hover:shadow-lg active:scale-95 active:shadow-none" 
+                                        hover:bg-mm-dark hover:scale-[102%] hover:shadow-lg active:scale-95 active:shadow-none text-nowrap" 
                                 [routerLink]="['/funcionario']"
                             >Página Inicial
                             </button>
