@@ -30,7 +30,10 @@ export class CategoriaComponent implements OnInit, OnDestroy {
     nome: ''
   }
 
-  // Função para carregar a lista do backend
+  /**
+   * @description Carrega a lista de todas as categorias existentes a partir do backend 
+   * usando o CategoriaService e atualiza a propriedade 'categorias' do componente.
+   */
   carregarCategorias(): void {
     // Chama o serviço (agora HTTP) e se inscreve para receber os dados
     this.categoriaService.listarTodos().subscribe({
@@ -44,25 +47,47 @@ export class CategoriaComponent implements OnInit, OnDestroy {
     });
   }
 
+  /**
+   * @description Hook de ciclo de vida do Angular. 
+   * É chamado após a inicialização do componente.
+   * Inicia o carregamento da lista de categorias.
+   */
   ngOnInit(): void {
     // Apenas carrega os dados reais do backend
     this.carregarCategorias();
   }
 
+  /**
+   * @description Hook de ciclo de vida do Angular. 
+   * É chamado antes da destruição do componente.
+   * Cancela quaisquer subscrições ativas para evitar vazamento de memória.
+   */
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
 
+  /**
+   * @description Exibe o formulário para criação de uma nova categoria.
+   * Reseta o objeto 'categoria' e define 'editando' como falso.
+   */
   abrirFormulario() {
     this.formVisivel = true;
     this.editando = false;
     this.categoria = { id: 0, nome: '' };
   }
 
+  /**
+   * @description Oculta o formulário, cancelando a operação de criação ou edição.
+   */
   cancelar() {
     this.formVisivel = false;
   }
 
+  /**
+   * @description Responsável por salvar uma nova categoria ou atualizar uma existente.
+   * Verifica se o campo 'nome' não está vazio. 
+   * Se 'editando' for verdadeiro, chama o método de atualização (PUT); caso contrário, chama o de inserção (POST).
+   */
   salvar() {
     if (this.categoria.nome.trim() === '') return;
     
@@ -88,12 +113,24 @@ export class CategoriaComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * @description Prepara o formulário para editar uma categoria existente.
+   * Define 'formVisivel' como verdadeiro, 'editando' como verdadeiro e preenche o objeto 
+   * 'categoria' com os dados da categoria a ser editada.
+   * @param categoria O objeto Categoria a ser editado.
+   */
   editarForm(categoria: Categoria) {
     this.formVisivel = true;
     this.editando = true;
     this.categoria = {...categoria}
   }
 
+  /**
+   * @description Remove uma categoria após a confirmação do usuário.
+   * Se confirmado, chama o método de remoção (DELETE) do serviço e recarrega a lista.
+   * @param $event O evento de clique.
+   * @param categoria O objeto Categoria a ser removido.
+   */
   remover($event: any, categoria: Categoria): void {
     $event.preventDefault();
     if (confirm(`Deseja realmente remover a categoria ${categoria.nome}?`)) {

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
+import {NgxMaskDirective} from 'ngx-mask';
 import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ViaCep } from '../../services/via-cep/via-cep';
@@ -7,7 +8,7 @@ import { ViaCep } from '../../services/via-cep/via-cep';
 @Component({
   selector: 'app-cadastro',
   standalone: true,
-  imports: [RouterLink, ReactiveFormsModule, CommonModule],
+  imports: [RouterLink, ReactiveFormsModule, CommonModule, NgxMaskDirective],
   templateUrl: './cadastro.html',
   styleUrl: './cadastro.css'
 })
