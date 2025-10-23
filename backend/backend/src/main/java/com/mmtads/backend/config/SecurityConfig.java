@@ -24,17 +24,36 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
-                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-                .csrf(csrf -> csrf.disable())
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
-                        .anyRequest().authenticated()
-                );
-        
-        httpSecurity.authenticationProvider(customAuthenticationProvider);
-        
+            // 1. Desabilita a proteção CSRF
+            // (MUITO importante para APIs stateless, pois o 403 Forbidden é comum
+            // em requisições POST sem o token CSRF)
+            .csrf(csrf -> csrf.disable())
+
+            // 2. Configura a política de autorização
+            .authorizeHttpRequests(authorize -> authorize
+                // **O SEGREDO ESTÁ AQUI**: Permite qualquer requisição
+                .anyRequest().permitAll() 
+            )
+
+            // 3. Define a política de gestão de sessão como STATELESS 
+            // (Comum para APIs que usam JWT)
+            .sessionManagement(session -> session
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            );
+            
         return httpSecurity.build();
+        // httpSecurity
+        //         .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+        //         .csrf(csrf -> csrf.disable())
+        //         .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+        //         .authorizeHttpRequests(authorize -> authorize
+        //                 .requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
+        //                 .anyRequest().authenticated()
+        //         );
+        
+        // httpSecurity.authenticationProvider(customAuthenticationProvider);
+        
+        // return httpSecurity.build();
     }
 
     @Bean
