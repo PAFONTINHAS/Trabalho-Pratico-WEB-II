@@ -2,6 +2,8 @@ package com.mmtads.backend.controller;
 
 import com.mmtads.backend.Repository.FuncionarioRepository;
 import com.mmtads.backend.service.UsuarioService;
+
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -9,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.mmtads.backend.Model.Funcionario;
 import com.mmtads.backend.Model.Role;
-import com.mmtads.backend.Model.Usuario;
 
 import java.util.List;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -53,9 +54,13 @@ public class FuncionarioController {
         return this.funciRepo.save(funci);
     }
 
-    @DeleteMapping("/{id}")
-    public void deleteFuncionarioById(@PathVariable long id) {
-        this.funciRepo.softDeleteById(id);
+    @DeleteMapping("/user/{userId}/{id}")
+    public void deleteFuncionarioById(@PathVariable long userId, @PathVariable long id) {    
+        if(id == userId) {
+            ResponseEntity.badRequest();
+        } else {
+            this.funciRepo.softDeleteById(id);
+        }
     }
     
 }

@@ -6,6 +6,7 @@ import { Funcionario } from '../../../shared/entities/funcionario_entity';
 import { FuncionarioService } from '../../../services/funcionario-service/funcionario-service';
 import { Subscription } from 'rxjs';
 import { Funcionarios } from '../../../shared/models/enums/funcionarios.enum'
+import { LoginService } from '../../../services/login-service/login';
 
 @Component({
   imports: [CommonModule, RouterModule, FormsModule],
@@ -18,7 +19,8 @@ export class CriarFuncionario implements OnInit, OnDestroy {
 
   constructor(
     private readonly funcionarioService: FuncionarioService,
-    private readonly router: Router
+    private readonly router: Router,
+    private loginService: LoginService,
   ) {}
 
   funcionario = { id: 0, nome: '', email: '', data_nasc: '', senha: '' };
@@ -88,9 +90,13 @@ export class CriarFuncionario implements OnInit, OnDestroy {
   remover($event: any, funcionario: Funcionario): void {
     $event.preventDefault();
     if (confirm(`Deseja realmente remover o funcionario ${funcionario.nome}?`)) {
-      this.funcionarioService.remover(funcionario.id).subscribe(response => {
-        console.log(response);
-      })
+      const user = this.loginService.usuarioLogado
+      if(user) {
+        this.funcionarioService.remover(funcionario.id, user).subscribe(response => {
+          console.log(response);
+        })
+      }
+      
     }
   }
 

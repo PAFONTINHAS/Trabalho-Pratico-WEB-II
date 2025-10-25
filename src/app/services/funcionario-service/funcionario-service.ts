@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Funcionario } from '../../shared/entities/funcionario_entity';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { Usuario } from '../../shared/models/usuario.model';
 
 // const LS_CHAVE = "funcionarios";
 
@@ -48,8 +49,8 @@ export class FuncionarioService {
   } 
   
 
-  remover(id: number): Observable<void>{
-    const url = `${this.apiUrl}/${id}`;
+  remover(id: number, usuario: Usuario): Observable<void>{
+    const url = `${this.apiUrl}/user/${usuario.id}/${id}`;
 
     return this.http.delete<void>(url);
   }
