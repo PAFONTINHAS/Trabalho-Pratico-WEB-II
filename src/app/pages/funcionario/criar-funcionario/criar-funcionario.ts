@@ -21,7 +21,7 @@ export class CriarFuncionario implements OnInit, OnDestroy {
     private readonly router: Router
   ) {}
 
-  funcionario = { id: 0, nome: '', email: '', dataNasc: '', senha: '' };
+  funcionario = { id: 0, nome: '', email: '', data_nasc: '', senha: '' };
   formVisivel = false;
   editando = false;
 
@@ -54,7 +54,7 @@ export class CriarFuncionario implements OnInit, OnDestroy {
   abrirFormulario() {
     this.formVisivel = true;
     this.editando = false;
-    this.funcionario = { id: 0, nome: '', email: '', dataNasc: '', senha: '' };
+    this.funcionario = { id: 0, nome: '', email: '', data_nasc: '', senha: '' };
   }
 
   cancelar() {
@@ -64,9 +64,13 @@ export class CriarFuncionario implements OnInit, OnDestroy {
   salvar() {
     if (this.funcionario.nome.trim() === '') return;
     if (this.editando) {
-      this.funcionarioService.atualizar(this.funcionario);
+      this.funcionarioService.atualizar(this.funcionario).subscribe(response => {
+        console.log(response);
+      })
     } else {
-      this.funcionarioService.inserir(this.funcionario);
+      this.funcionarioService.inserir(this.funcionario).subscribe(response => {
+        console.log(response);
+      })
     }
     this.cancelar();
   }
@@ -80,7 +84,9 @@ export class CriarFuncionario implements OnInit, OnDestroy {
   remover($event: any, funcionario: Funcionario): void {
     $event.preventDefault();
     if (confirm(`Deseja realmente remover o funcionario ${funcionario.nome}?`)) {
-      this.funcionarioService.remover(funcionario.id);
+      this.funcionarioService.remover(funcionario.id).subscribe(response => {
+        console.log(response);
+      })
     }
   }
 

@@ -45,7 +45,7 @@
         <p>Data de Nascimento</p>
         <input
           type="text"
-          [(ngModel)]="funcionario.dataNasc"
+          [(ngModel)]="funcionario.data_nasc"
           placeholder="01/01/2000"
           #nome="ngModel"
           class="border-gray-400 mb-5 rounded-lg border placeholder:text-gray-400 overflow-hidden h-10 px-3 transition w-full focus:border-mm focus:shadow-xl focus:shadow-mm-shadow hover:border-mm"
@@ -101,7 +101,7 @@
           >
           <td class="border-t-2 border-gray-200 py-3 px-6">{{ funcionario.nome }}</td>
             <td class="border-t-2 border-gray-200 py-3 px-6">{{ funcionario.email }}</td>
-            <td class="border-t-2 border-gray-200 py-3 px-6">{{ funcionario.dataNasc }}</td>
+            <td class="border-t-2 border-gray-200 py-3 px-6">{{ funcionario.data_nasc }}</td>
             <td class="border-t-2 border-gray-200 py-3 px-6">{{ funcionario.senha }}</td>
             <td class="border-t-2 border-gray-200 py-3 px-6 text-center">
               <button
