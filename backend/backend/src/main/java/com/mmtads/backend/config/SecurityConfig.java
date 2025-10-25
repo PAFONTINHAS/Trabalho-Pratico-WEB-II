@@ -5,7 +5,6 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -27,11 +26,14 @@ public class SecurityConfig {
             // 1. Desabilita a proteção CSRF
             // (MUITO importante para APIs stateless, pois o 403 Forbidden é comum
             // em requisições POST sem o token CSRF)
+            //.cors(cors -> cors.configurationSource(corsConfigurationSource())) 
+            //eu estava tendo um problema com o cors ao logar mas parece q não era um problema geral então deixei comentada
             .csrf(csrf -> csrf.disable())
 
             // 2. Configura a política de autorização
             .authorizeHttpRequests(authorize -> authorize
                 // **O SEGREDO ESTÁ AQUI**: Permite qualquer requisição
+                            .requestMatchers("/api/auth/login").permitAll() // Explicitly permit login
                 .anyRequest().permitAll() 
             )
 
