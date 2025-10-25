@@ -29,6 +29,9 @@ export class CriarFuncionario implements OnInit, OnDestroy {
     this.funcionarioService.listarTodos().subscribe({
       next: (data) => {
         this.funcionarios = data;
+        this.funcionarios.map((funcionario) => {
+          funcionario.data_nasc = this.formatarData(funcionario.data_nasc)
+        })
       },
 
       error: (e) =>{
@@ -68,6 +71,7 @@ export class CriarFuncionario implements OnInit, OnDestroy {
         console.log(response);
       })
     } else {
+      console.log(this.funcionario)
       this.funcionarioService.inserir(this.funcionario).subscribe(response => {
         console.log(response);
       })
@@ -88,6 +92,11 @@ export class CriarFuncionario implements OnInit, OnDestroy {
         console.log(response);
       })
     }
+  }
+
+  formatarData(dataNasc: string) {
+    const data = new Date(dataNasc)
+    return data.toLocaleDateString("en-GB")
   }
 
 }

@@ -44,7 +44,7 @@
       <div class="flex flex-col">
         <p>Data de Nascimento</p>
         <input
-          type="text"
+          type="date"
           [(ngModel)]="funcionario.data_nasc"
           placeholder="01/01/2000"
           #nome="ngModel"
@@ -91,7 +91,6 @@
             <th class="py-3 px-6 text-left font-bold">Nome</th>
             <th class="py-3 px-6 text-left font-bold">E-mail</th>
             <th class="py-3 px-6 text-left font-bold">Data de Nascimento</th>
-            <th class="py-3 px-6 text-left font-bold">Senha</th>
             <th class="py-3 px-6 text-center font-bold">Ações</th>
           </tr>
         </thead>
@@ -102,7 +101,6 @@
           <td class="border-t-2 border-gray-200 py-3 px-6">{{ funcionario.nome }}</td>
             <td class="border-t-2 border-gray-200 py-3 px-6">{{ funcionario.email }}</td>
             <td class="border-t-2 border-gray-200 py-3 px-6">{{ funcionario.data_nasc }}</td>
-            <td class="border-t-2 border-gray-200 py-3 px-6">{{ funcionario.senha }}</td>
             <td class="border-t-2 border-gray-200 py-3 px-6 text-center">
               <button
                 (click)="editarForm(funcionario)"
