@@ -1,4 +1,4 @@
-package com.mmtads.backend.controller;
+package com.mmtads.backend.Controller;
 
 import com.mmtads.backend.Model.Categoria;
 import com.mmtads.backend.Repository.CategoriaRepository;
@@ -58,7 +58,7 @@ public class CategoriaController {
         if (!categoriaRepository.existsById(id)) {
             return ResponseEntity.notFound().build();
         }
-        
+
         categoriaRepository.deleteById(id);
         // Retorna 204 No Content, que é o padrão para deleções bem-sucedidas
         return ResponseEntity.noContent().build();

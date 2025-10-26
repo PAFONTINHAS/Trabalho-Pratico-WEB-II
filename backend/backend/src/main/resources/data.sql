@@ -1,4 +1,4 @@
-USE manutencao_equipamentos;
+USE manutencaoequipamentos;
 
 INSERT IGNORE INTO categoria (nome) VALUES ('Notebook');
 INSERT IGNORE INTO categoria (nome) VALUES ('Desktop');

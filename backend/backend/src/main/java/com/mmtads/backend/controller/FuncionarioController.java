@@ -1,4 +1,4 @@
-package com.mmtads.backend.controller;
+package com.mmtads.backend.Controller;
 
 import com.mmtads.backend.Repository.FuncionarioRepository;
 import com.mmtads.backend.service.UsuarioService;
@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class FuncionarioController {
 
     private final FuncionarioRepository funciRepo;
-    
+
     private final UsuarioService usuarioService;
 
     public FuncionarioController(FuncionarioRepository funciRepo, UsuarioService usuarioService) {
@@ -40,10 +40,10 @@ public class FuncionarioController {
     @PostMapping
     public Funcionario createFuncionario(@RequestBody Funcionario funcionario) {
         usuarioService.prepararNovoUsuario(funcionario.getUsuario(), Role.FUNCIONARIO);
-        
+
         return this.funciRepo.save(funcionario);
     }
-    
+
     @PutMapping("/{id}")
     public Funcionario updateFuncionario(@PathVariable long id, @RequestBody Funcionario funci) {
         funci.setId(id);
@@ -54,5 +54,5 @@ public class FuncionarioController {
     public void deleteFuncionarioById(@PathVariable long id) {
         this.funciRepo.softDeleteById(id);
     }
-    
+
 }
