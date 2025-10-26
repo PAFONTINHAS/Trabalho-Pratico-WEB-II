@@ -6,6 +6,7 @@ import { Funcionario } from '../../../shared/entities/funcionario_entity';
 import { FuncionarioService } from '../../../services/funcionario-service/funcionario-service';
 import { Subscription } from 'rxjs';
 import { Funcionarios } from '../../../shared/models/enums/funcionarios.enum'
+import { LoginService } from '../../../services/login-service/login';
 
 @Component({
   imports: [CommonModule, RouterModule, FormsModule],
@@ -18,10 +19,11 @@ export class CriarFuncionario implements OnInit, OnDestroy {
 
   constructor(
     private readonly funcionarioService: FuncionarioService,
-    private readonly router: Router
+    private readonly router: Router,
+    private loginService: LoginService,
   ) {}
 
-  funcionario = { id: 0, nome: '', email: '', dataNasc: '', senha: '' };
+  funcionario = { id: 0, nome: '', email: '', data_nasc: '', senha: '' };
   formVisivel = false;
   editando = false;
 
@@ -29,6 +31,9 @@ export class CriarFuncionario implements OnInit, OnDestroy {
     this.funcionarioService.listarTodos().subscribe({
       next: (data) => {
         this.funcionarios = data;
+        this.funcionarios.map((funcionario) => {
+          funcionario.data_nasc = this.formatarData(funcionario.data_nasc)
+        })
       },
 
       error: (e) =>{
@@ -54,7 +59,7 @@ export class CriarFuncionario implements OnInit, OnDestroy {
   abrirFormulario() {
     this.formVisivel = true;
     this.editando = false;
-    this.funcionario = { id: 0, nome: '', email: '', dataNasc: '', senha: '' };
+    this.funcionario = { id: 0, nome: '', email: '', data_nasc: '', senha: '' };
   }
 
   cancelar() {
@@ -64,9 +69,14 @@ export class CriarFuncionario implements OnInit, OnDestroy {
   salvar() {
     if (this.funcionario.nome.trim() === '') return;
     if (this.editando) {
-      this.funcionarioService.atualizar(this.funcionario);
+      this.funcionarioService.atualizar(this.funcionario).subscribe(response => {
+        console.log(response);
+      })
     } else {
-      this.funcionarioService.inserir(this.funcionario);
+      console.log(this.funcionario)
+      this.funcionarioService.inserir(this.funcionario).subscribe(response => {
+        console.log(response);
+      })
     }
     this.cancelar();
   }
@@ -80,8 +90,19 @@ export class CriarFuncionario implements OnInit, OnDestroy {
   remover($event: any, funcionario: Funcionario): void {
     $event.preventDefault();
     if (confirm(`Deseja realmente remover o funcionario ${funcionario.nome}?`)) {
-      this.funcionarioService.remover(funcionario.id);
+      const user = this.loginService.usuarioLogado
+      if(user) {
+        this.funcionarioService.remover(funcionario.id, user).subscribe(response => {
+          console.log(response);
+        })
+      }
+      
     }
+  }
+
+  formatarData(dataNasc: string) {
+    const data = new Date(dataNasc)
+    return data.toLocaleDateString("en-GB")
   }
 
 }

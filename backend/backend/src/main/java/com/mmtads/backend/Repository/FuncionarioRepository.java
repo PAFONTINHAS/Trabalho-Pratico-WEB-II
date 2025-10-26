@@ -6,17 +6,16 @@ import jakarta.transaction.Transactional;
 import java.util.List;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 
 public interface FuncionarioRepository extends JpaRepository<Funcionario, Long> {
     
-    Funcionario findByIdAndUsuario_IsDeleteFalse(long id);
+    Funcionario findByIdAndIsDeleteFalse(long id);
     
-    List<Funcionario> findByUsuario_IsDeleteFalse();
+    List<Funcionario> findByIsDeleteFalse();
     
-    List<Funcionario> findByUsuario_NomeContainingIgnoreCaseAndUsuario_IsDeleteFalse(String nome);
+    List<Funcionario> findByNomeContainingIgnoreCaseAndIsDeleteFalse(String nome);
     
     @Modifying
-    @Query("UPDATE Usuario u SET u.isDelete = true WHERE u.id = (SELECT f.usuario.id FROM Funcionario f WHERE f.id = :funcionarioId)")    @Transactional
-    void softDeleteById(@Param("funcionarioId") Long id);
+    @Query("UPDATE Usuario u SET u.isDelete = true WHERE u.id = :id")    @Transactional
+    void softDeleteById(Long id);
 }

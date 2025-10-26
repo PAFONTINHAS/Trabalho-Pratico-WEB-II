@@ -1,10 +1,10 @@
+
 export interface Funcionario {
 
 
     id: number;
     nome: string ;
     email: string;
-    dataNasc: string ;
+    data_nasc: string ;
     senha: string ;
-
 }

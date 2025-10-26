@@ -2,6 +2,8 @@ package com.mmtads.backend.Controller;
 
 import com.mmtads.backend.Repository.FuncionarioRepository;
 import com.mmtads.backend.service.UsuarioService;
+
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.mmtads.backend.Model.Funcionario;
 import com.mmtads.backend.Model.Role;
+
 import java.util.List;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -29,18 +32,24 @@ public class FuncionarioController {
 
     @GetMapping
     public List<Funcionario> getAllFuncionarios() {
-        return this.funciRepo.findByUsuario_IsDeleteFalse();
+        return this.funciRepo.findByIsDeleteFalse();
     }
 
     @GetMapping("/{id}")
     public Funcionario getFuncionarioById(@PathVariable Long id) {
-        return this.funciRepo.findByIdAndUsuario_IsDeleteFalse(id);
+        return this.funciRepo.findByIdAndIsDeleteFalse(id);
     }
 
     @PostMapping
     public Funcionario createFuncionario(@RequestBody Funcionario funcionario) {
+<<<<<<< HEAD
         usuarioService.prepararNovoUsuario(funcionario.getUsuario(), Role.FUNCIONARIO);
 
+=======
+        funcionario.setId(null);
+        this.usuarioService.prepararNovoUsuario(funcionario, Role.FUNCIONARIO);
+        
+>>>>>>> 3335398d7bd03d0af5608c1f2882d4082b29a137
         return this.funciRepo.save(funcionario);
     }
 
@@ -50,9 +59,13 @@ public class FuncionarioController {
         return this.funciRepo.save(funci);
     }
 
-    @DeleteMapping("/{id}")
-    public void deleteFuncionarioById(@PathVariable long id) {
-        this.funciRepo.softDeleteById(id);
+    @DeleteMapping("/user/{userId}/{id}")
+    public void deleteFuncionarioById(@PathVariable long userId, @PathVariable long id) {    
+        if(id == userId) {
+            ResponseEntity.badRequest();
+        } else {
+            this.funciRepo.softDeleteById(id);
+        }
     }
 
 }

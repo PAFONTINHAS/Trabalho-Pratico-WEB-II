@@ -5,10 +5,13 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Collection;
 import java.util.List;
 
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "usuarios")
 public class Usuario implements UserDetails {
 
@@ -27,7 +30,7 @@ public class Usuario implements UserDetails {
     
     @Column(name="senhaSalt", length = 64, nullable = false)
     private String senhaSalt;
-    
+
     @Column(name="isDelete")
     private boolean isDelete = false;
 
@@ -107,6 +110,7 @@ public class Usuario implements UserDetails {
     
     // --- Métodos do UserDetails ---
 
+    @JsonIgnore
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         if (this.role == Role.FUNCIONARIO) {

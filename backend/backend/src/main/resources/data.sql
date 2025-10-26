@@ -70,9 +70,9 @@ VALUES ('333.333.333-33', '(43) 99999-0000', 'Rua 123', 3);
 INSERT IGNORE INTO cliente (cpf, telefone, endereco, usuario_id)
 VALUES ('444.444.444-44', '(44) 99999-0000', 'Rua 123', 4);
 
-INSERT IGNORE INTO funcionario (data_nasc, usuario_id)
+INSERT IGNORE INTO funcionario (data_nasc, id)
 VALUES ('1995-05-20', 5);
-INSERT IGNORE INTO funcionario (data_nasc, usuario_id)
+INSERT IGNORE INTO funcionario (data_nasc, id)
 VALUES ('1995-06-21', 6);
 
 INSERT IGNORE INTO solicitacao (descricao_equipamento, descricao_defeito, id_categoria, status, id_cliente, id_funcionario)
