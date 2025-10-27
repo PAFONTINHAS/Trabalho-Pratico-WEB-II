@@ -38,11 +38,12 @@ export class CategoriaComponent implements OnInit, OnDestroy {
     // Chama o serviço (agora HTTP) e se inscreve para receber os dados
     this.categoriaService.listarTodos().subscribe({
       next: (data) => {
-        this.categorias = data;
+        this.categorias = data; 
+        console.log("Categorias carregadas com SUCESSO. Contagem:", data.length); // <-- NOVO LOG DE SUCESSO
+        console.log("Dados:", data);                                          // <-- NOVO LOG DE DADOS
       },
       error: (e) => {
         console.error('Erro ao carregar categorias: ', e);
-        // Lógica de feedback de erro aqui
       }
     });
   }

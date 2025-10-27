@@ -30,7 +30,7 @@ public class SecurityConfig {
             .authorizeHttpRequests(authorize -> authorize
                 .requestMatchers("/api/auth/login").permitAll() // Explicitly permit login
                 .anyRequest().permitAll() 
-            )
+           ) 
 
             .sessionManagement(session -> session
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)

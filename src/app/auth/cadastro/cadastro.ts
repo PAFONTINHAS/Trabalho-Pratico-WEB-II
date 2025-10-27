@@ -8,7 +8,7 @@ import { ViaCep } from '../../services/via-cep/via-cep';
 @Component({
   selector: 'app-cadastro',
   standalone: true,
-  imports: [RouterLink, ReactiveFormsModule, CommonModule, NgxMaskDirective],
+  imports: [RouterLink, ReactiveFormsModule, CommonModule], //NgxMaskDirective removido
   templateUrl: './cadastro.html',
   styleUrl: './cadastro.css'
 })

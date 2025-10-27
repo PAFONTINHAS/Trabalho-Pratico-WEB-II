@@ -1,4 +1,4 @@
-package com.mmtads.backend.Controller;
+package com.mmtads.backend.controller;
 
 import com.mmtads.backend.Model.Solicitacao;
 import com.mmtads.backend.Repository.SolicitacaoRepository;

@@ -1,4 +1,4 @@
-package com.mmtads.backend.Controller;
+package com.mmtads.backend.controller;
 
 import com.mmtads.backend.Repository.FuncionarioRepository;
 import com.mmtads.backend.service.UsuarioService;
@@ -42,14 +42,9 @@ public class FuncionarioController {
 
     @PostMapping
     public Funcionario createFuncionario(@RequestBody Funcionario funcionario) {
-<<<<<<< HEAD
-        usuarioService.prepararNovoUsuario(funcionario.getUsuario(), Role.FUNCIONARIO);
-
-=======
         funcionario.setId(null);
         this.usuarioService.prepararNovoUsuario(funcionario, Role.FUNCIONARIO);
         
->>>>>>> 3335398d7bd03d0af5608c1f2882d4082b29a137
         return this.funciRepo.save(funcionario);
     }
 
