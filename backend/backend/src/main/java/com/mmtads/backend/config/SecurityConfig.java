@@ -24,7 +24,8 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
             //Estou desabilitando a proteção do CORS para que possamos testar as requisições
-            // sem se preocupar da fonte            
+            // sem se preocupar da fonte   
+            //.cors(cors -> cors.configurationSource(corsConfigurationSource()))         
             .csrf(csrf -> csrf.disable())
 
             .authorizeHttpRequests(authorize -> authorize

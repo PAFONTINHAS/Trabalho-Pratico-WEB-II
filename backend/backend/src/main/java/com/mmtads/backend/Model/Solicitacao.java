@@ -7,42 +7,49 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "solicitacao")
 public class Solicitacao {
+
+
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "id_solicitacao") 
     private Long idSolicitacao;
-    
-    @Column(name = "descricaoEquipamento", length = 100)
-    private String descricaoEquipamento;
-    
-    @Column(name = "descricaoDefeito", columnDefinition = "TEXT")
-    private String descricaoDefeito;
-    
-    @Column(name = "motivoRejeicao", columnDefinition = "TEXT")
-    private String motivoRejeicao;
-    
-    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss", timezone = "America/Sao_Paulo")
-    @Column(name = "dataHoraAbertura", nullable = false)
-    private LocalDateTime dataHoraAbertura;
-    
+
+
     @ManyToOne
-    @JoinColumn(name = "idCliente", nullable = false)
+    @JoinColumn(name = "id_cliente", nullable = false) 
     private Cliente cliente;
-    
+
     @ManyToOne
-    @JoinColumn(name = "idFuncionario")
+    @JoinColumn(name = "id_funcionario")
     private Funcionario funcionario;
-    
+
     @ManyToOne
-    @JoinColumn(name = "idCategoria", nullable = false)
+    @JoinColumn(name = "id_categoria", nullable = false)
     private Categoria categoria;
     
-    @Enumerated(EnumType.STRING)
-    @Column(name = "status", nullable = false)
-    private Status status;
     
+    
+    @Column(name = "status", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Status status;
+
+    @Column(name = "descricao_equipamento", length = 100)
+    private String descricaoEquipamento;
+
+    @Column(name = "descricao_defeito", columnDefinition = "TEXT")
+    private String descricaoDefeito;
+
+    @Column(name = "motivo_rejeicao", columnDefinition = "TEXT")
+    private String motivoRejeicao;
+
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss", timezone = "America/Sao_Paulo")
+    @Column(name = "data_hora_abertura", nullable = false)
+    private LocalDateTime dataHoraAbertura;
+
     // Getters e Setters
+  
+
     public Long getIdSolicitacao() {
         return idSolicitacao;
     }
