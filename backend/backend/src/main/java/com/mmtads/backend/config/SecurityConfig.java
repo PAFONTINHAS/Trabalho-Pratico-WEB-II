@@ -23,39 +23,20 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
-            // 1. Desabilita a proteção CSRF
-            // (MUITO importante para APIs stateless, pois o 403 Forbidden é comum
-            // em requisições POST sem o token CSRF)
-            //.cors(cors -> cors.configurationSource(corsConfigurationSource())) 
-            //eu estava tendo um problema com o cors ao logar mas parece q não era um problema geral então deixei comentada
+            //Estou desabilitando a proteção do CORS para que possamos testar as requisições
+            // sem se preocupar da fonte            
             .csrf(csrf -> csrf.disable())
 
-            // 2. Configura a política de autorização
             .authorizeHttpRequests(authorize -> authorize
-                // **O SEGREDO ESTÁ AQUI**: Permite qualquer requisição
-                            .requestMatchers("/api/auth/login").permitAll() // Explicitly permit login
+                .requestMatchers("/api/auth/login").permitAll() // Explicitly permit login
                 .anyRequest().permitAll() 
             )
 
-            // 3. Define a política de gestão de sessão como STATELESS 
-            // (Comum para APIs que usam JWT)
             .sessionManagement(session -> session
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             );
             
         return httpSecurity.build();
-        // httpSecurity
-        //         .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-        //         .csrf(csrf -> csrf.disable())
-        //         .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-        //         .authorizeHttpRequests(authorize -> authorize
-        //                 .requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
-        //                 .anyRequest().authenticated()
-        //         );
-        
-        // httpSecurity.authenticationProvider(customAuthenticationProvider);
-        
-        // return httpSecurity.build();
     }
 
     @Bean
