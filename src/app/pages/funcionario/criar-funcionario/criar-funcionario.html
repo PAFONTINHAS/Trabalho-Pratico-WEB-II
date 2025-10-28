@@ -20,66 +20,86 @@
     <h2 class="text-2xl font-semibold text-mm mb-5 poppins">
       {{ editando ? 'Editar funcionário' : 'Novo funcionário' }}
     </h2>
-    <div class="flex gap-3">
-      <div class="flex flex-col">
-        <p>Nome</p>
-        <input
-          type="text"
-          [(ngModel)]="funcionario.nome"
-          placeholder="Digite o nome"
-          #nome="ngModel"
-          class="border-gray-400 mb-5 rounded-lg border placeholder:text-gray-400 overflow-hidden h-10 px-3 transition w-full focus:border-mm focus:shadow-xl focus:shadow-mm-shadow hover:border-mm"
-        />
+    <form #formFunci="ngForm">
+      <div class="flex gap-3">
+        <div class="flex flex-col">
+          <p>Nome</p>
+          <input
+            name="nome"
+            type="text"
+            [(ngModel)]="funcionario.nome"
+            placeholder="Digite o nome"
+            #nome="ngModel"
+            class="border-gray-400 mb-5 rounded-lg border placeholder:text-gray-400 overflow-hidden h-10 px-3 transition w-full focus:border-mm focus:shadow-xl focus:shadow-mm-shadow hover:border-mm"
+          />
+        </div>
+        <div class="flex flex-col">
+          <p>E-mail</p>
+          <input
+            name="email"
+            type="email"
+            [(ngModel)]="funcionario.email"
+            placeholder="email@email.com"
+            #email="ngModel"
+            class="border-gray-400 mb-5 rounded-lg border placeholder:text-gray-400 overflow-hidden h-10 px-3 transition w-full focus:border-mm focus:shadow-xl focus:shadow-mm-shadow hover:border-mm"
+            pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"      
+          />
+          <div *ngIf="email?.invalid && email?.touched" class="text-red-500 text-sm -mt-4 mb-5">
+            <p>Formato de e-mail inválido.</p>
+          </div>
+        </div>
+        <div class="flex flex-col">
+          <p>Data de Nascimento</p>
+          <input
+            name="dataNasc"
+            type="date"
+            [(ngModel)]="funcionario.data_nasc"
+            placeholder="01/01/2000"
+            class="border-gray-400 mb-5 rounded-lg border placeholder:text-gray-400 overflow-hidden h-10 px-3 transition w-full focus:border-mm focus:shadow-xl focus:shadow-mm-shadow hover:border-mm"
+            #dataNasc="ngModel"
+            [min]="minDate"
+          />
+          <div *ngIf="dataNasc.invalid && dataNasc?.touched" class="text-red-500 text-sm -mt-4 mb-5">
+            <p>A senha deve ter pelo menos 3 dígitos.</p>
+          </div>
+        </div>
+        <div class="flex flex-col">
+          <p>Senha</p>
+          <input
+            name="senha"
+            type="password"
+            [(ngModel)]="funcionario.senha"
+            placeholder="Digite a senha"
+            class="border-gray-400 mb-5 rounded-lg border placeholder:text-gray-400 overflow-hidden h-10 px-3 transition w-full focus:border-mm focus:shadow-xl focus:shadow-mm-shadow hover:border-mm"
+            minlength="3"
+            #senha = "ngModel"
+          />
+          <div *ngIf="senha?.invalid && senha?.touched" class="text-red-500 text-sm -mt-4 mb-5">
+            <p>A senha deve ter pelo menos 3 dígitos.</p>
+          </div>
+        </div>
       </div>
-      <div class="flex flex-col">
-        <p>E-mail</p>
-        <input
-          type="text"
-          [(ngModel)]="funcionario.email"
-          placeholder="email@email.com"
-          #nome="ngModel"
-          class="border-gray-400 mb-5 rounded-lg border placeholder:text-gray-400 overflow-hidden h-10 px-3 transition w-full focus:border-mm focus:shadow-xl focus:shadow-mm-shadow hover:border-mm"
-        />
+
+      <div class="flex justify-center gap-3">
+        <button
+          (click)="salvar()"
+          class="bg-green-600 hover:bg-green-700 h-[46px] px-4 rounded-xl transition font-regular 
+        text-white text-md cursor-pointer hover:shadow-xl
+        hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap"
+        >
+          Salvar
+        </button>
+        <button
+          (click)="cancelar()"
+          class="bg-red-600 hover:bg-red-700 h-[46px] px-4 rounded-xl transition font-regular 
+        text-white text-md cursor-pointer hover:shadow-xl
+        hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap"
+        >
+          Cancelar
+        </button>
       </div>
-      <div class="flex flex-col">
-        <p>Data de Nascimento</p>
-        <input
-          type="date"
-          [(ngModel)]="funcionario.data_nasc"
-          placeholder="01/01/2000"
-          #nome="ngModel"
-          class="border-gray-400 mb-5 rounded-lg border placeholder:text-gray-400 overflow-hidden h-10 px-3 transition w-full focus:border-mm focus:shadow-xl focus:shadow-mm-shadow hover:border-mm"
-        />
-      </div>
-      <div class="flex flex-col">
-        <p>Senha</p>
-        <input
-          type="password"
-          [(ngModel)]="funcionario.senha"
-          placeholder="Digite a senha"
-          #nome="ngModel"
-          class="border-gray-400 mb-5 rounded-lg border placeholder:text-gray-400 overflow-hidden h-10 px-3 transition w-full focus:border-mm focus:shadow-xl focus:shadow-mm-shadow hover:border-mm"
-        />
-      </div>
-    </div>
-    <div class="flex justify-center gap-3">
-      <button
-        (click)="salvar()"
-        class="bg-green-600 hover:bg-green-700 h-[46px] px-4 rounded-xl transition font-regular 
-      text-white text-md cursor-pointer hover:shadow-xl
-      hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap"
-      >
-        Salvar
-      </button>
-      <button
-        (click)="cancelar()"
-        class="bg-red-600 hover:bg-red-700 h-[46px] px-4 rounded-xl transition font-regular 
-      text-white text-md cursor-pointer hover:shadow-xl
-      hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap"
-      >
-        Cancelar
-      </button>
-  </div>
+    </form>
+
   </div>
   
   <!-- Listagem -->

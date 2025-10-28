@@ -50,7 +50,8 @@ export class FuncionarioService {
   
 
   remover(id: number, usuario: Usuario): Observable<void>{
-    const url = `${this.apiUrl}/user/${usuario.id}/${id}`;
+    console.log(usuario)
+    const url = `${this.apiUrl}/user/${usuario.email}/${id}`;
 
     return this.http.delete<void>(url);
   }

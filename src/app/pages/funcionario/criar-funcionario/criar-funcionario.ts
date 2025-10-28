@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { FormsModule, NgForm } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { Funcionario } from '../../../shared/entities/funcionario_entity';
 import { FuncionarioService } from '../../../services/funcionario-service/funcionario-service';
@@ -14,6 +14,7 @@ import { LoginService } from '../../../services/login-service/login';
   templateUrl: './criar-funcionario.html',
 })
 export class CriarFuncionario implements OnInit, OnDestroy {
+  @ViewChild('formFunci') formFunci! : NgForm;
   funcionarios: Funcionario[] = [];
   private readonly subscription: Subscription = new Subscription();
 
@@ -26,8 +27,10 @@ export class CriarFuncionario implements OnInit, OnDestroy {
   funcionario = { id: 0, nome: '', email: '', data_nasc: '', senha: '' };
   formVisivel = false;
   editando = false;
+  minDate: Date = new Date();
 
   carregarFuncionarios(){
+    console.log("oi")
     this.funcionarioService.listarTodos().subscribe({
       next: (data) => {
         this.funcionarios = data;
@@ -45,6 +48,7 @@ export class CriarFuncionario implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.carregarFuncionarios();
+    this.minDate = new Date()
   
     // Funcionarios.forEach(funcionario => this.funcionarioService.inserirFuncionariosBase(funcionario))
     // this.subscription = this.funcionarioService.funcionarios$.subscribe(data => {
@@ -68,15 +72,13 @@ export class CriarFuncionario implements OnInit, OnDestroy {
 
   salvar() {
     if (this.funcionario.nome.trim() === '') return;
-    if (this.editando) {
-      this.funcionarioService.atualizar(this.funcionario).subscribe(response => {
-        console.log(response);
-      })
-    } else {
-      console.log(this.funcionario)
-      this.funcionarioService.inserir(this.funcionario).subscribe(response => {
-        console.log(response);
-      })
+    if (this.formFunci.form.valid) {
+      if (this.editando) {
+        this.funcionarioService.atualizar(this.funcionario).subscribe(this.carregarFuncionarios)
+      } else {
+        console.log(this.funcionario)
+        this.funcionarioService.inserir(this.funcionario).subscribe(this.carregarFuncionarios)
+      }
     }
     this.cancelar();
   }
@@ -92,9 +94,7 @@ export class CriarFuncionario implements OnInit, OnDestroy {
     if (confirm(`Deseja realmente remover o funcionario ${funcionario.nome}?`)) {
       const user = this.loginService.usuarioLogado
       if(user) {
-        this.funcionarioService.remover(funcionario.id, user).subscribe(response => {
-          console.log(response);
-        })
+        this.funcionarioService.remover(funcionario.id, user).subscribe(this.carregarFuncionarios)
       }
       
     }

@@ -12,6 +12,8 @@ public interface FuncionarioRepository extends JpaRepository<Funcionario, Long> 
     Funcionario findByIdAndIsDeleteFalse(long id);
     
     List<Funcionario> findByIsDeleteFalse();
+
+    Funcionario findByEmailAndIsDeleteFalse(String email);
     
     List<Funcionario> findByNomeContainingIgnoreCaseAndIsDeleteFalse(String nome);
     

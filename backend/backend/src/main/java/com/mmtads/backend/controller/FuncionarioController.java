@@ -44,21 +44,40 @@ public class FuncionarioController {
     public Funcionario createFuncionario(@RequestBody Funcionario funcionario) {
         funcionario.setId(null);
         this.usuarioService.prepararNovoUsuario(funcionario, Role.FUNCIONARIO);
+        boolean validEmail = this.usuarioService.checkEmail(funcionario.getEmail());
         
+        if(!validEmail) {
+            ResponseEntity.badRequest();
+        }
         return this.funciRepo.save(funcionario);
     }
 
     @PutMapping("/{id}")
     public Funcionario updateFuncionario(@PathVariable long id, @RequestBody Funcionario funci) {
         funci.setId(id);
+        if (funci.getSenha() != null) {
+            this.usuarioService.prepararNovoUsuario(funci, Role.FUNCIONARIO);
+        }
+        boolean validEmail = true;
+
+        if (funci.getEmail() != null) {
+            validEmail = this.usuarioService.checkEmail(funci.getEmail());
+        }
+
+        if(!validEmail) {
+            ResponseEntity.badRequest();
+        }
+
         return this.funciRepo.save(funci);
     }
 
-    @DeleteMapping("/user/{userId}/{id}")
-    public void deleteFuncionarioById(@PathVariable long userId, @PathVariable long id) {    
-        if(id == userId) {
+    @DeleteMapping("/user/{userEmail}/{id}")
+    public void deleteFuncionarioById(@PathVariable String userEmail, @PathVariable long id) {    
+        Funcionario funci = this.funciRepo.findByEmailAndIsDeleteFalse(userEmail);
+        if(funci.getId() == id) {
             ResponseEntity.badRequest();
-        } else {
+        }
+        else {
             this.funciRepo.softDeleteById(id);
         }
     }

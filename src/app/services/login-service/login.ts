@@ -27,7 +27,6 @@ export class LoginService {
       const decodedToken: any = jwtDecode(token);
       
       return {
-        id: decodedToken.id, 
         nome: decodedToken.nome, 
         email: decodedToken.sub, 
         perfil: decodedToken.role 
