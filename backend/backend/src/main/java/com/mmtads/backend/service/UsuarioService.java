@@ -9,9 +9,14 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.HexFormat;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service
 public class UsuarioService {
+
+    public static final Pattern VALID_EMAIL_ADDRESS_REGEX = 
+    Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
 
     private String generateSalt() {
         SecureRandom random = new SecureRandom();
@@ -44,5 +49,10 @@ public class UsuarioService {
         usuario.setSenhaSalt(salt);
         usuario.setSenhaHash(hash);
         usuario.setRole(role);
+    }
+
+    public boolean checkEmail(String emailStr) {
+        Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(emailStr);
+        return matcher.matches();
     }
 }
