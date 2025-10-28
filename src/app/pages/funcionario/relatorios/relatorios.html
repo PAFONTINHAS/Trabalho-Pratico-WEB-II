@@ -11,20 +11,42 @@
             <label class="font-semibold text-md mb-2 block">Data Início:</label>
             <input
               type="date"
-              class="border-gray-400 mb-5 rounded-lg border placeholder:text-gray-400 h-10 px-3 transition w-full focus:border-mm focus:shadow-xl focus:shadow-mm-shadow hover:border-mm"
+              name="dataInicio"
+              [(ngModel)]="dataInicioRelatorio"
+              [class.border-red-500]="formSubmittedPeriodo && !dataInicioRelatorio"
+              [class.border-gray-400]="!(formSubmittedPeriodo && !dataInicioRelatorio)"
+              [class.focus:border-mm]="!(formSubmittedPeriodo && !dataInicioRelatorio)"
+              [class.hover:border-mm]="!(formSubmittedPeriodo && !dataInicioRelatorio)"
+              class="mb-1 rounded-lg border placeholder:text-gray-400 h-10 px-3 transition w-full focus:shadow-xl focus:shadow-mm-shadow hover:border-mm"
               required />
+            @if(formSubmittedPeriodo && !dataInicioRelatorio){
+                <p class="text-red-500 text-sm mb-4">A data de início é obrigatória.</p>
+            }
   
             <label class="font-semibold text-md mb-2 block">Data Final:</label>
             <input
               type="date"
-              class="border-gray-400 mb-5 rounded-lg border placeholder:text-gray-400 h-10 px-3 transition w-full focus:border-mm focus:shadow-xl focus:shadow-mm-shadow hover:border-mm"
+              name="dataFim"
+              [(ngModel)]="dataFimRelatorio"
+              [class.border-red-500]="formSubmittedPeriodo && !dataFimRelatorio"
+              [class.border-gray-400]="!(formSubmittedPeriodo && !dataFimRelatorio)"
+              [class.focus:border-mm]="!(formSubmittedPeriodo && !dataFimRelatorio)"
+              [class.hover:border-mm]="!(formSubmittedPeriodo && !dataFimRelatorio)"
+              class="mb-1 rounded-lg border placeholder:text-gray-400 h-10 px-3 transition w-full focus:shadow-xl focus:shadow-mm-shadow hover:border-mm"
               required />
+            @if(formSubmittedPeriodo && !dataFimRelatorio){
+                <p class="text-red-500 text-sm mb-4">A data final é obrigatória.</p>
+            }
           </div>
         </div>
         <div class="flex justify-end mt-5">
-          <button (click)="abrirModal()" class="bg-mm hover:bg-mm-dark h-[46px] px-4 rounded-xl transition font-regular 
-                          text-white text-md cursor-pointer hover:shadow-xl hover:shadow-mm-shadow 
-                          hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap">
+          <button 
+              (click)="gerarRelatorioReceitasPorPeriodo()" 
+              [disabled]="!dataInicioRelatorio || !dataFimRelatorio"
+              [class.bg-mm]="dataInicioRelatorio && dataFimRelatorio"
+              [class.hover:bg-mm-dark]="dataInicioRelatorio && dataFimRelatorio"
+              [class.bg-gray-400]="!dataInicioRelatorio || !dataFimRelatorio"
+              class="h-[46px] px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:shadow-mm-shadow hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap disabled:bg-gray-400 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:shadow-none">
             Gerar Relatório
           </button>
         </div>
@@ -35,38 +57,37 @@
           <p class="text-mm font-semibold text-3xl mb-3 select-none poppins whitespace-nowrap">Receitas por categoria</p>
           <div class="flex flex-col gap-3">
             <label class="block mb-2 font-semibold">Categoria</label>
-            <select class="border-gray-400 mb-5 rounded-lg border placeholder:text-gray-400 h-10 px-3 transition w-full focus:border-mm focus:shadow-xl focus:shadow-mm-shadow hover:border-mm">
-              <option value="">Selecione a categoria</option>
+            <select
+                name="categoriaRelatorio"
+                [(ngModel)]="categoriaSelecionadaId"
+                [class.border-red-500]="formSubmittedCategoria && !categoriaSelecionadaId"
+                [class.border-gray-400]="!(formSubmittedCategoria && !categoriaSelecionadaId)"
+                [class.focus:border-mm]="!(formSubmittedCategoria && !categoriaSelecionadaId)"
+                [class.hover:border-mm]="!(formSubmittedCategoria && !categoriaSelecionadaId)"
+                class="mb-1 rounded-lg border placeholder:text-gray-400 h-10 px-3 transition w-full focus:shadow-xl focus:shadow-mm-shadow hover:border-mm">
+              <option [ngValue]="null">Selecione a categoria</option>
              @for(categoria of categorias; track categoria.id) {
-              <option value="">{{categoria.nome}}</option>
+              <option [ngValue]="categoria.id">{{categoria.nome}}</option>
              }
             </select>
+            @if(formSubmittedCategoria && !categoriaSelecionadaId){
+                <p class="text-red-500 text-sm mb-4">A seleção da categoria é obrigatória.</p>
+            }
           </div>
         </div>
   
         <div class="flex justify-end mt-5">
-          <button (click)="abrirModal()" class="bg-mm hover:bg-mm-dark h-[46px] px-4 rounded-xl transition font-regular 
-                                        text-white text-md cursor-pointer hover:shadow-xl hover:shadow-mm-shadow 
-                                        hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap">
+          <button 
+                (click)="gerarRelatorioReceitasPorCategoria()" 
+                [disabled]="!categoriaSelecionadaId"
+                [class.bg-mm]="categoriaSelecionadaId"
+                [class.hover:bg-mm-dark]="categoriaSelecionadaId"
+                [class.bg-gray-400]="!categoriaSelecionadaId"
+                class="h-[46px] px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:shadow-mm-shadow hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap disabled:bg-gray-400 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:shadow-none">
             Gerar Relatório
           </button>
         </div>
       </div>
     </div>
   </div>
-</div>
-
-<div *ngIf="modalAberto" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50" (click)="fecharModal()">
-    <div class="bg-gradient-to-br from-white to-[#ccc] pt-9 px-10 pb-7 rounded-3xl shadow-xl w-min relative" (click)="$event.stopPropagation()">
-
-        <div class="text-center mb-6">
-            <h2 class="text-3xl font-bold text-gray-800 poppins text-nowrap">Relatório gerado!</h2>
-        </div>
-
-        <div class="flex justify-center">
-          <button class="bg-mm hover:bg-mm-dark h-[46px] px-4 rounded-xl transition font-regular 
-                text-white text-md cursor-pointer hover:shadow-xl 
-                hover:scale-[102%] active:scale-95 w-[50%]" (click)="fecharModal()">OK</button>
-        </div>
-    </div>
 </div>
