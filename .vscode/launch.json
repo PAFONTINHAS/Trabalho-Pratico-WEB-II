@@ -7,7 +7,11 @@
       "name": "BackendApplication",
       "request": "launch",
       "mainClass": "com.mmtads.backend.BackendApplication",
-      "projectName": "backend"
+      "projectName": "backend",
+      "env": {
+          "SPRING_MAIL_USERNAME": "mmtadsufpr@gmail.com",
+          "SPRING_MAIL_PASSWORD": "ulgnnfwlsshaylkw"
+      }
     },
     {
       "name": "ng serve",
