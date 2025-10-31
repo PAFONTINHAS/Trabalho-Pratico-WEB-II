@@ -5,6 +5,7 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -25,13 +26,18 @@ public class SecurityConfig {
         httpSecurity
             //Estou desabilitando a proteção do CORS para que possamos testar as requisições
             // sem se preocupar da fonte   
-            //.cors(cors -> cors.configurationSource(corsConfigurationSource()))         
+            .cors(cors -> cors.configurationSource(corsConfigurationSource()))         
+            
             .csrf(csrf -> csrf.disable())
 
             .authorizeHttpRequests(authorize -> authorize
-                .requestMatchers("/api/auth/login").permitAll() // Explicitly permit login
-                .anyRequest().permitAll() 
-           ) 
+                
+                .requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll() 
+                .requestMatchers(HttpMethod.POST, "/api/clientes/registrar").permitAll() 
+
+                .anyRequest().authenticated() 
+            ) 
+
 
             .sessionManagement(session -> session
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)

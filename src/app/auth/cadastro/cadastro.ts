@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
-import {NgxMaskDirective} from 'ngx-mask';
 import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ViaCep } from '../../services/via-cep/via-cep';
+import { CadastroService, ClienteRegistroDto } from '../../services/cadastro-service/cadastro';
 
 @Component({
   selector: 'app-cadastro',
   standalone: true,
-  imports: [RouterLink, ReactiveFormsModule, CommonModule], //NgxMaskDirective removido
+  imports: [RouterLink, ReactiveFormsModule, CommonModule],
   templateUrl: './cadastro.html',
   styleUrl: './cadastro.css'
 })
@@ -18,10 +18,14 @@ export class Cadastro {
   cepError: string | null = null;
   mostrarModal = false;
 
+  isLoading: boolean = false; 
+  errorMessage: string | null = null; 
+
   constructor(
     private fb: FormBuilder,
     private viaCepService: ViaCep,
-    private router: Router
+    private router: Router,
+    private cadastroService: CadastroService 
   ) {
     this.cadastroForm = this.fb.group({
       cpf: ['', [Validators.required, Cadastro.cpfValido]],
@@ -42,6 +46,7 @@ export class Cadastro {
 
   fecharModal(): void {
     this.mostrarModal = false;
+    this.router.navigate(['/login']); 
   }
 
   static cpfValido(control: AbstractControl): { [key: string]: boolean } | null {
@@ -88,7 +93,6 @@ export class Cadastro {
   get numero() { return this.cadastroForm.get('numero'); }
   get telefone() { return this.cadastroForm.get('telefone'); }
 
-
   consultaCEP() {
     this.cepError = null;
     if (this.cep?.valid) {
@@ -109,15 +113,48 @@ export class Cadastro {
   }
 
   onSubmit() {
+    this.errorMessage = null;
+    this.isLoading = true;
+
     if (this.cadastroForm.valid) {
-      console.log('Formulário válido!', this.cadastroForm.value);
-      this.abrirModal();
+      const formValue = this.cadastroForm.value;
+
+      const payload: ClienteRegistroDto = {
+        nome: formValue.nome,
+        email: formValue.email,
+        cpf: formValue.cpf.replace(/\D/g, ''), 
+        telefone: formValue.telefone.replace(/\D/g, ''), 
+        cep: formValue.cep.replace(/\D/g, ''), 
+        logradouro: formValue.logradouro,
+        numero: formValue.numero,
+        cidade: formValue.cidade,
+        uf: formValue.uf
+      };
+
+      this.cadastroService.registrar(payload).subscribe({
+        next: (resposta) => {
+          this.isLoading = false;
+          console.log('Cadastro realizado com sucesso!', resposta);
+          this.abrirModal(); 
+        },
+        error: (err) => {
+          this.isLoading = false;
+          console.error('Erro ao cadastrar:', err);
+          
+          if (err.error && typeof err.error === 'string') {
+            this.errorMessage = err.error;
+          } else {
+            this.errorMessage = 'Não foi possível concluir o cadastro. Tente novamente.';
+          }
+        }
+      });
+
     } else {
+      this.isLoading = false;
       console.log('Formulário inválido. Verifique os campos.');
       this.cadastroForm.markAllAsTouched();
     }
   }
-
 
   handleInput(event: Event, maskFunction: (value: string) => string) {
     const input = event.target as HTMLInputElement;

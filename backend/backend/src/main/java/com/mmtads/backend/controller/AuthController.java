@@ -5,8 +5,6 @@ import com.mmtads.backend.dto.LoginRequestDto;
 import com.mmtads.backend.dto.LoginResponseDto;
 import com.mmtads.backend.service.TokenService;
 
-import javax.sound.midi.SysexMessage;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
