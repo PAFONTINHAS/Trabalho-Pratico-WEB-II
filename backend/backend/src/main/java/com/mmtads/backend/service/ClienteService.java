@@ -1,9 +1,10 @@
 package com.mmtads.backend.service;
 
 import com.mmtads.backend.Model.Cliente;
+import com.mmtads.backend.Model.Endereco;
 import com.mmtads.backend.Model.Role;
-import com.mmtads.backend.Model.Usuario;
 import com.mmtads.backend.Repository.ClienteRepository;
+import com.mmtads.backend.Repository.EnderecoRepository;
 import com.mmtads.backend.Repository.UsuarioRepository;
 import com.mmtads.backend.dto.ClienteRegistroDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,9 @@ public class ClienteService {
     private UsuarioService usuarioService;
 
     @Autowired
+    private EnderecoRepository enderecoRepo;
+
+    @Autowired
     private EmailService emailService;
 
     @Transactional
@@ -37,33 +41,25 @@ public class ClienteService {
 
         String senhaPura = passwordGeneratorService.gerarSenhaAleatoria();
 
-        Usuario novoUsuario = new Usuario();
-        novoUsuario.setNome(dto.getNome());
-        novoUsuario.setEmail(dto.getEmail());
-        novoUsuario.setSenha(senhaPura); 
-
-        usuarioService.prepararNovoUsuario(novoUsuario, Role.CLIENTE); 
-
-        String enderecoCompleto = String.format("%s, %s - %s - %s, CEP: %s",
-                dto.getLogradouro(),
-                dto.getNumero(),
-                dto.getCidade(),
-                dto.getUf(),
-                dto.getCep()
-        );
-
         Cliente novoCliente = new Cliente();
+        novoCliente.setNome(dto.getNome());
+        novoCliente.setEmail(dto.getEmail());
+        novoCliente.setSenha(senhaPura); 
+
+        usuarioService.prepararNovoUsuario(novoCliente, Role.CLIENTE); 
+
+        Endereco e = this.enderecoRepo.save(dto.getEndereco());
+
         novoCliente.setCpf(dto.getCpf());
         novoCliente.setTelefone(dto.getTelefone());
-        novoCliente.setEndereco(enderecoCompleto);
+        novoCliente.setEndereco(e);
         
-        novoCliente.setUsuario(novoUsuario);
 
         Cliente clienteSalvo = clienteRepository.save(novoCliente);
 
         emailService.enviarSenhaDeCadastro(
-            clienteSalvo.getUsuario().getEmail(),
-            clienteSalvo.getUsuario().getNome(),
+            clienteSalvo.getEmail(),
+            clienteSalvo.getNome(),
             senhaPura 
         );
 

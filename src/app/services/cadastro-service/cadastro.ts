@@ -1,17 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Endereco } from '../../shared/models';
 
 export interface ClienteRegistroDto {
   nome: string;
   email: string;
   cpf: string;
   telefone: string;
-  cep: string;
-  logradouro: string;
-  numero: string;
-  cidade: string;
-  uf: string;
+  endereco: Endereco;
 }
 
 @Injectable({

@@ -124,11 +124,13 @@ export class Cadastro {
         email: formValue.email,
         cpf: formValue.cpf.replace(/\D/g, ''), 
         telefone: formValue.telefone.replace(/\D/g, ''), 
-        cep: formValue.cep.replace(/\D/g, ''), 
-        logradouro: formValue.logradouro,
-        numero: formValue.numero,
-        cidade: formValue.cidade,
-        uf: formValue.uf
+        endereco: { 
+          cep: formValue.cep.replace(/\D/g, ''), 
+          logradouro: formValue.logradouro, 
+          numero: formValue.numero,
+          cidade: formValue.cidade,
+          estado: formValue.uf 
+        }
       };
 
       this.cadastroService.registrar(payload).subscribe({
