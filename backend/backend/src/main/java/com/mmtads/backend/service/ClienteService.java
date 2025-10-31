@@ -23,34 +23,27 @@ public class ClienteService {
     private PasswordGeneratorService passwordGeneratorService;
 
     @Autowired
-    private UsuarioService usuarioService; // O serviço que você criou com o Hashing
+    private UsuarioService usuarioService;
 
     @Autowired
     private EmailService emailService;
 
-    @Transactional // Garante que ou tudo salva, ou nada salva
+    @Transactional
     public Cliente registrarNovoCliente(ClienteRegistroDto dto) {
         
-        // 1. Verificar se o e-mail já existe
         if (usuarioRepository.findByEmail(dto.getEmail()).isPresent()) {
-            // Você pode criar uma exceção customizada depois
             throw new RuntimeException("Email já cadastrado.");
         }
 
-        // 2. Gerar a senha pura de 4 dígitos
         String senhaPura = passwordGeneratorService.gerarSenhaAleatoria();
 
-        // 3. Criar e preparar a entidade Usuario
         Usuario novoUsuario = new Usuario();
         novoUsuario.setNome(dto.getNome());
         novoUsuario.setEmail(dto.getEmail());
-        novoUsuario.setSenha(senhaPura); // Seta a senha no campo @Transient
+        novoUsuario.setSenha(senhaPura); 
 
-        // 4. Chamar seu serviço de Hashing para gerar Hash e Salt
         usuarioService.prepararNovoUsuario(novoUsuario, Role.CLIENTE); 
-        // novoUsuario agora tem hash, salt e role definidos
 
-        // 5. Formatar o endereço (seu model Cliente tem 1 campo 'endereco')
         String enderecoCompleto = String.format("%s, %s - %s - %s, CEP: %s",
                 dto.getLogradouro(),
                 dto.getNumero(),
@@ -59,25 +52,19 @@ public class ClienteService {
                 dto.getCep()
         );
 
-        // 6. Criar a entidade Cliente
         Cliente novoCliente = new Cliente();
         novoCliente.setCpf(dto.getCpf());
         novoCliente.setTelefone(dto.getTelefone());
         novoCliente.setEndereco(enderecoCompleto);
         
-        // 7. Ligar o Cliente ao novo Usuario
-        // Como o Usuario é o "dono" da relação no @OneToOne do Cliente,
-        // salvar o Cliente com Cascade.ALL vai persistir o Usuario junto.
         novoCliente.setUsuario(novoUsuario);
 
-        // 8. Salvar no banco (salva Cliente e Usuario)
         Cliente clienteSalvo = clienteRepository.save(novoCliente);
 
-        // 9. Enviar o email com a senha pura
         emailService.enviarSenhaDeCadastro(
             clienteSalvo.getUsuario().getEmail(),
             clienteSalvo.getUsuario().getNome(),
-            senhaPura // Envia '0459', etc.
+            senhaPura 
         );
 
         return clienteSalvo;

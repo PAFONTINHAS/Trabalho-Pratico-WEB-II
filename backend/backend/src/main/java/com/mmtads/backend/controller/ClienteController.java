@@ -20,14 +20,11 @@ public class ClienteController {
 
     @PostMapping("/registrar")
     public ResponseEntity<?> registrarCliente(@RequestBody ClienteRegistroDto clienteDto) {
-        // Se você adicionar validação (@Valid) no DTO, trate a exceção aqui
         try {
             Cliente clienteSalvo = clienteService.registrarNovoCliente(clienteDto);
-            // Retorna o cliente salvo (sem a senha, claro)
             return new ResponseEntity<>(clienteSalvo, HttpStatus.CREATED);
         
         } catch (RuntimeException e) {
-            // Captura o "Email já cadastrado."
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
             return new ResponseEntity<>("Erro interno ao processar cadastro.", HttpStatus.INTERNAL_SERVER_ERROR);

@@ -1,42 +1,26 @@
 package com.mmtads.backend.dto;
 
-// Importe as anotações de validação (se estiver usando spring-boot-starter-validation)
-// import jakarta.validation.constraints.Email;
-// import jakarta.validation.constraints.NotEmpty;
-// import jakarta.validation.constraints.Size;
 
 public class ClienteRegistroDto {
 
-    // @NotEmpty(message = "Nome é obrigatório")
     private String nome;
 
-    // @Email(message = "Email inválido")
-    // @NotEmpty(message = "Email é obrigatório")
     private String email;
     
-    // @NotEmpty(message = "CPF é obrigatório")
     private String cpf;
 
-    // @NotEmpty(message = "Telefone é obrigatório")
     private String telefone;
 
-    // @NotEmpty(message = "CEP é obrigatório")
     private String cep;
     
-    // @NotEmpty(message = "Logradouro é obrigatório")
     private String logradouro;
     
-    // @NotEmpty(message = "Número é obrigatório")
     private String numero;
     
-    // @NotEmpty(message = "Cidade é obrigatória")
     private String cidade;
     
-    // @NotEmpty(message = "UF é obrigatório")
-    // @Size(min = 2, max = 2)
     private String uf;
 
-    // Getters e Setters
     
     public String getNome() {
         return nome;
