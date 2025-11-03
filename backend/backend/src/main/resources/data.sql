@@ -1,4 +1,4 @@
-USE manutencaoequipamentos;
+/* USE manutencaoequipamentos;
 
 -- Categorias
 INSERT IGNORE INTO categoria (nome) VALUES ('Notebook');
@@ -215,4 +215,135 @@ VALUES (
     5,
     90.00,
     '2025-10-01 16:00:00'
-);
+); */
+USE manutencaoequipamentos;
+
+-- ========================================
+-- TABELA ENDERECO (SEM MUDANÇAS)
+-- ========================================
+CREATE TABLE IF NOT EXISTS endereco (
+    id_endereco INT AUTO_INCREMENT PRIMARY KEY,
+    cep VARCHAR(9) NOT NULL,
+    logradouro VARCHAR(100) NOT NULL,
+    numero VARCHAR(10),
+    cidade VARCHAR(50) NOT NULL,
+    estado VARCHAR(2) NOT NULL
+) DEFAULT CHARSET=utf8mb4;
+
+-- ========================================
+-- TABELA USUARIOS (SEM MUDANÇAS)
+-- ========================================
+CREATE TABLE IF NOT EXISTS usuarios (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    senha_hash VARCHAR(256) NOT NULL,
+    senha_salt VARCHAR(64) NOT NULL,
+    role VARCHAR(20) NOT NULL,
+    is_delete BOOLEAN DEFAULT FALSE
+) DEFAULT CHARSET=utf8mb4;
+
+-- ========================================
+-- TABELA CATEGORIA (SEM MUDANÇAS)
+-- ========================================
+CREATE TABLE IF NOT EXISTS categoria (
+    id_categoria INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(50) NOT NULL UNIQUE,
+    is_delete BOOLEAN DEFAULT FALSE
+) DEFAULT CHARSET=utf8mb4;
+
+-- ========================================
+-- TABELA CLIENTE (MODIFICADA)
+-- ========================================
+-- MUDANÇA 1: Coluna 'endereco' agora é BIGINT (ID) ao invés de VARCHAR(255)
+-- MUDANÇA 2: Adicionada FOREIGN KEY para tabela endereco
+-- MUDANÇA 3: Removido 'id' próprio, agora usa 'usuario_id' como PK
+CREATE TABLE IF NOT EXISTS cliente (
+    usuario_id BIGINT PRIMARY KEY,  -- MUDANÇA: Agora é PK diretamente
+    cpf VARCHAR(14) NOT NULL UNIQUE,
+    telefone VARCHAR(20),
+    endereco BIGINT,  -- MUDANÇA: De VARCHAR(255) para BIGINT
+    FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE,
+    FOREIGN KEY (endereco) REFERENCES endereco(id_endereco) ON DELETE SET NULL  -- MUDANÇA: Nova FK
+) DEFAULT CHARSET=utf8mb4;
+
+-- ========================================
+-- TABELA FUNCIONARIO (MODIFICADA)
+-- ========================================
+-- MUDANÇA: Removido 'id' próprio, agora usa 'usuario_id' como PK (chamado 'id')
+-- MUDANÇA: Renomeado 'usuario_id' para 'id' para ser consistente com Cliente
+CREATE TABLE IF NOT EXISTS funcionario (
+    id BIGINT PRIMARY KEY,  -- MUDANÇA: Antes era AUTO_INCREMENT separado, agora é FK direto
+    data_nasc DATE,
+    FOREIGN KEY (id) REFERENCES usuarios(id) ON DELETE CASCADE
+) DEFAULT CHARSET=utf8mb4;
+
+-- ========================================
+-- TABELA SOLICITACAO (SEM MUDANÇAS)
+-- ========================================
+CREATE TABLE IF NOT EXISTS solicitacao (
+    id_solicitacao INT AUTO_INCREMENT PRIMARY KEY,
+    id_cliente BIGINT NOT NULL,
+    id_funcionario BIGINT,
+    id_categoria INT NOT NULL,
+    status VARCHAR(30) NOT NULL,
+    descricao_equipamento VARCHAR(100),
+    descricao_defeito TEXT,
+    motivo_rejeicao TEXT,
+    data_hora_abertura DATETIME NOT NULL,
+    FOREIGN KEY (id_cliente) REFERENCES cliente(usuario_id),  -- Referencia usuario_id agora
+    FOREIGN KEY (id_funcionario) REFERENCES funcionario(id),
+    FOREIGN KEY (id_categoria) REFERENCES categoria(id_categoria)
+) DEFAULT CHARSET=utf8mb4;
+
+-- ========================================
+-- TABELA ORCAMENTO (SEM MUDANÇAS)
+-- ========================================
+CREATE TABLE IF NOT EXISTS orcamento (
+    id_orcamento INT AUTO_INCREMENT PRIMARY KEY,
+    id_solicitacao INT NOT NULL,
+    id_funcionario BIGINT NOT NULL,
+    valor DECIMAL(10, 2) NOT NULL,
+    data_hora DATETIME NOT NULL,
+    FOREIGN KEY (id_solicitacao) REFERENCES solicitacao(id_solicitacao),
+    FOREIGN KEY (id_funcionario) REFERENCES funcionario(id)
+) DEFAULT CHARSET=utf8mb4;
+
+-- ========================================
+-- TABELA PAGAMENTO (SEM MUDANÇAS)
+-- ========================================
+CREATE TABLE IF NOT EXISTS pagamento (
+    id_pagamento INT AUTO_INCREMENT PRIMARY KEY,
+    id_solicitacao INT NOT NULL,
+    valor DECIMAL(10, 2) NOT NULL,
+    data_hora DATETIME NOT NULL,
+    FOREIGN KEY (id_solicitacao) REFERENCES solicitacao(id_solicitacao)
+) DEFAULT CHARSET=utf8mb4;
+
+-- ========================================
+-- TABELA MANUTENCAO (SEM MUDANÇAS)
+-- ========================================
+CREATE TABLE IF NOT EXISTS manutencao (
+    id_manutencao INT AUTO_INCREMENT PRIMARY KEY,
+    id_solicitacao INT NOT NULL,
+    descricao_manutencao TEXT,
+    orientacao_cliente VARCHAR(150),
+    FOREIGN KEY (id_solicitacao) REFERENCES solicitacao(id_solicitacao)
+) DEFAULT CHARSET=utf8mb4;
+
+-- ========================================
+-- TABELA HISTORICO (SEM MUDANÇAS)
+-- ========================================
+CREATE TABLE IF NOT EXISTS historico (
+    id_historico INT AUTO_INCREMENT PRIMARY KEY,
+    id_solicitacao INT NOT NULL,
+    status VARCHAR(30) NOT NULL,
+    funci_origem BIGINT,
+    funci_destino BIGINT,
+    data_hora DATETIME NOT NULL,
+    observacao TEXT,
+    FOREIGN KEY (id_solicitacao) REFERENCES solicitacao(id_solicitacao),
+    FOREIGN KEY (funci_origem) REFERENCES funcionario(id),
+    FOREIGN KEY (funci_destino) REFERENCES funcionario(id)
+) DEFAULT CHARSET=utf8mb4;
+
