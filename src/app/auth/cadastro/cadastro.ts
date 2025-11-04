@@ -4,6 +4,10 @@ import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validator
 import { CommonModule } from '@angular/common';
 import { ViaCep } from '../../services/via-cep/via-cep';
 import { CadastroService, ClienteRegistroDto } from '../../services/cadastro-service/cadastro';
+import { cpfValido } from '../../shared/functions/cpf_control';
+import { cepValido } from '../../shared/functions/cep_control';
+import { telefoneValido } from '../../shared/functions/telefone_valido';
+import { cepMask, cpfMask, numeroMask, phoneMask } from '../../shared/functions/mask';
 
 @Component({
   selector: 'app-cadastro',
@@ -20,23 +24,26 @@ export class Cadastro {
 
   isLoading: boolean = false; 
   errorMessage: string | null = null; 
+  failureMessage : string | null = null;
+
+
 
   constructor(
-    private fb: FormBuilder,
-    private viaCepService: ViaCep,
-    private router: Router,
-    private cadastroService: CadastroService 
+    private readonly fb: FormBuilder,
+    private readonly viaCepService: ViaCep,
+    private readonly router: Router,
+    private readonly cadastroService: CadastroService 
   ) {
     this.cadastroForm = this.fb.group({
-      cpf: ['', [Validators.required, Cadastro.cpfValido]],
+      cpf: ['', [Validators.required, cpfValido]],
       nome: ['', [Validators.required, Validators.minLength(3)]],
       email: ['', [Validators.required, Validators.email]],
-      cep: ['', [Validators.required, Cadastro.cepValido]],
+      cep: ['', [Validators.required, cepValido]],
       uf: ['PR', [Validators.required]],
       cidade: ['', [Validators.required]],
       logradouro: ['', [Validators.required]],
       numero: ['', [Validators.required, Validators.maxLength(6)]],
-      telefone: ['', [Validators.required, Cadastro.telefoneValido]]
+      telefone: ['', [Validators.required, telefoneValido]]
     });
   }
 
@@ -47,40 +54,6 @@ export class Cadastro {
   fecharModal(): void {
     this.mostrarModal = false;
     this.router.navigate(['/login']); 
-  }
-
-  static cpfValido(control: AbstractControl): { [key: string]: boolean } | null {
-    const cpf = control.value?.replace(/\D/g, '');
-    if (!cpf || cpf.length !== 11 || /^(\d)\1{10}$/.test(cpf)) {
-      return { cpfInvalido: true };
-    }
-    let soma = 0;
-    for (let i = 1; i <= 9; i++) soma += parseInt(cpf.substring(i - 1, i)) * (11 - i);
-    let resto = (soma * 10) % 11;
-    if (resto === 10 || resto === 11) resto = 0;
-    if (resto !== parseInt(cpf.substring(9, 10))) return { cpfInvalido: true };
-    soma = 0;
-    for (let i = 1; i <= 10; i++) soma += parseInt(cpf.substring(i - 1, i)) * (12 - i);
-    resto = (soma * 10) % 11;
-    if (resto === 10 || resto === 11) resto = 0;
-    if (resto !== parseInt(cpf.substring(10, 11))) return { cpfInvalido: true };
-    return null;
-  }
-
-  static telefoneValido(control: AbstractControl): { [key: string]: boolean } | null {
-      const telefone = control.value?.replace(/\D/g, '');
-      if (telefone && (telefone.length === 10 || telefone.length === 11)) {
-        return null;
-      }
-      return { telefoneInvalido: true };
-  }
-
-  static cepValido(control: AbstractControl): { [key: string]: boolean } | null {
-    const cep = control.value?.replace(/\D/g, '');
-    if (cep && cep.length === 8) {
-      return null;
-    }
-    return { cepInvalido: true };
   }
 
   get cpf() { return this.cadastroForm.get('cpf'); }
@@ -122,10 +95,10 @@ export class Cadastro {
       const payload: ClienteRegistroDto = {
         nome: formValue.nome,
         email: formValue.email,
-        cpf: formValue.cpf.replace(/\D/g, ''), 
-        telefone: formValue.telefone.replace(/\D/g, ''), 
+        cpf: formValue.cpf.replaceAll(/\D/g, ''), 
+        telefone: formValue.telefone.replaceAll(/\D/g, ''), 
         endereco: { 
-          cep: formValue.cep.replace(/\D/g, ''), 
+          cep: formValue.cep.replaceAll(/\D/g, ''), 
           logradouro: formValue.logradouro, 
           numero: formValue.numero,
           cidade: formValue.cidade,
@@ -158,40 +131,49 @@ export class Cadastro {
     }
   }
 
+  checkForErrors(fieldControl: AbstractControl, fieldName: string ) : boolean{
+
+    this.failureMessage = '';
+
+    if(fieldControl?.invalid && fieldControl?.touched){
+
+      if(fieldControl?.errors?.['required']){
+        this.failureMessage = `O ${fieldName} é obrigatório`
+      } 
+
+      if(fieldControl?.errors?.[`${fieldName}Invalido`]){
+        this.failureMessage = `O ${fieldName} é inválido`;
+      }
+
+      if(fieldControl?.errors?.['minlength']){
+        this.failureMessage = `O ${fieldName} deve ter no mínimo 3 caracteres.`;
+      }
+
+      if(fieldControl?.errors?.['maxlength']){
+        this.failureMessage = `O ${fieldName} deve ter no máximo 6 dígitos`;
+      }
+    
+      if(fieldControl?.errors?.['notFound']){
+        this.failureMessage =  `O ${fieldName} não foi encontrado`;
+      }
+
+      return false;
+
+    }
+    
+    return true;
+
+  }
+
   handleInput(event: Event, maskFunction: (value: string) => string) {
     const input = event.target as HTMLInputElement;
     input.value = maskFunction(input.value);
   }
 
-  cpfMask = (value: string): string => {
-    if (!value) return '';
-    value = value.replace(/\D/g, '').slice(0, 11);
-    value = value.replace(/(\d{3})(\d)/, '$1.$2');
-    value = value.replace(/(\d{3})(\d)/, '$1.$2');
-    value = value.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
-    return value;
-  }
+  cpfMask = cpfMask;
+  cepMask = cepMask;
+  phoneMask = phoneMask;
+  numeroMask = numeroMask;
 
-  cepMask = (value: string): string => {
-    if (!value) return '';
-    value = value.replace(/\D/g, '').slice(0, 8);
-    value = value.replace(/^(\d{5})(\d)/, '$1-$2');
-    return value;
-  }
 
-  phoneMask = (value: string): string => {
-    if (!value) return '';
-    value = value.replace(/\D/g, '').slice(0, 11);
-    if (value.length > 10) {
-      value = value.replace(/^(\d{2})(\d{5})(\d{4})$/, '($1) $2-$3');
-    } else {
-      value = value.replace(/^(\d{2})(\d{4})(\d{4})$/, '($1) $2-$3');
-    }
-    return value;
-  }
-
-  numeroMask = (value: string): string => {
-    if (!value) return '';
-    return value.replace(/\D/g, '').slice(0, 6);
-  }
 }
