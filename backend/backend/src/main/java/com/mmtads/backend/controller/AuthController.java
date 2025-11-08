@@ -3,8 +3,7 @@ package com.mmtads.backend.controller;
 import com.mmtads.backend.Model.Usuario;
 import com.mmtads.backend.dto.LoginRequestDto;
 import com.mmtads.backend.dto.LoginResponseDto;
-import com.mmtads.backend.service.TokenService;
-
+import com.mmtads.backend.service.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -23,7 +22,7 @@ public class AuthController {
     private AuthenticationManager manager;
 
     @Autowired
-    private TokenService tokenService;
+    private JwtService jwtService;
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequestDto dadosLogin) {
@@ -31,7 +30,7 @@ public class AuthController {
         try {
             var auth = this.manager.authenticate(usernamePassword);
             var usuarioAutenticado = (Usuario) auth.getPrincipal();
-            var token = tokenService.generateToken(usuarioAutenticado);
+            var token = jwtService.generateToken(usuarioAutenticado);
 
             return ResponseEntity.ok(new LoginResponseDto(token));
 
