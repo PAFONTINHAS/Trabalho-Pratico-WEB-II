@@ -26,7 +26,8 @@ export class VisualizarSolicitacoes implements OnInit{
   carregarSolicitacoes(){
     this.solicitacaoService.listarTodos().subscribe({
       next: (data) =>{
-        this.solicitacoes = data;
+        this.solicitacoesFiltradas = data;
+        console.log(data);
       },
       error: (e) => {
 
