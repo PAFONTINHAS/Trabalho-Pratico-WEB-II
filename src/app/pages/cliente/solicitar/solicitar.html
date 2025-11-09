@@ -72,6 +72,8 @@
     </div>
 </div>
 
-@if(modalSolicitacaoCriada){
-<app-modais-confirmacao [tipoModalSolicitacao]="'solicitacaoCriada'"></app-modais-confirmacao>
-}
+<app-modais-confirmacao 
+  *ngIf="modalSolicitacaoCriada"
+  tipoModalSolicitacao="solicitacaoCriada"
+  (fechar)="fecharModalSolicitacao()">
+</app-modais-confirmacao>

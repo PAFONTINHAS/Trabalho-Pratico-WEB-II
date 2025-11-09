@@ -29,6 +29,10 @@ export class Solicitar implements OnInit{
 
 
   modalSolicitacaoCriada:boolean = false;
+  
+  fecharModalSolicitacao(): void {
+  this.modalSolicitacaoCriada = false;
+}
 
   ngOnInit(): void {
     this.carregarCategorias();
@@ -147,5 +151,4 @@ export function pegarDataFormatada(opcao: String) : string{
 function zeroAEsquerda (numero : number){
   
   return String(numero).padStart(2, '0');
-
 }
