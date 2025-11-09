@@ -3,6 +3,7 @@ package com.mmtads.backend.controller;
 import com.mmtads.backend.Repository.FuncionarioRepository;
 import com.mmtads.backend.service.UsuarioService;
 
+import org.apache.catalina.connector.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -65,20 +66,21 @@ public class FuncionarioController {
         }
 
         if(!validEmail) {
-            ResponseEntity.badRequest();
+            ResponseEntity.badRequest().build();
         }
 
         return this.funciRepo.save(funci);
     }
 
     @DeleteMapping("/user/{userEmail}/{id}")
-    public void deleteFuncionarioById(@PathVariable String userEmail, @PathVariable long id) {    
+    public ResponseEntity<String> deleteFuncionarioById(@PathVariable String userEmail, @PathVariable long id) {    
         Funcionario funci = this.funciRepo.findByEmailAndIsDeleteFalse(userEmail);
         if(funci.getId() == id) {
-            ResponseEntity.badRequest();
+            return ResponseEntity.badRequest().build();
         }
         else {
             this.funciRepo.softDeleteById(id);
+            return ResponseEntity.ok().build();
         }
     }
 

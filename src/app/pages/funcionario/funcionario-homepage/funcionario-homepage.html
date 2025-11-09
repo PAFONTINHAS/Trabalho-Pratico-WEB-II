@@ -17,7 +17,7 @@
                     </thead>
                     <tbody>
                         @for (solicitacao of solicitacoes; track solicitacao.idSolicitacao) {
-                            @if (solicitacao.status === 'Aberta') {
+                            @if (solicitacao.status === 'ABERTA') {
                                 <tr class="hover:bg-gray-50 transition-colors">
                                     <td class="border-t-2 border-gray-200 py-3 px-6">{{solicitacao.dataHoraAbertura}}</td>
                                     <td class="border-t-2 border-gray-200 py-3 px-6">{{solicitacao.cliente.nome}}</td>

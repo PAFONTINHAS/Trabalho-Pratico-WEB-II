@@ -17,6 +17,7 @@ export class CriarFuncionario implements OnInit, OnDestroy {
   @ViewChild('formFunci') formFunci! : NgForm;
   funcionarios: Funcionario[] = [];
   private readonly subscription: Subscription = new Subscription();
+  erroDelete: boolean = false
 
   constructor(
     private readonly funcionarioService: FuncionarioService,
@@ -94,7 +95,14 @@ export class CriarFuncionario implements OnInit, OnDestroy {
     if (confirm(`Deseja realmente remover o funcionario ${funcionario.nome}?`)) {
       const user = this.loginService.usuarioLogado
       if(user) {
-        this.funcionarioService.remover(funcionario.id, user).subscribe(this.carregarFuncionarios)
+        this.funcionarioService.remover(funcionario.id, user).subscribe({ 
+          error: () => { 
+            this.erroDelete = true
+            setTimeout(() => {
+              this.erroDelete = false;
+            }, 3000);
+          }
+        })
       }
       
     }
