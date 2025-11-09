@@ -5,18 +5,15 @@ import { HistoricoStatus } from "./historico_status_entity";
 import { Categoria } from "./categoria_entity";
 
 export interface Solicitacao {
-
-
-    id?: number;
+    idSolicitacao?: number; // Correção: De 'id' para 'idSolicitacao'
     cliente: Cliente;
     funcionario: Funcionario | null;
-    equipamento: string;
-    defeito: string;
+    descricaoEquipamento: string; // Correção: De 'equipamento' para 'descricaoEquipamento'
+    descricaoDefeito: string; // Correção: De 'defeito' para 'descricaoDefeito'
     categoria?: Categoria | null;
-    dataSolicitacao: string;
-    status: Status
-    valorOrcamento? : number | null;
+    dataHoraAbertura: string; // Correção: De 'dataSolicitacao' para 'dataHoraAbertura'
+    status: Status;
+    valorOrcamento?: number | null;
+    motivoRejeicao?: string | null;
     historicoStatus: HistoricoStatus[];
-
-
 }

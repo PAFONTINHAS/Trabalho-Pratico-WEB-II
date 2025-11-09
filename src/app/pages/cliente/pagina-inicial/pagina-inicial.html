@@ -15,36 +15,31 @@
                                 <th class="py-3 px-6 text-center font-bold"></th>
                             </tr>
                         </thead>
-                        <tbody>
-                            @for (solicitacao of solicitacoes; track solicitacao.id) {
-                                <tr>
-                                    <td class="border-t-2 border-gray-200 py-3 px-6">{{ solicitacao.dataSolicitacao }}</td>
-                                    <td class="border-t-2 border-gray-200 py-3 px-6">{{ solicitacao.equipamento }}</td>
-                                    <td class="border-t-2 border-gray-200 py-3 px-6">{{ solicitacao.defeito }}</td>
-                                    <td class="border-t-2 border-gray-200 py-3 px-6 text-md font-semibold">
-                                        <span [ngClass]="statusClasses(solicitacao.status.toUpperCase())">
-                                            {{solicitacao.status.toUpperCase()}}
-                                        </span>
-                                    </td>
-        
-                                    <td class="border-t-2 flex items-center gap-3 border-gray-200 py-3 px-6">
-                                        <button (click)="abrirModalOrcamento(solicitacao)" 
-                                            [ngClass]="buttonClass(solicitacao.status.toUpperCase())"
-                                            >
-                                            Ver Detalhes
-                                        </button>
-                                        <p class="text-3xl text-danger" style="font-family: Arial" *ngIf="temAcoes(solicitacao.status.toUpperCase())">
-                                            !
-                                        </p>
-                                        <!-- <p class="text-[0.8em]" *ngIf="temAcoes(solicitacao.status.toUpperCase())">
-                                            Ações <br> disponíveis.
-                                        </p> -->
-                                    </td>
-                                    
-        
-                                </tr>
-                            }
-                        </tbody>
+                      <tbody>
+    @for (solicitacao of solicitacoes; track solicitacao.idSolicitacao) {
+        <tr>
+            <td class="border-t-2 border-gray-200 py-3 px-6">{{ solicitacao.dataHoraAbertura }}</td>
+            <td class="border-t-2 border-gray-200 py-3 px-6">{{ solicitacao.descricaoEquipamento }}</td>
+            <td class="border-t-2 border-gray-200 py-3 px-6">{{ solicitacao.descricaoDefeito }}</td>
+            <td class="border-t-2 border-gray-200 py-3 px-6 text-md font-semibold">
+                <span [ngClass]="statusClasses(solicitacao.status.toUpperCase())">
+                    {{solicitacao.status.toUpperCase()}}
+                </span>
+            </td>
+
+            <td class="border-t-2 flex items-center gap-3 border-gray-200 py-3 px-6">
+                <button (click)="abrirModalOrcamento(solicitacao)" 
+                    [ngClass]="buttonClass(solicitacao.status.toUpperCase())"
+                    >
+                    Ver Detalhes
+                </button>
+                <p class="text-3xl text-danger" style="font-family: Arial" *ngIf="temAcoes(solicitacao.status.toUpperCase())">
+                    !
+                </p>
+            </td>
+        </tr>
+    }
+</tbody>
                     </table>
                 </div>
             </div>

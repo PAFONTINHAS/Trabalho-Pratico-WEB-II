@@ -60,57 +60,50 @@ export class Solicitar implements OnInit{
   formSubmitted: boolean = false;
 
     solicitacao = {
-      cliente: clientes[0],
-      status: Status.Aberta,
-      funcionario: null,
-      defeito: "",
-      equipamento: "",
-      historicoStatus: [],
-      categoria: null,
-      dataSolicitacao: ""
-
-    };
+  cliente: clientes[0],
+  status: Status.Aberta,
+  funcionario: null,
+  descricaoDefeito: "",  // mudou de defeito
+  descricaoEquipamento: "",  // mudou de equipamento
+  historicoStatus: [],
+  categoria: null,
+  dataHoraAbertura: ""  // mudou de dataSolicitacao
+};
     
-    validateForm(): boolean {
-      this.formSubmitted = true;
-      let isValid = true;
+   validateForm(): boolean {
+  this.formSubmitted = true;
+  let isValid = true;
 
-      // Verifica se a descrição do equipamento está preenchida
-      if (!this.solicitacao.equipamento || this.solicitacao.equipamento.trim() === "") {
-          isValid = false;
-      }
-      
-      // Verifica se a categoria foi selecionada
-      if (!this.solicitacao.categoria) {
-          isValid = false;
-      }
-
-      // Verifica se o defeito está preenchido
-      if (!this.solicitacao.defeito || this.solicitacao.defeito.trim() === "") {
-          isValid = false;
-      }
-
-      return isValid;
+  if (!this.solicitacao.descricaoEquipamento || this.solicitacao.descricaoEquipamento.trim() === "") {
+      isValid = false;
   }
+  
+  if (!this.solicitacao.categoria) {
+      isValid = false;
+  }
+
+  if (!this.solicitacao.descricaoDefeito || this.solicitacao.descricaoDefeito.trim() === "") {
+      isValid = false;
+  }
+
+  return isValid;
+}
 
     realizarSolicitacao(){
-      
-      if (!this.validateForm()) {
-        // Se a validação falhar, impede a submissão. Os erros serão exibidos no template.
-          return;
-      }
-
-      // Lógica de submissão só continua se o formulário for válido
-      const dataSolicitacao: string = converterDataParaString();
-      const novaSolicitacao: Solicitacao = this.solicitacao;
-
-      novaSolicitacao.dataSolicitacao = dataSolicitacao;
-
-      this.solicitacaoService.inserir(novaSolicitacao);
-      this.solicitacaoService.listarTodos();
-      
-      this.modalSolicitacaoCriada = true;
+  if (!this.validateForm()) {
+      return;
   }
+
+  const dataHoraAbertura: string = converterDataParaString();
+  const novaSolicitacao: Solicitacao = this.solicitacao;
+
+  novaSolicitacao.dataHoraAbertura = dataHoraAbertura;  // mudou de dataSolicitacao
+
+  this.solicitacaoService.inserir(novaSolicitacao);
+  this.solicitacaoService.listarTodos();
+  
+  this.modalSolicitacaoCriada = true;
+}
 }
 
 export function converterDataParaString() : string{

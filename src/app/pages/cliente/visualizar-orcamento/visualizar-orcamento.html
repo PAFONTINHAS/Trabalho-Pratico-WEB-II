@@ -25,15 +25,15 @@
         <div class="p-4 rounded-xl bg-gray-50 border border-gray-300">
           <p class="text-md text-gray-600">
             Dispositivo:
-            <span class="font-semibold">{{ solicitacao.equipamento }}</span>
+            <span class="font-semibold">{{ solicitacao.descricaoEquipamento }}</span>
           </p>
           <p class="text-md text-gray-600">
             Descrição:
-            <span class="font-semibold">{{ solicitacao.defeito }}</span>
+            <span class="font-semibold">{{ solicitacao.descricaoDefeito }}</span>
           </p>
           <p class="text-md text-gray-600">
             Data da solicitação:
-            <span class="font-semibold">{{ solicitacao.dataSolicitacao }}</span>
+            <span class="font-semibold">{{ solicitacao.dataHoraAbertura }}</span>
           </p>
 
           @if (solicitacao.status !== "Aberta" && solicitacao.funcionario) {
