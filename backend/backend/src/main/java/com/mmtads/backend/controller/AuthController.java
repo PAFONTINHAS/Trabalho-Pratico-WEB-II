@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
@@ -35,10 +37,12 @@ public class AuthController {
             return ResponseEntity.ok(new LoginResponseDto(token));
 
         } catch (AuthenticationException e) {
-            return ResponseEntity.status(401).body("LOGIN_INVALIDO");
+            // Retorna JSON em caso de login inválido
+            return ResponseEntity.status(401).body(Map.of("mensagem", "LOGIN_INVALIDO"));
 
         } catch (Exception e) {
-            return ResponseEntity.status(500).body("ERRO_SERVIDOR");
+            // Retorna JSON em caso de erro no servidor
+            return ResponseEntity.status(500).body(Map.of("mensagem", "ERRO_SERVIDOR"));
         }
     }
 }

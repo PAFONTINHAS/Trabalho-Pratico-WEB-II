@@ -3,7 +3,7 @@ package com.mmtads.backend.Model;
 import jakarta.persistence.*;
 
 @Entity
-@PrimaryKeyJoinColumn(name="id")
+@PrimaryKeyJoinColumn(name="usuario_id")
 @Table(name = "cliente")
 public class Cliente extends Usuario{
 
