@@ -219,7 +219,7 @@ VALUES (
 USE manutencaoequipamentos;
 
 -- ========================================
--- TABELA ENDERECO (SEM MUDANÇAS)
+-- TABELA ENDERECO
 -- ========================================
 CREATE TABLE IF NOT EXISTS endereco (
     id_endereco INT AUTO_INCREMENT PRIMARY KEY,
@@ -228,10 +228,10 @@ CREATE TABLE IF NOT EXISTS endereco (
     numero VARCHAR(10),
     cidade VARCHAR(50) NOT NULL,
     estado VARCHAR(2) NOT NULL
-) DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ========================================
--- TABELA USUARIOS (SEM MUDANÇAS)
+-- TABELA USUARIOS
 -- ========================================
 CREATE TABLE IF NOT EXISTS usuarios (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
@@ -241,45 +241,43 @@ CREATE TABLE IF NOT EXISTS usuarios (
     senha_salt VARCHAR(64) NOT NULL,
     role VARCHAR(20) NOT NULL,
     is_delete BOOLEAN DEFAULT FALSE
-) DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ========================================
--- TABELA CATEGORIA (SEM MUDANÇAS)
+-- TABELA CATEGORIA
 -- ========================================
 CREATE TABLE IF NOT EXISTS categoria (
     id_categoria INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(50) NOT NULL UNIQUE,
     is_delete BOOLEAN DEFAULT FALSE
-) DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ========================================
--- TABELA CLIENTE (MODIFICADA)
+-- TABELA CLIENTE
 -- ========================================
--- MUDANÇA 1: Coluna 'endereco' agora é BIGINT (ID) ao invés de VARCHAR(255)
--- MUDANÇA 2: Adicionada FOREIGN KEY para tabela endereco
--- MUDANÇA 3: Removido 'id' próprio, agora usa 'usuario_id' como PK
+-- ⚙️ Agora com tipos compatíveis: endereco INT (não BIGINT)
+-- ⚙️ Usa usuario_id como PK (1-para-1 com usuarios)
 CREATE TABLE IF NOT EXISTS cliente (
-    usuario_id BIGINT PRIMARY KEY,  -- MUDANÇA: Agora é PK diretamente
+    usuario_id BIGINT PRIMARY KEY,
     cpf VARCHAR(14) NOT NULL UNIQUE,
     telefone VARCHAR(20),
-    endereco BIGINT,  -- MUDANÇA: De VARCHAR(255) para BIGINT
+    endereco INT,
     FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE,
-    FOREIGN KEY (endereco) REFERENCES endereco(id_endereco) ON DELETE SET NULL  -- MUDANÇA: Nova FK
-) DEFAULT CHARSET=utf8mb4;
+    FOREIGN KEY (endereco) REFERENCES endereco(id_endereco) ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ========================================
--- TABELA FUNCIONARIO (MODIFICADA)
+-- TABELA FUNCIONARIO
 -- ========================================
--- MUDANÇA: Removido 'id' próprio, agora usa 'usuario_id' como PK (chamado 'id')
--- MUDANÇA: Renomeado 'usuario_id' para 'id' para ser consistente com Cliente
+-- ⚙️ Também 1-para-1 com usuarios
 CREATE TABLE IF NOT EXISTS funcionario (
-    id BIGINT PRIMARY KEY,  -- MUDANÇA: Antes era AUTO_INCREMENT separado, agora é FK direto
+    id BIGINT PRIMARY KEY,
     data_nasc DATE,
     FOREIGN KEY (id) REFERENCES usuarios(id) ON DELETE CASCADE
-) DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ========================================
--- TABELA SOLICITACAO (SEM MUDANÇAS)
+-- TABELA SOLICITACAO
 -- ========================================
 CREATE TABLE IF NOT EXISTS solicitacao (
     id_solicitacao INT AUTO_INCREMENT PRIMARY KEY,
@@ -291,48 +289,48 @@ CREATE TABLE IF NOT EXISTS solicitacao (
     descricao_defeito TEXT,
     motivo_rejeicao TEXT,
     data_hora_abertura DATETIME NOT NULL,
-    FOREIGN KEY (id_cliente) REFERENCES cliente(usuario_id),  -- Referencia usuario_id agora
-    FOREIGN KEY (id_funcionario) REFERENCES funcionario(id),
-    FOREIGN KEY (id_categoria) REFERENCES categoria(id_categoria)
-) DEFAULT CHARSET=utf8mb4;
+    FOREIGN KEY (id_cliente) REFERENCES cliente(usuario_id) ON DELETE CASCADE,
+    FOREIGN KEY (id_funcionario) REFERENCES funcionario(id) ON DELETE SET NULL,
+    FOREIGN KEY (id_categoria) REFERENCES categoria(id_categoria) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ========================================
--- TABELA ORCAMENTO (SEM MUDANÇAS)
+-- TABELA ORCAMENTO
 -- ========================================
 CREATE TABLE IF NOT EXISTS orcamento (
     id_orcamento INT AUTO_INCREMENT PRIMARY KEY,
     id_solicitacao INT NOT NULL,
     id_funcionario BIGINT NOT NULL,
-    valor DECIMAL(10, 2) NOT NULL,
+    valor DECIMAL(10,2) NOT NULL,
     data_hora DATETIME NOT NULL,
-    FOREIGN KEY (id_solicitacao) REFERENCES solicitacao(id_solicitacao),
-    FOREIGN KEY (id_funcionario) REFERENCES funcionario(id)
-) DEFAULT CHARSET=utf8mb4;
+    FOREIGN KEY (id_solicitacao) REFERENCES solicitacao(id_solicitacao) ON DELETE CASCADE,
+    FOREIGN KEY (id_funcionario) REFERENCES funcionario(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ========================================
--- TABELA PAGAMENTO (SEM MUDANÇAS)
+-- TABELA PAGAMENTO
 -- ========================================
 CREATE TABLE IF NOT EXISTS pagamento (
     id_pagamento INT AUTO_INCREMENT PRIMARY KEY,
     id_solicitacao INT NOT NULL,
-    valor DECIMAL(10, 2) NOT NULL,
+    valor DECIMAL(10,2) NOT NULL,
     data_hora DATETIME NOT NULL,
-    FOREIGN KEY (id_solicitacao) REFERENCES solicitacao(id_solicitacao)
-) DEFAULT CHARSET=utf8mb4;
+    FOREIGN KEY (id_solicitacao) REFERENCES solicitacao(id_solicitacao) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ========================================
--- TABELA MANUTENCAO (SEM MUDANÇAS)
+-- TABELA MANUTENCAO
 -- ========================================
 CREATE TABLE IF NOT EXISTS manutencao (
     id_manutencao INT AUTO_INCREMENT PRIMARY KEY,
     id_solicitacao INT NOT NULL,
     descricao_manutencao TEXT,
     orientacao_cliente VARCHAR(150),
-    FOREIGN KEY (id_solicitacao) REFERENCES solicitacao(id_solicitacao)
-) DEFAULT CHARSET=utf8mb4;
+    FOREIGN KEY (id_solicitacao) REFERENCES solicitacao(id_solicitacao) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ========================================
--- TABELA HISTORICO (SEM MUDANÇAS)
+-- TABELA HISTORICO
 -- ========================================
 CREATE TABLE IF NOT EXISTS historico (
     id_historico INT AUTO_INCREMENT PRIMARY KEY,
@@ -342,8 +340,7 @@ CREATE TABLE IF NOT EXISTS historico (
     funci_destino BIGINT,
     data_hora DATETIME NOT NULL,
     observacao TEXT,
-    FOREIGN KEY (id_solicitacao) REFERENCES solicitacao(id_solicitacao),
-    FOREIGN KEY (funci_origem) REFERENCES funcionario(id),
-    FOREIGN KEY (funci_destino) REFERENCES funcionario(id)
-) DEFAULT CHARSET=utf8mb4;
-
+    FOREIGN KEY (id_solicitacao) REFERENCES solicitacao(id_solicitacao) ON DELETE CASCADE,
+    FOREIGN KEY (funci_origem) REFERENCES funcionario(id) ON DELETE SET NULL,
+    FOREIGN KEY (funci_destino) REFERENCES funcionario(id) ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
