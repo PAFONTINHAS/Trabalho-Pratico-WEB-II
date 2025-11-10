@@ -17,13 +17,13 @@
                     </thead>
                     <tbody>
                         @for (solicitacao of solicitacoes; track solicitacao.idSolicitacao) {
-                            @if (solicitacao.status === 'ABERTA') {
+                            @if (solicitacao.status === statusEnum.Aberta) {
                                 <tr class="hover:bg-gray-50 transition-colors">
                                     <td class="border-t-2 border-gray-200 py-3 px-6">{{solicitacao.dataHoraAbertura}}</td>
                                     <td class="border-t-2 border-gray-200 py-3 px-6">{{solicitacao.cliente.nome}}</td>
                                     <td class="border-t-2 border-gray-200 py-3 px-6">{{solicitacao.descricaoEquipamento}}</td>
                                     <td class="border-t-2 border-gray-200 py-3 px-6">{{solicitacao.descricaoDefeito}}</td>
-                                    <td class="border-t-2 border-gray-200 py-3 px-6"><span [ngClass]="statusClasses(solicitacao.status)">{{solicitacao.status.toUpperCase()}}</span></td>
+                                    <td class="border-t-2 border-gray-200 py-3 px-6"><span [ngClass]="statusClasses(solicitacao.status)">{{solicitacao.status}}</span></td>
                                     <td class="border-t-2 border-gray-200 py-3 px-6 text-center">
                                         <button (click)="abrirModal(solicitacao)" 
                                         class="bg-mm hover:bg-mm-dark h-[46px] px-4 rounded-xl transition font-regular 
@@ -35,7 +35,6 @@
                                 </tr>
                             }
                         }
-
                         @if(countAbertas() === 0){
                             <tr>
                                 <td colspan="6" class="p-4 text-center text-gray-500 border border-gray-300">
@@ -49,7 +48,6 @@
         </section>
     </div>
 </main>
-
 @if (mostrarModalSolicitacao) {
   <app-visualizar-solicitacao [solicitacao]="solicitacaoSelecionada!" (fecharModal)="fecharModal()"></app-visualizar-solicitacao>
 }
