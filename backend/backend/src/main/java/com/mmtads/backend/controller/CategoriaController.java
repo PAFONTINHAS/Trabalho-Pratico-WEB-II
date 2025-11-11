@@ -54,13 +54,11 @@ public class CategoriaController {
     // RF017 - Remoção (Delete): DELETE /api/categorias/{id}
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletar(@PathVariable Long id) {
-        // Verifica se a categoria existe antes de tentar deletar
         if (!categoriaRepository.existsById(id)) {
             return ResponseEntity.notFound().build();
         }
 
         categoriaRepository.deleteById(id);
-        // Retorna 204 No Content, que é o padrão para deleções bem-sucedidas
         return ResponseEntity.noContent().build();
     }
 }

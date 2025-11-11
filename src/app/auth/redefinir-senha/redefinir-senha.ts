@@ -42,24 +42,20 @@ export class RedefinirSenha {
       return;
     }
 
-    // Ativa loading
     this.isSubmitting = true;
     
     console.log('E-mail para redefinição:', this.email);
     
-    // Simula envio de email 
     setTimeout(() => {
       this.isSubmitting = false;
       this.submitSuccess = true;
       
-      // Auto-esconde mensagem após 5 segundos
       setTimeout(() => {
         this.submitSuccess = false;
       }, 5000);
     }, 1500);
   }
 
-  //  Limpa erro quando usuário digita
   onEmailInput(): void {
     if (this.emailError) {
       this.emailError = '';

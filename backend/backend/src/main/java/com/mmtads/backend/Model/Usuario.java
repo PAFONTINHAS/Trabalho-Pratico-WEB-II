@@ -83,7 +83,6 @@ public class Usuario implements UserDetails {
         this.senhaSalt = senhaSalt;
     }
     
-    // getter/setter do @Transient
     public String getSenha() {
         return senha;
     }

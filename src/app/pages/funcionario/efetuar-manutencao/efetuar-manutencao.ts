@@ -1,14 +1,10 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { RouterLink } from '@angular/router';
-import { VisualizarSolicitacao } from '../visualizar-solicitacao/visualizar-solicitacao';
-import { DefinirOrcamento } from '../definir-orcamento/definir-orcamento';
 import { Solicitacao } from '../../../shared/entities/solicitacao_entity';
 import { SolicitacaoService } from '../../../services/solicitacao_service/solicitacao-service';
 import { Status } from '../../../shared/models/enums/status.enum';
 
 @Component({
   selector: 'app-efetuar-manutencao',
-  // imports: [RouterLink],
   templateUrl: './efetuar-manutencao.html',
   styleUrl: './efetuar-manutencao.css'
 })

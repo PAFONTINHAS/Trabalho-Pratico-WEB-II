@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { FormsModule } from "@angular/forms";
 import { CommonModule } from '@angular/common'; 
 import { VisualizarSolicitacao } from '../visualizar-solicitacao/visualizar-solicitacao';
 import { Solicitacao } from '../../../shared/entities/solicitacao_entity';
 import { SolicitacaoService } from '../../../services/solicitacao_service/solicitacao-service';
-import { Status } from '../../../shared/models/enums/status.enum';
 
 @Component({
   selector: 'app-visualizar-solicitacoes',
@@ -73,25 +71,21 @@ export class VisualizarSolicitacoes implements OnInit{
   }
 
   parsearDataString(dataString: string): Date {
-    // Se a string de data for nula ou vazia, retorna uma data inválida
     if (!dataString || dataString.trim() === '') {
       return new Date('invalid');
     }
 
     if (dataString.includes('/')) {
-      // Formato: "dd/MM/yyyy - HH:mm"
-      const parteData = dataString.split(' - ')[0]; // Pega só "dd/MM/yyyy"
+      const parteData = dataString.split(' - ')[0]; 
       const [dia, mes, ano] = parteData.split('/').map(Number);
       return new Date(ano, mes - 1, dia);
     }
     
-    // Se não tiver barra, asumimos o formato do input: "yyyy-MM-dd"
     if (dataString.includes('-')) {
       const [ano, mes, dia] = dataString.split('-').map(Number);
       return new Date(ano, mes - 1, dia);
     }
 
-    // Se não for nenhum dos formatos esperados, retorna data inválida
     return new Date('invalid');
   }
 

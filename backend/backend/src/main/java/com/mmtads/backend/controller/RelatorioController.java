@@ -22,8 +22,6 @@ public class RelatorioController {
     private RelatorioService relatorioService;
 
     // RF019 - Endpoint para Receita por Período
-    // Espera datas no formato ISO (YYYY-MM-DD)
-    // Exemplo: GET /api/relatorios/receita-periodo?dataInicio=2025-09-01&dataFim=2025-10-30
     @GetMapping("/receita-periodo")
     public ResponseEntity<List<ReceitaPorPeriodoDto>> getReceitaPorPeriodo(
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dataInicio,
@@ -34,7 +32,6 @@ public class RelatorioController {
     }
 
     // RF020 - Endpoint para Receita por Categoria
-    // Exemplo: GET /api/relatorios/receita-categoria
     @GetMapping("/receita-categoria")
     public ResponseEntity<List<ReceitaPorCategoriaDto>> getReceitaPorCategoria() {
         List<ReceitaPorCategoriaDto> relatorio = relatorioService.gerarReceitaPorCategoria();

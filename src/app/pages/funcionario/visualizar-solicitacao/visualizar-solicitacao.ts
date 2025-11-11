@@ -31,7 +31,6 @@ export class VisualizarSolicitacao implements OnInit {
 
   public modalEfetuarAberto: boolean = false;
   
-  // NOVO: Flag para rastrear se o botão de submissão do orçamento foi clicado.
   public orcamentoSubmitted: boolean = false;
 
   ngOnInit(): void {
@@ -73,10 +72,8 @@ export class VisualizarSolicitacao implements OnInit {
   };
 
   efetuarOrcamento(): void {
-    // 1. Marca como submetido para exibir erros no template
     this.orcamentoSubmitted = true;
     
-    // 2. Validação: verifica se o orçamento é null, zero ou negativo (considerando que só números válidos são esperados)
     if (this.solicitacao && this.orcamento !== null && this.orcamento > 0) {
       this.solicitacao.valorOrcamento = this.orcamento;
 
@@ -114,7 +111,6 @@ export class VisualizarSolicitacao implements OnInit {
     let input = e.target
     input.value = this.orcamentoMask(input.value)
     
-    // Se o usuário está digitando, remove o estado de submissão/erro para que o estilo volte ao normal
     if (this.orcamentoSubmitted) {
         this.orcamentoSubmitted = false;
     }
@@ -123,8 +119,8 @@ export class VisualizarSolicitacao implements OnInit {
   orcamentoMask(value: any) {
     
     value = value.replace(/\D/g, '') 
-    value = value.replace(/(\d+)(\d{2})$/, "$1,$2"); // Adiciona a parte de centavos
-    value = value.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1."); // Adiciona pontos a cada três dígitos
+    value = value.replace(/(\d+)(\d{2})$/, "$1,$2"); 
+    value = value.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1."); 
     console.log(value)
 
     return value
