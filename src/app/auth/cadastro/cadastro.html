@@ -38,19 +38,27 @@
             class="border-gray-400 mb-5 rounded-lg border placeholder:text-gray-400 overflow-hidden h-10 px-3 transition w-full focus:border-mm focus:shadow-xl focus:shadow-mm-shadow hover:border-mm"
             [class.border-red-500]="cpf?.invalid && cpf?.touched" placeholder="000.000.000-00"
             formControlName="cpf" />
-          <div *ngIf="cpf?.invalid && cpf?.touched" class="text-red-500 text-sm -mt-4 mb-5">
-            <p *ngIf="cpf?.errors?.['required']">O CPF é obrigatório.</p>
-            <p *ngIf="cpf?.errors?.['cpfInvalido']">O CPF informado é inválido.</p>
-          </div>
+
+            @if(!checkForErrors(cpf!, 'cpf')){
+
+              <div class="text-red-500 text-sm -mt-4 mb-5">
+                  <p>{{failureMessage}}</p>
+              </div>
+            }
 
           <p class="font-semibold text-md mb-2">Nome</p>
           <input type="text"
             class="border-gray-400 mb-5 rounded-lg border placeholder:text-gray-400 overflow-hidden h-10 px-3 transition w-full focus:border-mm focus:shadow-xl focus:shadow-mm-shadow hover:border-mm"
             [class.border-red-500]="nome?.invalid && nome?.touched" placeholder="Digite seu nome"
             formControlName="nome" />
-          <div *ngIf="nome?.invalid && nome?.touched" class="text-red-500 text-sm -mt-4 mb-5">
-            <p *ngIf="nome?.errors?.['required']">O nome é obrigatório.</p>
-            <p *ngIf="nome?.errors?.['minlength']">O nome deve ter no mínimo 3 caracteres.</p>
+
+            @if(!checkForErrors(nome!, 'nome')){
+
+              <div class="text-red-500 text-sm -mt-4 mb-5">
+                  <p>{{failureMessage}}</p>
+              </div>
+            }
+
           </div>
 
           <p class="font-semibold text-md mb-2">E-mail</p>
@@ -58,10 +66,14 @@
             class="border-gray-400 mb-5 rounded-lg border placeholder:text-gray-400 overflow-hidden h-10 px-3 transition w-full focus:border-mm focus:shadow-xl focus:shadow-mm-shadow hover:border-mm"
             [class.border-red-500]="email?.invalid && email?.touched" placeholder="exemplo@email.com"
             formControlName="email" />
-          <div *ngIf="email?.invalid && email?.touched" class="text-red-500 text-sm -mt-4 mb-5">
-            <p *ngIf="email?.errors?.['required']">O e-mail é obrigatório.</p>
-            <p *ngIf="email?.errors?.['email']">Formato de e-mail inválido.</p>
-          </div>
+
+            @if(!checkForErrors(email!, 'email')){
+
+              <div class="text-red-500 text-sm -mt-4 mb-5">
+                  <p>{{failureMessage}}</p>
+              </div>
+            }
+        
         </div>
 
         <div class="flex-col w-full gap-3">
@@ -70,11 +82,13 @@
             class="border-gray-400 mb-5 rounded-lg border placeholder:text-gray-400 overflow-hidden h-10 px-3 transition w-full focus:border-mm focus:shadow-xl focus:shadow-mm-shadow hover:border-mm"
             [class.border-red-500]="cep?.invalid && cep?.touched" placeholder="00000-000"
             formControlName="cep" />
-          <div *ngIf="cep?.invalid && cep?.touched" class="text-red-500 text-sm -mt-4 mb-5">
-            <p *ngIf="cep?.errors?.['required']">O CEP é obrigatório.</p>
-            <p *ngIf="cep?.errors?.['cepInvalido']">CEP inválido.</p>
-            <p *ngIf="cep?.errors?.['notFound']">CEP não encontrado.</p>
-          </div>
+
+            @if(!checkForErrors(cep!, 'cep')){
+
+              <div class="text-red-500 text-sm -mt-4 mb-5">
+                  <p>{{failureMessage}}</p>
+              </div>
+            }
 
           <div class="flex flex-row gap-3">
             <div class="w-[30%]">
@@ -109,20 +123,30 @@
                 formControlName="numero" />
             </div>
           </div>
-          <div *ngIf="(logradouro?.invalid && logradouro?.touched) || (numero?.invalid && numero?.touched) || (cidade?.invalid && cidade?.touched) || (uf?.invalid && uf?.touched)" class="text-red-500 text-sm -mt-4 mb-5">
-            <p *ngIf="uf?.errors?.['required'] || cidade?.errors?.['required'] || logradouro?.errors?.['required'] || numero?.errors?.['required']">Todos os campos de endereço são obrigatórios.</p>
-            <p *ngIf="numero?.errors?.['maxlength']">O número deve ter no máximo 6 dígitos.</p>
-          </div>
+
+            @if(
+              !checkForErrors(logradouro!, 'logradouro') || 
+              !checkForErrors(numero!, 'numero') || 
+              !checkForErrors(cidade!, 'cidade') || 
+              !checkForErrors(uf!, 'uf') 
+
+            ){
+
+              <div class="text-red-500 text-sm -mt-4 mb-5">
+                  <p>{{failureMessage}}</p>
+              </div>
+            }
 
           <p class="font-semibold text-md mb-2">Telefone</p>
           <input type="tel" maxlength="15" (input)="handleInput($event, phoneMask)"
             class="border-gray-400 mb-5 rounded-lg border placeholder:text-gray-400 overflow-hidden h-10 px-3 transition w-full focus:border-mm focus:shadow-xl focus:shadow-mm-shadow hover:border-mm"
             [class.border-red-500]="telefone?.invalid && telefone?.touched" placeholder="(00) 90000-0000"
             formControlName="telefone" />
-          <div *ngIf="telefone?.invalid && telefone?.touched" class="text-red-500 text-sm -mt-4 mb-5">
-            <p *ngIf="telefone?.errors?.['required']">O telefone é obrigatório.</p>
-            <p *ngIf="telefone?.errors?.['telefoneInvalido']">Telefone inválido.</p>
-          </div>
+            @if(!checkForErrors(telefone!, 'telefone')){
+              <div class="text-red-500 text-sm -mt-4 mb-5">
+                <p>{{failureMessage}}</p>
+              </div>
+            } 
         </div>
       </div>
       <div class="flex justify-center mt-5">
@@ -136,18 +160,19 @@
         </button>
       </div>
     </div>
-  </div>
 </form>
 
 @if (mostrarModal) {
   <div
     class="fixed inset-0 z-50 flex justify-center items-center overflow-y-auto bg-black/50 py-20"
+    onkeypress=""
     (click)="fecharModal()"
   >
     <div
       class="bg-gradient-to-br from-white to-[#ccc] p-8 rounded-3xl shadow-xl w-min min-w-lg relative"
+      onkeypress=""
       (click)="$event.stopPropagation()"
-    >
+      >
       <button
         (click)="fecharModal()"
         class="absolute top-4 left-4 text-gray-200 hover:text-red-500 text-3xl cursor-pointer hover:font-bold transition">

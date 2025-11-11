@@ -49,8 +49,12 @@ export class LoginService {
     };
 
     return this.http.post<{ token: string }>(`${this.apiUrl}/login`, credentials).pipe(
-      tap(response => {
-        localStorage.setItem(AUTH_TOKEN_KEY, response.token);
+      tap((response) => {
+
+        if(response && response.token){
+          
+          localStorage.setItem(AUTH_TOKEN_KEY, response.token);
+        }
       })
     );
   }

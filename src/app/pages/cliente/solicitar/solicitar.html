@@ -3,25 +3,23 @@
         <h1 class="text-gray-800 font-medium text-4xl mb-6 poppins">
             Solicitar Manutenção
         </h1>
-
         <div class="flex-col gap-3">
             <p class="font-semibold text-md mb-2">Descrição do Equipamento</p>
             <input
-                [(ngModel)]="solicitacao.equipamento"
+                [(ngModel)]="solicitacao.descricaoEquipamento"
                 #descricaoEquipamento="ngModel"
                 type="text"
-                [class.border-red-500]="formSubmitted && !solicitacao.equipamento"
-                [class.border-gray-400]="!(formSubmitted && !solicitacao.equipamento)"
-                [class.focus:border-mm]="!(formSubmitted && !solicitacao.equipamento)"
-                [class.hover:border-mm]="!(formSubmitted && !solicitacao.equipamento)"
+                [class.border-red-500]="formSubmitted && !solicitacao.descricaoEquipamento"
+                [class.border-gray-400]="!(formSubmitted && !solicitacao.descricaoEquipamento)"
+                [class.focus:border-mm]="!(formSubmitted && !solicitacao.descricaoEquipamento)"
+                [class.hover:border-mm]="!(formSubmitted && !solicitacao.descricaoEquipamento)"
                 class="mb-1 rounded-lg border placeholder:text-gray-400 overflow-hidden h-10 px-3 transition w-full focus:shadow-xl focus:shadow-mm-shadow"
                 placeholder="Ex: Notebook Dell Inspiron 15 3000"
                 required
             />
-            @if(formSubmitted && !solicitacao.equipamento){
+            @if(formSubmitted && !solicitacao.descricaoEquipamento){
               <p class="text-red-500 text-sm mb-4">Este campo é obrigatório.</p>
             }
-
             <p class="font-semibold text-md mb-2">Categoria</p>
             <select
                 [(ngModel)]="solicitacao.categoria"
@@ -40,30 +38,26 @@
             @if(formSubmitted && !solicitacao.categoria){
               <p class="text-red-500 text-sm mb-4">Este campo é obrigatório.</p>
             }
-
-
             <p class="font-semibold text-md mb-2">Qual o defeito?</p>
             <textarea
                 id="defeito" rows="4"
-                [class.border-red-500]="formSubmitted && !solicitacao.defeito"
-                [class.border-gray-400]="!(formSubmitted && !solicitacao.defeito)"
-                [class.focus:border-mm]="!(formSubmitted && !solicitacao.defeito)"
-                [class.hover:border-mm]="!(formSubmitted && !solicitacao.defeito)"
+                [class.border-red-500]="formSubmitted && !solicitacao.descricaoDefeito"
+                [class.border-gray-400]="!(formSubmitted && !solicitacao.descricaoDefeito)"
+                [class.focus:border-mm]="!(formSubmitted && !solicitacao.descricaoDefeito)"
+                [class.hover:border-mm]="!(formSubmitted && !solicitacao.descricaoDefeito)"
                 class="mb-1 rounded-lg border placeholder:text-gray-400 overflow-hidden p-3 transition w-full focus:shadow-xl focus:shadow-mm-shadow"
                 placeholder="Descreva o problema do seu equipamento..."
-                [(ngModel)]="solicitacao.defeito"
+                [(ngModel)]="solicitacao.descricaoDefeito"
                 #defeito="ngModel"
             ></textarea>
-            @if(formSubmitted && !solicitacao.defeito){
+            @if(formSubmitted && !solicitacao.descricaoDefeito){
               <p class="text-red-500 text-sm mb-4">Este campo é obrigatório.</p>
             }
-
-
             <div class="flex justify-center mt-5">
                 <button
                     class="bg-mm h-[50px] w-[60%] rounded-xl transition font-regular text-white text-lg cursor-pointer hover:shadow-xl hover:shadow-mm-shadow hover:bg-mm-dark hover:scale-[102%] active:scale-95"
                     (click)="realizarSolicitacao()"
-                    [routerLink]="!formSubmitted ? null : (solicitacao.equipamento && solicitacao.categoria && solicitacao.defeito) ? ['/cliente/'] : null"
+                    [routerLink]="!formSubmitted ? null : (solicitacao.descricaoEquipamento && solicitacao.categoria && solicitacao.descricaoDefeito) ? ['/cliente/'] : null"
                     >
                     Solicitar
                 </button>
@@ -71,7 +65,8 @@
         </div>
     </div>
 </div>
-
-@if(modalSolicitacaoCriada){
-<app-modais-confirmacao [tipoModalSolicitacao]="'solicitacaoCriada'"></app-modais-confirmacao>
-}
+<app-modais-confirmacao 
+  *ngIf="modalSolicitacaoCriada"
+  tipoModalSolicitacao="solicitacaoCriada"
+  (fechar)="fecharModalSolicitacao()">
+</app-modais-confirmacao>

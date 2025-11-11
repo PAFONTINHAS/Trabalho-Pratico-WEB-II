@@ -24,7 +24,8 @@ export class VisualizarSolicitacoes implements OnInit{
   carregarSolicitacoes(){
     this.solicitacaoService.listarTodos().subscribe({
       next: (data) =>{
-        this.solicitacoes = data;
+        this.solicitacoesFiltradas = data;
+        console.log(data);
       },
       error: (e) => {
 
@@ -54,7 +55,7 @@ export class VisualizarSolicitacoes implements OnInit{
 
         this.solicitacoesFiltradas = this.solicitacoes.filter(s => {
           
-          const dataDaSolicitacao = this.parsearDataString(s.dataSolicitacao);
+          const dataDaSolicitacao = this.parsearDataString(s.dataHoraAbertura);
           dataDaSolicitacao.setHours(0, 0, 0, 0);
           
           const resultado = dataDaSolicitacao.getTime() === hoje.getTime();
@@ -98,7 +99,7 @@ export class VisualizarSolicitacoes implements OnInit{
       fim.setHours(23, 59, 59, 999);
 
       this.solicitacoesFiltradas = this.solicitacoes.filter(s => {
-        const dataDaSolicitacao = this.parsearDataString(s.dataSolicitacao);
+        const dataDaSolicitacao = this.parsearDataString(s.dataHoraAbertura);
         
         const resultado = dataDaSolicitacao >= inicio && dataDaSolicitacao <= fim;
         

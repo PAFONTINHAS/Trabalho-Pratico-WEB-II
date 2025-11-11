@@ -8,52 +8,52 @@ export const solicitacoes: Solicitacao[] = [
   // 4 solicitações ABERTAS
 
   {
-    id: 1,
+    idSolicitacao: 1,
     cliente: clientes[0],
     funcionario: funcionarios[0],
-    equipamento: 'Notebook Dell XPS 13',
-    defeito: 'Luzes piscando',
+    descricaoEquipamento: 'Notebook Dell XPS 13',
+    descricaoDefeito: 'Luzes piscando',
     categoria: Categorias[0],
-    dataSolicitacao: '10/09/2025 - 09:30',
+    dataHoraAbertura: '10/09/2025 - 09:30',
     status: Status.Aberta,
     historicoStatus: [
       { data: '10/09/2025', hora: '09:30', status: Status.Aberta },
     ],
   },
   {
-    id: 2,
+    idSolicitacao: 2,
     cliente: clientes[1],
     funcionario: funcionarios[1],
-    equipamento: 'Desktop HP Pavilion',
-    defeito: 'Não liga',
+    descricaoEquipamento: 'Desktop HP Pavilion',
+    descricaoDefeito: 'Não liga',
     categoria: Categorias[1],
-    dataSolicitacao: '10/09/2025 - 11:45',
+    dataHoraAbertura: '10/09/2025 - 11:45',
     status: Status.Aberta,
     historicoStatus: [
       { data: '10/09/2025', hora: '11:45', status: Status.Aberta },
     ],
   },
   {
-    id: 3,
+    idSolicitacao: 3,
     cliente: clientes[2],
     funcionario: funcionarios[0],
-    equipamento: 'Impressora Epson EcoTank',
-    defeito: 'Atolando papel',
+    descricaoEquipamento: 'Impressora Epson EcoTank',
+    descricaoDefeito: 'Atolando papel',
     categoria: Categorias[2],
-    dataSolicitacao: '11/09/2025 - 14:00',
+    dataHoraAbertura: '11/09/2025 - 14:00',
     status: Status.Aberta,
     historicoStatus: [
       { data: '11/09/2025', hora: '14:00', status: Status.Aberta },
     ],
   },
   {
-    id: 4,
+    idSolicitacao: 4,
     cliente: clientes[3],
     funcionario: funcionarios[1],
-    equipamento: 'Mouse Logitech MX Master',
-    defeito: 'Botão direito falhando',
+    descricaoEquipamento: 'Mouse Logitech MX Master',
+    descricaoDefeito: 'Botão direito falhando',
     categoria: Categorias[3],
-    dataSolicitacao: '11/09/2025 - 16:20',
+    dataHoraAbertura: '11/09/2025 - 16:20',
     status: Status.Aberta,
     historicoStatus: [
       { data: '11/09/2025', hora: '16:20', status: Status.Aberta },
@@ -62,13 +62,13 @@ export const solicitacoes: Solicitacao[] = [
 
   // 3 solicitações ORÇADAS
   {
-    id: 5,
+    idSolicitacao: 5,
     cliente: clientes[0],
     funcionario: funcionarios[0],
-    equipamento: 'Teclado Redragon',
-    defeito: 'Algumas teclas não respondem',
+    descricaoEquipamento: 'Teclado Redragon',
+    descricaoDefeito: 'Algumas teclas não respondem',
     categoria: Categorias[4],
-    dataSolicitacao: '12/09/2025 - 10:10',
+    dataHoraAbertura: '12/09/2025 - 10:10',
     status: Status.Orcada,
     valorOrcamento: 150.0,
     historicoStatus: [
@@ -77,13 +77,13 @@ export const solicitacoes: Solicitacao[] = [
     ],
   },
   // {
-  //   id: 6,
+  //   idSolicitacao: 6,
   //   cliente: clientes[1],
   //   funcionario: funcionarios[1],
-  //   equipamento: 'Notebook Acer Aspire',
-  //   defeito: 'Tela com listras horizontais',
+  //   descricaoEquipamento: 'Notebook Acer Aspire',
+  //   descricaoDefeito: 'Tela com listras horizontais',
   //   categoria: Categorias.Notebook,
-  //   dataSolicitacao: '12/09/2025 - 12:30',
+  //   dataHoraAbertura: '12/09/2025 - 12:30',
   //   status: Status.Orcada,
   //   valorOrcamento: 450.0,
   //   historicoStatus: [
@@ -92,13 +92,13 @@ export const solicitacoes: Solicitacao[] = [
   //   ],
   // },
   // {
-  //   id: 7,
+  //   idSolicitacao: 7,
   //   cliente: clientes[2],
   //   funcionario: funcionarios[0],
-  //   equipamento: 'Desktop Alienware',
-  //   defeito: 'Superaquecimento',
+  //   descricaoEquipamento: 'Desktop Alienware',
+  //   descricaoDefeito: 'Superaquecimento',
   //   categoria: Categorias.Desktop,
-  //   dataSolicitacao: '13/09/2025 - 15:00',
+  //   dataHoraAbertura: '13/09/2025 - 15:00',
   //   status: Status.Orcada,
   //   valorOrcamento: 600.0,
   //   historicoStatus: [
@@ -109,13 +109,13 @@ export const solicitacoes: Solicitacao[] = [
 
   // // 3 solicitações APROVADAS
   // {
-  //   id: 8,
+  //   idSolicitacao: 8,
   //   cliente: clientes[3],
   //   funcionario: funcionarios[1],
-  //   equipamento: 'Impressora HP Laserjet',
-  //   defeito: 'Manchas na impressão',
+  //   descricaoEquipamento: 'Impressora HP Laserjet',
+  //   descricaoDefeito: 'Manchas na impressão',
   //   categoria: Categorias.Impressora,
-  //   dataSolicitacao: '13/09/2025 - 17:30',
+  //   dataHoraAbertura: '13/09/2025 - 17:30',
   //   status: Status.Aprovada,
   //   valorOrcamento: 250.0,
   //   historicoStatus: [
@@ -125,13 +125,13 @@ export const solicitacoes: Solicitacao[] = [
   //   ],
   // },
   // {
-  //   id: 9,
+  //   idSolicitacao: 9,
   //   cliente: clientes[0],
   //   funcionario: funcionarios[0],
-  //   equipamento: 'Mouse Razer Deathadder',
-  //   defeito: 'Sensor com falhas',
+  //   descricaoEquipamento: 'Mouse Razer Deathadder',
+  //   descricaoDefeito: 'Sensor com falhas',
   //   categoria: Categorias.Mouse,
-  //   dataSolicitacao: '14/09/2025 - 08:00',
+  //   dataHoraAbertura: '14/09/2025 - 08:00',
   //   status: Status.Aprovada,
   //   valorOrcamento: 120.0,
   //   historicoStatus: [
@@ -141,13 +141,13 @@ export const solicitacoes: Solicitacao[] = [
   //   ],
   // },
   // {
-  //   id: 10,
+  //   idSolicitacao: 10,
   //   cliente: clientes[1],
   //   funcionario: funcionarios[1],
-  //   equipamento: 'Teclado Mecânico HyperX',
-  //   defeito: 'Botão de espaço emperrado',
+  //   descricaoEquipamento: 'Teclado Mecânico HyperX',
+  //   descricaoDefeito: 'Botão de espaço emperrado',
   //   categoria: Categorias.Teclado,
-  //   dataSolicitacao: '14/09/2025 - 10:40',
+  //   dataHoraAbertura: '14/09/2025 - 10:40',
   //   status: Status.Aprovada,
   //   valorOrcamento: 300.0,
   //   historicoStatus: [
@@ -159,13 +159,13 @@ export const solicitacoes: Solicitacao[] = [
 
   // // 3 solicitações REJEITADAS para o RF003c
   // {
-  //   id: 11,
+  //   idSolicitacao: 11,
   //   cliente: clientes[2],
   //   funcionario: funcionarios[0],
-  //   equipamento: 'Notebook Apple MacBook Pro',
-  //   defeito: 'Problema na bateria',
+  //   descricaoEquipamento: 'Notebook Apple MacBook Pro',
+  //   descricaoDefeito: 'Problema na bateria',
   //   categoria: Categorias.Notebook,
-  //   dataSolicitacao: '15/09/2025 - 13:00',
+  //   dataHoraAbertura: '15/09/2025 - 13:00',
   //   status: Status.Rejeitada,
   //   valorOrcamento: 800.0,
   //   historicoStatus: [
@@ -175,13 +175,13 @@ export const solicitacoes: Solicitacao[] = [
   //   ],
   // },
   // {
-  //   id: 12,
+  //   idSolicitacao: 12,
   //   cliente: clientes[3],
   //   funcionario: funcionarios[1],
-  //   equipamento: 'Desktop Lenovo Ideacentre',
-  //   defeito: 'Não dá boot',
+  //   descricaoEquipamento: 'Desktop Lenovo Ideacentre',
+  //   descricaoDefeito: 'Não dá boot',
   //   categoria: Categorias.Desktop,
-  //   dataSolicitacao: '15/09/2025 - 14:50',
+  //   dataHoraAbertura: '15/09/2025 - 14:50',
   //   status: Status.Rejeitada,
   //   valorOrcamento: 400.0,
   //   historicoStatus: [
@@ -191,13 +191,13 @@ export const solicitacoes: Solicitacao[] = [
   //   ],
   // },
   // {
-  //   id: 13,
+  //   idSolicitacao: 13,
   //   cliente: clientes[0],
   //   funcionario: funcionarios[0],
-  //   equipamento: 'Impressora Brother',
-  //   defeito: 'Não reconhece cartucho',
+  //   descricaoEquipamento: 'Impressora Brother',
+  //   descricaoDefeito: 'Não reconhece cartucho',
   //   categoria: Categorias.Impressora,
-  //   dataSolicitacao: '16/09/2025 - 09:00',
+  //   dataHoraAbertura: '16/09/2025 - 09:00',
   //   status: Status.Rejeitada,
   //   valorOrcamento: 180.0,
   //   historicoStatus: [
@@ -209,13 +209,13 @@ export const solicitacoes: Solicitacao[] = [
 
   // // 3 solicitações ARRUMADAS para o RF003d
   // {
-  //   id: 14,
+  //   idSolicitacao: 14,
   //   cliente: clientes[1],
   //   funcionario: funcionarios[1],
-  //   equipamento: 'Mouse Corsair',
-  //   defeito: 'Scroll quebrado',
+  //   descricaoEquipamento: 'Mouse Corsair',
+  //   descricaoDefeito: 'Scroll quebrado',
   //   categoria: Categorias.Mouse,
-  //   dataSolicitacao: '16/09/2025 - 11:20',
+  //   dataHoraAbertura: '16/09/2025 - 11:20',
   //   status: Status.Arrumada,
   //   valorOrcamento: 90.0,
   //   historicoStatus: [
@@ -226,13 +226,13 @@ export const solicitacoes: Solicitacao[] = [
   //   ],
   // },
   // {
-  //   id: 15,
+  //   idSolicitacao: 15,
   //   cliente: clientes[2],
   //   funcionario: funcionarios[0],
-  //   equipamento: 'Teclado Ducky One 2',
-  //   defeito: 'LEDs com defeito',
+  //   descricaoEquipamento: 'Teclado Ducky One 2',
+  //   descricaoDefeito: 'LEDs com defeito',
   //   categoria: Categorias.Teclado,
-  //   dataSolicitacao: '17/09/2025 - 14:00',
+  //   dataHoraAbertura: '17/09/2025 - 14:00',
   //   status: Status.Arrumada,
   //   valorOrcamento: 220.0,
   //   historicoStatus: [
@@ -243,13 +243,13 @@ export const solicitacoes: Solicitacao[] = [
   //   ],
   // },
   // {
-  //   id: 16,
+  //   idSolicitacao: 16,
   //   cliente: clientes[3],
   //   funcionario: funcionarios[1],
-  //   equipamento: 'Notebook HP Spectre',
-  //   defeito: 'Porta USB não funciona',
+  //   descricaoEquipamento: 'Notebook HP Spectre',
+  //   descricaoDefeito: 'Porta USB não funciona',
   //   categoria: Categorias.Notebook,
-  //   dataSolicitacao: '17/09/2025 - 16:30',
+  //   dataHoraAbertura: '17/09/2025 - 16:30',
   //   status: Status.Arrumada,
   //   valorOrcamento: 350.0,
   //   historicoStatus: [
@@ -262,13 +262,13 @@ export const solicitacoes: Solicitacao[] = [
 
   // // 2 solicitações REDIRECIONADAS para o RF015
   // {
-  //   id: 17,
+  //   idSolicitacao: 17,
   //   cliente: clientes[0],
   //   funcionario: funcionarios[0],
-  //   equipamento: 'Desktop Custom',
-  //   defeito: 'Problema na fonte de energia',
+  //   descricaoEquipamento: 'Desktop Custom',
+  //   descricaoDefeito: 'Problema na fonte de energia',
   //   categoria: Categorias.Desktop,
-  //   dataSolicitacao: '18/09/2025 - 10:00',
+  //   dataHoraAbertura: '18/09/2025 - 10:00',
   //   status: Status.Redirecionada,
   //   valorOrcamento: 500.0,
   //   historicoStatus: [
@@ -279,13 +279,13 @@ export const solicitacoes: Solicitacao[] = [
   //   ],
   // },
   // {
-  //   id: 18,
+  //   idSolicitacao: 18,
   //   cliente: clientes[1],
   //   funcionario: funcionarios[1],
-  //   equipamento: 'Impressora Canon',
-  //   defeito: 'Não imprime cores',
+  //   descricaoEquipamento: 'Impressora Canon',
+  //   descricaoDefeito: 'Não imprime cores',
   //   categoria: Categorias.Impressora,
-  //   dataSolicitacao: '18/09/2025 - 12:00',
+  //   dataHoraAbertura: '18/09/2025 - 12:00',
   //   status: Status.Redirecionada,
   //   valorOrcamento: 200.0,
   //   historicoStatus: [
@@ -298,13 +298,13 @@ export const solicitacoes: Solicitacao[] = [
 
   // // 2 solicitações PAGAS
   // {
-  //   id: 19,
+  //   idSolicitacao: 19,
   //   cliente: clientes[2],
   //   funcionario: funcionarios[0],
-  //   equipamento: 'Mouse Multilaser',
-  //   defeito: 'Clique duplo',
+  //   descricaoEquipamento: 'Mouse Multilaser',
+  //   descricaoDefeito: 'Clique duplo',
   //   categoria: Categorias.Mouse,
-  //   dataSolicitacao: '19/09/2025 - 15:00',
+  //   dataHoraAbertura: '19/09/2025 - 15:00',
   //   status: Status.Paga,
   //   valorOrcamento: 80.0,
   //   historicoStatus: [
@@ -316,13 +316,13 @@ export const solicitacoes: Solicitacao[] = [
   //   ],
   // },
   // {
-  //   id: 20,
+  //   idSolicitacao: 20,
   //   cliente: clientes[3],
   //   funcionario: funcionarios[1],
-  //   equipamento: 'Teclado Razer Huntsman',
-  //   defeito: 'Teclas presas',
+  //   descricaoEquipamento: 'Teclado Razer Huntsman',
+  //   descricaoDefeito: 'Teclas presas',
   //   categoria: Categorias.Teclado,
-  //   dataSolicitacao: '20/09/2025 - 11:00',
+  //   dataHoraAbertura: '20/09/2025 - 11:00',
   //   status: Status.Paga,
   //   valorOrcamento: 400.0,
   //   historicoStatus: [

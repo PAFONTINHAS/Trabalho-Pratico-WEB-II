@@ -23,7 +23,12 @@ export class CategoriaComponent implements OnInit, OnDestroy {
   formVisivel = false;
   editando = false;
 
-  categoria: Categoria = {
+  // PROPRIEDADES ADICIONADAS PARA O MODAL
+  modalRemocaoAberto: boolean = false;
+  categoriaParaRemover: Categoria | null = null;
+  // ------------------------------------
+
+  categoria: Categoria = { // Assegure-se de usar a interface correta
     id: 0,
     nome: ''
   }
@@ -89,15 +94,44 @@ export class CategoriaComponent implements OnInit, OnDestroy {
     this.categoria = {...categoria}
   }
 
-  remover($event: any, categoria: Categoria): void {
+  /**
+   * @description Abre o modal de confirmação de remoção.
+   * @param $event O evento de clique.
+   * @param categoria O objeto Categoria a ser removido.
+   */
+  abrirModalRemocao($event: Event, categoria: Categoria): void {
     $event.preventDefault();
-    if (confirm(`Deseja realmente remover a categoria ${categoria.nome}?`)) {
-      this.categoriaService.remover(categoria.id!).subscribe({
-        next: () => {
-          this.carregarCategorias(); 
-        },
-        error: (e) => console.error('Erro ao remover categoria', e)
-      });
+    this.categoriaParaRemover = categoria;
+    this.modalRemocaoAberto = true;
+  }
+
+  /**
+   * @description Fecha o modal de confirmação de remoção.
+   */
+  fecharModalRemocao(): void {
+    this.modalRemocaoAberto = false;
+    this.categoriaParaRemover = null;
+    this.carregarCategorias(); // Recarrega a lista para atualizar a tabela após fechar o modal (mesmo que a remoção falhe)
+  }
+  
+  /**
+   * @description Executa a remoção da categoria confirmada pelo modal.
+   */
+  removerCategoriaConfirmada(): void {
+    if (!this.categoriaParaRemover || !this.categoriaParaRemover.id) {
+      this.fecharModalRemocao();
+      return;
     }
+    
+    this.categoriaService.remover(this.categoriaParaRemover.id).subscribe({
+      next: () => {
+        this.carregarCategorias(); 
+        this.fecharModalRemocao();
+      },
+      error: (e) => {
+        console.error('Erro ao remover categoria', e);
+        this.fecharModalRemocao();
+      }
+    });
   }
 }

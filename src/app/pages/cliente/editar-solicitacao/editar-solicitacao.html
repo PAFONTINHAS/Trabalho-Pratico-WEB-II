@@ -1,5 +1,4 @@
 @if(solicitacao){
-
 <main>
   <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/50" (click)="onfecharModal()">
     <div
@@ -12,17 +11,15 @@
       <h1 class="text-gray-800 mt-2 text-center font-medium text-3xl mb-6 poppins">
         Editar Manutenção
       </h1>
-
        <div class="flex-col gap-3">
        <p class="font-semibold text-md mb-2">Descrição do Equipamento</p>
         <input
-          [(ngModel)]="solicitacao.equipamento"
+          [(ngModel)]="solicitacao.descricaoEquipamento"
           type="text"
           class="border-gray-400 mb-5 rounded-lg border placeholder:text-gray-400 overflow-hidden h-10 px-3 transition w-full focus:border-mm focus:shadow-xl focus:shadow-mm-shadow hover:border-mm"
           placeholder="Ex: Notebook Dell Inspiron 15 3000"
           required
         />
-
           <p class="font-semibold text-md mb-2">Categoria</p>
           <select
               [(ngModel)]="solicitacao.categoria"
@@ -34,16 +31,14 @@
               <option [ngValue]="categoria">{{categoria.nome}}</option>
               }
           </select>
-
         <p class="font-semibold text-md mb-2">Qual o defeito?</p>
         <textarea
-          [(ngModel)]="solicitacao.defeito"
+          [(ngModel)]="solicitacao.descricaoDefeito"
           id="defeito"
           rows="4"
           class="border-gray-400 mb-3 rounded-lg border placeholder:text-gray-400 overflow-hidden p-3 transition w-full focus:border-mm focus:shadow-xl focus:shadow-mm-shadow hover:border-mm"
           placeholder="Descreva o problema do seu equipamento..."
         ></textarea>
-
         <div class="flex justify-center mt-3">
           <button
             class="bg-gray-500 text-center hover:bg-gray-600 font-regular text-md h-[46px] mr-3 cursor-pointer rounded-xl px-4 text-white transition hover:scale-[102%] hover:shadow-xl active:scale-95"
@@ -51,15 +46,12 @@
           >
             Cancelar
           </button>
-
           <button
             class="bg-mm text-center hover:bg-mm-dark font-regular text-md h-[46px] mr-3 cursor-pointer rounded-xl px-4 text-white transition hover:scale-[102%] hover:shadow-xl active:scale-95"
             (click)="fecharApenasSubModal()"
-
           >
             Editar
           </button>
-
         </div>
       </div>
     </div>

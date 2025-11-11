@@ -36,9 +36,9 @@ export class DeletarSolicitacao {
   }
   
   deletarSolicitacao(){
-    if(this.solicitacao?.id === null) return;
+    if(this.solicitacao?.idSolicitacao === null) return;
     
-    const id_solicitacao = this.solicitacao?.id as number;
+    const id_solicitacao = this.solicitacao?.idSolicitacao as number;
 
     console.log(id_solicitacao);
 

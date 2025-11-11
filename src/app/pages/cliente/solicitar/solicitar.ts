@@ -28,6 +28,10 @@ export class Solicitar implements OnInit{
 
 
   modalSolicitacaoCriada:boolean = false;
+  
+  fecharModalSolicitacao(): void {
+    this.modalSolicitacaoCriada = false;
+  }
 
   ngOnInit(): void {
     this.carregarCategorias();
@@ -53,92 +57,51 @@ export class Solicitar implements OnInit{
   
   formSubmitted: boolean = false;
 
-    solicitacao = {
-      cliente: clientes[0],
-      status: Status.Aberta,
-      funcionario: null,
-      defeito: "",
-      equipamento: "",
-      historicoStatus: [],
-      categoria: null,
-      dataSolicitacao: ""
-
-    };
+  solicitacao = {
+    cliente: clientes[0],
+    status: Status.Aberta,
+    funcionario: null,
+    descricaoDefeito: "",  // mudou de defeito
+    descricaoEquipamento: "",  // mudou de equipamento
+    historicoStatus: [],
+    categoria: null,
+    dataHoraAbertura: ""  // mudou de dataSolicitacao
+  };
     
-    validateForm(): boolean {
-      this.formSubmitted = true;
-      let isValid = true;
+  validateForm(): boolean {
+    this.formSubmitted = true;
+    let isValid = true;
 
-      if (!this.solicitacao.equipamento || this.solicitacao.equipamento.trim() === "") {
-          isValid = false;
-      }
-      
-      if (!this.solicitacao.categoria) {
-          isValid = false;
-      }
+    if (!this.solicitacao.descricaoEquipamento || this.solicitacao.descricaoEquipamento.trim() === "") {
+        isValid = false;
+    }
+    
+    if (!this.solicitacao.categoria) {
+        isValid = false;
+    }
 
-      if (!this.solicitacao.defeito || this.solicitacao.defeito.trim() === "") {
-          isValid = false;
-      }
+    if (!this.solicitacao.descricaoDefeito || this.solicitacao.descricaoDefeito.trim() === "") {
+        isValid = false;
+    }
 
-      return isValid;
+    return isValid;
   }
 
-    realizarSolicitacao(){
-      
-      if (!this.validateForm()) {
-          return;
-      }
+  realizarSolicitacao(){
+    if (!this.validateForm()) {
+        return;
+    }
 
-      const dataSolicitacao: string = converterDataParaString();
-      const novaSolicitacao: Solicitacao = this.solicitacao;
+    const dataAtual = new Date().toLocaleDateString("en-GB", { hour: '2-digit', minute: '2-digit', second: '2-digit',}) ;
+    const dataFormatada = dataAtual.replace(",", "");
+    const novaSolicitacao: Solicitacao = this.solicitacao;
 
-      novaSolicitacao.dataSolicitacao = dataSolicitacao;
+    novaSolicitacao.dataHoraAbertura = dataFormatada;  // mudou de dataSolicitacao
 
-      this.solicitacaoService.inserir(novaSolicitacao);
-      this.solicitacaoService.listarTodos();
-      
-      this.modalSolicitacaoCriada = true;
+    this.solicitacaoService.inserir(novaSolicitacao).subscribe((data) => console.log(data));
+    this.solicitacaoService.listarTodos();
+    
+    this.modalSolicitacaoCriada = true;
   }
 }
 
-export function converterDataParaString() : string{
-  const dia = zeroAEsquerda( new Date().getDate());
-  const mes = zeroAEsquerda( new Date().getMonth() + 1);
-  const ano = zeroAEsquerda( new Date().getFullYear());
-
-  const horas = zeroAEsquerda( new Date().getHours());
-  const minutos = zeroAEsquerda( new Date().getMinutes());
-
-  return `${dia}/${mes}/${ano} - ${horas}:${minutos}`;
-  
-}
-
-export function pegarDataFormatada(opcao: String) : string{
-
-  if(opcao === "data"){
-
-    const dia = zeroAEsquerda( new Date().getDate());
-    const mes = zeroAEsquerda( new Date().getMonth() + 1) ;
-    const ano = zeroAEsquerda( new Date().getFullYear());
-
-    return `${dia}/${mes}/${ano}`
-  }
-
-  if(opcao === "hora"){
-
-    const horas = zeroAEsquerda( new Date().getHours());
-    const minutos = zeroAEsquerda( new Date().getMinutes());
-
-    return `${horas}:${minutos}`;
-
-  }
-  
-  return '';
-}
-
-function zeroAEsquerda (numero : number){
-  
-  return String(numero).padStart(2, '0');
-
-}

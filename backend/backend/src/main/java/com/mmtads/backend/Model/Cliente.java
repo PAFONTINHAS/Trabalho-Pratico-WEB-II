@@ -3,40 +3,19 @@ package com.mmtads.backend.Model;
 import jakarta.persistence.*;
 
 @Entity
-public class Cliente {
-
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+@PrimaryKeyJoinColumn(name="usuario_id")
+@Table(name = "cliente")
+public class Cliente extends Usuario{
 
   @Column(nullable = false)
   private String cpf;
 
   @Column(nullable = false)
-  private String endereco;
-
-  @Column(nullable = false)
   private String telefone;
 
   @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "usuario_id", referencedColumnName = "id")
-    private Usuario usuario;
-
-  public Long getId() {
-    return id;
-  }
-
-  public void setId(Long id) {
-    this.id = id;
-  }
-
-  public Usuario getUsuario() {
-    return usuario;
-  }
-
-  public void setUsuario(Usuario usuario) {
-    this.usuario = usuario;
-  }
+  @JoinColumn(name = "endereco", referencedColumnName = "id_endereco")
+  private Endereco endereco;
 
   public String getCpf() {
     return cpf;
@@ -46,11 +25,11 @@ public class Cliente {
     this.cpf = cpf;
   }
 
-  public String getEndereco() {
+  public Endereco getEndereco() {
     return endereco;
   }
 
-  public void setEndereco(String endereco) {
+  public void setEndereco(Endereco endereco) {
     this.endereco = endereco;
   }
 
