@@ -36,8 +36,8 @@ export class RejeitarOrcamento {
 
     if(!this.solicitacao) return;
 
-    this.solicitacao.status = Status.Rejeitada
-    this.solicitacaoService.atualizar(this.solicitacao).subscribe();    
+    this.solicitacao.status = Status.Arrumada
+    this.solicitacaoService.atualizar(this.solicitacao);    
 
     this.confirmarRejeicaoServico();
   }

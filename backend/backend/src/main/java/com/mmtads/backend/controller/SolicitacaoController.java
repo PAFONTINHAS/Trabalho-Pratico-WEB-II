@@ -24,6 +24,7 @@ public class SolicitacaoController {
     @Autowired
     private FuncionarioRepository funcionarioRepo;
 
+    @Autowired
     private SolicitacaoRepository solicitacaoRepository;
 
     public SolicitacaoController(SolicitacaoRepository solicitacaoRepository) {
@@ -31,9 +32,14 @@ public class SolicitacaoController {
     }
 
     @GetMapping("/user/{email}")
-    public List<Solicitacao> listarTodas(@PathVariable String email) {
+    public List<Solicitacao> listarTodasFuncionario(@PathVariable String email) {
         Funcionario funci = this.funcionarioRepo.findByEmailAndIsDeleteFalse(email);
         return solicitacaoRepository.findByFuncionarioOrStatus(funci, Status.ABERTA);
+    }
+
+    @GetMapping()
+    public List<Solicitacao> listarTodas() {
+        return solicitacaoRepository.findAll();
     }
 
     @GetMapping("/{id}")
@@ -55,6 +61,18 @@ public class SolicitacaoController {
         if (!solicitacaoRepository.existsById(id)) {
             return ResponseEntity.notFound().build();
         }
+        solicitacao.setIdSolicitacao(id);
+        Solicitacao s = this.solicitacaoService.atualizarSolicitacao(solicitacao, id);
+        return ResponseEntity.ok(s);
+    }
+
+    @PutMapping("/{id}/user/{email}")
+    public ResponseEntity<Solicitacao> atualizarFuncionario(@PathVariable Long id, @PathVariable String email, @RequestBody SolicitacaoDto solicitacao) {
+        if (!solicitacaoRepository.existsById(id)) {
+            return ResponseEntity.notFound().build();
+        }
+        Funcionario funci = this.funcionarioRepo.findByEmailAndIsDeleteFalse(email);
+        solicitacao.setFuncionario(funci);
         solicitacao.setIdSolicitacao(id);
         Solicitacao s = this.solicitacaoService.atualizarSolicitacao(solicitacao, id);
         return ResponseEntity.ok(s);

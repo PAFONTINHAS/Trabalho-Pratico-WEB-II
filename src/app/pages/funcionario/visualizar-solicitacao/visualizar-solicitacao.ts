@@ -5,10 +5,11 @@ import { Solicitacao } from '../../../shared/entities/solicitacao_entity';
 import { Status } from '../../../shared/models/enums/status.enum';
 import { FormsModule } from '@angular/forms';
 import { SolicitacaoService } from '../../../services/solicitacao_service/solicitacao-service';
-import { funcionarios } from '../../../../assets/mock/funcionarios_mocks';
 import { HistoricoStatus } from '../../../shared/entities/historico_status_entity';
 import { Manutencao } from '../efetuar-manutencao/efetuar-manutencao';
 import { LoginService } from '../../../services/login-service/login';
+import { FuncionarioService } from '../../../services/funcionario-service/funcionario-service';
+import { Funcionario } from '../../../shared/entities/funcionario_entity';
 
 @Component({
   selector: 'app-visualizar-solicitacao',
@@ -22,11 +23,11 @@ export class VisualizarSolicitacao implements OnInit {
   @Output() fecharModal = new EventEmitter<void>();  
   @Output() operacaoConcluida = new EventEmitter<void>(); 
 
-  constructor(private solicitacaoService: SolicitacaoService) {}
+  constructor(private solicitacaoService: SolicitacaoService, private loginService: LoginService, private funcionarioService: FuncionarioService) {}
 
   public orcamento: string | null = null;
   public funcionarioResponsavel: any = null;
-  public funcionarios = funcionarios;
+  public funcionarios: Funcionario[] = [];
   public statusEnum = Status;
   public modalAberto = false;
 
@@ -35,7 +36,9 @@ export class VisualizarSolicitacao implements OnInit {
   public orcamentoSubmitted: boolean = false;
 
   ngOnInit(): void {
-    console.log(this.solicitacao?.cliente)
+    this.funcionarioService.listarTodos().subscribe((data) => {
+      this.funcionarios = data.filter((funci) => funci.email !== this.loginService.usuarioLogado?.email)
+    })
     if (this.solicitacao) {
       this.orcamento = this.solicitacao.orcamento ? this.solicitacao.orcamento.toString() : null;
       this.funcionarioResponsavel = this.solicitacao.funcionario || this.funcionarios[0];
@@ -62,14 +65,16 @@ export class VisualizarSolicitacao implements OnInit {
 
     if(!this.solicitacao) return;
     
-    const funcionario = funcionarios[numeroFuncionario];
+    const funcionario = this.funcionarios[numeroFuncionario];
 
     if(this.solicitacao.funcionario == funcionario) return;
 
     this.solicitacao.funcionario = funcionario;
 
     this.solicitacao.status = Status.Redirecionada
-    this.solicitacaoService.atualizar(this.solicitacao).subscribe();
+    const user = this.loginService.usuarioLogado
+    if(user)
+      this.solicitacaoService.atualizarFuncionario(this.solicitacao, user).subscribe();
 
     this.modalAberto = false;
   };
@@ -82,7 +87,9 @@ export class VisualizarSolicitacao implements OnInit {
       this.solicitacao.status = Status.Orcada
 
       console.log(this.solicitacao)
-      this.solicitacaoService.atualizar(this.solicitacao).subscribe(() => console.log("oie"));
+      const user = this.loginService.usuarioLogado
+      if(user)
+        this.solicitacaoService.atualizarFuncionario(this.solicitacao, user).subscribe(() => console.log("oie"));
 
       this.operacaoConcluida.emit();
     }
@@ -94,7 +101,9 @@ export class VisualizarSolicitacao implements OnInit {
     if (this.solicitacao) {
 
       this.solicitacao.status =  Status.Arrumada
-      this.solicitacaoService.atualizar(this.solicitacao).subscribe();
+      const user = this.loginService.usuarioLogado
+      if(user)
+        this.solicitacaoService.atualizarFuncionario(this.solicitacao, user).subscribe();
 
       this.operacaoConcluida.emit();
     }
@@ -104,7 +113,9 @@ export class VisualizarSolicitacao implements OnInit {
     if (this.solicitacao) {
 
       this.solicitacao.status = Status.Finalizada
-      this.solicitacaoService.atualizar(this.solicitacao).subscribe();
+      const user = this.loginService.usuarioLogado
+      if(user)
+        this.solicitacaoService.atualizarFuncionario(this.solicitacao, user).subscribe();
 
       this.operacaoConcluida.emit();
     }

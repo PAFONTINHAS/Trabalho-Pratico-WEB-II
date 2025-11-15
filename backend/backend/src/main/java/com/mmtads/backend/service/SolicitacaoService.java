@@ -1,5 +1,6 @@
 package com.mmtads.backend.service;
 
+import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -10,9 +11,11 @@ import org.springframework.stereotype.Service;
 
 import com.mmtads.backend.Model.Funcionario;
 import com.mmtads.backend.Model.Historico;
+import com.mmtads.backend.Model.Pagamento;
 import com.mmtads.backend.Model.Solicitacao;
 import com.mmtads.backend.Model.Status;
 import com.mmtads.backend.Repository.HistoricoRepository;
+import com.mmtads.backend.Repository.PagamentoRepository;
 import com.mmtads.backend.Repository.SolicitacaoRepository;
 import com.mmtads.backend.dto.SolicitacaoDto;
 
@@ -26,13 +29,19 @@ public class SolicitacaoService {
     @Autowired
     private SolicitacaoRepository solicitacaoRepository;
 
+    @Autowired
+    private PagamentoRepository pagamentoRepository;
+
     @Transactional
     public Solicitacao atualizarSolicitacao(SolicitacaoDto solicitacaoDto, Long id) {
         Solicitacao solicitacao = setarSolicitacao(solicitacaoDto, id);
 
         if(solicitacao.getStatus() == Status.REDIRECIONADA) {
             this.salvarHistorico(solicitacao, solicitacaoDto.getFuncionarioDestino());
+            solicitacao.setFuncionario(solicitacaoDto.getFuncionarioDestino());
         } else {
+            if(solicitacao.getStatus() == Status.PAGA)
+                this.salvarPagamento(solicitacao);
             this.salvarHistorico(solicitacao, null);
         }
 
@@ -58,6 +67,21 @@ public class SolicitacaoService {
         }
 
         this.historicoRepository.save(h);
+    }
+
+    private static BigDecimal converterBigDecimalDouble(Double valor) {
+        BigDecimal valorOrcamento = new BigDecimal(0);
+        valorOrcamento.valueOf(valor);
+        return valorOrcamento;
+    }
+
+    private void salvarPagamento(Solicitacao solicitacao) {
+        Pagamento p = new Pagamento();
+        p.setDataHora(new Date());
+        p.setSolicitacao(solicitacao);
+        BigDecimal valorOrcamento = converterBigDecimalDouble(solicitacao.getOrcamento());
+        p.setValor(valorOrcamento);
+        this.pagamentoRepository.save(p);
     }
 
     private Solicitacao setarSolicitacao(SolicitacaoDto solicitacaoDto, Long id) {

@@ -21,7 +21,7 @@ export class FuncionarioHomepage implements OnInit{
   carregarSolicitacoes(){
     const user = this.loginService.usuarioLogado
     if(user)
-    this.solicitacaoService.listarTodos(user).subscribe({
+    this.solicitacaoService.listarTodosFuncionario(user).subscribe({
       next: (data) =>{
         this.solicitacoes = data;
       },

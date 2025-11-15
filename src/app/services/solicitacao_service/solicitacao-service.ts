@@ -20,8 +20,13 @@ export class SolicitacaoService {
   //     localStorage[LS_CHAVE] = JSON.stringify(solicitacoesMock)
   //   }
   // }
-  listarTodos( usuario: Usuario): Observable<Solicitacao[]> {
+  listarTodosFuncionario( usuario: Usuario): Observable<Solicitacao[]> {
     const url = `${this.apiUrl}/user/${usuario.email}`;
+    return this.http.get<Solicitacao[]>(url);
+  }
+
+  listarTodos(): Observable<Solicitacao[]> {
+    const url = `${this.apiUrl}`;
     return this.http.get<Solicitacao[]>(url);
   }
   inserir(solicitacao: Solicitacao): Observable<Solicitacao> {
@@ -32,7 +37,6 @@ export class SolicitacaoService {
     return this.http.get<Solicitacao>(url);
   }
   atualizar(solicitacao: Solicitacao): Observable<Solicitacao> {
-    console.log(solicitacao)
     const url = `${this.apiUrl}/${solicitacao.idSolicitacao}`;
     return this.http.put<Solicitacao>(url, solicitacao);
   } 
@@ -40,9 +44,9 @@ export class SolicitacaoService {
     const url = `${this.apiUrl}/${id}`;
     return this.http.delete<void>(url);
   }
-  atualizarStatus( solicitacao: Solicitacao, status: Status): Observable<Solicitacao>{
-    const url = `${this.apiUrl}/${solicitacao.idSolicitacao}/status/${status}`;
-    return this.http.put<Solicitacao>(url, status);
+  atualizarFuncionario( solicitacao: Solicitacao,  usuario: Usuario): Observable<Solicitacao>{
+    const url = `${this.apiUrl}/${solicitacao.idSolicitacao}/user/${usuario.email}`;
+    return this.http.put<Solicitacao>(url, solicitacao);
   }
   // pegarDataFormatada(opcao: String) : string{
   

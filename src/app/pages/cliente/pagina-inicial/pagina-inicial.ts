@@ -26,7 +26,7 @@ export class PaginaInicial implements OnInit {
  carregarSolicitacoes() : void{
   const user = this.loginService.usuarioLogado
     if(user) {
-  this.solicitacaoService.listarTodos(user).subscribe({
+  this.solicitacaoService.listarTodos().subscribe({
     next: (data) => {
       console.log('📦 DADOS COMPLETOS:', JSON.stringify(data, null, 2));
       console.log('📋 PRIMEIRA SOLICITAÇÃO:', data[0]);
