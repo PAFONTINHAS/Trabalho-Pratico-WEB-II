@@ -28,7 +28,8 @@ export class Manutencao {
     efetuarManutencao(): void {
     if (this.solicitacao) {
 
-      this.solicitacaoService.atualizarStatus(this.solicitacao, Status.Arrumada);
+      this.solicitacao.status = Status.Arrumada
+      this.solicitacaoService.atualizar(this.solicitacao).subscribe();
 
       this.fecharModal.emit();
     }

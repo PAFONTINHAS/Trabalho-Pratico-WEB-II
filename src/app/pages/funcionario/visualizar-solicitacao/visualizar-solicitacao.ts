@@ -68,7 +68,8 @@ export class VisualizarSolicitacao implements OnInit {
 
     this.solicitacao.funcionario = funcionario;
 
-    this.solicitacaoService.atualizarStatus(this.solicitacao, Status.Redirecionada);
+    this.solicitacao.status = Status.Redirecionada
+    this.solicitacaoService.atualizar(this.solicitacao).subscribe();
 
     this.modalAberto = false;
   };
@@ -92,7 +93,8 @@ export class VisualizarSolicitacao implements OnInit {
   efetuarManutencao(): void {
     if (this.solicitacao) {
 
-      this.solicitacaoService.atualizarStatus(this.solicitacao, Status.Arrumada);
+      this.solicitacao.status =  Status.Arrumada
+      this.solicitacaoService.atualizar(this.solicitacao).subscribe();
 
       this.operacaoConcluida.emit();
     }
@@ -101,7 +103,8 @@ export class VisualizarSolicitacao implements OnInit {
   finalizarManutencao(): void {
     if (this.solicitacao) {
 
-      this.solicitacaoService.atualizarStatus(this.solicitacao, Status.Finalizada);
+      this.solicitacao.status = Status.Finalizada
+      this.solicitacaoService.atualizar(this.solicitacao).subscribe();
 
       this.operacaoConcluida.emit();
     }

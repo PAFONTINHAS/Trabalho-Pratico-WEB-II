@@ -54,23 +54,25 @@ export class VisualizarOrcamento {
   aprovarServico(){
     
     if(!this.solicitacao) return;
-
-    this.solicitacaoService.atualizarStatus(this.solicitacao, Status.Aprovada);
-
+    this.solicitacao.status = Status.Aprovada
+    console.log(this.solicitacao)
+    this.solicitacaoService.atualizar(this.solicitacao).subscribe();
   }
 
   rejeitarServico(){
 
     if(!this.solicitacao) return;
 
-    this.solicitacaoService.atualizarStatus(this.solicitacao, Status.Rejeitada);    
+    this.solicitacao.status = Status.Rejeitada
+    this.solicitacaoService.atualizar(this.solicitacao).subscribe();    
   }
 
   pagarServico(){
 
     if(!this.solicitacao) return;
 
-    this.solicitacaoService.atualizarStatus(this.solicitacao, Status.Paga);    
+    this.solicitacao.status = Status.Paga
+    this.solicitacaoService.atualizar(this.solicitacao).subscribe();    
 
   }
 
@@ -78,7 +80,8 @@ export class VisualizarOrcamento {
 
     if(!this.solicitacao) return;
 
-    this.solicitacaoService.atualizarStatus(this.solicitacao, Status.Aprovada);    
+    this.solicitacao.status = Status.Aprovada
+    this.solicitacaoService.atualizar(this.solicitacao).subscribe();    
 
   }
 
