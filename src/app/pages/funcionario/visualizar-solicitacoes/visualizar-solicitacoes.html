@@ -59,12 +59,12 @@
                           </td>
                           <td class=" border-t-2 border-gray-200 py-3 px-6 text-center">
                             @switch (solicitacao.status) {
-                                @case ('Aprovada') {
+                                @case ('APROVADA') {
                                 <button (click)="abrirModal(solicitacao)" class="bg-mm hover:bg-mm-dark h-[46px] w-full px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:shadow-mm-shadow hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap">
                                     Efetuar Manutenção
                                 </button>
                                 }
-                                @case ('Rejeitada') {
+                                @case ('REJEITADA') {
                                 <button (click)="abrirModal(solicitacao)" class="bg-gray-400 hover:bg-gray-500 h-[46px] w-full px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:shadow-gray-100 hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap">
                                     Ver Detalhes
                                 </button>
@@ -72,22 +72,22 @@
                                     <p class="text-danger text-sm text-center font-bold">Orçamento rejeitado</p>
                                 </div> -->
                                 }
-                                @case ('Redirecionada') {
+                                @case ('REDIRECIONADA') {
                                 <button (click)="abrirModal(solicitacao)" class="bg-mm hover:bg-mm-dark h-[46px] w-full px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:shadow-mm-shadow hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap">
                                     Efetuar Manutenção
                                 </button>
                                 }
-                                @case ('Paga') {
+                                @case ('PAGA') {
                                 <button (click)="abrirModal(solicitacao)" class="bg-mm hover:bg-mm-dark h-[46px] w-full px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:shadow-mm-shadow hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap">
                                     Finalizar Solicitação
                                 </button>
                                 }
-                                @case ('Orçada') {
+                                @case ('ORCADA') {
                                 <button (click)="abrirModal(solicitacao)" class="bg-gray-400 hover:bg-gray-500 h-[46px] w-full px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:shadow-gray-100 hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap">
                                     Ver Detalhes
                                 </button>
                                 }
-                                @case ('Arrumada') {
+                                @case ('ARRUMADA') {
                                 <button (click)="abrirModal(solicitacao)" class="bg-gray-400 hover:bg-gray-500 h-[46px] w-full px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:shadow-gray-100 hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap">
                                     Ver Detalhes
                                 </button>
@@ -95,7 +95,7 @@
                                     <p class="text-orange-600 text-center text-sm font-bold">Aguardando Pagamento</p>
                                 </div> -->
                                 }
-                                @case ('Finalizada') {
+                                @case ('FINALIZADA') {
                                 <button (click)="abrirModal(solicitacao)" class="bg-gray-400 hover:bg-gray-500 h-[46px] w-full px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:shadow-gray-100 hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap">
                                     Ver Detalhes
                                 </button>

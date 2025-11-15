@@ -8,6 +8,7 @@ import { SolicitacaoService } from '../../../services/solicitacao_service/solici
 import { funcionarios } from '../../../../assets/mock/funcionarios_mocks';
 import { HistoricoStatus } from '../../../shared/entities/historico_status_entity';
 import { Manutencao } from '../efetuar-manutencao/efetuar-manutencao';
+import { LoginService } from '../../../services/login-service/login';
 
 @Component({
   selector: 'app-visualizar-solicitacao',
@@ -23,7 +24,7 @@ export class VisualizarSolicitacao implements OnInit {
 
   constructor(private solicitacaoService: SolicitacaoService) {}
 
-  public orcamento: number | null = null;
+  public orcamento: string | null = null;
   public funcionarioResponsavel: any = null;
   public funcionarios = funcionarios;
   public statusEnum = Status;
@@ -34,8 +35,9 @@ export class VisualizarSolicitacao implements OnInit {
   public orcamentoSubmitted: boolean = false;
 
   ngOnInit(): void {
+    console.log(this.solicitacao?.cliente)
     if (this.solicitacao) {
-      this.orcamento = this.solicitacao.valorOrcamento || null;
+      this.orcamento = this.solicitacao.orcamento ? this.solicitacao.orcamento.toString() : null;
       this.funcionarioResponsavel = this.solicitacao.funcionario || this.funcionarios[0];
     }
   }
@@ -71,16 +73,20 @@ export class VisualizarSolicitacao implements OnInit {
     this.modalAberto = false;
   };
 
-  efetuarOrcamento(): void {
-    this.orcamentoSubmitted = true;
-    
-    if (this.solicitacao && this.orcamento !== null && this.orcamento > 0) {
-      this.solicitacao.valorOrcamento = this.orcamento;
+  efetuarOrcamento(): void {    
+    if (this.solicitacao && this.orcamento !== null) {
+      const orcamentoFormatado = Number(this.orcamento.replace("R$ ", "").replace(",", "."))  * 10;
 
-      this.solicitacaoService.atualizarStatus(this.solicitacao, Status.Orcada);
+      this.solicitacao.orcamento = orcamentoFormatado;
+      this.solicitacao.status = Status.Orcada
+
+      console.log(this.solicitacao)
+      this.solicitacaoService.atualizar(this.solicitacao).subscribe(() => console.log("oie"));
 
       this.operacaoConcluida.emit();
     }
+        this.orcamentoSubmitted = true;
+
   }
 
   efetuarManutencao(): void {
@@ -118,12 +124,21 @@ export class VisualizarSolicitacao implements OnInit {
 
   orcamentoMask(value: any) {
     
-    value = value.replace(/\D/g, '') 
+    value = value.replace('.', '').replace(',', '').replace(/\D/g, '')
+
+    const options = { minimumFractionDigits: 2 }
+    const result = new Intl.NumberFormat('pt-BR', options).format(
+      parseFloat(value) / 100
+    )
+
+  console.log(result)
+
+   /* value = value.replace(/\D/g, '') 
     value = value.replace(/(\d+)(\d{2})$/, "$1,$2"); 
     value = value.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1."); 
-    console.log(value)
+    console.log(value)*/
 
-    return value
+  return 'R$ ' + result
   }
 
 

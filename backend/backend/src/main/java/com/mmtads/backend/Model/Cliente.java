@@ -1,10 +1,13 @@
 package com.mmtads.backend.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.*;
 
 @Entity
 @PrimaryKeyJoinColumn(name="usuario_id")
 @Table(name = "cliente")
+@JsonIgnoreProperties(ignoreUnknown = true) // This allows unknown properties
 public class Cliente extends Usuario{
 
   @Column(nullable = false)

@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { VisualizarSolicitacao } from '../visualizar-solicitacao/visualizar-solicitacao';
 import { Solicitacao } from '../../../shared/entities/solicitacao_entity';
 import { SolicitacaoService } from '../../../services/solicitacao_service/solicitacao-service';
+import { LoginService } from '../../../services/login-service/login';
 
 @Component({
   selector: 'app-visualizar-solicitacoes',
@@ -12,7 +13,7 @@ import { SolicitacaoService } from '../../../services/solicitacao_service/solici
 })
 export class VisualizarSolicitacoes implements OnInit{
 
-  constructor(private readonly solicitacaoService: SolicitacaoService){}
+  constructor(private readonly solicitacaoService: SolicitacaoService, private loginService: LoginService){}
   
   solicitacoes: Solicitacao[] = [];
   solicitacoesFiltradas: Solicitacao[] = [];
@@ -22,7 +23,9 @@ export class VisualizarSolicitacoes implements OnInit{
   dataFimFiltro: string = '';
 
   carregarSolicitacoes(){
-    this.solicitacaoService.listarTodos().subscribe({
+    const user = this.loginService.usuarioLogado
+    if(user) {
+      this.solicitacaoService.listarTodos(user).subscribe({
       next: (data) =>{
         this.solicitacoesFiltradas = data;
         console.log(data);
@@ -33,6 +36,8 @@ export class VisualizarSolicitacoes implements OnInit{
 
       }
     });
+    }
+    
   }
 
   ngOnInit(): void {

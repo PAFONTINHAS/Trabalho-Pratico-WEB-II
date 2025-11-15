@@ -9,6 +9,7 @@ import { ModaisConfirmacao } from '../modais-confirmacao/modais-confirmacao';
 import { CategoriaService } from '../../../services/categoria-service/categoria-service';
 import { SolicitacaoService } from '../../../services/solicitacao_service/solicitacao-service';
 import { Categoria } from '../../../shared/entities/categoria_entity';
+import { LoginService } from '../../../services/login-service/login';
 
 @Component({
     selector: 'app-solicitar',
@@ -23,7 +24,8 @@ export class Solicitar implements OnInit{
   constructor(
     private solicitacaoService: SolicitacaoService,
     private categoriaService: CategoriaService,
-    private router: Router
+    private router: Router,
+    private loginService: LoginService
   ) {}
 
 
@@ -65,7 +67,8 @@ export class Solicitar implements OnInit{
     descricaoEquipamento: "",  // mudou de equipamento
     historicoStatus: [],
     categoria: null,
-    dataHoraAbertura: ""  // mudou de dataSolicitacao
+    dataHoraAbertura: "",
+    funcionarioDestino: null  // mudou de dataSolicitacao
   };
     
   validateForm(): boolean {
@@ -99,7 +102,9 @@ export class Solicitar implements OnInit{
     novaSolicitacao.dataHoraAbertura = dataFormatada;  // mudou de dataSolicitacao
 
     this.solicitacaoService.inserir(novaSolicitacao).subscribe((data) => console.log(data));
-    this.solicitacaoService.listarTodos();
+    const user = this.loginService.usuarioLogado
+    if(user)
+    this.solicitacaoService.listarTodos(user);
     
     this.modalSolicitacaoCriada = true;
   }

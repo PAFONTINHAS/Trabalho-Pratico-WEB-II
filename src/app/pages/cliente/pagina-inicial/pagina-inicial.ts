@@ -5,6 +5,7 @@ import { Status } from '../../../shared/models/enums/status.enum';
 import { SolicitacaoService } from '../../../services/solicitacao_service/solicitacao-service';
 import { Solicitacao } from '../../../shared/entities/solicitacao_entity';
 import { Subscription } from 'rxjs';
+import { LoginService } from '../../../services/login-service/login';
 
 
 @Component({
@@ -19,11 +20,13 @@ export class PaginaInicial implements OnInit {
   solicitacoes: Solicitacao[] = [];
   
   private readonly subscription: Subscription = new Subscription();
-  constructor(private readonly solicitacaoService: SolicitacaoService ){}
+  constructor(private readonly solicitacaoService: SolicitacaoService , private loginService : LoginService){}
 
 
  carregarSolicitacoes() : void{
-  this.solicitacaoService.listarTodos().subscribe({
+  const user = this.loginService.usuarioLogado
+    if(user) {
+  this.solicitacaoService.listarTodos(user).subscribe({
     next: (data) => {
       console.log('📦 DADOS COMPLETOS:', JSON.stringify(data, null, 2));
       console.log('📋 PRIMEIRA SOLICITAÇÃO:', data[0]);
@@ -33,7 +36,7 @@ export class PaginaInicial implements OnInit {
     error: (e) =>{
       console.error('Erro ao carregar solicitações: ', e);
     }
-  });
+  });}
 }
 
   ngOnInit() : void{

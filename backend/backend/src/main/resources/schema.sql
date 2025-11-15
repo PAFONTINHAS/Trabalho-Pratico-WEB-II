@@ -144,19 +144,12 @@ INSERT IGNORE INTO funcionario (data_nasc, id) VALUES
 ('1995-06-21', 6);  -- id = 6 (corresponde ao usuario_id 6)
 
 -- Inserir Solicitações
-INSERT IGNORE INTO solicitacao (id_solicitacao, descricao_equipamento, descricao_defeito, id_categoria, status, id_cliente, id_funcionario, data_hora_abertura) VALUES
-(1, 'Notebook Dell Inspiron', 'Não liga, LED da bateria piscando.', 1, 'ABERTA', 2, 6, '2025-09-01 10:00:00'),
-(2, 'Impressora Epson L3150', 'Não reconhece cartuchos e falha na impressão.', 3, 'ORCADA', 1, 5, '2025-09-05 15:30:00'),
-(3, 'Notebook Samsung Book', 'Troca de tela.', 1, 'PAGA', 3, 5, '2025-09-15 09:00:00'),
-(4, 'Desktop Gamer RGB', 'Limpeza e troca de pasta térmica.', 2, 'PAGA', 4, 6, '2025-09-20 14:00:00'),
-(5, 'Mouse Logitech MX Master', 'Botão esquerdo falhando.', 4, 'PAGA', 1, 5, '2025-10-01 08:00:00');
-
--- Inserir Orçamentos
-INSERT IGNORE INTO orcamento (id_orcamento, id_solicitacao, id_funcionario, valor, data_hora) VALUES
-(1, 2, 5, 180.00, '2025-09-06 10:00:00'),
-(2, 3, 5, 350.00, '2025-09-16 11:00:00'),
-(3, 4, 6, 150.00, '2025-09-21 09:00:00'),
-(4, 5, 5, 90.00, '2025-10-02 12:00:00');
+INSERT IGNORE INTO solicitacao (id_solicitacao, descricao_equipamento, descricao_defeito, id_categoria, status, id_cliente, id_funcionario, data_hora_abertura, valorOrcamento) VALUES
+(1, 'Notebook Dell Inspiron', 'Não liga, LED da bateria piscando.', 1, 'ABERTA', 2, 6, '2025-09-01 10:00:00', null),
+(2, 'Impressora Epson L3150', 'Não reconhece cartuchos e falha na impressão.', 3, 'ORCADA', 1, 5, '2025-09-05 15:30:00', 350.00),
+(3, 'Notebook Samsung Book', 'Troca de tela.', 1, 'PAGA', 3, 5, '2025-09-15 09:00:00', 150.00),
+(4, 'Desktop Gamer RGB', 'Limpeza e troca de pasta térmica.', 2, 'PAGA', 4, 6, '2025-09-20 14:00:00', 90.00),
+(5, 'Mouse Logitech MX Master', 'Botão esquerdo falhando.', 4, 'PAGA', 1, 5, '2025-10-01 08:00:00', null);
 
 -- Inserir Pagamentos
 INSERT IGNORE INTO pagamento (id_pagamento, id_solicitacao, valor, data_hora) VALUES

@@ -78,7 +78,7 @@
                 } @else {
 
                   <p class="text-md text-gray-600">
-                      Valor: <span class="font-semibold">R$ {{ solicitacao.valorOrcamento }}</span>
+                      Valor: <span class="font-semibold">R$ {{ solicitacao.orcamento }}</span>
                   </p>
                 }
                 
@@ -86,13 +86,13 @@
         <div class="p-4 rounded-xl bg-gray-100 border border-gray-300">
           <h3 class="text-lg font-bold text-gray-700">Histórico de status</h3>
             <ul>
-              @for (historico of solicitacao.historicoStatus; track $index){
+            <!--  @for (historico of solicitacao.historicoStatus; track $index){
                 <li class="py-3 flex items-center border-t mt-2 border-gray-300">
                   <p class="font-semibold mr-6">{{ historico.data }}</p>
                   <p class="font-semibold mr-6">{{ historico.hora }}</p>
                   <p [ngClass]="statusClasses(historico.status)">{{ historico.status.toUpperCase() }}</p>
-                </li>
-              }
+                </li> 
+              }-->
             </ul>
           </div>
         </div>
