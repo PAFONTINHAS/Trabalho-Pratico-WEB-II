@@ -39,8 +39,12 @@ public class SolicitacaoService {
         return this.solicitacaoRepository.save(solicitacao);
     }
 
-    public void salvarHistorico(Solicitacao s, Funcionario funciDestiono) {
+    public Solicitacao salvarSolicitacao(SolicitacaoDto solicitacaoDto) {
+        Solicitacao solicitacao = setarSolicitacao(solicitacaoDto, null);
+        return this.solicitacaoRepository.save(solicitacao);
+    }
 
+    public void salvarHistorico(Solicitacao s, Funcionario funciDestiono) {
         
         Historico h = new Historico();
         Date dataHoraAtual = new Date();
@@ -61,6 +65,7 @@ public class SolicitacaoService {
         s.setCategoria(solicitacaoDto.getCategoria());
         s.setCliente(solicitacaoDto.getCliente());
         s.setDataHoraAbertura((solicitacaoDto.getDataHoraAbertura()));
+        s.setDescricaoEquipamento(solicitacaoDto.getDescricaoEquipamento());
         s.setDescricaoDefeito(solicitacaoDto.getDescricaoDefeito());
         s.setFuncionario(solicitacaoDto.getFuncionario());
         s.setIdSolicitacao(id);

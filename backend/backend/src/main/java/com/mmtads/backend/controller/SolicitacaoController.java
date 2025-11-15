@@ -43,9 +43,9 @@ public class SolicitacaoController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @PostMapping("/{email}")
-    public Solicitacao criar(@RequestBody Solicitacao solicitacao) {
-        Solicitacao s = solicitacaoRepository.save(solicitacao);
+    @PostMapping()
+    public Solicitacao criar(@RequestBody SolicitacaoDto solicitacaoDto) {
+        Solicitacao s = this.solicitacaoService.salvarSolicitacao(solicitacaoDto);
         this.solicitacaoService.salvarHistorico(s, null);
         return s;
     }

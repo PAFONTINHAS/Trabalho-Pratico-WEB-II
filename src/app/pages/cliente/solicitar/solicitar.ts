@@ -95,7 +95,7 @@ export class Solicitar implements OnInit{
         return;
     }
 
-    const dataAtual = new Date().toLocaleDateString("en-GB", { hour: '2-digit', minute: '2-digit', second: '2-digit',}) ;
+    const dataAtual = new Date().toISOString() ;
     const dataFormatada = dataAtual.replace(",", "");
     const novaSolicitacao: Solicitacao = this.solicitacao;
 
