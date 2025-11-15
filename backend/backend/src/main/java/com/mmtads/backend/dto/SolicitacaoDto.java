@@ -1,59 +1,36 @@
-package com.mmtads.backend.Model;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-import jakarta.persistence.*;
+package com.mmtads.backend.dto;
 
 import java.util.Date;
-import java.util.Set;
 
-@Entity
-@Table(name = "solicitacao")
-@JsonIgnoreProperties(ignoreUnknown = true) // This allows unknown properties
-public class Solicitacao {
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.mmtads.backend.Model.Categoria;
+import com.mmtads.backend.Model.Cliente;
+import com.mmtads.backend.Model.Funcionario;
+import com.mmtads.backend.Model.Status;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_solicitacao") 
+@JsonIgnoreProperties(ignoreUnknown = true) // This allows unknown propertie
+public class SolicitacaoDto {
     private Long idSolicitacao;
 
-
-    @ManyToOne
-    @JoinColumn(name = "id_cliente", nullable = false) 
     private Cliente cliente;
 
-    @ManyToOne
-    @JoinColumn(name = "id_funcionario")
     private Funcionario funcionario;
 
-    @ManyToOne
-    @JoinColumn(name = "id_categoria", nullable = false)
     private Categoria categoria;
     
-    @Column(name = "status", nullable = false)
-    @Enumerated(EnumType.STRING)
     private Status status;
 
-    @Column(name = "descricao_equipamento", length = 100)
     private String descricaoEquipamento;
 
-    @Column(name = "descricao_defeito", columnDefinition = "TEXT")
     private String descricaoDefeito;
 
-    @Column(name = "motivo_rejeicao", columnDefinition = "TEXT")
     private String motivoRejeicao;
 
-    @Column(name = "data_hora_abertura", nullable = false)
     private Date dataHoraAbertura;
 
-    @Column(name="valor_orcamento")
     private Double valorOrcamento;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "solicitacao")
-    private Set<Historico> historico;
-
+    private Funcionario funcionarioDestino;
 
     // Getters e Setters
   
@@ -142,5 +119,19 @@ public class Solicitacao {
      */
     public void setOrcamento(Double orcamento) {
         this.valorOrcamento = orcamento;
+    }
+
+    /**
+     * @return the historico
+     */
+    public Funcionario getFuncionarioDestino() {
+        return funcionarioDestino;
+    }
+
+    /**
+     * @param historico the historico to set
+     */
+    public void setFuncionarioDestino(Funcionario funcionarioDestino) {
+        this.funcionarioDestino = funcionarioDestino;
     }
 }

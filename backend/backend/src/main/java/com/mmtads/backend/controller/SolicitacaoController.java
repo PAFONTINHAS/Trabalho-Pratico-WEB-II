@@ -1,24 +1,39 @@
 package com.mmtads.backend.controller;
 
 import com.mmtads.backend.Model.Solicitacao;
+import com.mmtads.backend.Model.Status;
+import com.mmtads.backend.Model.Funcionario;
+import com.mmtads.backend.Repository.FuncionarioRepository;
 import com.mmtads.backend.Repository.SolicitacaoRepository;
+import com.mmtads.backend.dto.SolicitacaoDto;
+import com.mmtads.backend.service.SolicitacaoService;
+
 import org.springframework.web.bind.annotation.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/solicitacoes")
 public class SolicitacaoController {
 
-    private final SolicitacaoRepository solicitacaoRepository;
+    @Autowired
+    private SolicitacaoService solicitacaoService;
+
+    @Autowired
+    private FuncionarioRepository funcionarioRepo;
+
+    private SolicitacaoRepository solicitacaoRepository;
 
     public SolicitacaoController(SolicitacaoRepository solicitacaoRepository) {
         this.solicitacaoRepository = solicitacaoRepository;
     }
 
-    @GetMapping
-    public List<Solicitacao> listarTodas() {
-        return solicitacaoRepository.findAll();
+    @GetMapping("/user/{email}")
+    public List<Solicitacao> listarTodas(@PathVariable String email) {
+        Funcionario funci = this.funcionarioRepo.findByEmailAndIsDeleteFalse(email);
+        return solicitacaoRepository.findByFuncionarioOrStatus(funci, Status.ABERTA);
     }
 
     @GetMapping("/{id}")
@@ -28,18 +43,21 @@ public class SolicitacaoController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @PostMapping
+    @PostMapping("/{email}")
     public Solicitacao criar(@RequestBody Solicitacao solicitacao) {
-        return solicitacaoRepository.save(solicitacao);
+        Solicitacao s = solicitacaoRepository.save(solicitacao);
+        this.solicitacaoService.salvarHistorico(s, null);
+        return s;
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Solicitacao> atualizar(@PathVariable Long id, @RequestBody Solicitacao solicitacao) {
+    public ResponseEntity<Solicitacao> atualizar(@PathVariable Long id, @RequestBody SolicitacaoDto solicitacao) {
         if (!solicitacaoRepository.existsById(id)) {
             return ResponseEntity.notFound().build();
         }
         solicitacao.setIdSolicitacao(id);
-        return ResponseEntity.ok(solicitacaoRepository.save(solicitacao));
+        Solicitacao s = this.solicitacaoService.atualizarSolicitacao(solicitacao, id);
+        return ResponseEntity.ok(s);
     }
 
     @DeleteMapping("/{id}")
