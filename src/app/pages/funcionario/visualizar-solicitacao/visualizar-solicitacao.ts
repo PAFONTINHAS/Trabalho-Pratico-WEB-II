@@ -10,6 +10,7 @@ import { Manutencao } from '../efetuar-manutencao/efetuar-manutencao';
 import { LoginService } from '../../../services/login-service/login';
 import { FuncionarioService } from '../../../services/funcionario-service/funcionario-service';
 import { Funcionario } from '../../../shared/entities/funcionario_entity';
+import { HistoricoService } from '../../../services/historico_service/historico-service';
 
 @Component({
   selector: 'app-visualizar-solicitacao',
@@ -23,7 +24,12 @@ export class VisualizarSolicitacao implements OnInit {
   @Output() fecharModal = new EventEmitter<void>();  
   @Output() operacaoConcluida = new EventEmitter<void>(); 
 
-  constructor(private solicitacaoService: SolicitacaoService, private loginService: LoginService, private funcionarioService: FuncionarioService) {}
+  constructor(
+    private solicitacaoService: SolicitacaoService, 
+    private loginService: LoginService,
+    private funcionarioService: FuncionarioService,
+    private historicoService: HistoricoService
+  ) {}
 
   public orcamento: string | null = null;
   public funcionarioResponsavel: any = null;
@@ -32,6 +38,8 @@ export class VisualizarSolicitacao implements OnInit {
   public modalAberto = false;
 
   public modalEfetuarAberto: boolean = false;
+
+  public historico: HistoricoStatus[] = []
   
   public orcamentoSubmitted: boolean = false;
 
@@ -42,6 +50,7 @@ export class VisualizarSolicitacao implements OnInit {
     if (this.solicitacao) {
       this.orcamento = this.solicitacao.orcamento ? this.solicitacao.orcamento.toString() : null;
       this.funcionarioResponsavel = this.solicitacao.funcionario || this.funcionarios[0];
+      this.historicoService.listarTodos(this.solicitacao).subscribe((data) =>  {this.historico =data; console.log(data)})
     }
   }
 

@@ -9,6 +9,8 @@ import { RejeitarOrcamento } from '../rejeitar-orcamento/rejeitar-orcamento';
 import { SolicitacaoService } from '../../../services/solicitacao_service/solicitacao-service';
 import { Status } from '../../../shared/models/enums/status.enum';
 import { CommonModule } from '@angular/common';
+import { HistoricoService } from '../../../services/historico_service/historico-service';
+import { HistoricoStatus } from '../../../shared/entities/historico_status_entity';
 
 @Component({
   selector: 'app-visualizar-orcamento',
@@ -17,9 +19,9 @@ import { CommonModule } from '@angular/common';
   templateUrl: './visualizar-orcamento.html',
   styleUrl: './visualizar-orcamento.css'
 })
-export class VisualizarOrcamento {
+export class VisualizarOrcamento implements OnInit  {
 
-  constructor(private readonly solicitacaoService: SolicitacaoService){}
+  constructor(private readonly solicitacaoService: SolicitacaoService, private historicoService: HistoricoService){}
 
   @Input() solicitacao?: Solicitacao | null;
   @Output() fecharModal = new EventEmitter<void>();
@@ -27,11 +29,11 @@ export class VisualizarOrcamento {
 
   modalAberto: 'nenhum' | 'deletar' | 'editar' | 'rejeitar' | 'aprovar' = 'nenhum';
 
-  historico ={
-    data: '',
-    hora: '',
-    status: '',
+  historico: HistoricoStatus[] = [];
 
+  ngOnInit(): void {
+    if(this.solicitacao)
+      this.historicoService.listarTodos(this.solicitacao).subscribe((data) => this.historico =data);
   }
 
   abrirModal(tipo: 'deletar' | 'editar' | 'rejeitar' | 'aprovar'){

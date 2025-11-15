@@ -63,16 +63,15 @@
         <div class="p-4 rounded-xl bg-gray-100 border border-gray-300">
           <h3 class="text-lg font-bold text-gray-700">Histórico de status</h3>
           <ul>
-           <!--@for (historico of solicitacao.historicoStatus; track
-            historico.data){
-            <li class="py-3 flex items-center border-t mt-2 border-gray-300">
-              <p class="font-semibold mr-6">{{ historico.data }}</p>
-              <p class="font-semibold mr-6">{{ historico.hora }}</p>
-              <p [ngClass]="statusClasses(historico.status)">
-                {{ historico.status.toUpperCase() }}
-              </p>
-            </li>
-          }-->
+            @for (h of historico; track h.status){
+              <li class="py-3 flex items-center border-t mt-2 border-gray-300">
+                <p class="font-semibold mr-6">{{ h.dataHora.substring(0, 10)}}</p>
+                <p class="font-semibold mr-6">{{ h.dataHora.substring(12) }}</p>
+                <p [ngClass]="statusClasses(h.status)">
+                  {{ h.status}}
+                </p>
+              </li>
+            } 
           </ul>
         </div>
       </section>
