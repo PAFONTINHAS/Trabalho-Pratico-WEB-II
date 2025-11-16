@@ -62,18 +62,22 @@ export class Relatorios implements OnInit {
       next: (data: ReceitaPorPeriodo[]) => {
         console.log('Dados de Receita por Período recebidos:', data);
 
-        const pdfBlob = this.relatorioService.simulatePdfCreation(data, 'Período');
+        // CORREÇÃO AQUI: Chamar o novo método de geração de PDF real
+        const pdfBlob = this.relatorioService.gerarPdfReceitaPeriodo(data, this.dataInicioRelatorio, this.dataFimRelatorio);
         
+        // 3. Forçar o download
         this.relatorioService.downloadFile(pdfBlob, nomeArquivo);
         
         this.formSubmittedPeriodo = false; 
       },
       error: (erro) => {
         console.error('Erro ao buscar dados de receita por período:', erro);
+        // O back-end retornou erro (a correção SQL nativa deve resolver)
       }
     });
   } 
 
+  // RF020 - Função para gerar o Relatório de Receitas por Categoria em PDF.
   gerarRelatorioReceitasPorCategoria(): void {
     this.formSubmittedCategoria = true; 
     
@@ -88,8 +92,10 @@ export class Relatorios implements OnInit {
       next: (data: ReceitaPorCategoria[]) => {
         console.log('Dados de Receita por Categoria recebidos:', data);
         
-        const pdfBlob = this.relatorioService.simulatePdfCreation(data, 'Categoria');
+        // CORREÇÃO AQUI: Chamar o novo método de geração de PDF real
+        const pdfBlob = this.relatorioService.gerarPdfReceitaCategoria(data);
 
+        // 3. Forçar o download
         this.relatorioService.downloadFile(pdfBlob, nomeArquivo);
 
         this.formSubmittedCategoria = false; 
