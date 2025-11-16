@@ -31,7 +31,7 @@ export class PaginaInicial implements OnInit {
       console.log('📦 DADOS COMPLETOS:', JSON.stringify(data, null, 2));
       console.log('📋 PRIMEIRA SOLICITAÇÃO:', data[0]);
       console.log('📌 KEYS da primeira:', Object.keys(data[0]));
-      this.solicitacoes = data;
+      this.solicitacoes = data.filter((d) => d.cliente.email === this.loginService.usuarioLogado?.email);
     },
     error: (e) =>{
       console.error('Erro ao carregar solicitações: ', e);
