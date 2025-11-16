@@ -1,4 +1,4 @@
-/*USE manutencaoequipamentos;
+USE manutencaoequipamentos;
 
 CREATE TABLE IF NOT EXISTS endereco (
     id_endereco INT AUTO_INCREMENT PRIMARY KEY,
@@ -53,6 +53,7 @@ CREATE TABLE IF NOT EXISTS solicitacao (
     descricao_defeito TEXT,
     motivo_rejeicao TEXT,
     data_hora_abertura DATETIME NOT NULL,
+    valor_orcamento DECIMAL(10,2),
     FOREIGN KEY (id_cliente) REFERENCES cliente(id),
     FOREIGN KEY (id_funcionario) REFERENCES funcionario(id),
     FOREIGN KEY (id_categoria) REFERENCES categoria(id_categoria)
@@ -97,7 +98,7 @@ CREATE TABLE IF NOT EXISTS historico (
     FOREIGN KEY (funci_origem) REFERENCES funcionario(id),
     FOREIGN KEY (funci_destino) REFERENCES funcionario(id)
 ) DEFAULT CHARSET=utf8mb4;
-*/
+
 
 -- ========================================
 -- INSERÇÃO DE DADOS
@@ -144,7 +145,7 @@ INSERT IGNORE INTO funcionario (data_nasc, id) VALUES
 ('1995-06-21', 6);  -- id = 6 (corresponde ao usuario_id 6)
 
 -- Inserir Solicitações
-INSERT IGNORE INTO solicitacao (id_solicitacao, descricao_equipamento, descricao_defeito, id_categoria, status, id_cliente, id_funcionario, data_hora_abertura, valorOrcamento) VALUES
+INSERT IGNORE INTO solicitacao (id_solicitacao, descricao_equipamento, descricao_defeito, id_categoria, status, id_cliente, id_funcionario, data_hora_abertura, valor_orcamento) VALUES
 (1, 'Notebook Dell Inspiron', 'Não liga, LED da bateria piscando.', 1, 'ABERTA', 2, 6, '2025-09-01 10:00:00', null),
 (2, 'Impressora Epson L3150', 'Não reconhece cartuchos e falha na impressão.', 3, 'ORCADA', 1, 5, '2025-09-05 15:30:00', 350.00),
 (3, 'Notebook Samsung Book', 'Troca de tela.', 1, 'PAGA', 3, 5, '2025-09-15 09:00:00', 150.00),
