@@ -23,6 +23,7 @@ import jakarta.transaction.Transactional;
 
 @Service
 public class SolicitacaoService {
+
     @Autowired
     private HistoricoRepository historicoRepository;
 
@@ -36,12 +37,13 @@ public class SolicitacaoService {
     public Solicitacao atualizarSolicitacao(SolicitacaoDto solicitacaoDto, Long id) {
         Solicitacao solicitacao = setarSolicitacao(solicitacaoDto, id);
 
-        if(solicitacao.getStatus() == Status.REDIRECIONADA) {
+        if (solicitacao.getStatus() == Status.REDIRECIONADA) {
             this.salvarHistorico(solicitacao, solicitacaoDto.getFuncionarioDestino());
             solicitacao.setFuncionario(solicitacaoDto.getFuncionarioDestino());
         } else {
-            if(solicitacao.getStatus() == Status.PAGA)
+            if (solicitacao.getStatus() == Status.PAGA)
                 this.salvarPagamento(solicitacao);
+
             this.salvarHistorico(solicitacao, null);
         }
 
@@ -54,7 +56,6 @@ public class SolicitacaoService {
     }
 
     public void salvarHistorico(Solicitacao s, Funcionario funciDestiono) {
-        
         Historico h = new Historico();
         Date dataHoraAtual = new Date();
         h.setDataHora(dataHoraAtual);
@@ -62,54 +63,61 @@ public class SolicitacaoService {
         h.setSolicitacao(s);
         h.setStatus(s.getStatus());
 
-        if(s.getStatus() == Status.REDIRECIONADA) {
+        if (s.getStatus() == Status.REDIRECIONADA) {
             h.setFunciDestino(funciDestiono);
         }
 
         this.historicoRepository.save(h);
     }
 
-    private static BigDecimal converterBigDecimalDouble(Double valor) {
-        BigDecimal valorOrcamento = new BigDecimal(0);
-        valorOrcamento.valueOf(valor);
-        return valorOrcamento;
-    }
 
-    private void salvarPagamento(Solicitacao solicitacao) {
-        Pagamento p = new Pagamento();
-        p.setDataHora(new Date());
-        p.setSolicitacao(solicitacao);
-        BigDecimal valorOrcamento = converterBigDecimalDouble(solicitacao.getOrcamento());
-        p.setValor(valorOrcamento);
-        this.pagamentoRepository.save(p);
-    }
-
-    private Solicitacao setarSolicitacao(SolicitacaoDto solicitacaoDto, Long id) {
-        Solicitacao s = new Solicitacao();
-        s.setCategoria(solicitacaoDto.getCategoria());
-        s.setCliente(solicitacaoDto.getCliente());
-        s.setDataHoraAbertura((solicitacaoDto.getDataHoraAbertura()));
-        s.setDescricaoEquipamento(solicitacaoDto.getDescricaoEquipamento());
-        s.setDescricaoDefeito(solicitacaoDto.getDescricaoDefeito());
-        s.setFuncionario(solicitacaoDto.getFuncionario());
-        s.setIdSolicitacao(id);
-        s.setMotivoRejeicao(solicitacaoDto.getMotivoRejeicao());
-        s.setOrcamento(solicitacaoDto.getOrcamento());
-        s.setStatus(solicitacaoDto.getStatus());
-
-        return s;
-    }
-
-    public Date formatarData(String data) {
-        try  {
-            DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-            Date dataFormatada = formatter.parse(data);
-            return dataFormatada;
-        } catch (ParseException exp) {
-            exp.printStackTrace();
-            return null;
-        }
-        
-    }
     
+    // Converte um Double para BigDecimal de forma segura.
+    // Isso evita problemas quando o valor é null e impede perda de precisão.
+    private static BigDecimal converterBigDecimalDouble(Double valor) {
+        if (valor == null) return BigDecimal.ZERO; // retorna zero para evitar NullPointerException
+        return BigDecimal.valueOf(valor); // mantem precisão exata
+    }
+
+    // Registra um pagamento associado a uma solicitação com status PAGA.
+    private void salvarPagamento(Solicitacao solicitacao) {
+        Pagamento p = new Pagamento();           // cria instância de Pagamento
+        p.setDataHora(new Date());               // registra data/hora atual
+        p.setSolicitacao(solicitacao);           // associa pagamento à solicitação
+
+        BigDecimal valorOrcamento =
+                converterBigDecimalDouble(solicitacao.getOrcamento()); // converte Double → BigDecimal
+
+        p.setValor(valorOrcamento);              // define valor convertido
+        this.pagamentoRepository.save(p);        // persiste no banco
+    }
+
+    // Constrói a entidade Solicitacao com base no DTO recebido do front-end.
+    private Solicitacao setarSolicitacao(SolicitacaoDto solicitacaoDto, Long id) {
+        Solicitacao s = new Solicitacao();                               // cria entidade vazia
+
+        s.setCategoria(solicitacaoDto.getCategoria());                   // copia categoria
+        s.setCliente(solicitacaoDto.getCliente());                       // copia cliente
+        s.setDataHoraAbertura(solicitacaoDto.getDataHoraAbertura());     // data/hora
+        s.setDescricaoEquipamento(solicitacaoDto.getDescricaoEquipamento()); // descrição equip.
+        s.setDescricaoDefeito(solicitacaoDto.getDescricaoDefeito());     // defeito
+        s.setFuncionario(solicitacaoDto.getFuncionario());               // funcionário atual
+        s.setIdSolicitacao(id);                                          // id pode ser null (novo)
+        s.setMotivoRejeicao(solicitacaoDto.getMotivoRejeicao());         // motivo rejeição
+        s.setOrcamento(solicitacaoDto.getOrcamento());                   // orçamento
+        s.setStatus(solicitacaoDto.getStatus());                         // status
+
+        return s; // retorna entidade pronta para persistência
+    }
+
+    // Converte String → Date no formato dd-MM-yyyy HH:mm:ss
+    public Date formatarData(String data) {
+        try {
+            DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+            return formatter.parse(data);        // tenta converter
+        } catch (ParseException exp) {
+            exp.printStackTrace();               // log de erro
+            return null;                         // retorna null caso falhe
+        }
+    }
 }

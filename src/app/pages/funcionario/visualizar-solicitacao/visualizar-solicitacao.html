@@ -78,10 +78,10 @@
                 } @else {
 
                   <p class="text-md text-gray-600">
-                      Valor: <span class="font-semibold">R$ {{ solicitacao.orcamento }}</span>
+                      Valor: <span class="font-semibold">R$ {{ solicitacao.orcamento | currency:'BRL':'symbol-narrow':'1.2-2'}}</span>
                   </p>
                 }
-                
+
             </div>
         <div class="p-4 rounded-xl bg-gray-100 border border-gray-300">
           <h3 class="text-lg font-bold text-gray-700">Histórico de status</h3>
@@ -94,7 +94,7 @@
                     {{ h.status}}
                   </p>
                 </li>
-              } 
+              }
             </ul>
           </div>
         </div>
@@ -116,7 +116,7 @@
             >
               Redirecionar
             </button>
-          
+
             <button
               class="bg-success text-nowrap hover:bg-success-dark h-[46px] px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:scale-[102%] active:scale-95"
               (click)="abrirModalEfetuar()"
@@ -131,14 +131,14 @@
             >
               Redirecionar
             </button>
-          
+
             <button
               class="bg-success text-nowrap hover:bg-success-dark h-[46px] px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:scale-[102%] active:scale-95"
               (click)="abrirModalEfetuar()"
             >
               Efetuar Manutenção
             </button>
-            
+
           }
           @case (statusEnum.Paga) {
             <button
@@ -178,7 +178,7 @@
         >
           X
         </button>
-  
+
         <div class="text-center mb-6">
           <h2 class="text-3xl font-extrabold text-gray-800 poppins">
             Redirecionar manutenção
@@ -208,7 +208,7 @@
           </div>
           }
         </div>
-  
+
         <footer class="modal-footer">
           <button
             class="bg-danger hover:bg-red-700 h-[46px] px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:scale-[102%] active:scale-95"

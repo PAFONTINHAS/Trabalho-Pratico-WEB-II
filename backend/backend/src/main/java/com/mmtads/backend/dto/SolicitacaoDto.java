@@ -17,7 +17,7 @@ public class SolicitacaoDto {
     private Funcionario funcionario;
 
     private Categoria categoria;
-    
+
     private Status status;
 
     private String descricaoEquipamento;
@@ -28,81 +28,81 @@ public class SolicitacaoDto {
 
     private Date dataHoraAbertura;
 
-    private Double valorOrcamento;
+    private Double orcamento;
 
     private Funcionario funcionarioDestino;
 
     // Getters e Setters
-  
+
 
     public Long getIdSolicitacao() {
         return idSolicitacao;
     }
-    
+
     public void setIdSolicitacao(Long idSolicitacao) {
         this.idSolicitacao = idSolicitacao;
     }
-    
+
     public String getDescricaoEquipamento() {
         return descricaoEquipamento;
     }
-    
+
     public void setDescricaoEquipamento(String descricaoEquipamento) {
         this.descricaoEquipamento = descricaoEquipamento;
     }
-    
+
     public String getDescricaoDefeito() {
         return descricaoDefeito;
     }
-    
+
     public void setDescricaoDefeito(String descricaoDefeito) {
         this.descricaoDefeito = descricaoDefeito;
     }
-    
+
     public String getMotivoRejeicao() {
         return motivoRejeicao;
     }
-    
+
     public void setMotivoRejeicao(String motivoRejeicao) {
         this.motivoRejeicao = motivoRejeicao;
     }
-    
+
     public Date getDataHoraAbertura() {
         return dataHoraAbertura;
     }
-    
+
     public void setDataHoraAbertura(Date dataHoraAbertura) {
         this.dataHoraAbertura = dataHoraAbertura;
     }
-    
+
     public Cliente getCliente() {
         return cliente;
     }
-    
+
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
-    
+
     public Funcionario getFuncionario() {
         return funcionario;
     }
-    
+
     public void setFuncionario(Funcionario funcionario) {
         this.funcionario = funcionario;
     }
-    
+
     public Categoria getCategoria() {
         return categoria;
     }
-    
+
     public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
     }
-    
+
     public Status getStatus() {
         return status;
     }
-    
+
     public void setStatus(Status status) {
         this.status = status;
     }
@@ -111,14 +111,14 @@ public class SolicitacaoDto {
      * @return the orcamento
      */
     public Double getOrcamento() {
-        return valorOrcamento;
+        return orcamento;
     }
 
     /**
      * @param orcamento the orcamento to set
      */
     public void setOrcamento(Double orcamento) {
-        this.valorOrcamento = orcamento;
+        this.orcamento = orcamento;
     }
 
     /**
