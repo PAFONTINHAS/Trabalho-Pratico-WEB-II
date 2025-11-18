@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Solicitacao } from '../../shared/entities/solicitacao_entity';
-import { solicitacoes as solicitacoesMock} from '../../../assets/mock/solicitacoes_mocks';
 import { HistoricoStatus } from '../../shared/entities/historico_status_entity';
 import { Status } from '../../shared/models/enums/status.enum';
 import { Funcionario } from '../../shared/entities/funcionario_entity';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Usuario } from '../../shared/models/usuario.model';
 const LS_CHAVE = "solicitacoes"
 @Injectable({
   providedIn: 'root'
@@ -20,8 +20,14 @@ export class SolicitacaoService {
   //     localStorage[LS_CHAVE] = JSON.stringify(solicitacoesMock)
   //   }
   // }
+  listarTodosFuncionario( usuario: Usuario): Observable<Solicitacao[]> {
+    const url = `${this.apiUrl}/user/${usuario.email}`;
+    return this.http.get<Solicitacao[]>(url);
+  }
+
   listarTodos(): Observable<Solicitacao[]> {
-    return this.http.get<Solicitacao[]>(this.apiUrl);
+    const url = `${this.apiUrl}`;
+    return this.http.get<Solicitacao[]>(url);
   }
   inserir(solicitacao: Solicitacao): Observable<Solicitacao> {
     return this.http.post<Solicitacao>(this.apiUrl, solicitacao);
@@ -38,9 +44,9 @@ export class SolicitacaoService {
     const url = `${this.apiUrl}/${id}`;
     return this.http.delete<void>(url);
   }
-  atualizarStatus( solicitacao: Solicitacao, status: Status): Observable<Solicitacao>{
-    const url = `${this.apiUrl}/${solicitacao.idSolicitacao}/status/${status}`;
-    return this.http.put<Solicitacao>(url, status);
+  atualizarFuncionario( solicitacao: Solicitacao,  usuario: Usuario): Observable<Solicitacao>{
+    const url = `${this.apiUrl}/${solicitacao.idSolicitacao}/user/${usuario.email}`;
+    return this.http.put<Solicitacao>(url, solicitacao);
   }
   // pegarDataFormatada(opcao: String) : string{
   

@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Data
 @Entity
@@ -28,5 +29,5 @@ public class Pagamento {
     private BigDecimal valor;
 
     @Column(name = "data_hora", nullable = false)
-    private LocalDateTime dataHora;
+    private Date dataHora;
 }

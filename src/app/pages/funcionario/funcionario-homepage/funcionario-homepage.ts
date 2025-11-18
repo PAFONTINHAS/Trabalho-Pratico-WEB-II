@@ -5,6 +5,7 @@ import { NgClass } from '@angular/common';
 import { Solicitacao } from '../../../shared/entities/solicitacao_entity';
 import { SolicitacaoService } from '../../../services/solicitacao_service/solicitacao-service';
 import { Status } from '../../../shared/models/enums/status.enum';
+import { LoginService } from '../../../services/login-service/login';
 
 @Component({
   selector: 'app-funcionario-homepage',
@@ -15,10 +16,12 @@ export class FuncionarioHomepage implements OnInit{
   solicitacoes: Solicitacao[] = [];
   statusEnum = Status; // ADICIONADO: Para usar no template
   
-  constructor( private readonly solicitacaoService: SolicitacaoService){}
+  constructor( private readonly solicitacaoService: SolicitacaoService, private loginService: LoginService){}
   
   carregarSolicitacoes(){
-    this.solicitacaoService.listarTodos().subscribe({
+    const user = this.loginService.usuarioLogado
+    if(user)
+    this.solicitacaoService.listarTodosFuncionario(user).subscribe({
       next: (data) =>{
         this.solicitacoes = data;
       },

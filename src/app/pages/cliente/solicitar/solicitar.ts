@@ -3,13 +3,13 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { clientes } from '../../../../assets/mock/clientes_mock';
 import { Status } from '../../../shared/models/enums/status.enum';
-import { RedirectCommand, Router, RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { Solicitacao } from '../../../shared/entities/solicitacao_entity';
 import { ModaisConfirmacao } from '../modais-confirmacao/modais-confirmacao';
-import { HistoricoStatus } from '../../../shared/entities/historico_status_entity';
 import { CategoriaService } from '../../../services/categoria-service/categoria-service';
 import { SolicitacaoService } from '../../../services/solicitacao_service/solicitacao-service';
 import { Categoria } from '../../../shared/entities/categoria_entity';
+import { LoginService } from '../../../services/login-service/login';
 
 @Component({
     selector: 'app-solicitar',
@@ -24,7 +24,8 @@ export class Solicitar implements OnInit{
   constructor(
     private solicitacaoService: SolicitacaoService,
     private categoriaService: CategoriaService,
-    private router: Router
+    private router: Router,
+    private loginService: LoginService
   ) {}
 
 
@@ -56,7 +57,6 @@ export class Solicitar implements OnInit{
   }
 
   
-  // Variável para rastrear se o formulário foi submetido (para exibir erros)
   formSubmitted: boolean = false;
 
   solicitacao = {
@@ -67,7 +67,8 @@ export class Solicitar implements OnInit{
     descricaoEquipamento: "",  // mudou de equipamento
     historicoStatus: [],
     categoria: null,
-    dataHoraAbertura: ""  // mudou de dataSolicitacao
+    dataHoraAbertura: "",
+    funcionarioDestino: null  // mudou de dataSolicitacao
   };
     
   validateForm(): boolean {
@@ -94,13 +95,14 @@ export class Solicitar implements OnInit{
         return;
     }
 
-    const dataAtual = new Date().toLocaleDateString("en-GB", { hour: '2-digit', minute: '2-digit', second: '2-digit',}) ;
+    const dataAtual = new Date().toISOString() ;
     const dataFormatada = dataAtual.replace(",", "");
     const novaSolicitacao: Solicitacao = this.solicitacao;
 
     novaSolicitacao.dataHoraAbertura = dataFormatada;  // mudou de dataSolicitacao
 
     this.solicitacaoService.inserir(novaSolicitacao).subscribe((data) => console.log(data));
+    
     this.solicitacaoService.listarTodos();
     
     this.modalSolicitacaoCriada = true;

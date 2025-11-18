@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { FormsModule } from "@angular/forms";
 import { CommonModule } from '@angular/common'; 
 import { VisualizarSolicitacao } from '../visualizar-solicitacao/visualizar-solicitacao';
 import { Solicitacao } from '../../../shared/entities/solicitacao_entity';
 import { SolicitacaoService } from '../../../services/solicitacao_service/solicitacao-service';
-import { Status } from '../../../shared/models/enums/status.enum';
+import { LoginService } from '../../../services/login-service/login';
 
 @Component({
   selector: 'app-visualizar-solicitacoes',
@@ -14,7 +13,7 @@ import { Status } from '../../../shared/models/enums/status.enum';
 })
 export class VisualizarSolicitacoes implements OnInit{
 
-  constructor(private readonly solicitacaoService: SolicitacaoService){}
+  constructor(private readonly solicitacaoService: SolicitacaoService, private loginService: LoginService){}
   
   solicitacoes: Solicitacao[] = [];
   solicitacoesFiltradas: Solicitacao[] = [];
@@ -24,7 +23,9 @@ export class VisualizarSolicitacoes implements OnInit{
   dataFimFiltro: string = '';
 
   carregarSolicitacoes(){
-    this.solicitacaoService.listarTodos().subscribe({
+    const user = this.loginService.usuarioLogado
+    if(user) {
+      this.solicitacaoService.listarTodosFuncionario(user).subscribe({
       next: (data) =>{
         this.solicitacoesFiltradas = data;
         console.log(data);
@@ -35,6 +36,8 @@ export class VisualizarSolicitacoes implements OnInit{
 
       }
     });
+    }
+    
   }
 
   ngOnInit(): void {
@@ -74,25 +77,21 @@ export class VisualizarSolicitacoes implements OnInit{
   }
 
   parsearDataString(dataString: string): Date {
-    // Se a string de data for nula ou vazia, retorna uma data inválida
     if (!dataString || dataString.trim() === '') {
       return new Date('invalid');
     }
 
     if (dataString.includes('/')) {
-      // Formato: "dd/MM/yyyy - HH:mm"
-      const parteData = dataString.split(' - ')[0]; // Pega só "dd/MM/yyyy"
+      const parteData = dataString.split(' - ')[0]; 
       const [dia, mes, ano] = parteData.split('/').map(Number);
       return new Date(ano, mes - 1, dia);
     }
     
-    // Se não tiver barra, asumimos o formato do input: "yyyy-MM-dd"
     if (dataString.includes('-')) {
       const [ano, mes, dia] = dataString.split('-').map(Number);
       return new Date(ano, mes - 1, dia);
     }
 
-    // Se não for nenhum dos formatos esperados, retorna data inválida
     return new Date('invalid');
   }
 

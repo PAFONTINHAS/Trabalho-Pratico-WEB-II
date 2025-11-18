@@ -28,15 +28,16 @@ export class CriarFuncionario implements OnInit, OnDestroy {
   funcionario = { id: 0, nome: '', email: '', data_nasc: '', senha: '' };
   formVisivel = false;
   editando = false;
-  minDate: Date = new Date();
+  maxDate: string = "";
+  dataFormatada: Date = new Date();
 
   carregarFuncionarios(){
-    console.log("oi")
     this.funcionarioService.listarTodos().subscribe({
       next: (data) => {
         this.funcionarios = data;
-        this.funcionarios.map((funcionario) => {
-          funcionario.data_nasc = this.formatarData(funcionario.data_nasc)
+        this.funcionarios.map((funci) => {
+          this.dataFormatada = new Date(funci.data_nasc)
+          funci.data_nasc = this.formatarData(this.dataFormatada)
         })
       },
 
@@ -49,7 +50,7 @@ export class CriarFuncionario implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.carregarFuncionarios();
-    this.minDate = new Date()
+    this.maxDate = new Date().toISOString().split('T')[0];
   
     // Funcionarios.forEach(funcionario => this.funcionarioService.inserirFuncionariosBase(funcionario))
     // this.subscription = this.funcionarioService.funcionarios$.subscribe(data => {
@@ -75,10 +76,9 @@ export class CriarFuncionario implements OnInit, OnDestroy {
     if (this.funcionario.nome.trim() === '') return;
     if (this.formFunci.form.valid) {
       if (this.editando) {
-        this.funcionarioService.atualizar(this.funcionario).subscribe(this.carregarFuncionarios)
+        this.funcionarioService.atualizar(this.funcionario).subscribe( { next: () => {this.carregarFuncionarios}})
       } else {
-        console.log(this.funcionario)
-        this.funcionarioService.inserir(this.funcionario).subscribe(this.carregarFuncionarios)
+        this.funcionarioService.inserir(this.funcionario).subscribe(() => {this.carregarFuncionarios})
       }
     }
     this.cancelar();
@@ -96,6 +96,7 @@ export class CriarFuncionario implements OnInit, OnDestroy {
       const user = this.loginService.usuarioLogado
       if(user) {
         this.funcionarioService.remover(funcionario.id, user).subscribe({ 
+          next: () => {this.carregarFuncionarios},
           error: () => { 
             this.erroDelete = true
             setTimeout(() => {
@@ -108,9 +109,8 @@ export class CriarFuncionario implements OnInit, OnDestroy {
     }
   }
 
-  formatarData(dataNasc: string) {
-    const data = new Date(dataNasc)
-    return data.toLocaleDateString("en-GB")
+  formatarData(dataNasc: Date) {
+    return dataNasc.toISOString().split('T')[0];
   }
 
 }

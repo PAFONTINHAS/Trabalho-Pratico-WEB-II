@@ -1,20 +1,17 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { RouterLink } from '@angular/router';
-import { VisualizarSolicitacao } from '../visualizar-solicitacao/visualizar-solicitacao';
-import { DefinirOrcamento } from '../definir-orcamento/definir-orcamento';
 import { Solicitacao } from '../../../shared/entities/solicitacao_entity';
 import { SolicitacaoService } from '../../../services/solicitacao_service/solicitacao-service';
 import { Status } from '../../../shared/models/enums/status.enum';
+import { LoginService } from '../../../services/login-service/login';
 
 @Component({
   selector: 'app-efetuar-manutencao',
-  // imports: [RouterLink],
   templateUrl: './efetuar-manutencao.html',
   styleUrl: './efetuar-manutencao.css'
 })
 export class Manutencao {
 
-  constructor(private solicitacaoService: SolicitacaoService){}
+  constructor(private solicitacaoService: SolicitacaoService, private loginService: LoginService){}
 
   
   @Input() solicitacao?: Solicitacao | null;
@@ -32,7 +29,10 @@ export class Manutencao {
     efetuarManutencao(): void {
     if (this.solicitacao) {
 
-      this.solicitacaoService.atualizarStatus(this.solicitacao, Status.Arrumada);
+      this.solicitacao.status = Status.Arrumada
+      const user = this.loginService.usuarioLogado
+      if(user)
+        this.solicitacaoService.atualizarFuncionario(this.solicitacao, user).subscribe();
 
       this.fecharModal.emit();
     }

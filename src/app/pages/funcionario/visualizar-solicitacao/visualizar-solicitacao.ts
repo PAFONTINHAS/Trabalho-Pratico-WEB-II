@@ -5,9 +5,12 @@ import { Solicitacao } from '../../../shared/entities/solicitacao_entity';
 import { Status } from '../../../shared/models/enums/status.enum';
 import { FormsModule } from '@angular/forms';
 import { SolicitacaoService } from '../../../services/solicitacao_service/solicitacao-service';
-import { funcionarios } from '../../../../assets/mock/funcionarios_mocks';
 import { HistoricoStatus } from '../../../shared/entities/historico_status_entity';
 import { Manutencao } from '../efetuar-manutencao/efetuar-manutencao';
+import { LoginService } from '../../../services/login-service/login';
+import { FuncionarioService } from '../../../services/funcionario-service/funcionario-service';
+import { Funcionario } from '../../../shared/entities/funcionario_entity';
+import { HistoricoService } from '../../../services/historico_service/historico-service';
 
 @Component({
   selector: 'app-visualizar-solicitacao',
@@ -21,23 +24,33 @@ export class VisualizarSolicitacao implements OnInit {
   @Output() fecharModal = new EventEmitter<void>();  
   @Output() operacaoConcluida = new EventEmitter<void>(); 
 
-  constructor(private solicitacaoService: SolicitacaoService) {}
+  constructor(
+    private solicitacaoService: SolicitacaoService, 
+    private loginService: LoginService,
+    private funcionarioService: FuncionarioService,
+    private historicoService: HistoricoService
+  ) {}
 
-  public orcamento: number | null = null;
+  public orcamento: string | null = null;
   public funcionarioResponsavel: any = null;
-  public funcionarios = funcionarios;
+  public funcionarios: Funcionario[] = [];
   public statusEnum = Status;
   public modalAberto = false;
 
   public modalEfetuarAberto: boolean = false;
+
+  public historico: HistoricoStatus[] = []
   
-  // NOVO: Flag para rastrear se o botão de submissão do orçamento foi clicado.
   public orcamentoSubmitted: boolean = false;
 
   ngOnInit(): void {
+    this.funcionarioService.listarTodos().subscribe((data) => {
+      this.funcionarios = data.filter((funci) => funci.email !== this.loginService.usuarioLogado?.email)
+    })
     if (this.solicitacao) {
-      this.orcamento = this.solicitacao.valorOrcamento || null;
+      this.orcamento = this.solicitacao.orcamento ? this.solicitacao.orcamento.toString() : null;
       this.funcionarioResponsavel = this.solicitacao.funcionario || this.funcionarios[0];
+      this.historicoService.listarTodos(this.solicitacao).subscribe((data) =>  {this.historico =data; console.log(data)})
     }
   }
 
@@ -61,35 +74,45 @@ export class VisualizarSolicitacao implements OnInit {
 
     if(!this.solicitacao) return;
     
-    const funcionario = funcionarios[numeroFuncionario];
+    const funcionario = this.funcionarios[numeroFuncionario];
 
     if(this.solicitacao.funcionario == funcionario) return;
 
     this.solicitacao.funcionario = funcionario;
 
-    this.solicitacaoService.atualizarStatus(this.solicitacao, Status.Redirecionada);
+    this.solicitacao.status = Status.Redirecionada
+    const user = this.loginService.usuarioLogado
+    if(user)
+      this.solicitacaoService.atualizarFuncionario(this.solicitacao, user).subscribe();
 
     this.modalAberto = false;
   };
 
-  efetuarOrcamento(): void {
-    // 1. Marca como submetido para exibir erros no template
-    this.orcamentoSubmitted = true;
-    
-    // 2. Validação: verifica se o orçamento é null, zero ou negativo (considerando que só números válidos são esperados)
-    if (this.solicitacao && this.orcamento !== null && this.orcamento > 0) {
-      this.solicitacao.valorOrcamento = this.orcamento;
+  efetuarOrcamento(): void {    
+    if (this.solicitacao && this.orcamento !== null) {
+      const orcamentoFormatado = Number(this.orcamento.replace("R$ ", "").replace(",", "."))  * 10;
 
-      this.solicitacaoService.atualizarStatus(this.solicitacao, Status.Orcada);
+      this.solicitacao.orcamento = orcamentoFormatado;
+      this.solicitacao.status = Status.Orcada
+
+      console.log(this.solicitacao)
+      const user = this.loginService.usuarioLogado
+      if(user)
+        this.solicitacaoService.atualizarFuncionario(this.solicitacao, user).subscribe(() => console.log("oie"));
 
       this.operacaoConcluida.emit();
     }
+        this.orcamentoSubmitted = true;
+
   }
 
   efetuarManutencao(): void {
     if (this.solicitacao) {
 
-      this.solicitacaoService.atualizarStatus(this.solicitacao, Status.Arrumada);
+      this.solicitacao.status =  Status.Arrumada
+      const user = this.loginService.usuarioLogado
+      if(user)
+        this.solicitacaoService.atualizarFuncionario(this.solicitacao, user).subscribe();
 
       this.operacaoConcluida.emit();
     }
@@ -98,7 +121,10 @@ export class VisualizarSolicitacao implements OnInit {
   finalizarManutencao(): void {
     if (this.solicitacao) {
 
-      this.solicitacaoService.atualizarStatus(this.solicitacao, Status.Finalizada);
+      this.solicitacao.status = Status.Finalizada
+      const user = this.loginService.usuarioLogado
+      if(user)
+        this.solicitacaoService.atualizarFuncionario(this.solicitacao, user).subscribe();
 
       this.operacaoConcluida.emit();
     }
@@ -114,7 +140,6 @@ export class VisualizarSolicitacao implements OnInit {
     let input = e.target
     input.value = this.orcamentoMask(input.value)
     
-    // Se o usuário está digitando, remove o estado de submissão/erro para que o estilo volte ao normal
     if (this.orcamentoSubmitted) {
         this.orcamentoSubmitted = false;
     }
@@ -122,12 +147,21 @@ export class VisualizarSolicitacao implements OnInit {
 
   orcamentoMask(value: any) {
     
-    value = value.replace(/\D/g, '') 
-    value = value.replace(/(\d+)(\d{2})$/, "$1,$2"); // Adiciona a parte de centavos
-    value = value.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1."); // Adiciona pontos a cada três dígitos
-    console.log(value)
+    value = value.replace('.', '').replace(',', '').replace(/\D/g, '')
 
-    return value
+    const options = { minimumFractionDigits: 2 }
+    const result = new Intl.NumberFormat('pt-BR', options).format(
+      parseFloat(value) / 100
+    )
+
+  console.log(result)
+
+   /* value = value.replace(/\D/g, '') 
+    value = value.replace(/(\d+)(\d{2})$/, "$1,$2"); 
+    value = value.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1."); 
+    console.log(value)*/
+
+  return 'R$ ' + result
   }
 
 

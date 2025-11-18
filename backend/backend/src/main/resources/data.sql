@@ -289,22 +289,10 @@ CREATE TABLE IF NOT EXISTS solicitacao (
     descricao_defeito TEXT,
     motivo_rejeicao TEXT,
     data_hora_abertura DATETIME NOT NULL,
+    valor_orcamento DECIMAL(10,2),
     FOREIGN KEY (id_cliente) REFERENCES cliente(usuario_id) ON DELETE CASCADE,
     FOREIGN KEY (id_funcionario) REFERENCES funcionario(id) ON DELETE SET NULL,
     FOREIGN KEY (id_categoria) REFERENCES categoria(id_categoria) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- ========================================
--- TABELA ORCAMENTO
--- ========================================
-CREATE TABLE IF NOT EXISTS orcamento (
-    id_orcamento INT AUTO_INCREMENT PRIMARY KEY,
-    id_solicitacao INT NOT NULL,
-    id_funcionario BIGINT NOT NULL,
-    valor DECIMAL(10,2) NOT NULL,
-    data_hora DATETIME NOT NULL,
-    FOREIGN KEY (id_solicitacao) REFERENCES solicitacao(id_solicitacao) ON DELETE CASCADE,
-    FOREIGN KEY (id_funcionario) REFERENCES funcionario(id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ========================================

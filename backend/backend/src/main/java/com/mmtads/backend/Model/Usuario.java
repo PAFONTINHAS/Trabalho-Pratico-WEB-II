@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Collection;
 import java.util.List;
 
+
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "usuarios")
@@ -83,7 +84,6 @@ public class Usuario implements UserDetails {
         this.senhaSalt = senhaSalt;
     }
     
-    // getter/setter do @Transient
     public String getSenha() {
         return senha;
     }

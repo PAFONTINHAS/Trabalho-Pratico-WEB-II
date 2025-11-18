@@ -1,4 +1,4 @@
-package com.mmtads.backend.Model;
+/*  package com.mmtads.backend.Model;
 
 import java.util.List;
 
@@ -56,3 +56,4 @@ public class ClienteRest {
         clienteRepository.deleteById(id);
     }
 }
+ */

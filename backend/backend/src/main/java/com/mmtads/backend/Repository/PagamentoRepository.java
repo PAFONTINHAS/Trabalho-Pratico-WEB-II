@@ -15,20 +15,28 @@ import java.util.List;
 public interface PagamentoRepository extends JpaRepository<Pagamento, Long> {
 
     // RF019: Receita por Período (agrupada por dia) - CAST ADICIONADO AO DIA AQUI
-    @Query("SELECT new com.mmtads.backend.dto.ReceitaPorPeriodoDto(CAST(FUNCTION('DATE_FORMAT', p.dataHora, '%Y-%m-%d') AS string), CAST(SUM(p.valor) AS double)) " +
-           "FROM Pagamento p " +
-           "WHERE p.dataHora >= :dataInicio AND p.dataHora <= :dataFim " +
-           "GROUP BY FUNCTION('DATE_FORMAT', p.dataHora, '%Y-%m-%d') " +
-           "ORDER BY p.dataHora ASC")
+  @Query(value = 
+           "SELECT DATE_FORMAT(p.data_hora, '%Y-%m-%d') AS dia, " + 
+           "CAST(SUM(p.valor) AS DOUBLE) AS totalReceita " + // <-- CORREÇÃO AQUI: CAST para DOUBLE
+           "FROM pagamento p " + 
+           "WHERE p.data_hora >= :dataInicio AND p.data_hora <= :dataFim " + 
+           "GROUP BY dia " + 
+           "ORDER BY dia ASC",
+           nativeQuery = true) 
     List<ReceitaPorPeriodoDto> findReceitaByPeriodo(
             @Param("dataInicio") LocalDateTime dataInicio, 
             @Param("dataFim") LocalDateTime dataFim);
     
     // RF020: Receita por Categoria (desde sempre) - MANTER COMO ESTÁ
-    @Query("SELECT new com.mmtads.backend.dto.ReceitaPorCategoriaDto(p.solicitacao.categoria.nome, CAST(SUM(p.valor) AS double)) " +
-           "FROM Pagamento p " +
-           "GROUP BY p.solicitacao.categoria.nome " +
-           "ORDER BY CAST(SUM(p.valor) AS double) DESC")
+   @Query(value = 
+           "SELECT c.nome AS categoria, " + 
+           "CAST(SUM(p.valor) AS DOUBLE) AS totalReceita " + // <-- CORREÇÃO AQUI
+           "FROM pagamento p " +
+           "JOIN solicitacao s ON p.id_solicitacao = s.id_solicitacao " +
+           "JOIN categoria c ON s.id_categoria = c.id_categoria " +
+           "GROUP BY categoria " +
+           "ORDER BY totalReceita DESC",
+           nativeQuery = true)
     List<ReceitaPorCategoriaDto> findReceitaByCategoria();
 
 }

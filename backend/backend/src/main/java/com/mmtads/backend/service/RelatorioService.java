@@ -20,9 +20,7 @@ public class RelatorioService {
     // RF019 - Receita por Período
     public List<ReceitaPorPeriodoDto> gerarReceitaPorPeriodo(LocalDate dataInicio, LocalDate dataFim) {
         
-        // Ajusta dataInicio para o início do dia (00:00:00)
         LocalDateTime inicio = dataInicio.atStartOfDay();
-        // Ajusta dataFim para o final do dia (23:59:59.999...) para incluir todo o dia
         LocalDateTime fim = dataFim.atTime(LocalTime.MAX); 
 
         return pagamentoRepository.findReceitaByPeriodo(inicio, fim);

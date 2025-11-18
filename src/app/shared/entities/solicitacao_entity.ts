@@ -13,7 +13,7 @@ export interface Solicitacao {
     categoria?: Categoria | null;
     dataHoraAbertura: string; // Correção: De 'dataSolicitacao' para 'dataHoraAbertura'
     status: Status;
-    valorOrcamento?: number | null;
+    orcamento?: number | null;
     motivoRejeicao?: string | null;
-    historicoStatus: HistoricoStatus[];
+    funcionarioDestino: Funcionario | null;
 }

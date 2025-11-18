@@ -16,9 +16,7 @@ export const solicitacoes: Solicitacao[] = [
     categoria: Categorias[0],
     dataHoraAbertura: '10/09/2025 - 09:30',
     status: Status.Aberta,
-    historicoStatus: [
-      { data: '10/09/2025', hora: '09:30', status: Status.Aberta },
-    ],
+    funcionarioDestino: funcionarios[1]
   },
   {
     idSolicitacao: 2,
@@ -29,9 +27,7 @@ export const solicitacoes: Solicitacao[] = [
     categoria: Categorias[1],
     dataHoraAbertura: '10/09/2025 - 11:45',
     status: Status.Aberta,
-    historicoStatus: [
-      { data: '10/09/2025', hora: '11:45', status: Status.Aberta },
-    ],
+    funcionarioDestino: funcionarios[0]
   },
   {
     idSolicitacao: 3,
@@ -42,9 +38,7 @@ export const solicitacoes: Solicitacao[] = [
     categoria: Categorias[2],
     dataHoraAbertura: '11/09/2025 - 14:00',
     status: Status.Aberta,
-    historicoStatus: [
-      { data: '11/09/2025', hora: '14:00', status: Status.Aberta },
-    ],
+    funcionarioDestino: funcionarios[1]
   },
   {
     idSolicitacao: 4,
@@ -55,9 +49,7 @@ export const solicitacoes: Solicitacao[] = [
     categoria: Categorias[3],
     dataHoraAbertura: '11/09/2025 - 16:20',
     status: Status.Aberta,
-    historicoStatus: [
-      { data: '11/09/2025', hora: '16:20', status: Status.Aberta },
-    ],
+    funcionarioDestino: funcionarios[0]
   },
 
   // 3 solicitações ORÇADAS
@@ -70,11 +62,7 @@ export const solicitacoes: Solicitacao[] = [
     categoria: Categorias[4],
     dataHoraAbertura: '12/09/2025 - 10:10',
     status: Status.Orcada,
-    valorOrcamento: 150.0,
-    historicoStatus: [
-      { data: '12/09/2025', hora: '10:10', status: Status.Aberta },
-      { data: '13/09/2025', hora: '11:00', status: Status.Orcada },
-    ],
+    funcionarioDestino: funcionarios[0]
   },
   // {
   //   idSolicitacao: 6,
