@@ -1,6 +1,6 @@
 USE manutencaoequipamentos;
 
-CREATE TABLE IF NOT EXISTS endereco (
+/*CREATE TABLE IF NOT EXISTS endereco (
     id_endereco INT AUTO_INCREMENT PRIMARY KEY,
     cep VARCHAR(9) NOT NULL,
     logradouro VARCHAR(100) NOT NULL,
@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS categoria (
 CREATE TABLE IF NOT EXISTS cliente (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     cpf VARCHAR(14) NOT NULL UNIQUE,
-    endereco VARCHAR(255), 
+    endereco VARCHAR(255),
     telefone VARCHAR(20),
     usuario_id BIGINT UNIQUE,
     FOREIGN KEY (usuario_id) REFERENCES usuarios(id)
@@ -98,14 +98,14 @@ CREATE TABLE IF NOT EXISTS historico (
     FOREIGN KEY (funci_origem) REFERENCES funcionario(id),
     FOREIGN KEY (funci_destino) REFERENCES funcionario(id)
 ) DEFAULT CHARSET=utf8mb4;
-
+*/
 
 -- ========================================
 -- INSERÇÃO DE DADOS
 -- ========================================
 
 -- Inserir Categorias
-INSERT IGNORE INTO categoria (nome) VALUES 
+INSERT IGNORE INTO categoria (nome) VALUES
 ('Notebook'),
 ('Desktop'),
 ('Impressora'),
@@ -144,16 +144,17 @@ INSERT IGNORE INTO funcionario (data_nasc, id) VALUES
 ('1995-05-20', 5),  -- id = 5 (corresponde ao usuario_id 5)
 ('1995-06-21', 6);  -- id = 6 (corresponde ao usuario_id 6)
 
+
 -- Inserir Solicitações
-INSERT IGNORE INTO solicitacao (id_solicitacao, descricao_equipamento, descricao_defeito, id_categoria, status, id_cliente, id_funcionario, data_hora_abertura, valor_orcamento) VALUES
-(1, 'Notebook Dell Inspiron', 'Não liga, LED da bateria piscando.', 1, 'ABERTA', 2, 6, '2025-09-01 10:00:00', null),
-(2, 'Impressora Epson L3150', 'Não reconhece cartuchos e falha na impressão.', 3, 'ORCADA', 1, 5, '2025-09-05 15:30:00', 350.00),
-(3, 'Notebook Samsung Book', 'Troca de tela.', 1, 'PAGA', 3, 5, '2025-09-15 09:00:00', 150.00),
-(4, 'Desktop Gamer RGB', 'Limpeza e troca de pasta térmica.', 2, 'PAGA', 4, 6, '2025-09-20 14:00:00', 90.00),
-(5, 'Mouse Logitech MX Master', 'Botão esquerdo falhando.', 4, 'PAGA', 1, 5, '2025-10-01 08:00:00', null);
+INSERT IGNORE INTO solicitacao (descricao_equipamento, descricao_defeito, id_categoria, status, id_cliente, id_funcionario, data_hora_abertura, valor_orcamento) VALUES
+('Notebook Dell Inspiron', 'Não liga, LED da bateria piscando.', 1, 'ABERTA', 2, 6, '2025-09-01 10:00:00', null),
+('Impressora Epson L3150', 'Não reconhece cartuchos e falha na impressão.', 3, 'ORCADA', 1, 5, '2025-09-05 15:30:00', 350.00),
+('Notebook Samsung Book', 'Troca de tela.', 1, 'PAGA', 3, 5, '2025-09-15 09:00:00', 150.00),
+('Desktop Gamer RGB', 'Limpeza e troca de pasta térmica.', 2, 'PAGA', 4, 6, '2025-09-20 14:00:00', 90.00),
+('Mouse Logitech MX Master', 'Botão esquerdo falhando.', 4, 'PAGA', 1, 5, '2025-10-01 08:00:00', null);
 
 -- Inserir Pagamentos
-INSERT IGNORE INTO pagamento (id_pagamento, id_solicitacao, valor, data_hora) VALUES
-(1, 3, 350.00, '2025-09-25 10:30:00'),
-(2, 4, 150.00, '2025-10-01 14:00:00'),
-(3, 5, 90.00, '2025-10-01 16:00:00');
+INSERT IGNORE INTO pagamento ( id_solicitacao, valor, data_hora) VALUES
+( 3, 350.00, '2025-09-25 10:30:00'),
+( 4, 150.00, '2025-10-01 14:00:00'),
+( 5, 90.00, '2025-10-01 16:00:00');
