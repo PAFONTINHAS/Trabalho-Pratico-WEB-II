@@ -5,6 +5,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,7 +36,10 @@ public class SolicitacaoService {
 
     @Transactional
     public Solicitacao atualizarSolicitacao(SolicitacaoDto solicitacaoDto, Long id) {
-        Solicitacao solicitacao = setarSolicitacao(solicitacaoDto, id);
+        Solicitacao solicitacao = solicitacaoRepository.findById(id).orElseThrow(() -> new RuntimeException("Solicitação não encontrada"));
+        //busca a solicitacao que ja existe
+
+        setarSolicitacao(solicitacao, solicitacaoDto);
 
         if (solicitacao.getStatus() == Status.REDIRECIONADA) {
             this.salvarHistorico(solicitacao, solicitacaoDto.getFuncionarioDestino());
@@ -51,7 +55,8 @@ public class SolicitacaoService {
     }
 
     public Solicitacao salvarSolicitacao(SolicitacaoDto solicitacaoDto) {
-        Solicitacao solicitacao = setarSolicitacao(solicitacaoDto, null);
+        Solicitacao solicitacao = new Solicitacao();
+        setarSolicitacao(solicitacao, solicitacaoDto);
         return this.solicitacaoRepository.save(solicitacao);
     }
 
@@ -71,7 +76,7 @@ public class SolicitacaoService {
     }
 
 
-    
+
     // Converte um Double para BigDecimal de forma segura.
     // Isso evita problemas quando o valor é null e impede perda de precisão.
     private static BigDecimal converterBigDecimalDouble(Double valor) {
@@ -93,21 +98,21 @@ public class SolicitacaoService {
     }
 
     // Constrói a entidade Solicitacao com base no DTO recebido do front-end.
-    private Solicitacao setarSolicitacao(SolicitacaoDto solicitacaoDto, Long id) {
-        Solicitacao s = new Solicitacao();                               // cria entidade vazia
+    private Solicitacao setarSolicitacao(Solicitacao s,SolicitacaoDto solicitacaoDto) {
+      //tirei o long id para nao sobrescrever
+
 
         s.setCategoria(solicitacaoDto.getCategoria());                   // copia categoria
         s.setCliente(solicitacaoDto.getCliente());                       // copia cliente
         s.setDataHoraAbertura(solicitacaoDto.getDataHoraAbertura());     // data/hora
         s.setDescricaoEquipamento(solicitacaoDto.getDescricaoEquipamento()); // descrição equip.
         s.setDescricaoDefeito(solicitacaoDto.getDescricaoDefeito());     // defeito
-        s.setFuncionario(solicitacaoDto.getFuncionario());               // funcionário atual
-        s.setIdSolicitacao(id);                                          // id pode ser null (novo)
+        s.setFuncionario(solicitacaoDto.getFuncionario());               // funcionário atual                                        // id pode ser null (novo)
         s.setMotivoRejeicao(solicitacaoDto.getMotivoRejeicao());         // motivo rejeição
         s.setOrcamento(solicitacaoDto.getOrcamento());                   // orçamento
         s.setStatus(solicitacaoDto.getStatus());                         // status
 
-        return s; // retorna entidade pronta para persistência
+        return s;  // retorna entidade pronta para persistência
     }
 
     // Converte String → Date no formato dd-MM-yyyy HH:mm:ss
