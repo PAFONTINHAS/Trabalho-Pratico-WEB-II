@@ -28,15 +28,15 @@ public interface PagamentoRepository extends JpaRepository<Pagamento, Long> {
             @Param("dataFim") LocalDateTime dataFim);
     
     // RF020: Receita por Categoria (desde sempre) - MANTER COMO ESTÁ
-   @Query(value = 
+  @Query(value = 
            "SELECT c.nome AS categoria, " + 
-           "CAST(SUM(p.valor) AS DOUBLE) AS totalReceita " + // <-- CORREÇÃO AQUI
+           "CAST(SUM(p.valor) AS DOUBLE) AS totalReceita " +
            "FROM pagamento p " +
            "JOIN solicitacao s ON p.id_solicitacao = s.id_solicitacao " +
            "JOIN categoria c ON s.id_categoria = c.id_categoria " +
-           "GROUP BY categoria " +
+           "WHERE (:idCategoria IS NULL OR c.id_categoria = :idCategoria) " + // Adicionado filtro condicional
+           "GROUP BY c.nome " + 
            "ORDER BY totalReceita DESC",
            nativeQuery = true)
-    List<ReceitaPorCategoriaDto> findReceitaByCategoria();
-
+    List<ReceitaPorCategoriaDto> findReceitaByCategoria(@Param("idCategoria") Long idCategoria); // Parâmetro adicionado
 }

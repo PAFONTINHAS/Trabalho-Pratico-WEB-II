@@ -33,8 +33,9 @@ public class RelatorioController {
 
     // RF020 - Endpoint para Receita por Categoria
     @GetMapping("/receita-categoria")
-    public ResponseEntity<List<ReceitaPorCategoriaDto>> getReceitaPorCategoria() {
-        List<ReceitaPorCategoriaDto> relatorio = relatorioService.gerarReceitaPorCategoria();
+    public ResponseEntity<List<ReceitaPorCategoriaDto>> getReceitaPorCategoria(
+            @RequestParam(required = false) Long idCategoria) { // Parâmetro opcional adicionado
+        List<ReceitaPorCategoriaDto> relatorio = relatorioService.gerarReceitaPorCategoria(idCategoria); // Parâmetro passado
         return ResponseEntity.ok(relatorio);
     }
 }

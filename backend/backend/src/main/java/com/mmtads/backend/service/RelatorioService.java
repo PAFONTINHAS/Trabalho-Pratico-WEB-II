@@ -27,7 +27,7 @@ public class RelatorioService {
     }
     
     // RF020 - Receita por Categoria
-    public List<ReceitaPorCategoriaDto> gerarReceitaPorCategoria() {
-        return pagamentoRepository.findReceitaByCategoria();
+   public List<ReceitaPorCategoriaDto> gerarReceitaPorCategoria(Long idCategoria) {
+        return pagamentoRepository.findReceitaByCategoria(idCategoria); // Parâmetro passado
     }
 }
