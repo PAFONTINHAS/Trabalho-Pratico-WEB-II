@@ -30,11 +30,11 @@ public class Funcionario extends Usuario{
 
     public Funcionario() {
     }
-    
+
     public Funcionario(Date data_nasc) {
         this.data_nasc = data_nasc;
     }
-    
+
 
     public Date getData_nasc() {
         return data_nasc;
@@ -43,7 +43,7 @@ public class Funcionario extends Usuario{
     public void setData_nasc(Date data_nasc) {
         this.data_nasc = data_nasc;
     }
-    
+
     /**
      * @return the historicoOrigem
      */

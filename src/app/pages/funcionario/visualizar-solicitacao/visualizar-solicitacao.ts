@@ -21,11 +21,11 @@ import { HistoricoService } from '../../../services/historico_service/historico-
 })
 export class VisualizarSolicitacao implements OnInit {
   @Input() solicitacao?: Solicitacao;
-  @Output() fecharModal = new EventEmitter<void>();  
-  @Output() operacaoConcluida = new EventEmitter<void>(); 
+  @Output() fecharModal = new EventEmitter<void>();
+  @Output() operacaoConcluida = new EventEmitter<void>();
 
   constructor(
-    private solicitacaoService: SolicitacaoService, 
+    private solicitacaoService: SolicitacaoService,
     private loginService: LoginService,
     private funcionarioService: FuncionarioService,
     private historicoService: HistoricoService
@@ -40,7 +40,7 @@ export class VisualizarSolicitacao implements OnInit {
   public modalEfetuarAberto: boolean = false;
 
   public historico: HistoricoStatus[] = []
-  
+
   public orcamentoSubmitted: boolean = false;
 
   ngOnInit(): void {
@@ -61,7 +61,7 @@ export class VisualizarSolicitacao implements OnInit {
   abrirModal(){
     this.modalAberto = true;
   }
-  
+
   fecharMover(){
     this.modalAberto = false;
   }
@@ -69,11 +69,11 @@ export class VisualizarSolicitacao implements OnInit {
   abrirModalEfetuar(){
     this.modalEfetuarAberto = true;
   }
-  
+
   mudarFuncionario(numeroFuncionario: number){
 
     if(!this.solicitacao) return;
-    
+
     const funcionario = this.funcionarios[numeroFuncionario];
 
     if(this.solicitacao.funcionario == funcionario) return;
@@ -88,23 +88,31 @@ export class VisualizarSolicitacao implements OnInit {
     this.modalAberto = false;
   };
 
-  efetuarOrcamento(): void {    
-    if (this.solicitacao && this.orcamento !== null) {
-      const orcamentoFormatado = Number(this.orcamento.replace("R$ ", "").replace(",", "."))  * 10;
+efetuarOrcamento(): void {
+  if (this.solicitacao && this.orcamento !== null) {
 
-      this.solicitacao.orcamento = orcamentoFormatado;
-      this.solicitacao.status = Status.Orcada
+    // Remove máscara e converte corretamente
+    const valorString = this.orcamento
+      .replace("R$ ", "")
+      .replace(/\./g, "")
+      .replace(",", ".");
 
-      console.log(this.solicitacao)
-      const user = this.loginService.usuarioLogado
-      if(user)
-        this.solicitacaoService.atualizarFuncionario(this.solicitacao, user).subscribe(() => console.log("oie"));
+    const valorNumero = parseFloat(valorString);
 
-      this.operacaoConcluida.emit();
-    }
-        this.orcamentoSubmitted = true;
+    this.solicitacao.orcamento = valorNumero;
+    this.solicitacao.status = Status.Orcada;
 
+    const user = this.loginService.usuarioLogado;
+    if (user)
+      this.solicitacaoService.atualizarFuncionario(this.solicitacao, user)
+      .subscribe(() => console.log("Salvo com orçamento:", valorNumero));
+
+    this.operacaoConcluida.emit();
   }
+
+  this.orcamentoSubmitted = true;
+}
+
 
   efetuarManutencao(): void {
     if (this.solicitacao) {
@@ -131,43 +139,48 @@ export class VisualizarSolicitacao implements OnInit {
   }
 
 
-  
+
   notificarOperacao(): void {
     this.operacaoConcluida.emit();
   }
 
-  handleOrcamento(e: any) {
-    let input = e.target
-    input.value = this.orcamentoMask(input.value)
-    
-    if (this.orcamentoSubmitted) {
-        this.orcamentoSubmitted = false;
-    }
+handleOrcamento(e: any) {
+  let input = e.target;
+
+  const masked = this.orcamentoMask(input.value);
+  input.value = masked;
+
+  // ESSENCIAL
+  this.orcamento = masked;
+
+  if (this.orcamentoSubmitted) {
+      this.orcamentoSubmitted = false;
   }
+}
 
-  orcamentoMask(value: any) {
-    
-    value = value.replace('.', '').replace(',', '').replace(/\D/g, '')
 
-    const options = { minimumFractionDigits: 2 }
-    const result = new Intl.NumberFormat('pt-BR', options).format(
-      parseFloat(value) / 100
-    )
+orcamentoMask(value: string): string {
 
-  console.log(result)
+  if (!value) return '';
 
-   /* value = value.replace(/\D/g, '') 
-    value = value.replace(/(\d+)(\d{2})$/, "$1,$2"); 
-    value = value.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1."); 
-    console.log(value)*/
+  // Remove tudo que não é número
+  const somenteNumeros = value.replace(/\D/g, '');
 
-  return 'R$ ' + result
-  }
+  // Se não tiver números, limpa
+  if (somenteNumeros.length === 0) return '';
+
+  // Converte número → centavos
+  const valor = (parseInt(somenteNumeros, 10) / 100).toFixed(2);
+
+  // Retorna formatado BR
+  return 'R$ ' + valor.replace('.', ',');
+}
+
 
 
   statusClasses(status: Status): object {
     switch (status) {
-      case Status.Aberta: 
+      case Status.Aberta:
        return {'cursor-default bg-gray-100 px-2 py-1 border-1 border-gray-400 rounded-lg text-gray-600': true};
       case Status.Orcada:
         return {'cursor-default bg-yellow-700/20 px-2 py-1 border-1 border-yellow-800 rounded-lg text-yellow-800': true};
