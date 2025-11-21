@@ -94,7 +94,7 @@ export class RelatorioService {
     // Total
     const total = data.reduce((sum, item) => sum + item.totalReceita, 0);
     doc.setFontSize(12);
-    doc.text(`TOTAL GERAL: R$ ${total.toFixed(2).replace('.', ',')}`, 15, finalY + 10);
+    doc.text(`TOTAL GERAL: R$ ${total.toFixed(2).replace('.', ',')}`, 15, finalY + 35);
 
     return doc.output('blob');
   }
@@ -102,7 +102,7 @@ export class RelatorioService {
   // =======================================================
   // GERAR PDF — RECEITA POR CATEGORIA
   // =======================================================
-  gerarPdfReceitaCategoria(data: ReceitaPorCategoria[]): Blob {
+gerarPdfReceitaCategoria(data: ReceitaPorCategoria[], categoriaNome?: string): Blob {
     const doc = new jsPDF();
     const autoTableFn = this.getAutoTableFn();
     let finalY = 15;
@@ -112,6 +112,7 @@ export class RelatorioService {
     finalY += 10;
 
     doc.setFontSize(12);
+    const subtitle = categoriaNome ? `Categoria: ${categoriaNome}` : 'Período: Desde sempre';
     doc.text('Período: Desde sempre', 15, finalY);
     finalY += 10;
 
@@ -134,7 +135,7 @@ export class RelatorioService {
 
     const total = data.reduce((sum, item) => sum + item.totalReceita, 0);
     doc.setFontSize(12);
-    doc.text(`TOTAL GERAL: R$ ${total.toFixed(2).replace('.', ',')}`, 15, finalY + 10);
+    doc.text(`TOTAL GERAL: R$ ${total.toFixed(2).replace('.', ',')}`, 15, finalY + 35);
 
     return doc.output('blob');
   }
@@ -163,7 +164,12 @@ export class RelatorioService {
     return this.http.get<ReceitaPorPeriodo[]>(`${this.apiUrl}/receita-periodo`, { params });
   }
 
-  getReceitaPorCategoria(): Observable<ReceitaPorCategoria[]> {
-    return this.http.get<ReceitaPorCategoria[]>(`${this.apiUrl}/receita-categoria`);
+  getReceitaPorCategoria(idCategoria?: number | null): Observable<ReceitaPorCategoria[]> {
+    let params = new HttpParams();
+    if (idCategoria !== null && idCategoria !== undefined) {
+      params = params.set('idCategoria', idCategoria.toString()); 
+    }
+
+    return this.http.get<ReceitaPorCategoria[]>(`${this.apiUrl}/receita-categoria`, { params });
   }
 }

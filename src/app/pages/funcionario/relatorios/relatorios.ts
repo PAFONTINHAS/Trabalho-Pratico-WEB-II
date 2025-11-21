@@ -81,20 +81,23 @@ export class Relatorios implements OnInit {
   gerarRelatorioReceitasPorCategoria(): void {
     this.formSubmittedCategoria = true; 
     
-    if (!this.categoriaSelecionadaId) {
+    if (this.categoriaSelecionadaId === null) {
       return;
     }
 
-    const categoriaNome = this.categorias.find(c => c.id === this.categoriaSelecionadaId)?.nome || 'Todas';
+    const categoriaSelecionada = this.categorias.find(c => c.id === this.categoriaSelecionadaId);
+    
+    const categoriaNome = categoriaSelecionada ? categoriaSelecionada.nome : 'Todas';
     const nomeArquivo = `relatorio_receitas_categoria_${categoriaNome}.pdf`;
 
-    this.relatorioService.getReceitaPorCategoria().subscribe({
+    // MUDANÇA: Passa o ID da categoria selecionada para o serviço.
+    this.relatorioService.getReceitaPorCategoria(this.categoriaSelecionadaId).subscribe({
       next: (data: ReceitaPorCategoria[]) => {
         console.log('Dados de Receita por Categoria recebidos:', data);
-        
-        // CORREÇÃO AQUI: Chamar o novo método de geração de PDF real
-        const pdfBlob = this.relatorioService.gerarPdfReceitaCategoria(data);
 
+        // MUDANÇA: Passa os dados e o nome da categoria para a geração do PDF.
+        const pdfBlob = this.relatorioService.gerarPdfReceitaCategoria(data, categoriaNome);
+        
         // 3. Forçar o download
         this.relatorioService.downloadFile(pdfBlob, nomeArquivo);
 
