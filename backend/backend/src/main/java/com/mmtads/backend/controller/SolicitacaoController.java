@@ -39,12 +39,12 @@ public class SolicitacaoController {
     @GetMapping("/user/{email}")
     public List<Solicitacao> listarTodasFuncionario(@PathVariable String email) {
         Funcionario funci = this.funcionarioRepo.findByEmailAndIsDeleteFalse(email);
-        return solicitacaoRepository.findByFuncionarioOrStatus(funci, Status.ABERTA);
+        return solicitacaoRepository.findByFuncionarioOrStatus(funci.getId());
     }
 
     @GetMapping()
     public List<Solicitacao> listarTodas() {
-        return solicitacaoRepository.findAll();
+        return solicitacaoRepository.findByIsDeleteFalse();
     }
 
     @GetMapping("/{id}")
@@ -91,7 +91,7 @@ public class SolicitacaoController {
         if (!solicitacaoRepository.existsById(id)) {
             return ResponseEntity.notFound().build();
         }
-        solicitacaoRepository.deleteById(id);
+        solicitacaoRepository.softDeleteById(id);
         return ResponseEntity.noContent().build();
     }
 }

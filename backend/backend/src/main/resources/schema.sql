@@ -146,12 +146,12 @@ INSERT IGNORE INTO funcionario (data_nasc, id) VALUES
 
 
 -- Inserir Solicitações
-INSERT IGNORE INTO solicitacao (descricao_equipamento, descricao_defeito, id_categoria, status, id_cliente, id_funcionario, data_hora_abertura, valor_orcamento) VALUES
-('Notebook Dell Inspiron', 'Não liga, LED da bateria piscando.', 1, 'ABERTA', 2, 6, '2025-09-01 10:00:00', null),
-('Impressora Epson L3150', 'Não reconhece cartuchos e falha na impressão.', 3, 'ORCADA', 1, 5, '2025-09-05 15:30:00', 350.00),
-('Notebook Samsung Book', 'Troca de tela.', 1, 'PAGA', 3, 5, '2025-09-15 09:00:00', 150.00),
-('Desktop Gamer RGB', 'Limpeza e troca de pasta térmica.', 2, 'PAGA', 4, 6, '2025-09-20 14:00:00', 90.00),
-('Mouse Logitech MX Master', 'Botão esquerdo falhando.', 4, 'PAGA', 1, 5, '2025-10-01 08:00:00', null);
+INSERT IGNORE INTO solicitacao (descricao_equipamento, descricao_defeito, id_categoria, status, id_cliente, id_funcionario, data_hora_abertura, valor_orcamento, is_delete) VALUES
+('Notebook Dell Inspiron', 'Não liga, LED da bateria piscando.', 1, 'ABERTA', 2, 6, '2025-09-01 10:00:00', null, false),
+('Impressora Epson L3150', 'Não reconhece cartuchos e falha na impressão.', 3, 'ORCADA', 1, 5, '2025-09-05 15:30:00', 350.00, false),
+('Notebook Samsung Book', 'Troca de tela.', 1, 'PAGA', 3, 5, '2025-09-15 09:00:00', 150.00, false),
+('Desktop Gamer RGB', 'Limpeza e troca de pasta térmica.', 2, 'PAGA', 4, 6, '2025-09-20 14:00:00', 90.00, false),
+('Mouse Logitech MX Master', 'Botão esquerdo falhando.', 4, 'PAGA', 1, 5, '2025-10-01 08:00:00', null, false);
 
 -- Inserir Pagamentos
 INSERT IGNORE INTO pagamento ( id_solicitacao, valor, data_hora) VALUES
