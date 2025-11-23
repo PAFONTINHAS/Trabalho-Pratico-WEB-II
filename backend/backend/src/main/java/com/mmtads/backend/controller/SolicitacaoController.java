@@ -2,7 +2,9 @@ package com.mmtads.backend.controller;
 
 import com.mmtads.backend.Model.Solicitacao;
 import com.mmtads.backend.Model.Status;
+import com.mmtads.backend.Model.Cliente;
 import com.mmtads.backend.Model.Funcionario;
+import com.mmtads.backend.Repository.ClienteRepository;
 import com.mmtads.backend.Repository.FuncionarioRepository;
 import com.mmtads.backend.Repository.SolicitacaoRepository;
 import com.mmtads.backend.dto.SolicitacaoDto;
@@ -23,6 +25,9 @@ public class SolicitacaoController {
 
     @Autowired
     private FuncionarioRepository funcionarioRepo;
+
+    @Autowired
+    private ClienteRepository clienteRepository;
 
     @Autowired
     private SolicitacaoRepository solicitacaoRepository;
@@ -49,8 +54,11 @@ public class SolicitacaoController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @PostMapping()
-    public Solicitacao criar(@RequestBody SolicitacaoDto solicitacaoDto) {
+    @PostMapping("/{email}")
+    public Solicitacao criar(@PathVariable String email, @RequestBody SolicitacaoDto solicitacaoDto) {
+        Cliente cliente = this.clienteRepository.findByEmailAndIsDeleteFalse(email);
+        solicitacaoDto.setCliente(cliente);
+        
         Solicitacao s = this.solicitacaoService.salvarSolicitacao(solicitacaoDto);
         this.solicitacaoService.salvarHistorico(s, null);
         return s;

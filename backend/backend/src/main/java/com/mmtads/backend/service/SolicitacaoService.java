@@ -88,23 +88,23 @@ public class SolicitacaoService {
     // Registra um pagamento associado a uma solicitação com status PAGA.
     private void salvarPagamento(Solicitacao solicitacao) {
 
-    System.out.println("VALOR QUE CHEGA DO FRONT (solicitacao.getOrcamento()) = "
-            + solicitacao.getOrcamento());
+        System.out.println("VALOR QUE CHEGA DO FRONT (solicitacao.getOrcamento()) = "
+                + solicitacao.getOrcamento());
 
-    Pagamento p = new Pagamento();
-    p.setDataHora(new Date());
-    p.setSolicitacao(solicitacao);
+        Pagamento p = new Pagamento();
+        p.setDataHora(new Date());
+        p.setSolicitacao(solicitacao);
 
-    BigDecimal valorOrcamento =
-            converterBigDecimalDouble(solicitacao.getOrcamento());
+        BigDecimal valorOrcamento =
+                converterBigDecimalDouble(solicitacao.getOrcamento());
 
-    p.setValor(valorOrcamento);
+        p.setValor(valorOrcamento);
 
-    System.out.println("VALOR FINAL ANTES DE SALVAR NO PAGAMENTO = "
-            + valorOrcamento);
+        System.out.println("VALOR FINAL ANTES DE SALVAR NO PAGAMENTO = "
+                + valorOrcamento);
 
-    this.pagamentoRepository.save(p);
-}
+        this.pagamentoRepository.save(p);
+    }
 
     // Constrói a entidade Solicitacao com base no DTO recebido do front-end.
     private Solicitacao setarSolicitacao(Solicitacao s,SolicitacaoDto solicitacaoDto) {
@@ -116,35 +116,35 @@ public class SolicitacaoService {
         }
 
         if(solicitacaoDto.getCategoria()!=null){
-        s.setCategoria(solicitacaoDto.getCategoria());
+            s.setCategoria(solicitacaoDto.getCategoria());
         }
 
         if(solicitacaoDto.getCliente()!=null){
-        s.setCliente(solicitacaoDto.getCliente());
+            s.setCliente(solicitacaoDto.getCliente());
         }
 
         if(solicitacaoDto.getDataHoraAbertura()!=null){
-        s.setDataHoraAbertura(solicitacaoDto.getDataHoraAbertura());
+            s.setDataHoraAbertura(solicitacaoDto.getDataHoraAbertura());
         }
 
         if(solicitacaoDto.getDescricaoEquipamento()!=null){
-        s.setDescricaoEquipamento(solicitacaoDto.getDescricaoEquipamento());
+            s.setDescricaoEquipamento(solicitacaoDto.getDescricaoEquipamento());
         }
 
         if(solicitacaoDto.getDescricaoDefeito()!=null){
-        s.setDescricaoDefeito(solicitacaoDto.getDescricaoDefeito());
+            s.setDescricaoDefeito(solicitacaoDto.getDescricaoDefeito());
         }
 
         if(solicitacaoDto.getMotivoRejeicao()!=null){
-        s.setMotivoRejeicao(solicitacaoDto.getMotivoRejeicao());
+            s.setMotivoRejeicao(solicitacaoDto.getMotivoRejeicao());
         }
 
         if(solicitacaoDto.getOrcamento()!=null){
-        s.setOrcamento(solicitacaoDto.getOrcamento());
+            s.setOrcamento(solicitacaoDto.getOrcamento());
         }
 
         if(solicitacaoDto.getStatus()!=null){
-        s.setStatus(solicitacaoDto.getStatus());
+            s.setStatus(solicitacaoDto.getStatus());
         }
         return s;  // retorna entidade pronta para persistência
     }
