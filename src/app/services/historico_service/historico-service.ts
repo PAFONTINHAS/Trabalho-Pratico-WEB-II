@@ -19,10 +19,14 @@ export class HistoricoService {
   }
 
   arrumarFuncionariosHistorico(historico: HistoricoStatus[]) {
+    historico.map(() => console.log("oi"))
     historico.map((h) => {
-      if(h.funciOrigem == undefined)
+      console.log("oi")
+      if(!h.funciOrigem)
         h.funciOrigem = {id: 0, dataNasc: new Date(), nome: " - ", email: "", senha: "", perfil: "FUNCIONARIO"}
     })
+    return historico
   }
 
 }
+ 

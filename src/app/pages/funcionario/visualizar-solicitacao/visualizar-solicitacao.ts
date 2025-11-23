@@ -50,8 +50,9 @@ export class VisualizarSolicitacao implements OnInit {
     if (this.solicitacao) {
       this.orcamento = this.solicitacao.orcamento ? this.solicitacao.orcamento.toString() : null;
       this.funcionarioResponsavel = this.solicitacao.funcionario || this.funcionarios[0];
-      this.historicoService.listarTodos(this.solicitacao).subscribe((data) =>  {this.historico =data; console.log(data)})
-      this.historicoService.arrumarFuncionariosHistorico(this.historico)
+      this.historicoService.listarTodos(this.solicitacao).subscribe((data) =>  {
+        this.historico = this.historicoService.arrumarFuncionariosHistorico(data)
+      })
     }
   }
 

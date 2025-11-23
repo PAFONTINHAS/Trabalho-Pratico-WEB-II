@@ -65,7 +65,12 @@ public class SolicitacaoService {
         Historico h = new Historico();
         Date dataHoraAtual = new Date();
         h.setDataHora(dataHoraAtual);
-        h.setFunciOrigem(s.getFuncionario());
+
+        if(s.getStatus() == Status.ABERTA || s.getStatus() == Status.APROVADA || s.getStatus() == Status.REJEITADA || s.getStatus() == Status.PAGA) {
+            h.setFunciOrigem(null);
+        } else {
+            h.setFunciOrigem(s.getFuncionario());
+        }
         h.setSolicitacao(s);
         h.setStatus(s.getStatus());
 

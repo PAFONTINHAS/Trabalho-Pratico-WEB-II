@@ -33,12 +33,9 @@ export class VisualizarOrcamento implements OnInit  {
 
   ngOnInit(): void {
     if(this.solicitacao)
-      this.historicoService.listarTodos(this.solicitacao).subscribe((data) => {
-        this.historico =data
-      });
-
-      this.historicoService.arrumarFuncionariosHistorico(this.historico)
-
+      this.historicoService.listarTodos(this.solicitacao).subscribe((data) =>  {
+        this.historico = this.historicoService.arrumarFuncionariosHistorico(data)
+      })
     
   }
 
