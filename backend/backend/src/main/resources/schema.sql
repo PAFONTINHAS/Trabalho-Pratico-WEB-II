@@ -181,9 +181,9 @@ INSERT IGNORE INTO historico (id_solicitacao, funci_origem, status, data_hora, f
 (5, null, 'APROVADA', '2025-10-03 17:52:00', null),
 (5, 5, 'REDIRECIONADA', '2025-10-04 11:42:00', 6),
 (5, 6, 'ARRUMADA', '2025-10-07 09:45:00', null),
-(5, null, 'PAGA', '2025-10-08 10:30:00', null);
+(5, null, 'PAGA', '2025-10-08 10:30:00', null),
 (6, null, 'ABERTA', '2025-10-03 10:31:00', null),
 (6, 6, 'ORCADA', '2025-10-03 16:00:00', null),
 (6, null, 'REJEITADA', '2025-10-04 08:42:00', null),
 (6, null, 'APROVADA', '2025-10-06 11:35:00', 6),
-(6, 6, 'ARRUMADA', '2025-10-10 09:48:00', null),
+(6, 6, 'ARRUMADA', '2025-10-10 09:48:00', null);
