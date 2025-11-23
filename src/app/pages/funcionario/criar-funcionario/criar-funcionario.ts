@@ -18,7 +18,8 @@ export class CriarFuncionario implements OnInit, OnDestroy {
   funcionarios: Funcionario[] = [];
   private readonly subscription: Subscription = new Subscription();
   erroDelete: boolean = false
-
+  modalRemocaoAberto: boolean = false;
+  funcionarioParaRemover: Funcionario | null = null;
   constructor(
     private readonly funcionarioService: FuncionarioService,
     private readonly router: Router,
@@ -76,9 +77,15 @@ export class CriarFuncionario implements OnInit, OnDestroy {
     if (this.funcionario.nome.trim() === '') return;
     if (this.formFunci.form.valid) {
       if (this.editando) {
-        this.funcionarioService.atualizar(this.funcionario).subscribe( { next: () => {this.carregarFuncionarios}})
+        this.funcionarioService.atualizar(this.funcionario).subscribe( { 
+          next: () => {
+            this.carregarFuncionarios() // <-- CORREÇÃO: Adicionado () para chamar a função
+          }
+        })
       } else {
-        this.funcionarioService.inserir(this.funcionario).subscribe(() => {this.carregarFuncionarios})
+        this.funcionarioService.inserir(this.funcionario).subscribe(() => {
+          this.carregarFuncionarios() // <-- CORREÇÃO: Adicionado () para chamar a função
+        })
       }
     }
     this.cancelar();
@@ -92,20 +99,44 @@ export class CriarFuncionario implements OnInit, OnDestroy {
 
   remover($event: any, funcionario: Funcionario): void {
     $event.preventDefault();
-    if (confirm(`Deseja realmente remover o funcionario ${funcionario.nome}?`)) {
-      const user = this.loginService.usuarioLogado
-      if(user) {
-        this.funcionarioService.remover(funcionario.id, user).subscribe({ 
-          next: () => {this.carregarFuncionarios},
-          error: () => { 
-            this.erroDelete = true
-            setTimeout(() => {
-              this.erroDelete = false;
-            }, 3000);
-          }
-        })
-      }
-      
+    // Substitui a chamada a 'confirm()' pela abertura do modal customizado
+    this.abrirModalRemocao(funcionario); 
+  }
+
+  abrirModalRemocao(funcionario: Funcionario): void {
+    this.funcionarioParaRemover = funcionario;
+    this.modalRemocaoAberto = true;
+  }
+
+  fecharModalRemocao(): void {
+    this.modalRemocaoAberto = false;
+    this.funcionarioParaRemover = null;
+  }
+
+  removerFuncionarioConfirmado(): void {
+    if (!this.funcionarioParaRemover || !this.funcionarioParaRemover.id) {
+      this.fecharModalRemocao();
+      return;
+    }
+    
+    const id = this.funcionarioParaRemover.id;
+    const user = this.loginService.usuarioLogado;
+    
+    if (user) {
+        this.funcionarioService.remover(id, user).subscribe({
+            next: () => {
+                this.carregarFuncionarios(); // A correção do recarregamento agora funciona aqui!
+                this.fecharModalRemocao();
+            },
+            error: (e) => {
+                console.error('Erro ao remover funcionário', e);
+                this.erroDelete = true
+                setTimeout(() => {
+                  this.erroDelete = false;
+                }, 3000);
+                this.fecharModalRemocao();
+            }
+        });
     }
   }
 
