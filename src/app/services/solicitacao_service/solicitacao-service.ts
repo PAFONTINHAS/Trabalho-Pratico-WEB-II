@@ -29,8 +29,9 @@ export class SolicitacaoService {
     const url = `${this.apiUrl}`;
     return this.http.get<Solicitacao[]>(url);
   }
-  inserir(solicitacao: Solicitacao): Observable<Solicitacao> {
-    return this.http.post<Solicitacao>(this.apiUrl, solicitacao);
+  inserir(solicitacao: Solicitacao,  usuario: Usuario): Observable<Solicitacao> {
+    const url = this.apiUrl + `/${usuario.email}`
+    return this.http.post<Solicitacao>(url, solicitacao);
   }
   buscarPorId(id: number): Observable<Solicitacao> {
     const url = `${this.apiUrl}/${id}`;

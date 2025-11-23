@@ -100,8 +100,11 @@ export class Solicitar implements OnInit{
     const novaSolicitacao: Solicitacao = this.solicitacao;
 
     novaSolicitacao.dataHoraAbertura = dataFormatada;  // mudou de dataSolicitacao
+    
+    const usuario = this.loginService.usuarioLogado 
 
-    this.solicitacaoService.inserir(novaSolicitacao).subscribe((data) => console.log(data));
+    if(usuario)
+      this.solicitacaoService.inserir(novaSolicitacao, usuario).subscribe((data) => console.log(data));
     
     this.solicitacaoService.listarTodos();
     

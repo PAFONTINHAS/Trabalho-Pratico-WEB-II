@@ -26,23 +26,23 @@
           <div class="solicitacao-info">
             <p class="text-md text-gray-600">
               <span class="font-semibold">Cliente: </span>
-              {{ solicitacao?.cliente?.nome }}
+              {{ solicitacao.cliente.nome }}
             </p>
             <p class="text-md text-gray-600">
               <span class="font-semibold">Email: </span>
-              {{ solicitacao?.cliente?.email }}
+              {{ solicitacao.cliente.email }}
             </p>
             <p class="text-md text-gray-600">
               <span class="font-semibold">Contato: </span>
-              {{ solicitacao?.cliente?.telefone }}
+              {{ solicitacao.cliente.telefone }}
             </p>
             <p class="text-md text-gray-600">
               <span class="font-semibold">Equipamento: </span>
-              {{ solicitacao?.descricaoEquipamento }}
+              {{ solicitacao.descricaoEquipamento }}
             </p>
             <p class="text-md text-gray-600">
               <span class="font-semibold">Defeito: </span>
-              {{ solicitacao?.descricaoDefeito }}
+              {{ solicitacao.descricaoDefeito }}
             </p>
             <p class="text-md text-gray-600">
               <span class="font-semibold">Funcionario Responsável: </span>
@@ -50,7 +50,7 @@
             </p>
             <p class="text-md text-gray-600 font-bold">
               Status:
-              <span [ngClass]="statusClasses(solicitacao.status)">{{ solicitacao?.status?.toUpperCase() }}</span>
+              <span [ngClass]="statusClasses(solicitacao.status)">{{ solicitacao.status.toUpperCase() }}</span>
             </p>
           </div>
         </div>
@@ -58,7 +58,7 @@
         <div class="p-4 rounded-xl bg-gray-100 border border-gray-300">
                 <h3 class="text-lg font-bold text-gray-700">Orçamento</h3>
 
-                @if(solicitacao?.status === statusEnum.Aberta) {
+                @if(solicitacao.status === statusEnum.Aberta) {
                     <div class="flex flex-col gap-2">
                         <input
                             type="text"
@@ -78,7 +78,7 @@
                 } @else {
 
                   <p class="text-md text-gray-600">
-                      Valor: <span class="font-semibold">R$ {{ solicitacao?.orcamento | currency:'BRL':'symbol-narrow':'1.2-2'}}</span>
+                      Valor: <span class="font-semibold">R$ {{ solicitacao.orcamento | currency:'BRL':'symbol-narrow':'1.2-2'}}</span>
                   </p>
                 }
 
@@ -93,6 +93,7 @@
                   <p [ngClass]="statusClasses(h.status)">
                     {{ h?.status}}
                   </p>
+                  <p class="font-semibold mr-6">{{ h.funciOrigem.nome }}</p>
                 </li>
               }
             </ul>
@@ -100,7 +101,7 @@
         </div>
 
       <footer class="modal-footer flex justify-center gap-4 mt-8">
-        @switch (solicitacao?.status) {
+        @switch (solicitacao.status) {
           @case (statusEnum.Aberta) {
             <button
               class="bg-mm text-nowrap hover:bg-mm-dark h-[46px] px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:scale-[102%] active:scale-95"

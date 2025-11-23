@@ -2,7 +2,9 @@ package com.mmtads.backend.controller;
 
 import com.mmtads.backend.Model.Solicitacao;
 import com.mmtads.backend.Model.Status;
+import com.mmtads.backend.Model.Cliente;
 import com.mmtads.backend.Model.Funcionario;
+import com.mmtads.backend.Repository.ClienteRepository;
 import com.mmtads.backend.Repository.FuncionarioRepository;
 import com.mmtads.backend.Repository.SolicitacaoRepository;
 import com.mmtads.backend.dto.SolicitacaoDto;
@@ -25,6 +27,9 @@ public class SolicitacaoController {
     private FuncionarioRepository funcionarioRepo;
 
     @Autowired
+    private ClienteRepository clienteRepository;
+
+    @Autowired
     private SolicitacaoRepository solicitacaoRepository;
 
     public SolicitacaoController(SolicitacaoRepository solicitacaoRepository) {
@@ -34,12 +39,12 @@ public class SolicitacaoController {
     @GetMapping("/user/{email}")
     public List<Solicitacao> listarTodasFuncionario(@PathVariable String email) {
         Funcionario funci = this.funcionarioRepo.findByEmailAndIsDeleteFalse(email);
-        return solicitacaoRepository.findByFuncionarioOrStatus(funci, Status.ABERTA);
+        return solicitacaoRepository.findByFuncionarioOrStatus(funci.getId());
     }
 
     @GetMapping()
     public List<Solicitacao> listarTodas() {
-        return solicitacaoRepository.findAll();
+        return solicitacaoRepository.findByIsDeleteFalse();
     }
 
     @GetMapping("/{id}")
@@ -49,8 +54,11 @@ public class SolicitacaoController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @PostMapping()
-    public Solicitacao criar(@RequestBody SolicitacaoDto solicitacaoDto) {
+    @PostMapping("/{email}")
+    public Solicitacao criar(@PathVariable String email, @RequestBody SolicitacaoDto solicitacaoDto) {
+        Cliente cliente = this.clienteRepository.findByEmailAndIsDeleteFalse(email);
+        solicitacaoDto.setCliente(cliente);
+        
         Solicitacao s = this.solicitacaoService.salvarSolicitacao(solicitacaoDto);
         this.solicitacaoService.salvarHistorico(s, null);
         return s;
@@ -83,7 +91,7 @@ public class SolicitacaoController {
         if (!solicitacaoRepository.existsById(id)) {
             return ResponseEntity.notFound().build();
         }
-        solicitacaoRepository.deleteById(id);
+        solicitacaoRepository.softDeleteById(id);
         return ResponseEntity.noContent().build();
     }
 }
