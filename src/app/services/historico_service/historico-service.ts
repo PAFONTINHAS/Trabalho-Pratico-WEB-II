@@ -13,7 +13,16 @@ export class HistoricoService {
   }
 
   listarTodos(solicitacao: Solicitacao): Observable<HistoricoStatus[]> {
-      const url = `${this.apiUrl}/solicitacao/${solicitacao.idSolicitacao}`;
-      return this.http.get<HistoricoStatus[]>(url);
-    }
+    const url = `${this.apiUrl}/solicitacao/${solicitacao.idSolicitacao}`;
+    const historico = this.http.get<HistoricoStatus[]>(url);
+    return historico
+  }
+
+  arrumarFuncionariosHistorico(historico: HistoricoStatus[]) {
+    historico.map((h) => {
+      if(h.funciOrigem == undefined)
+        h.funciOrigem = {id: 0, dataNasc: new Date(), nome: " - ", email: "", senha: "", perfil: "FUNCIONARIO"}
+    })
+  }
+
 }

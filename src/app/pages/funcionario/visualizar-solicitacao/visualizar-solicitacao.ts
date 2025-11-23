@@ -51,6 +51,7 @@ export class VisualizarSolicitacao implements OnInit {
       this.orcamento = this.solicitacao.orcamento ? this.solicitacao.orcamento.toString() : null;
       this.funcionarioResponsavel = this.solicitacao.funcionario || this.funcionarios[0];
       this.historicoService.listarTodos(this.solicitacao).subscribe((data) =>  {this.historico =data; console.log(data)})
+      this.historicoService.arrumarFuncionariosHistorico(this.historico)
     }
   }
 
@@ -74,11 +75,14 @@ export class VisualizarSolicitacao implements OnInit {
 
     if(!this.solicitacao) return;
 
-    const funcionario = this.funcionarios[numeroFuncionario];
+    const funcionario = this.funcionarios.find((f) => f.id == numeroFuncionario);
 
     if(this.solicitacao.funcionario == funcionario) return;
 
-    this.solicitacao.funcionario = funcionario;
+    if(funcionario)
+    this.solicitacao.funcionarioDestino = funcionario;
+    console.log("DESTINO" + this.solicitacao.funcionarioDestino)
+    console.log("ORIGEM" + this.solicitacao.funcionario)
 
     this.solicitacao.status = Status.Redirecionada
     const user = this.loginService.usuarioLogado
