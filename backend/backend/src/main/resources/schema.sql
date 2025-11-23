@@ -1,6 +1,6 @@
 USE manutencaoequipamentos;
 
-/*CREATE TABLE IF NOT EXISTS endereco (
+CREATE TABLE IF NOT EXISTS endereco (
     id_endereco INT AUTO_INCREMENT PRIMARY KEY,
     cep VARCHAR(9) NOT NULL,
     logradouro VARCHAR(100) NOT NULL,
@@ -42,11 +42,11 @@ CREATE TABLE IF NOT EXISTS funcionario (
     FOREIGN KEY (usuario_id) REFERENCES usuarios(id)
 ) DEFAULT CHARSET=utf8mb4;
 
---Tabela solicitacao (Depende de Cliente, Funcionário e Categoria)
+-- Tabela solicitacao (Depende de Cliente, Funcionário e Categoria)
 CREATE TABLE IF NOT EXISTS solicitacao (
     id_solicitacao INT AUTO_INCREMENT PRIMARY KEY,
     id_cliente BIGINT NOT NULL,
-    id_funcionario BIGINT, -- Pode ser NULL
+    id_funcionario BIGINT,
     id_categoria INT NOT NULL,
     status VARCHAR(30) NOT NULL,
     descricao_equipamento VARCHAR(100),
@@ -92,13 +92,12 @@ CREATE TABLE IF NOT EXISTS historico (
     status VARCHAR(30) NOT NULL,
     funci_origem BIGINT,
     funci_destino BIGINT,
-    data_hora DATETIME NOT NULL, -- Corrigido para DATETIME, BIGINT é incomum para data/hora
+    data_hora DATETIME NOT NULL,
     observacao TEXT,
     FOREIGN KEY (id_solicitacao) REFERENCES solicitacao(id_solicitacao),
     FOREIGN KEY (funci_origem) REFERENCES funcionario(id),
     FOREIGN KEY (funci_destino) REFERENCES funcionario(id)
 ) DEFAULT CHARSET=utf8mb4;
-*/
 
 -- ========================================
 -- INSERÇÃO DE DADOS
@@ -122,7 +121,6 @@ INSERT IGNORE INTO usuarios (email, nome, senha_hash, senha_salt, role, is_delet
 ('mario@email.com', 'Mario Montes', '7ea5c4daea1f3db18fc616cc72e64ec85786e674df3ce116efdcee1e4eafba10', 'c1b2d3e4f5a6b7c8d9e0f1a2b3c4d5e6', 'FUNCIONARIO', FALSE);
 
 -- Inserir Endereços
--- MUDANÇA: Nova tabela, dados antes estavam direto em cliente
 INSERT INTO endereco (logradouro, numero, cidade, estado, cep) VALUES
 ('Rua das Flores', '123', 'Curitiba', 'PR', '80000-000'),
 ('Rua dos Pinheiros', '456', 'Curitiba', 'PR', '80420-000'),
@@ -130,20 +128,16 @@ INSERT INTO endereco (logradouro, numero, cidade, estado, cep) VALUES
 ('Rua XV de Novembro', '321', 'Curitiba', 'PR', '80020-000');
 
 -- Inserir Clientes
--- MUDANÇA: Agora endereco recebe ID (1, 2, 3, 4) ao invés de texto ('Rua 123')
--- MUDANÇA: usuario_id é usado como PK, não há mais coluna 'id' separada
 INSERT IGNORE INTO cliente (cpf, telefone, endereco, usuario_id) VALUES
-('111.111.111-11', '(41) 99999-0000', 1, 1),  -- endereco = 1 (ID do endereço)
-('222.222.222-22', '(42) 99999-0000', 2, 2),  -- endereco = 2 (ID do endereço)
-('333.333.333-33', '(43) 99999-0000', 3, 3),  -- endereco = 3 (ID do endereço)
-('444.444.444-44', '(44) 99999-0000', 4, 4);  -- endereco = 4 (ID do endereço)
+('111.111.111-11', '(41) 99999-0000', 1, 1),
+('222.222.222-22', '(42) 99999-0000', 2, 2),
+('333.333.333-33', '(43) 99999-0000', 3, 3),
+('444.444.444-44', '(44) 99999-0000', 4, 4);
 
 -- Inserir Funcionários
--- MUDANÇA: 'id' agora é o próprio usuario_id, não é AUTO_INCREMENT
 INSERT IGNORE INTO funcionario (data_nasc, id) VALUES
-('1995-05-20', 5),  -- id = 5 (corresponde ao usuario_id 5)
-('1995-06-21', 6);  -- id = 6 (corresponde ao usuario_id 6)
-
+('1995-05-20', 5),
+('1995-06-21', 6);
 
 -- Inserir Solicitações
 INSERT IGNORE INTO solicitacao (descricao_equipamento, descricao_defeito, id_categoria, status, id_cliente, id_funcionario, data_hora_abertura, valor_orcamento) VALUES
@@ -154,7 +148,7 @@ INSERT IGNORE INTO solicitacao (descricao_equipamento, descricao_defeito, id_cat
 ('Mouse Logitech MX Master', 'Botão esquerdo falhando.', 4, 'PAGA', 1, 5, '2025-10-01 08:00:00', null);
 
 -- Inserir Pagamentos
-INSERT IGNORE INTO pagamento ( id_solicitacao, valor, data_hora) VALUES
-( 3, 350.00, '2025-09-25 10:30:00'),
-( 4, 150.00, '2025-10-01 14:00:00'),
-( 5, 90.00, '2025-10-01 16:00:00');
+INSERT IGNORE INTO pagamento (id_solicitacao, valor, data_hora) VALUES
+(3, 350.00, '2025-09-25 10:30:00'),
+(4, 150.00, '2025-10-01 14:00:00'),
+(5, 90.00, '2025-10-01 16:00:00');
