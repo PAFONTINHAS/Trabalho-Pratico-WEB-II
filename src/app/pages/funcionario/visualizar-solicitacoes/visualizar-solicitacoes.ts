@@ -27,6 +27,7 @@ export class VisualizarSolicitacoes implements OnInit{
     if(user) {
       this.solicitacaoService.listarTodosFuncionario(user).subscribe({
       next: (data) =>{
+        this.solicitacoes = data;
         this.solicitacoesFiltradas = data;
         console.log(data);
       },
@@ -42,8 +43,6 @@ export class VisualizarSolicitacoes implements OnInit{
 
   ngOnInit(): void {
     this.carregarSolicitacoes();
-    
-    this.solicitacoesFiltradas = this.solicitacoes;
   }
 
  mudarFiltro( valor: string){
@@ -61,9 +60,11 @@ export class VisualizarSolicitacoes implements OnInit{
         this.solicitacoesFiltradas = this.solicitacoes.filter(s => {
           
           const dataDaSolicitacao = this.parsearDataString(s.dataHoraAbertura);
-          dataDaSolicitacao.setHours(0, 0, 0, 0);
+
+          const dataComparacao = new Date(dataDaSolicitacao);
+          dataComparacao.setHours(0, 0, 0, 0);
           
-          const resultado = dataDaSolicitacao.getTime() === hoje.getTime();
+          const resultado = dataComparacao.getTime() === hoje.getTime();
           
           return resultado;
         });
@@ -76,20 +77,22 @@ export class VisualizarSolicitacoes implements OnInit{
     }
   }
 
-  parsearDataString(dataString: string): Date {
-    if (!dataString || dataString.trim() === '') {
+  parsearDataString(data: any): Date {
+
+    if (!data) {
       return new Date('invalid');
     }
 
-    if (dataString.includes('/')) {
-      const parteData = dataString.split(' - ')[0]; 
-      const [dia, mes, ano] = parteData.split('/').map(Number);
-      return new Date(ano, mes - 1, dia);
+    if(typeof data === 'number'){
+      return new Date(data);
     }
-    
-    if (dataString.includes('-')) {
-      const [ano, mes, dia] = dataString.split('-').map(Number);
-      return new Date(ano, mes - 1, dia);
+
+    if(typeof data === 'string'){
+      return new Date(data);
+    }
+
+    if(data instanceof Date){
+      return data;
     }
 
     return new Date('invalid');
@@ -98,17 +101,13 @@ export class VisualizarSolicitacoes implements OnInit{
   filtrarSolicitacoesPorData() {
 
     if (this.dataInicioFiltro && this.dataFimFiltro) {
-      const inicio = this.parsearDataString(this.dataInicioFiltro);
-      const fim = this.parsearDataString(this.dataFimFiltro);
-
-      fim.setHours(23, 59, 59, 999);
+      const inicio = this.parsearDataString(this.dataInicioFiltro + 'T00:00:00');
+      const fim = this.parsearDataString(this.dataFimFiltro + 'T23:59:59');
 
       this.solicitacoesFiltradas = this.solicitacoes.filter(s => {
         const dataDaSolicitacao = this.parsearDataString(s.dataHoraAbertura);
         
-        const resultado = dataDaSolicitacao >= inicio && dataDaSolicitacao <= fim;
-        
-        return resultado;
+        return dataDaSolicitacao >= inicio && dataDaSolicitacao <= fim;
       });
       
     } else {

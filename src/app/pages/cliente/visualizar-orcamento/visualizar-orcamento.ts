@@ -63,7 +63,6 @@ export class VisualizarOrcamento implements OnInit  {
     
     if(!this.solicitacao) return;
     this.solicitacao.status = Status.Aprovada
-    console.log(this.solicitacao)
     this.solicitacaoService.atualizar(this.solicitacao).subscribe(() => {
       this.abrirModal('aprovar');
     });
