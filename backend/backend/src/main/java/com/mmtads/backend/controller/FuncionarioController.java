@@ -4,6 +4,7 @@ import com.mmtads.backend.Repository.FuncionarioRepository;
 import com.mmtads.backend.service.UsuarioService;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @RequestMapping("/api/funcionarios")
+@CrossOrigin(origins = "*")
 public class FuncionarioController {
 
     private final FuncionarioRepository funciRepo;

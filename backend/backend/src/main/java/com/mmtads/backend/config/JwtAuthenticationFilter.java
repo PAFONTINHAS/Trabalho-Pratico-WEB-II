@@ -35,32 +35,32 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter{
 
    @Override
    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-    logger.info("FILTRO INICIADO");
+    // logger.info("FILTRO INICIADO");
     
     final String authHeader = request.getHeader("Authorization");
     final String jwt;
     final String userEmail;
 
     if(authHeader == null || !authHeader.startsWith("Bearer ")){
-        logger.error("\n ERRO AQUI" );
+        // logger.error("\n ERRO AQUI" );
         filterChain.doFilter(request, response);
         return;
     }
 
     jwt = authHeader.substring(7);
 
-    logger.info("HEADER PEGO COM SUCESSO: " + jwt);
+    // logger.info("HEADER PEGO COM SUCESSO: " + jwt);
 
-    logger.info("EXTRAINDO EMAIL");
+    // logger.info("EXTRAINDO EMAIL");
 
 
     try{
         userEmail = jwtService.extractUserEmail(jwt);
-        logger.info("EMAIL EXTRAÍDO COM SUCESSO!" );
+        // logger.info("EMAIL EXTRAÍDO COM SUCESSO!" );
 
     } catch(Exception e){
 
-        logger.error("\n ERRO AO EXTRAIR EMAIL DO USUÁRIO: " + e);
+        // logger.error("\n ERRO AO EXTRAIR EMAIL DO USUÁRIO: " + e);
 
         filterChain.doFilter(request, response);
         return;
@@ -68,13 +68,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter{
 
     if(userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null){
 
-        logger.info("EMAIL NÃO É NULO");
+        // logger.info("EMAIL NÃO É NULO");
 
         UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
 
         if(jwtService.isTokenValid(jwt, userDetails)){
 
-            logger.info("TOKEN É VÁLIDO");
+            // logger.info("TOKEN É VÁLIDO");
 
 
             UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());

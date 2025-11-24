@@ -48,7 +48,7 @@
               <tbody>
                   @for (solicitacao of solicitacoesFiltradas; track solicitacao.idSolicitacao) {
                       <tr class="hover:bg-gray-50 transition-colors">
-                          <td class="border-t-2 border-gray-200 py-3 px-6">{{ solicitacao.dataHoraAbertura}}</td>
+                          <td class="border-t-2 border-gray-200 py-3 px-6">{{ solicitacao.dataHoraAbertura | date: 'dd/MM/yyyy'}}</td>
                           <td class="border-t-2 border-gray-200 py-3 px-6">{{ solicitacao.cliente.nome }}</td>
                           <td class="border-t-2 border-gray-200 py-3 px-6">{{ solicitacao.descricaoEquipamento }}</td>
                           <td class="border-t-2 border-gray-200 py-3 px-6">{{ solicitacao.descricaoDefeito }}</td>

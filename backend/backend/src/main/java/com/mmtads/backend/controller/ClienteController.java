@@ -10,6 +10,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/clientes")
+@CrossOrigin(origins = "*")
 public class ClienteController {
 
     private final ClienteRepository clienteRepo;
@@ -56,7 +58,7 @@ public class ClienteController {
 
     @DeleteMapping("/user/{userEmail}/{id}")
     public void deleteClienteById(@PathVariable String userEmail, @PathVariable long id) {    
-        Cliente cliente = this.clienteRepo.findByEmailAndIsDeleteFalse(userEmail);
+        Cliente cliente = this.clienteRepo.findByUsuarioEmail(userEmail);
         
         if(cliente.getId() == id) {
             ResponseEntity.badRequest();

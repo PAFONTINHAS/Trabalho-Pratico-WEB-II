@@ -50,6 +50,9 @@ public class Solicitacao {
     @Column(name="valor_orcamento")
     private Double valorOrcamento;
 
+    @Column(name="isDelete")
+    private boolean isDelete = false;
+
     @JsonIgnore
     @OneToMany(mappedBy = "solicitacao")
     private Set<Historico> historico;

@@ -52,6 +52,7 @@ CREATE TABLE IF NOT EXISTS solicitacao (
     descricao_equipamento VARCHAR(100),
     descricao_defeito TEXT,
     motivo_rejeicao TEXT,
+    is_delete BOOLEAN DEFAULT FALSE,
     data_hora_abertura DATETIME NOT NULL,
     valor_orcamento DECIMAL(10,2),
     FOREIGN KEY (id_cliente) REFERENCES cliente(id),
@@ -140,15 +141,44 @@ INSERT IGNORE INTO funcionario (data_nasc, id) VALUES
 ('1995-06-21', 6);
 
 -- Inserir Solicitações
-INSERT IGNORE INTO solicitacao (descricao_equipamento, descricao_defeito, id_categoria, status, id_cliente, id_funcionario, data_hora_abertura, valor_orcamento) VALUES
-('Notebook Dell Inspiron', 'Não liga, LED da bateria piscando.', 1, 'ABERTA', 2, 6, '2025-09-01 10:00:00', null),
-('Impressora Epson L3150', 'Não reconhece cartuchos e falha na impressão.', 3, 'ORCADA', 1, 5, '2025-09-05 15:30:00', 350.00),
-('Notebook Samsung Book', 'Troca de tela.', 1, 'PAGA', 3, 5, '2025-09-15 09:00:00', 150.00),
-('Desktop Gamer RGB', 'Limpeza e troca de pasta térmica.', 2, 'PAGA', 4, 6, '2025-09-20 14:00:00', 90.00),
-('Mouse Logitech MX Master', 'Botão esquerdo falhando.', 4, 'PAGA', 1, 5, '2025-10-01 08:00:00', null);
+INSERT IGNORE INTO solicitacao (descricao_equipamento, descricao_defeito, id_categoria, status, id_cliente, id_funcionario, data_hora_abertura, valor_orcamento, is_delete) VALUES
+('Notebook Dell Inspiron', 'Não liga, LED da bateria piscando.', 1, 'ABERTA', 2, null, '2025-09-01 10:00:00', null, false),
+('Impressora Epson L3150', 'Não reconhece cartuchos e falha na impressão.', 3, 'ORCADA', 1, 5, '2025-09-05 15:30:00', 350.00, false),
+('Notebook Samsung Book', 'Troca de tela.', 1, 'PAGA', 3, 5, '2025-09-15 09:00:00', 150.00, false),
+('Desktop Gamer RGB', 'Limpeza e troca de pasta térmica.', 2, 'FINALIZADA', 4, 6, '2025-09-20 14:00:00', 90.00, false),
+('Mouse Logitech MX Master', 'Botão esquerdo falhando.', 4, 'PAGA', 1, 5, '2025-10-01 08:00:00', null, false),
+('Mouse Sem Fio HP 150', 'Scroll não funciona direito .', 4, 'ARRUMADA', 1, 5, '2025-10-03 10:31:00', null, false);
+
 
 -- Inserir Pagamentos
-INSERT IGNORE INTO pagamento (id_solicitacao, valor, data_hora) VALUES
-(3, 350.00, '2025-09-25 10:30:00'),
-(4, 150.00, '2025-10-01 14:00:00'),
-(5, 90.00, '2025-10-01 16:00:00');
+INSERT IGNORE INTO pagamento ( id_solicitacao, valor, data_hora) VALUES
+( 3, 350.00, '2025-09-25 10:30:00'),
+( 4, 150.00, '2025-10-01 14:00:00'),
+( 5, 90.00, '2025-10-01 16:00:00');
+
+INSERT IGNORE INTO historico (id_solicitacao, funci_origem, status, data_hora, funci_destino) VALUES 
+(1, null, 'ABERTA', '2025-09-01 10:00:00', null),
+(2, null, 'ABERTA', '2025-09-05 10:30:00', null),
+(2, 5, 'ORCADA', '2025-09-05 15:30:00', null),
+(3, null, 'ABERTA', '2025-09-15 09:00:00', null),
+(3, 5, 'ORCADA', '2025-09-15 11:00:00', null),
+(3, null, 'APROVADA', '2025-09-15 16:00:00', null),
+(3, 5, 'ARRUMADA', '2025-09-16 14:20:00', null),
+(3, null, 'PAGA', '2025-09-17 09:00:00', null),
+(4, null, 'ABERTA', '2025-09-20 14:00:00', null),
+(4, 6, 'ORCADA', '2025-09-21 09:44:00', null),
+(4, null, 'APROVADA', '2025-09-21 15:23:00', null),
+(4, 6, 'ARRUMADA', '2025-09-26 09:00:00', null),
+(4, null, 'PAGA', '2025-09-29 13:33:00', null),
+(4, 6, 'FINALIZADA', '2025-09-29 15:14:00', null),
+(5, null, 'ABERTA', '2025-10-01 08:00:00', null),
+(5, 5, 'ORCADA', '2025-10-01 09:00:00', null),
+(5, null, 'APROVADA', '2025-10-03 17:52:00', null),
+(5, 5, 'REDIRECIONADA', '2025-10-04 11:42:00', 6),
+(5, 6, 'ARRUMADA', '2025-10-07 09:45:00', null),
+(5, null, 'PAGA', '2025-10-08 10:30:00', null),
+(6, null, 'ABERTA', '2025-10-03 10:31:00', null),
+(6, 6, 'ORCADA', '2025-10-03 16:00:00', null),
+(6, null, 'REJEITADA', '2025-10-04 08:42:00', null),
+(6, null, 'APROVADA', '2025-10-06 11:35:00', 6),
+(6, 6, 'ARRUMADA', '2025-10-10 09:48:00', null);

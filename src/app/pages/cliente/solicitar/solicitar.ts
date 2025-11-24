@@ -91,6 +91,8 @@ export class Solicitar implements OnInit{
   }
 
   realizarSolicitacao(){
+
+    console.log("[CLIENTE] FUNÇÃO DE CRIAÇÃO DE SOLICITAÇÃO ACIONADA");
     if (!this.validateForm()) {
         return;
     }
@@ -100,8 +102,11 @@ export class Solicitar implements OnInit{
     const novaSolicitacao: Solicitacao = this.solicitacao;
 
     novaSolicitacao.dataHoraAbertura = dataFormatada;  // mudou de dataSolicitacao
+    
+    const usuario = this.loginService.usuarioLogado 
 
-    this.solicitacaoService.inserir(novaSolicitacao).subscribe((data) => console.log(data));
+    if(usuario)
+      this.solicitacaoService.inserir(novaSolicitacao, usuario).subscribe((data) => console.log(data));
     
     this.solicitacaoService.listarTodos();
     
