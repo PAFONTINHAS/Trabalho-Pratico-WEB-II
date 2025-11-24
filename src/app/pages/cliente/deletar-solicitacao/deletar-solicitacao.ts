@@ -36,14 +36,24 @@ export class DeletarSolicitacao {
   }
   
   deletarSolicitacao(){
+
+    console.log("FUNÇÃO ACIONADA");
     if(this.solicitacao?.idSolicitacao === null) return;
     
     const id_solicitacao = this.solicitacao?.idSolicitacao as number;
 
     console.log(id_solicitacao);
 
-    this.solicitacaoService.remover(id_solicitacao);
-    this.abrirSubModal('sim');
+    this.solicitacaoService.remover(id_solicitacao).subscribe({
+      next: () => {
+        this.abrirSubModal('sim');
+      },
+
+      error: (e) => {
+        console.error("Erro ao deletar solicitação: ", e)
+      }
+    });
+    // this.abrirSubModal('sim');
   }
 
 }

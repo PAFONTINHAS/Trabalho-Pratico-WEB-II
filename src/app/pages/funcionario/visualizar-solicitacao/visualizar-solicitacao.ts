@@ -105,6 +105,7 @@ efetuarOrcamento(): void {
     const valorNumero = parseFloat(valorString);
 
     this.solicitacao.orcamento = valorNumero;
+
     this.solicitacao.status = Status.Orcada;
 
     const user = this.loginService.usuarioLogado;

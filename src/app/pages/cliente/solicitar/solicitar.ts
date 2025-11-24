@@ -33,6 +33,9 @@ export class Solicitar implements OnInit{
   
   fecharModalSolicitacao(): void {
     this.modalSolicitacaoCriada = false;
+
+    this.router.navigate(['/cliente']);
+    
   }
 
   ngOnInit(): void {
@@ -93,6 +96,7 @@ export class Solicitar implements OnInit{
   realizarSolicitacao(){
 
     console.log("[CLIENTE] FUNÇÃO DE CRIAÇÃO DE SOLICITAÇÃO ACIONADA");
+
     if (!this.validateForm()) {
         return;
     }
@@ -106,11 +110,23 @@ export class Solicitar implements OnInit{
     const usuario = this.loginService.usuarioLogado 
 
     if(usuario)
-      this.solicitacaoService.inserir(novaSolicitacao, usuario).subscribe((data) => console.log(data));
+      this.solicitacaoService.inserir(novaSolicitacao, usuario).subscribe({
+        next: (data) => {
+          this.modalSolicitacaoCriada= true;
+
+
+          console.log("Solicitação criada com sucesso");
+        },  
+        error: (e) => {
+
+          console.error("Erro ao criar solicitação: ", e);
+        }
+        
+      },
+      // (data) =>  console.log(data)
+      
+    );
     
-    this.solicitacaoService.listarTodos();
-    
-    this.modalSolicitacaoCriada = true;
   }
 }
 

@@ -1,52 +1,59 @@
 <main>
-        <div class="flex flex-col items-center justify-start p-5">
-            <div class="bg-gradient-to-br from-white to-[#ccc] rounded-3xl shadow-xl min-w-[60%] max-w-[80%] px-[70px] py-[60px]">
-                <h1 class="text-4xl font-semibold text-gray-800 mb-5 poppins">Página Inicial</h1>
-                <h2 class="text-2xl font-semibold text-mm mb-5 poppins">Histórico de Solicitações</h2>
-        
-                <div class="overflow-x-auto shadow-lg shadow-black/20 rounded-xl">
-                    <table class="min-w-full bg-white rounded-xl overflow-hidden">
-                        <thead class="bg-mm text-white">
-                            <tr>
-                                <th class="py-3 px-6 text-left font-bold">Data da solicitação</th>
-                                <th class="py-3 px-6 text-left font-bold">Dispositivo</th>
-                                <th class="py-3 px-6 text-left font-bold">Descrição</th>
-                                <th class="py-3 px-6 text-left font-bold">Status</th>
-                                <th class="py-3 px-6 text-center font-bold"></th>
-                            </tr>
-                        </thead>
-                      <tbody>
-    @for (solicitacao of solicitacoes; track solicitacao.idSolicitacao) {
-        <tr>
-            <td class="border-t-2 border-gray-200 py-3 px-6">{{ solicitacao.dataHoraAbertura | date:'dd/MM/yyyy' }}</td>
-            <td class="border-t-2 border-gray-200 py-3 px-6">{{ solicitacao.descricaoEquipamento }}</td>
-            <td class="border-t-2 border-gray-200 py-3 px-6">{{ solicitacao.descricaoDefeito }}</td>
-            <td class="border-t-2 border-gray-200 py-3 px-6 text-md font-semibold">
-                <span [ngClass]="statusClasses(solicitacao.status.toUpperCase())">
-                    {{solicitacao.status.toUpperCase()}}
-                </span>
-            </td>
+    <div class="flex flex-col items-center justify-start p-5">
+        <div
+            class="bg-gradient-to-br from-white to-[#ccc] rounded-3xl shadow-xl min-w-[60%] max-w-[80%] px-[70px] py-[60px]">
+            <h1 class="text-4xl font-semibold text-gray-800 mb-5 poppins">Página Inicial</h1>
+            <h2 class="text-2xl font-semibold text-mm mb-5 poppins">Histórico de Solicitações</h2>
 
-            <td class="border-t-2 flex items-center gap-3 border-gray-200 py-3 px-6">
-                <button (click)="abrirModalOrcamento(solicitacao)" 
-                    [ngClass]="buttonClass(solicitacao.status.toUpperCase())"
-                    >
-                    Ver Detalhes
-                </button>
-                <p class="text-3xl text-danger" style="font-family: Arial" *ngIf="temAcoes(solicitacao.status.toUpperCase())">
-                    !
-                </p>
-            </td>
-        </tr>
-    }
-</tbody>
-                    </table>
-                </div>
+            <div class="overflow-x-auto shadow-lg shadow-black/20 rounded-xl">
+                <table class="min-w-full bg-white rounded-xl overflow-hidden">
+                    <thead class="bg-mm text-white">
+                        <tr>
+                            <th class="py-3 px-6 text-left font-bold">Data da solicitação</th>
+                            <th class="py-3 px-6 text-left font-bold">Dispositivo</th>
+                            <th class="py-3 px-6 text-left font-bold">Descrição</th>
+                            <th class="py-3 px-6 text-left font-bold">Status</th>
+                            <th class="py-3 px-6 text-center font-bold"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @if(solicitacoes.length == 0){
+                            <p class="border-t-2 flex items-center gap-3 border-gray-200 py-3 px-6">Nenhuma solicitação criada</p>
+                        }
+                        @for (solicitacao of solicitacoes; track solicitacao.idSolicitacao) {
+                        <tr>
+                            <td class="border-t-2 border-gray-200 py-3 px-6">{{ solicitacao.dataHoraAbertura | date:'dd/MM/yyyy' }}</td>
+                            <td class="border-t-2 border-gray-200 py-3 px-6">{{ solicitacao.descricaoEquipamento }}</td>
+                            <td class="border-t-2 border-gray-200 py-3 px-6">{{ solicitacao.descricaoDefeito }}</td>
+                            <td class="border-t-2 border-gray-200 py-3 px-6 text-md font-semibold">
+                                <span [ngClass]="statusClasses(solicitacao.status.toUpperCase())">
+                                    {{solicitacao.status.toUpperCase()}}
+                                </span>
+                            </td>
+
+                            <td class="border-t-2 flex items-center gap-3 border-gray-200 py-3 px-6">
+                                <button (click)="abrirModalOrcamento(solicitacao)"
+                                    [ngClass]="buttonClass(solicitacao.status.toUpperCase())">
+                                    Ver Detalhes
+                                </button>
+                                <p class="text-3xl text-danger" style="font-family: Arial"
+                                    *ngIf="temAcoes(solicitacao.status.toUpperCase())">
+                                    !
+                                </p>
+                            </td>
+                        </tr>
+                        }
+
+
+                    </tbody>
+                </table>
             </div>
         </div>
-        
-        @if (mostrarModalSolicitacao) {
-            <app-visualizar-orcamento [solicitacao]="solicitacaoSelecionado" (fecharModal)="fecharModalOrcamento()" (operacaoConcluida)="atualizarLista()"></app-visualizar-orcamento>
-        }
-</main>
+    </div>
 
+    @if (mostrarModalSolicitacao) {
+    <app-visualizar-orcamento [solicitacao]="solicitacaoSelecionado" (fecharModal)="fecharModalOrcamento()"
+        (operacaoConcluida)="atualizarLista(); fecharModalOrcamento()"></app-visualizar-orcamento>
+    }
+</main>

@@ -60,16 +60,16 @@ CREATE TABLE IF NOT EXISTS solicitacao (
     FOREIGN KEY (id_categoria) REFERENCES categoria(id_categoria)
 ) DEFAULT CHARSET=utf8mb4;
 
--- Tabelas Dependentes da Solicitação e Funcionário
-CREATE TABLE IF NOT EXISTS orcamento (
-    id_orcamento INT AUTO_INCREMENT PRIMARY KEY,
-    id_solicitacao INT NOT NULL,
-    id_funcionario BIGINT NOT NULL,
-    valor DECIMAL(10, 2) NOT NULL,
-    data_hora DATETIME NOT NULL,
-    FOREIGN KEY (id_solicitacao) REFERENCES solicitacao(id_solicitacao),
-    FOREIGN KEY (id_funcionario) REFERENCES funcionario(id)
-) DEFAULT CHARSET=utf8mb4;
+-- -- Tabelas Dependentes da Solicitação e Funcionário
+-- CREATE TABLE IF NOT EXISTS orcamento (
+--     id_orcamento INT AUTO_INCREMENT PRIMARY KEY,
+--     id_solicitacao INT NOT NULL,
+--     id_funcionario BIGINT NOT NULL,
+--     valor DECIMAL(10, 2) NOT NULL,
+--     data_hora DATETIME NOT NULL,
+--     FOREIGN KEY (id_solicitacao) REFERENCES solicitacao(id_solicitacao),
+--     FOREIGN KEY (id_funcionario) REFERENCES funcionario(id)
+-- ) DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS pagamento (
     id_pagamento INT AUTO_INCREMENT PRIMARY KEY,

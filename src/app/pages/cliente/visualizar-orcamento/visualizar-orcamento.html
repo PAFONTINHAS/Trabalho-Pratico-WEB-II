@@ -1,18 +1,13 @@
 @if(solicitacao){
 
 <main>
-  <div
-    class="fixed inset-0 z-50 flex justify-center items-start overflow-y-auto bg-black/50 py-20"
-    (click)="onFecharModal()"
-  >
-    <div
-      class="bg-gradient-to-br from-white to-[#ccc] p-8 rounded-3xl shadow-xl max-w-lg w-full relative"
-      (click)="$event.stopPropagation()"
-    >
-      <button
-        (click)="onFecharModal()"
+  <div class="fixed inset-0 z-50 flex justify-center items-start overflow-y-auto bg-black/50 py-20"
+    (click)="onFecharModal()">
+    <div class="bg-gradient-to-br from-white to-[#ccc] p-8 rounded-3xl shadow-xl max-w-lg w-full relative"
+      (click)="$event.stopPropagation()">
+      <button (click)="onFecharModal()"
         class="absolute top-4 left-4 text-gray-200 hover:text-red-500 text-3xl cursor-pointer hover:font-bold transition">
-          &times;
+        &times;
       </button>
 
       <header class="text-center mb-6">
@@ -33,7 +28,7 @@
           </p>
           <p class="text-md text-gray-600">
             Data da solicitação:
-            <span class="font-semibold">{{ solicitacao.dataHoraAbertura }}</span>
+            <span class="font-semibold">{{ solicitacao.dataHoraAbertura | date:'dd/MM/yyyy' }}</span>
           </p>
 
           @if (solicitacao.status !== "ABERTA" && solicitacao.funcionario) {
@@ -42,7 +37,7 @@
             Funcionário:
             <span class="font-semibold">{{
               solicitacao.funcionario.nome
-            }}</span>
+              }}</span>
           </p>
           }
         </div>
@@ -54,8 +49,7 @@
           <p class="text-md text-gray-600">
             Valor:
             <span class="font-semibold">
-              R$ {{ solicitacao.orcamento }},00</span
-            >
+              R$ {{ solicitacao.orcamento }},00</span>
           </p>
         </div>
         }
@@ -64,68 +58,55 @@
           <h3 class="text-lg font-bold text-gray-700">Histórico de status</h3>
           <ul>
             @for (h of historico; track h.status){
-              <li class="py-3 flex items-center border-t mt-2 border-gray-300">
-                <p class="font-semibold mr-6">{{ h.dataHora.substring(0, 10)}}</p>
-                <p class="font-semibold mr-6">{{ h.dataHora.substring(12) }}</p>
-                <p [ngClass]="statusClasses(h.status)">
-                  {{ h.status}}
-                </p>
-                <!-- POR QUE PRECISA DO NOME DO FUNCIONARIO AQUI? -->
-                <!-- <p class="font-semibold mr-6">{{ h.funciOrigem.nome }}</p> --> 
-              </li>
-            } 
+            <li class="py-3 flex items-center border-t mt-2 border-gray-300">
+              <p class="font-semibold mr-1">{{ h.dataHora.substring(0, 10)}}</p>
+              <p class="font-semibold mr-6"> - {{ h.dataHora.substring(11) }}</p>
+              <p [ngClass]="statusClasses(h.status)">
+                {{ h.status}}
+              </p>
+              <!-- POR QUE PRECISA DO NOME DO FUNCIONARIO AQUI? -->
+              <!-- <p class="font-semibold mr-6">{{ h.funciOrigem.nome }}</p> -->
+            </li>
+            }
           </ul>
         </div>
       </section>
 
       <footer class="flex justify-center gap-4 mt-8">
-        @switch (solicitacao.status) { @case ('ABERTA'){
+        @switch (solicitacao.status) {
+        @case ('ABERTA'){
 
-        <button
-          (click)="abrirModal('deletar')"
-          class="bg-danger hover:bg-red-700 h-[46px] px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap"
-        >
+        <button (click)="abrirModal('deletar')"
+          class="bg-danger hover:bg-red-700 h-[46px] px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap">
           Deletar Solicitação
         </button>
-        <button
-          (click)="abrirModal('editar')"
-          class="bg-mm hover:bg-mm-dark h-[46px] px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap"
-        >
+        <button (click)="abrirModal('editar')"
+          class="bg-mm hover:bg-mm-dark h-[46px] px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap">
           Editar Solicitação
         </button>
 
         } @case ('ORCADA') {
-        <button
-          (click)="abrirModal('rejeitar')"
-          class="bg-danger hover:bg-red-700 h-[46px] px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap"
-        >
+        <button (click)="abrirModal('rejeitar')"
+          class="bg-danger hover:bg-red-700 h-[46px] px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap">
           Rejeitar
         </button>
-        <button
-          (click)="abrirModal('aprovar')"
-          class="bg-green-600 hover:bg-green-700 h-[46px] px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap"
-        >
+        <button (click)="abrirModal('aprovar')"
+          class="bg-green-600 hover:bg-green-700 h-[46px] px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap">
           Aprovar
         </button>
         } @case ('ARRUMADA') {
-        <button
-          (click)="pagarServico()"
-          class="bg-green-600 hover:bg-green-700 h-[46px] px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap"
-        >
+        <button (click)="pagarServico()"
+          class="bg-green-600 hover:bg-green-700 h-[46px] px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap">
           Pagar
         </button>
         } @case ('REJEITADA') {
-        <button
-          (click)="resgatarServico()"
-          class="bg-mm hover:bg-mm-dark h-[46px] px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap"
-        >
+        <button (click)="resgatarServico()"
+          class="bg-mm hover:bg-mm-dark h-[46px] px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap">
           Resgatar
         </button>
         } @default {
-        <button
-          (click)="onFecharModal()"
-          class="bg-gray-500 hover:bg-gray-600 h-[46px] px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap"
-        >
+        <button (click)="onFecharModal()"
+          class="bg-gray-500 hover:bg-gray-600 h-[46px] px-4 rounded-xl transition font-regular text-white text-md cursor-pointer hover:shadow-xl hover:scale-[102%] active:scale-95 active:shadow-none text-nowrap">
           Fechar
         </button>
         } }
@@ -134,33 +115,21 @@
   </div>
 
   @if(modalAberto === 'deletar'){
-  <app-deletar-solicitacao
-    [solicitacao]="solicitacao!"
-    (fecharModal)="fecharSubModal()"
-    (operacaoConcluida)="notificarOperacao()"
-  ></app-deletar-solicitacao>
+  <app-deletar-solicitacao [solicitacao]="solicitacao!" (fecharModal)="fecharSubModal()"
+    (operacaoConcluida)="notificarOperacao()"></app-deletar-solicitacao>
 
-  } 
+  }
   @if(modalAberto === 'editar'){
-  <app-editar-solicitacao
-    [solicitacao]="solicitacao!"
-    (fecharModal)="fecharSubModal()"
-  ></app-editar-solicitacao>
-  } 
+  <app-editar-solicitacao [solicitacao]="solicitacao!" (fecharModal)="fecharSubModal()"></app-editar-solicitacao>
+  }
   @if(modalAberto === 'rejeitar'){
 
-  <app-rejeitar-orcamento
-    [solicitacao]="solicitacao!"
-    (fecharModal)="fecharSubModal()"
-    (operacaoConcluida)="notificarOperacao()"
-  ></app-rejeitar-orcamento>
+  <app-rejeitar-orcamento [solicitacao]="solicitacao!" (fecharModal)="fecharSubModal()"
+    (operacaoConcluida)="notificarOperacao()"></app-rejeitar-orcamento>
   }
   @if(modalAberto === 'aprovar'){
-    <app-modais-confirmacao 
-      [tipoModalSolicitacao]="'aprovarServico'" 
-      [valor]="solicitacao.orcamento ?? 0"
-      (fechar)="fecharSubModal(); aprovarServico(); notificarOperacao()"
-    ></app-modais-confirmacao>
+  <app-modais-confirmacao [tipoModalSolicitacao]="'aprovarServico'" [valor]="solicitacao.orcamento ?? 0"
+    (fechar)="fecharSubModal(); aprovarServico(); notificarOperacao()"></app-modais-confirmacao>
   }
 </main>
 

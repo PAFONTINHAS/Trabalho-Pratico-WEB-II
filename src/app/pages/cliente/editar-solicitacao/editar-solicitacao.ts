@@ -1,11 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
 import { Solicitacao } from '../../../shared/entities/solicitacao_entity';
 import { SolicitacaoService } from '../../../services/solicitacao_service/solicitacao-service';
 import { CategoriaService } from '../../../services/categoria-service/categoria-service'; // Importação do serviço de categoria
 import { Categoria } from '../../../shared/entities/categoria_entity'; // Importação do modelo de categoria
-import { Categorias } from '../../../shared/models/enums/categoria.enum';
 
 @Component({
   selector: 'app-editar-solicitacao',
@@ -19,7 +17,7 @@ export class EditarSolicitacao {
   
   constructor(
     private solicitacaoService: SolicitacaoService,
-    private categoriaService: CategoriaService // <-- NOVO: Serviço de Categoria
+    private categoriaService: CategoriaService 
   ){}
   
   
@@ -45,6 +43,10 @@ export class EditarSolicitacao {
       }
     });
   }
+
+  compararCategorias(c1: Categoria, c2: Categoria) : boolean{
+    return c1 && c2 ? c1.id === c2.id : c1 == c2;
+  }
   
   modalConfirmacaoAberto: 'sim' | 'nao' | 'nenhum' = 'nenhum';
 
@@ -66,8 +68,17 @@ export class EditarSolicitacao {
 
   editarSolicitacao(){
 
-    // alert(JSON.stringify(this.solicitacao));
-    this.onfecharModal();
+    if(this.solicitacao){
+      this.solicitacaoService.atualizar(this.solicitacao).subscribe({
+        next: () => {
+          console.log('SOlicitação atualizada com sucesso!');
+          this.onfecharModal();
+        },
+        error: (e) =>{
+          console.error("Erro ao atualizar a solicitação");
+        }
+      });
+    }
   }
 
 }

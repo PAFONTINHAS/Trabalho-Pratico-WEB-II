@@ -57,7 +57,6 @@
                 <button
                     class="bg-mm h-[50px] w-[60%] rounded-xl transition font-regular text-white text-lg cursor-pointer hover:shadow-xl hover:shadow-mm-shadow hover:bg-mm-dark hover:scale-[102%] active:scale-95"
                     (click)="realizarSolicitacao()"
-                    [routerLink]="!formSubmitted ? null : (solicitacao.descricaoEquipamento && solicitacao.categoria && solicitacao.descricaoDefeito) ? ['/cliente/'] : null"
                     >
                     Solicitar
                 </button>
@@ -65,8 +64,11 @@
         </div>
     </div>
 </div>
-<app-modais-confirmacao 
-  *ngIf="modalSolicitacaoCriada"
-  tipoModalSolicitacao="solicitacaoCriada"
-  (fechar)="fecharModalSolicitacao()">
-</app-modais-confirmacao>
+
+@if(modalSolicitacaoCriada){
+
+    <app-modais-confirmacao 
+        tipoModalSolicitacao="solicitacaoCriada"
+        (fechar)="fecharModalSolicitacao()">
+    </app-modais-confirmacao>
+}
