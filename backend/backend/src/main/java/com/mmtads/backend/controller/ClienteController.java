@@ -56,7 +56,7 @@ public class ClienteController {
 
     @DeleteMapping("/user/{userEmail}/{id}")
     public void deleteClienteById(@PathVariable String userEmail, @PathVariable long id) {    
-        Cliente cliente = this.clienteRepo.findByEmailAndIsDeleteFalse(userEmail);
+        Cliente cliente = this.clienteRepo.findByUsuarioEmail(userEmail);
         
         if(cliente.getId() == id) {
             ResponseEntity.badRequest();

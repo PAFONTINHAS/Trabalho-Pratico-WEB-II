@@ -77,7 +77,7 @@ public class SolicitacaoController {
         logger.info("[SERVER-CONTROLLER] FUNÇÃO ACIONADA PELO SERVICE");
         logger.info("[SERVER-CONTROLLER] EMAIL: {} CORPO: {}", email, solicitacaoDto);
         
-        Cliente cliente = this.clienteRepository.findByEmailAndIsDeleteFalse(email);
+        Cliente cliente = this.clienteRepository.findByUsuarioEmail(email);
         solicitacaoDto.setCliente(cliente);
         
         Solicitacao s = this.solicitacaoService.salvarSolicitacao(solicitacaoDto);

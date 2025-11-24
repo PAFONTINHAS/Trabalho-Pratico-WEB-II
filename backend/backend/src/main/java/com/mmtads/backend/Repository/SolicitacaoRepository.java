@@ -33,6 +33,6 @@ public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long> 
     @Transactional
     List<Solicitacao> findByFuncionarioOrStatus(@Param("id") Long id);
 
-    @Query("SELECT s FROM Solicitacao s WHERE s.cliente.email = :email AND s.isDelete = false")    
+    @Query("SELECT s FROM Solicitacao s WHERE s.cliente.usuario.email = :email AND s.isDelete = false")    
     List<Solicitacao> findByClienteUsuarioEmailAndIsDeleteFalse(@Param("email") String email);
 }
