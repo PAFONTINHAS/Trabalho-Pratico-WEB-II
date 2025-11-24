@@ -88,7 +88,10 @@ export class VisualizarSolicitacao implements OnInit {
     this.solicitacao.status = Status.Redirecionada
     const user = this.loginService.usuarioLogado
     if(user)
-      this.solicitacaoService.atualizarFuncionario(this.solicitacao, user).subscribe();
+      this.solicitacaoService.atualizarFuncionario(this.solicitacao, user).subscribe(() => {
+        this.recarregarHistorico();
+        this.operacaoConcluida.emit();
+      });
 
     this.modalAberto = false;
   };
@@ -111,9 +114,11 @@ efetuarOrcamento(): void {
     const user = this.loginService.usuarioLogado;
     if (user)
       this.solicitacaoService.atualizarFuncionario(this.solicitacao, user)
-      .subscribe(() => console.log("Salvo com orçamento:", valorNumero));
-
-    this.operacaoConcluida.emit();
+      .subscribe(() => {
+        console.log("Salvo com orçamento:", valorNumero)
+        this.recarregarHistorico();
+        this.operacaoConcluida.emit();
+      });
   }
 
   this.orcamentoSubmitted = true;
@@ -126,9 +131,10 @@ efetuarOrcamento(): void {
       this.solicitacao.status =  Status.Arrumada
       const user = this.loginService.usuarioLogado
       if(user)
-        this.solicitacaoService.atualizarFuncionario(this.solicitacao, user).subscribe();
-
-      this.operacaoConcluida.emit();
+        this.solicitacaoService.atualizarFuncionario(this.solicitacao, user).subscribe(() => {
+          this.recarregarHistorico();
+          this.operacaoConcluida.emit();
+        });
     }
   }
 
@@ -138,9 +144,10 @@ efetuarOrcamento(): void {
       this.solicitacao.status = Status.Finalizada
       const user = this.loginService.usuarioLogado
       if(user)
-        this.solicitacaoService.atualizarFuncionario(this.solicitacao, user).subscribe();
-
-      this.operacaoConcluida.emit();
+        this.solicitacaoService.atualizarFuncionario(this.solicitacao, user).subscribe(() => {
+          this.recarregarHistorico();
+          this.operacaoConcluida.emit();
+        });
     }
   }
 
@@ -148,6 +155,14 @@ efetuarOrcamento(): void {
 
   notificarOperacao(): void {
     this.operacaoConcluida.emit();
+  }
+
+  recarregarHistorico(): void {
+    if(this.solicitacao){
+      this.historicoService.listarTodos(this.solicitacao).subscribe((data) =>  {
+        this.historico = this.historicoService.arrumarFuncionariosHistorico(data)
+      })
+    }
   }
 
 handleOrcamento(e: any) {

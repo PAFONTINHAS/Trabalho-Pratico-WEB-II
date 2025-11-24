@@ -65,6 +65,8 @@ export class VisualizarOrcamento implements OnInit  {
     this.solicitacao.status = Status.Aprovada
     console.log(this.solicitacao)
     this.solicitacaoService.atualizar(this.solicitacao).subscribe(() => {
+      this.recarregarHistorico();
+      this.operacaoConcluida.emit();
       this.abrirModal('aprovar');
     });
   }
@@ -74,7 +76,10 @@ export class VisualizarOrcamento implements OnInit  {
     if(!this.solicitacao) return;
 
     this.solicitacao.status = Status.Rejeitada
-    this.solicitacaoService.atualizar(this.solicitacao).subscribe();    
+    this.solicitacaoService.atualizar(this.solicitacao).subscribe(() => {
+      this.recarregarHistorico();
+      this.operacaoConcluida.emit();
+    });    
   }
 
   pagarServico(){
@@ -82,7 +87,10 @@ export class VisualizarOrcamento implements OnInit  {
     if(!this.solicitacao) return;
 
     this.solicitacao.status = Status.Paga
-    this.solicitacaoService.atualizar(this.solicitacao).subscribe();    
+    this.solicitacaoService.atualizar(this.solicitacao).subscribe(() => {
+      this.recarregarHistorico();
+      this.operacaoConcluida.emit();
+    });    
 
   }
 
@@ -91,8 +99,19 @@ export class VisualizarOrcamento implements OnInit  {
     if(!this.solicitacao) return;
 
     this.solicitacao.status = Status.Aprovada
-    this.solicitacaoService.atualizar(this.solicitacao).subscribe();    
+    this.solicitacaoService.atualizar(this.solicitacao).subscribe(() => {
+      this.recarregarHistorico();
+      this.operacaoConcluida.emit();
+    });    
 
+  }
+
+  recarregarHistorico(): void {
+    if(this.solicitacao){
+      this.historicoService.listarTodos(this.solicitacao).subscribe((data) =>  {
+        this.historico = this.historicoService.arrumarFuncionariosHistorico(data)
+      })
+    }
   }
 
 
