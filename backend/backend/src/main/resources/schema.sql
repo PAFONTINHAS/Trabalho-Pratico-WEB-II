@@ -52,6 +52,7 @@ CREATE TABLE IF NOT EXISTS solicitacao (
     descricao_equipamento VARCHAR(100),
     descricao_defeito TEXT,
     motivo_rejeicao TEXT,
+    is_delete BOOLEAN DEFAULT FALSE,
     data_hora_abertura DATETIME NOT NULL,
     valor_orcamento DECIMAL(10,2),
     FOREIGN KEY (id_cliente) REFERENCES cliente(id),

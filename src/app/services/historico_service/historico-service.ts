@@ -19,9 +19,9 @@ export class HistoricoService {
   }
 
   arrumarFuncionariosHistorico(historico: HistoricoStatus[]) {
-    historico.map(() => console.log("oi"))
+    // historico.map(() => console.log("oi"))
     historico.map((h) => {
-      console.log("oi")
+      // console.log("oi")
       if(!h.funciOrigem)
         h.funciOrigem = {id: 0, dataNasc: new Date(), nome: " - ", email: "", senha: "", perfil: "FUNCIONARIO"}
     })
