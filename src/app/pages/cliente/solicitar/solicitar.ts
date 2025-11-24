@@ -1,7 +1,6 @@
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { clientes } from '../../../../assets/mock/clientes_mock';
 import { Status } from '../../../shared/models/enums/status.enum';
 import { Router, RouterLink } from '@angular/router';
 import { Solicitacao } from '../../../shared/entities/solicitacao_entity';
@@ -62,8 +61,8 @@ export class Solicitar implements OnInit{
   
   formSubmitted: boolean = false;
 
-  solicitacao = {
-    cliente: clientes[0],
+  solicitacao: any = {
+    cliente: null,
     status: Status.Aberta,
     funcionario: null,
     descricaoDefeito: "",  // mudou de defeito
@@ -102,30 +101,34 @@ export class Solicitar implements OnInit{
     }
 
     const dataAtual = new Date().toISOString() ;
-    const dataFormatada = dataAtual.replace(",", "");
-    const novaSolicitacao: Solicitacao = this.solicitacao;
 
-    novaSolicitacao.dataHoraAbertura = dataFormatada;  // mudou de dataSolicitacao
+    const novaSolicitacao = {...this.solicitacao}
+    
+    novaSolicitacao.dataHoraAbertura = new Date();  // mudou de dataSolicitacao
     
     const usuario = this.loginService.usuarioLogado 
 
-    if(usuario)
+    if(usuario?.email){
+
       this.solicitacaoService.inserir(novaSolicitacao, usuario).subscribe({
         next: (data) => {
           this.modalSolicitacaoCriada= true;
-
-
+  
+  
           console.log("Solicitação criada com sucesso");
         },  
         error: (e) => {
-
+  
           console.error("Erro ao criar solicitação: ", e);
+  
+          // Redirecionar para o Login?
         }
         
       },
       // (data) =>  console.log(data)
-      
-    );
+        
+      );
+    }
     
   }
 }
