@@ -99,7 +99,6 @@ export class VisualizarSolicitacao implements OnInit {
 efetuarOrcamento(): void {
   if (this.solicitacao && this.orcamento !== null) {
 
-    // Remove máscara e converte corretamente
     const valorString = this.orcamento
       .replace("R$ ", "")
       .replace(/\./g, "")
@@ -171,7 +170,6 @@ handleOrcamento(e: any) {
   const masked = this.orcamentoMask(input.value);
   input.value = masked;
 
-  // ESSENCIAL
   this.orcamento = masked;
 
   if (this.orcamentoSubmitted) {
@@ -184,16 +182,12 @@ orcamentoMask(value: string): string {
 
   if (!value) return '';
 
-  // Remove tudo que não é número
   const somenteNumeros = value.replace(/\D/g, '');
 
-  // Se não tiver números, limpa
   if (somenteNumeros.length === 0) return '';
 
-  // Converte número → centavos
   const valor = (parseInt(somenteNumeros, 10) / 100).toFixed(2);
 
-  // Retorna formatado BR
   return 'R$ ' + valor.replace('.', ',');
 }
 

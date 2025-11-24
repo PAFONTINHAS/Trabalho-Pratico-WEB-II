@@ -25,7 +25,6 @@ public class CustomAuthenticationProviderTest {
         userDetailsService = Mockito.mock(CustomUserDetailsService.class);
         provider = new CustomAuthenticationProvider();
 
-        // Injetar dependências manualmente
         provider = new CustomAuthenticationProvider();
         provider.getClass().getDeclaredFields();
 

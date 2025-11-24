@@ -96,14 +96,11 @@ public class SolicitacaoService {
 
 
 
-    // Converte um Double para BigDecimal de forma segura.
-    // Isso evita problemas quando o valor é null e impede perda de precisão.
     private static BigDecimal converterBigDecimalDouble(Double valor) {
-        if (valor == null) return BigDecimal.ZERO; // retorna zero para evitar NullPointerException
-        return BigDecimal.valueOf(valor); // mantem precisão exata
+        if (valor == null) return BigDecimal.ZERO; 
+        return BigDecimal.valueOf(valor); 
     }
 
-    // Registra um pagamento associado a uma solicitação com status PAGA.
     private void salvarPagamento(Solicitacao solicitacao) {
 
         System.out.println("VALOR QUE CHEGA DO FRONT (solicitacao.getOrcamento()) = "
@@ -124,13 +121,10 @@ public class SolicitacaoService {
         this.pagamentoRepository.save(p);
     }
 
-    // Constrói a entidade Solicitacao com base no DTO recebido do front-end.
     private Solicitacao setarSolicitacao(Solicitacao s,SolicitacaoDto solicitacaoDto) {
-      //tirei o long id para nao sobrescrever
 
         if(solicitacaoDto.getFuncionario()!=null){
-          //evita que o null subscreva o que ja existe
-          s.setFuncionario(solicitacaoDto.getFuncionario());               // funcionário atual                                        // id pode ser null (novo)
+          s.setFuncionario(solicitacaoDto.getFuncionario());
         }
 
         if(solicitacaoDto.getCategoria()!=null){
@@ -164,14 +158,13 @@ public class SolicitacaoService {
         if(solicitacaoDto.getStatus()!=null){
             s.setStatus(solicitacaoDto.getStatus());
         }
-        return s;  // retorna entidade pronta para persistência
+        return s;  
     }
 
-    // Converte String → Date no formato dd-MM-yyyy HH:mm:ss
     public Date formatarData(String data) {
         try {
             DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-            return formatter.parse(data);        // tenta converter
+            return formatter.parse(data);
         } catch (ParseException exp) {
             exp.printStackTrace();
             return null;

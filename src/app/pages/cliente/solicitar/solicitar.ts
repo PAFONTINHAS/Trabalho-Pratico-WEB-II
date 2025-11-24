@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { clientes } from '../../../../assets/mock/clientes_mock';
 import { Status } from '../../../shared/models/enums/status.enum';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { Solicitacao } from '../../../shared/entities/solicitacao_entity';
 import { ModaisConfirmacao } from '../modais-confirmacao/modais-confirmacao';
 import { CategoriaService } from '../../../services/categoria-service/categoria-service';
@@ -13,7 +13,7 @@ import { LoginService } from '../../../services/login-service/login';
 
 @Component({
     selector: 'app-solicitar',
-    imports: [RouterLink, CommonModule, FormsModule, ModaisConfirmacao],
+    imports: [CommonModule, FormsModule, ModaisConfirmacao],
     templateUrl: './solicitar.html',
     styleUrl: './solicitar.css'
 })

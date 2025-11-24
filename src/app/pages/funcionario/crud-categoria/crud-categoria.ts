@@ -23,12 +23,10 @@ export class CategoriaComponent implements OnInit, OnDestroy {
   formVisivel = false;
   editando = false;
 
-  // PROPRIEDADES ADICIONADAS PARA O MODAL
   modalRemocaoAberto: boolean = false;
   categoriaParaRemover: Categoria | null = null;
-  // ------------------------------------
 
-  categoria: Categoria = { // Assegure-se de usar a interface correta
+  categoria: Categoria = { 
     id: 0,
     nome: ''
   }
@@ -77,7 +75,6 @@ export class CategoriaComponent implements OnInit, OnDestroy {
       });
       
     } else {
-      // Inserção (POST)
       this.categoriaService.inserir(this.categoria).subscribe({
         next: () => {
           this.carregarCategorias();
@@ -111,7 +108,7 @@ export class CategoriaComponent implements OnInit, OnDestroy {
   fecharModalRemocao(): void {
     this.modalRemocaoAberto = false;
     this.categoriaParaRemover = null;
-    this.carregarCategorias(); // Recarrega a lista para atualizar a tabela após fechar o modal (mesmo que a remoção falhe)
+    this.carregarCategorias();
   }
   
   /**

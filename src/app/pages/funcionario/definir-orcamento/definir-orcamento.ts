@@ -44,8 +44,8 @@ export class DefinirOrcamento {
   orcamentoMask(value: any) {
     if (!value) return "";
     value = value.replace(/\D/g, '')
-    value = value.replace(/(\d+)(\d{2})$/, "$1,$2"); // Adiciona a parte de centavos
-    value = value.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1."); // Adiciona pontos a cada três dígitos
+    value = value.replace(/(\d+)(\d{2})$/, "$1,$2"); // adiciona a parte de centavos
+    value = value.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1."); // adiciona pontos a cada três dígitos
     console.log(value)
 
     return value

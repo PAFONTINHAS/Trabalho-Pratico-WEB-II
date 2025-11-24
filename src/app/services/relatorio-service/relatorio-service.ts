@@ -16,9 +16,6 @@ export class RelatorioService {
 
   constructor(private readonly http: HttpClient) { }
 
-  // =======================================================
-  // FUNÇÃO UNIVERSAL PARA DETECTAR autoTable EM QUALQUER AMBIENTE
-  // =======================================================
   private getAutoTableFn() {
     const candidates = [
       (autoTable as any).default?.default,
@@ -30,7 +27,6 @@ export class RelatorioService {
     for (const c of candidates) {
       if (typeof c === 'function') return c;
 
-      // fallback extra — alguns bundlers colocam a função dentro de ".default"
       if (c && typeof c.default === 'function') return c.default;
     }
 
@@ -38,9 +34,6 @@ export class RelatorioService {
     throw new Error('autoTable function not found — verifique o pacote jspdf-autotable');
   }
 
-  // =======================================================
-  // DOWNLOAD DE ARQUIVO
-  // =======================================================
   downloadFile(data: Blob, nomeArquivo: string): void {
     const url = window.URL.createObjectURL(data);
     const anchor = document.createElement('a');
@@ -54,32 +47,25 @@ export class RelatorioService {
     window.URL.revokeObjectURL(url);
   }
 
-  // =======================================================
-  // GERAR PDF — RECEITA POR PERÍODO
-  // =======================================================
   gerarPdfReceitaPeriodo(data: ReceitaPorPeriodo[], dataInicio: string, dataFim: string): Blob {
     const doc = new jsPDF();
     const autoTableFn = this.getAutoTableFn();
     let finalY = 15;
 
-    // Título
     doc.setFontSize(18);
     doc.text('Relatório de Receitas por Período', 15, finalY);
     finalY += 10;
 
-    // Subtítulo
     doc.setFontSize(12);
     doc.text(`Período: ${this.formatarData(dataInicio)} a ${this.formatarData(dataFim)}`, 15, finalY);
     finalY += 10;
 
-    // Dados da tabela
     const headers = [['Data', 'Receita (R$)']];
     const body = data.map(item => [
       this.formatarData(item.dia),
       `R$ ${item.totalReceita.toFixed(2).replace('.', ',')}`
     ]);
 
-    // Tabela
     const resultado = autoTableFn(doc, {
       startY: finalY,
       head: headers,
@@ -91,7 +77,6 @@ export class RelatorioService {
 
     finalY = resultado?.finalY ?? finalY;
 
-    // Total
     const total = data.reduce((sum, item) => sum + item.totalReceita, 0);
     doc.setFontSize(12);
     doc.text(`TOTAL GERAL: R$ ${total.toFixed(2).replace('.', ',')}`, 15, finalY + 35);
@@ -99,9 +84,6 @@ export class RelatorioService {
     return doc.output('blob');
   }
 
-  // =======================================================
-  // GERAR PDF — RECEITA POR CATEGORIA
-  // =======================================================
 gerarPdfReceitaCategoria(data: ReceitaPorCategoria[], categoriaNome?: string): Blob {
     const doc = new jsPDF();
     const autoTableFn = this.getAutoTableFn();
@@ -140,9 +122,6 @@ gerarPdfReceitaCategoria(data: ReceitaPorCategoria[], categoriaNome?: string): B
     return doc.output('blob');
   }
 
-  // =======================================================
-  // FORMATAR DATA
-  // =======================================================
   private formatarData(dataString: string): string {
     try {
       const [ano, mes, dia] = dataString.split('-');
@@ -153,9 +132,6 @@ gerarPdfReceitaCategoria(data: ReceitaPorCategoria[], categoriaNome?: string): B
     }
   }
 
-  // =======================================================
-  // CONSULTAS HTTP
-  // =======================================================
   getReceitaPorPeriodo(dataInicio: string, dataFim: string): Observable<ReceitaPorPeriodo[]> {
     const params = new HttpParams()
       .set('dataInicio', dataInicio)

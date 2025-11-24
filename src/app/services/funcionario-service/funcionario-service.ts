@@ -4,7 +4,6 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Usuario } from '../../shared/models/usuario.model';
 
-// const LS_CHAVE = "funcionarios";
 
 @Injectable({
   providedIn: 'root'

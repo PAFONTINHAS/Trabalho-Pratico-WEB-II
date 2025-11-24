@@ -97,7 +97,7 @@ export class PaginaInicial implements OnInit {
   }
 
   abrirModalOrcamento(solicitacao: any): void {
-    this.solicitacaoSelecionado = solicitacao; // Salva o orçamento selecionado
+    this.solicitacaoSelecionado = solicitacao;
     this.mostrarModalSolicitacao = true;
   }
   

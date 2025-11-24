@@ -14,7 +14,7 @@ import { LoginService } from '../../../services/login-service/login';
 })
 export class FuncionarioHomepage implements OnInit{
   solicitacoes: Solicitacao[] = [];
-  statusEnum = Status; // ADICIONADO: Para usar no template
+  statusEnum = Status;
   
   constructor( private readonly solicitacaoService: SolicitacaoService, private loginService: LoginService){}
   

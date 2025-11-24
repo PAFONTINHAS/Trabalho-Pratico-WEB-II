@@ -79,12 +79,12 @@ export class CriarFuncionario implements OnInit, OnDestroy {
       if (this.editando) {
         this.funcionarioService.atualizar(this.funcionario).subscribe( { 
           next: () => {
-            this.carregarFuncionarios() // <-- CORREÇÃO: Adicionado () para chamar a função
+            this.carregarFuncionarios() 
           }
         })
       } else {
         this.funcionarioService.inserir(this.funcionario).subscribe(() => {
-          this.carregarFuncionarios() // <-- CORREÇÃO: Adicionado () para chamar a função
+          this.carregarFuncionarios() 
         })
       }
     }
@@ -99,7 +99,6 @@ export class CriarFuncionario implements OnInit, OnDestroy {
 
   remover($event: any, funcionario: Funcionario): void {
     $event.preventDefault();
-    // Substitui a chamada a 'confirm()' pela abertura do modal customizado
     this.abrirModalRemocao(funcionario); 
   }
 
@@ -125,7 +124,7 @@ export class CriarFuncionario implements OnInit, OnDestroy {
     if (user) {
         this.funcionarioService.remover(id, user).subscribe({
             next: () => {
-                this.carregarFuncionarios(); // A correção do recarregamento agora funciona aqui!
+                this.carregarFuncionarios(); 
                 this.fecharModalRemocao();
             },
             error: (e) => {

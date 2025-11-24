@@ -62,17 +62,14 @@ export class Relatorios implements OnInit {
       next: (data: ReceitaPorPeriodo[]) => {
         console.log('Dados de Receita por Período recebidos:', data);
 
-        // CORREÇÃO AQUI: Chamar o novo método de geração de PDF real
         const pdfBlob = this.relatorioService.gerarPdfReceitaPeriodo(data, this.dataInicioRelatorio, this.dataFimRelatorio);
         
-        // 3. Forçar o download
         this.relatorioService.downloadFile(pdfBlob, nomeArquivo);
         
         this.formSubmittedPeriodo = false; 
       },
       error: (erro) => {
         console.error('Erro ao buscar dados de receita por período:', erro);
-        // O back-end retornou erro (a correção SQL nativa deve resolver)
       }
     });
   } 
@@ -90,15 +87,12 @@ export class Relatorios implements OnInit {
     const categoriaNome = categoriaSelecionada ? categoriaSelecionada.nome : 'Todas';
     const nomeArquivo = `relatorio_receitas_categoria_${categoriaNome}.pdf`;
 
-    // MUDANÇA: Passa o ID da categoria selecionada para o serviço.
     this.relatorioService.getReceitaPorCategoria(this.categoriaSelecionadaId).subscribe({
       next: (data: ReceitaPorCategoria[]) => {
         console.log('Dados de Receita por Categoria recebidos:', data);
 
-        // MUDANÇA: Passa os dados e o nome da categoria para a geração do PDF.
         const pdfBlob = this.relatorioService.gerarPdfReceitaCategoria(data, categoriaNome);
         
-        // 3. Forçar o download
         this.relatorioService.downloadFile(pdfBlob, nomeArquivo);
 
         this.formSubmittedCategoria = false; 

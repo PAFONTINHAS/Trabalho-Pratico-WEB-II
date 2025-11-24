@@ -32,17 +32,15 @@ public class JwtService {
     }
 
     public String generateToken(UserDetails userDetails){
-        // Converte UserDetails de volta para Usuario para pegar os campos extras
         Usuario usuario = (Usuario) userDetails; 
 
-        // Cria os "claims" (informações) extras
         Map<String, Object> claims = Map.of(
             "nome", usuario.getNome(),
-            "role", usuario.getRole().toString() // Converte o Enum para String
+            "role", usuario.getRole().toString() 
         );
 
         return Jwts.builder()
-            .setClaims(claims) // ⬅️ Adiciona os claims extras
+            .setClaims(claims) 
             .setSubject(userDetails.getUsername())
             .setIssuedAt(new Date(System.currentTimeMillis()))
             .setExpiration(new Date(System.currentTimeMillis() + JWT_EXPIRATION))

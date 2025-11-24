@@ -17,7 +17,7 @@ public interface PagamentoRepository extends JpaRepository<Pagamento, Long> {
     // RF019: Receita por Período (agrupada por dia) - CAST ADICIONADO AO DIA AQUI
   @Query(value = 
            "SELECT DATE_FORMAT(p.data_hora, '%Y-%m-%d') AS dia, " + 
-           "CAST(SUM(p.valor) AS DOUBLE) AS totalReceita " + // <-- CORREÇÃO AQUI: CAST para DOUBLE
+           "CAST(SUM(p.valor) AS DOUBLE) AS totalReceita " + 
            "FROM pagamento p " + 
            "WHERE p.data_hora >= :dataInicio AND p.data_hora <= :dataFim " + 
            "GROUP BY dia " + 
@@ -34,9 +34,9 @@ public interface PagamentoRepository extends JpaRepository<Pagamento, Long> {
            "FROM pagamento p " +
            "JOIN solicitacao s ON p.id_solicitacao = s.id_solicitacao " +
            "JOIN categoria c ON s.id_categoria = c.id_categoria " +
-           "WHERE (:idCategoria IS NULL OR c.id_categoria = :idCategoria) " + // Adicionado filtro condicional
+           "WHERE (:idCategoria IS NULL OR c.id_categoria = :idCategoria) " +
            "GROUP BY c.nome " + 
            "ORDER BY totalReceita DESC",
            nativeQuery = true)
-    List<ReceitaPorCategoriaDto> findReceitaByCategoria(@Param("idCategoria") Long idCategoria); // Parâmetro adicionado
+    List<ReceitaPorCategoriaDto> findReceitaByCategoria(@Param("idCategoria") Long idCategoria); 
 }

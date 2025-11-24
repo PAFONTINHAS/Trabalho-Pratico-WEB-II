@@ -2,8 +2,8 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Solicitacao } from '../../../shared/entities/solicitacao_entity';
 import { SolicitacaoService } from '../../../services/solicitacao_service/solicitacao-service';
-import { CategoriaService } from '../../../services/categoria-service/categoria-service'; // Importação do serviço de categoria
-import { Categoria } from '../../../shared/entities/categoria_entity'; // Importação do modelo de categoria
+import { CategoriaService } from '../../../services/categoria-service/categoria-service'; 
+import { Categoria } from '../../../shared/entities/categoria_entity'; 
 
 @Component({
   selector: 'app-editar-solicitacao',
@@ -13,8 +13,6 @@ import { Categoria } from '../../../shared/entities/categoria_entity'; // Import
 })
 export class EditarSolicitacao {
 
-  // APLICAR O SERVICE AO ATUALIZAR A SOLICITAÇÃO
-  
   constructor(
     private solicitacaoService: SolicitacaoService,
     private categoriaService: CategoriaService 
@@ -24,15 +22,12 @@ export class EditarSolicitacao {
   @Input() solicitacao?: Solicitacao | null;
   @Output() fecharModal = new EventEmitter<void>();
 
-  // Use a lista de categorias para ser preenchida pelo serviço
   categorias: Categoria[] = [];
 
-  // Implemente ngOnInit para carregar os dados
   ngOnInit(): void {
       this.carregarCategorias();
   }
 
-  // Novo método para carregar categorias do backend (igual ao de outras páginas)
   carregarCategorias(): void {
     this.categoriaService.listarTodos().subscribe({
       next: (dados) => {
