@@ -12,6 +12,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.NativeQuery;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -21,12 +22,17 @@ public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long> 
     List<Solicitacao> findByIsDeleteFalse();
 
     @Modifying
-    @Query("UPDATE Solicitacao s SET s.isDelete = true WHERE s.id = :id")    
+    @Query("UPDATE Solicitacao s SET s.isDelete = true WHERE s.idSolicitacao = :id")    
     @Transactional
-    void softDeleteById(Long id);
+    void softDeleteById(@Param("id") Long id);
 
-    @Modifying
-    @NativeQuery("select  * from solicitacao where is_delete = false and (id_funcionario = :id or status='ABERTA')")    
+    @Query(
+        value = "select  * from solicitacao where is_delete = false and (id_funcionario = :id or status='ABERTA')",
+        nativeQuery = true
+    )
     @Transactional
-    List<Solicitacao> findByFuncionarioOrStatus(Long id);
+    List<Solicitacao> findByFuncionarioOrStatus(@Param("id") Long id);
+
+    @Query("SELECT s FROM Solicitacao s WHERE s.cliente.email = :email AND s.isDelete = false")    
+    List<Solicitacao> findByClienteUsuarioEmailAndIsDeleteFalse(@Param("email") String email);
 }

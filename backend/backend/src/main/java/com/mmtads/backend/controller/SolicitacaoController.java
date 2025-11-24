@@ -7,18 +7,27 @@ import com.mmtads.backend.Model.Funcionario;
 import com.mmtads.backend.Repository.ClienteRepository;
 import com.mmtads.backend.Repository.FuncionarioRepository;
 import com.mmtads.backend.Repository.SolicitacaoRepository;
+import com.mmtads.backend.config.JwtAuthenticationFilter;
 import com.mmtads.backend.dto.SolicitacaoDto;
 import com.mmtads.backend.service.SolicitacaoService;
 
 import org.springframework.web.bind.annotation.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-
+import org.springframework.web.bind.annotation.CrossOrigin;
 import java.util.List;
+
 
 @RestController
 @RequestMapping("/api/solicitacoes")
+@CrossOrigin(origins = "*")
+
 public class SolicitacaoController {
+    
+    private static final Logger logger = LoggerFactory.getLogger(SolicitacaoController.class);
+
 
     @Autowired
     private SolicitacaoService solicitacaoService;
@@ -42,6 +51,14 @@ public class SolicitacaoController {
         return solicitacaoRepository.findByFuncionarioOrStatus(funci.getId());
     }
 
+    @GetMapping("/cliente/{email}")
+    public ResponseEntity<List<Solicitacao>> listarPorCliente(@PathVariable String email) {
+
+        List<Solicitacao> lista = solicitacaoRepository.findByClienteUsuarioEmailAndIsDeleteFalse(email);
+        return ResponseEntity.ok(lista);
+    }
+    
+
     @GetMapping()
     public List<Solicitacao> listarTodas() {
         return solicitacaoRepository.findByIsDeleteFalse();
@@ -56,6 +73,10 @@ public class SolicitacaoController {
 
     @PostMapping("/{email}")
     public Solicitacao criar(@PathVariable String email, @RequestBody SolicitacaoDto solicitacaoDto) {
+        
+        logger.info("[SERVER-CONTROLLER] FUNÇÃO ACIONADA PELO SERVICE");
+        logger.info("[SERVER-CONTROLLER] EMAIL: {} CORPO: {}", email, solicitacaoDto);
+        
         Cliente cliente = this.clienteRepository.findByEmailAndIsDeleteFalse(email);
         solicitacaoDto.setCliente(cliente);
         

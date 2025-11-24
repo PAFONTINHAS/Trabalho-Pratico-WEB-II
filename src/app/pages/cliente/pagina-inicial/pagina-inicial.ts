@@ -25,13 +25,14 @@ export class PaginaInicial implements OnInit {
 
  carregarSolicitacoes() : void{
   const user = this.loginService.usuarioLogado
-    if(user) {
-  this.solicitacaoService.listarTodos().subscribe({
+
+  if(user?.email) {
+      console.log(`[CLIENT-SIDE] Buscando solicitações para o email: ${user.email}`);
+
+  this.solicitacaoService.listarPorCliente(user.email).subscribe({
     next: (data) => {
-      console.log('📦 DADOS COMPLETOS:', JSON.stringify(data, null, 2));
-      console.log('📋 PRIMEIRA SOLICITAÇÃO:', data[0]);
-      console.log('📌 KEYS da primeira:', Object.keys(data[0]));
-      this.solicitacoes = data.filter((d) => d.cliente.email === this.loginService.usuarioLogado?.email);
+      this.solicitacoes = data;
+      console.log("Solicitações carregadas: ", this.solicitacoes);
     },
     error: (e) =>{
       console.error('Erro ao carregar solicitações: ', e);

@@ -7,6 +7,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,12 +20,16 @@ import com.mmtads.backend.Model.Status;
 import com.mmtads.backend.Repository.HistoricoRepository;
 import com.mmtads.backend.Repository.PagamentoRepository;
 import com.mmtads.backend.Repository.SolicitacaoRepository;
+import com.mmtads.backend.config.JwtAuthenticationFilter;
 import com.mmtads.backend.dto.SolicitacaoDto;
 
 import jakarta.transaction.Transactional;
 
 @Service
 public class SolicitacaoService {
+
+    private static final Logger logger = LoggerFactory.getLogger(SolicitacaoService.class);
+
 
     @Autowired
     private HistoricoRepository historicoRepository;
@@ -56,6 +62,9 @@ public class SolicitacaoService {
 
 
     public Solicitacao salvarSolicitacao(SolicitacaoDto solicitacaoDto) {
+
+        logger.info("[SERVER-SERVICE] FUNÇÃO DE SALVAR SOLICITAÇÃO ACIONADA PELO CONTROLLER");
+
         Solicitacao solicitacao = new Solicitacao();
         setarSolicitacao(solicitacao, solicitacaoDto);
         return this.solicitacaoRepository.save(solicitacao);

@@ -91,6 +91,8 @@ export class Solicitar implements OnInit{
   }
 
   realizarSolicitacao(){
+
+    console.log("[CLIENTE] FUNÇÃO DE CRIAÇÃO DE SOLICITAÇÃO ACIONADA");
     if (!this.validateForm()) {
         return;
     }

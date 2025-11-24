@@ -14,12 +14,13 @@ export class SolicitacaoService {
   private readonly apiUrl = 'http://localhost:8081/api/solicitacoes';
   constructor(private readonly http: HttpClient){
   }
-  // inicializarMock(): void{
-  //   // localStorage.removeItem(LS_CHAVE);
-  //   if(!localStorage[LS_CHAVE]){
-  //     localStorage[LS_CHAVE] = JSON.stringify(solicitacoesMock)
-  //   }
-  // }
+
+
+  listarPorCliente( email: string): Observable<Solicitacao[]> {
+    const url = `${this.apiUrl}/cliente/${email}`;
+    return this.http.get<Solicitacao[]>(url);
+  }
+
   listarTodosFuncionario( usuario: Usuario): Observable<Solicitacao[]> {
     const url = `${this.apiUrl}/user/${usuario.email}`;
     return this.http.get<Solicitacao[]>(url);
@@ -29,22 +30,28 @@ export class SolicitacaoService {
     const url = `${this.apiUrl}`;
     return this.http.get<Solicitacao[]>(url);
   }
+
   inserir(solicitacao: Solicitacao,  usuario: Usuario): Observable<Solicitacao> {
+    console.log("[SERVICE] FUNÇÃO DE CRIAÇÃO DE SOLICITAÇÃO RECEBIDA DO CLIENTE");
     const url = this.apiUrl + `/${usuario.email}`
     return this.http.post<Solicitacao>(url, solicitacao);
   }
+  
   buscarPorId(id: number): Observable<Solicitacao> {
     const url = `${this.apiUrl}/${id}`;
     return this.http.get<Solicitacao>(url);
   }
+  
   atualizar(solicitacao: Solicitacao): Observable<Solicitacao> {
     const url = `${this.apiUrl}/${solicitacao.idSolicitacao}`;
     return this.http.put<Solicitacao>(url, solicitacao);
   } 
+  
   remover(id: number): Observable<void> {
     const url = `${this.apiUrl}/${id}`;
     return this.http.delete<void>(url);
   }
+  
   atualizarFuncionario( solicitacao: Solicitacao,  usuario: Usuario): Observable<Solicitacao>{
     const url = `${this.apiUrl}/${solicitacao.idSolicitacao}/user/${usuario.email}`;
     return this.http.put<Solicitacao>(url, solicitacao);
