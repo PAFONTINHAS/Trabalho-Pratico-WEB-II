@@ -8,7 +8,7 @@ import { ResgatarServico } from '../resgatar-servico/resgatar-servico';
 import { RejeitarOrcamento } from '../rejeitar-orcamento/rejeitar-orcamento';
 import { SolicitacaoService } from '../../../services/solicitacao_service/solicitacao-service';
 import { Status } from '../../../shared/models/enums/status.enum';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { HistoricoService } from '../../../services/historico_service/historico-service';
 import { HistoricoStatus } from '../../../shared/entities/historico_status_entity';
 
@@ -32,10 +32,13 @@ export class VisualizarOrcamento implements OnInit  {
   historico: HistoricoStatus[] = [];
 
   ngOnInit(): void {
-    if(this.solicitacao)
+
+    if(this.solicitacao){
+      
       this.historicoService.listarTodos(this.solicitacao).subscribe((data) =>  {
         this.historico = this.historicoService.arrumarFuncionariosHistorico(data)
       })
+    }
     
   }
 
@@ -61,7 +64,9 @@ export class VisualizarOrcamento implements OnInit  {
     if(!this.solicitacao) return;
     this.solicitacao.status = Status.Aprovada
     console.log(this.solicitacao)
-    this.solicitacaoService.atualizar(this.solicitacao).subscribe();
+    this.solicitacaoService.atualizar(this.solicitacao).subscribe(() => {
+      this.abrirModal('aprovar');
+    });
   }
 
   rejeitarServico(){

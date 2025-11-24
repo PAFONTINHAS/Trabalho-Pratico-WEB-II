@@ -88,12 +88,12 @@
             <ul>
               @for (h of historico; track h.status){
                 <li class="py-3 flex items-center border-t mt-2 border-gray-300">
-                  <p class="font-semibold mr-6">{{ h?.dataHora?.substring(0, 10)}}</p>
-                  <p class="font-semibold mr-6">{{ h?.dataHora?.substring(12)}}</p>
+                  <p class="font-semibold mr-1">{{ h?.dataHora?.substring(0, 10)}}</p>
+                  <p class="font-semibold mr-6">- {{ h?.dataHora?.substring(11)}}</p>
                   <p [ngClass]="statusClasses(h.status)">
                     {{ h?.status}}
                   </p>
-                  <p class="font-semibold mr-6">{{ h.funciOrigem.nome }}</p>
+                  <!-- <p class="font-semibold mr-6">{{ h.funciOrigem.nome }}</p> -->
                 </li>
               }
             </ul>
@@ -224,6 +224,6 @@
 
     @if(modalEfetuarAberto){
 
-        <app-efetuar-manutencao [solicitacao]="solicitacao" (fecharModal)="onFecharModal()" (operacaoConcluida)="notificarOperacao()"></app-efetuar-manutencao>
+      <app-efetuar-manutencao [solicitacao]="solicitacao" (fecharModal)="onFecharModal()" (operacaoConcluida)="notificarOperacao()"></app-efetuar-manutencao>
     }
 }

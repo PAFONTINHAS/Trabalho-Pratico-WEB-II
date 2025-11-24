@@ -54,6 +54,7 @@ public class SolicitacaoController {
     public ResponseEntity<List<Solicitacao>> listarPorCliente(@PathVariable String email) {
 
         List<Solicitacao> lista = solicitacaoRepository.findByClienteUsuarioEmailAndIsDeleteFalse(email);
+
         return ResponseEntity.ok(lista);
     }
     

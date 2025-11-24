@@ -31,6 +31,12 @@ export class PaginaInicial implements OnInit {
 
   this.solicitacaoService.listarPorCliente(user.email).subscribe({
     next: (data) => {
+
+      if(data.length != 0){
+    
+        console.log("Data da solicitação: ", data[0].dataHoraAbertura)
+      }
+
       this.solicitacoes = data;
       console.log("Solicitações carregadas: ", this.solicitacoes);
     },

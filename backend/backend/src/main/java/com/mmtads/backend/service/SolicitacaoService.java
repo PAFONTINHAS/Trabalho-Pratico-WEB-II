@@ -51,10 +51,14 @@ public class SolicitacaoService {
           this.salvarHistorico(solicitacao, solicitacaoDto.getFuncionarioDestino());
           solicitacao.setFuncionario(solicitacaoDto.getFuncionarioDestino());
       } else {
-          if (solicitacao.getStatus() == Status.PAGA)
-              this.salvarPagamento(solicitacao);
 
-          this.salvarHistorico(solicitacao, null);
+        if(solicitacao.getStatus() != Status.ABERTA){
+
+            if (solicitacao.getStatus() == Status.PAGA)
+                this.salvarPagamento(solicitacao);
+
+            this.salvarHistorico(solicitacao, null);
+        }
       }
 
       return this.solicitacaoRepository.save(solicitacao);

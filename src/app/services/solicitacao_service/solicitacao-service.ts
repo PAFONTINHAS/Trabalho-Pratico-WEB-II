@@ -56,6 +56,8 @@ export class SolicitacaoService {
     const url = `${this.apiUrl}/${solicitacao.idSolicitacao}/user/${usuario.email}`;
     return this.http.put<Solicitacao>(url, solicitacao);
   }
+  
+  
   // pegarDataFormatada(opcao: String) : string{
   
   //   if(opcao === "data"){

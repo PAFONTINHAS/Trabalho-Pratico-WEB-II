@@ -57,7 +57,7 @@ export class DefinirOrcamento {
     solicitacao.valorOrcamento=Number(valorBackend);
     //seta o valor convertido
     this.solicitacaoService.atualizar(solicitacao).subscribe({
-      next:()=>console.log("Orçamento atualizado"),
+      next:() => console.log("Orçamento atualizado"),
       error:(err)=> console.error("erro ao atualizar orç",err)
     });
 

@@ -23,12 +23,15 @@
           <p class="font-semibold text-md mb-2">Categoria</p>
           <select
               [(ngModel)]="solicitacao.categoria"
+              [compareWith]="compararCategorias"
               class="border-gray-400 mb-5 rounded-lg border overflow-hidden h-10 px-3 transition w-full focus:border-mm focus:shadow-xl focus:shadow-mm-shadow hover:border-mm"
               required
           >
-              <option value="">Selecione</option>
+              <option [ngValue]="null">Selecione</option>
               @for(categoria of categorias; track categoria) { 
-              <option [ngValue]="categoria">{{categoria.nome}}</option>
+                
+                <option [ngValue]="categoria">{{categoria.nome}}</option>
+
               }
           </select>
         <p class="font-semibold text-md mb-2">Qual o defeito?</p>
@@ -48,7 +51,7 @@
           </button>
           <button
             class="bg-mm text-center hover:bg-mm-dark font-regular text-md h-[46px] mr-3 cursor-pointer rounded-xl px-4 text-white transition hover:scale-[102%] hover:shadow-xl active:scale-95"
-            (click)="fecharApenasSubModal()"
+            (click)="editarSolicitacao()"
           >
             Editar
           </button>
