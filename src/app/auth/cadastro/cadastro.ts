@@ -24,9 +24,6 @@ export class Cadastro {
 
   isLoading: boolean = false; 
   errorMessage: string | null = null; 
-  failureMessage : string | null = null;
-
-
 
   constructor(
     private readonly fb: FormBuilder,
@@ -131,37 +128,34 @@ export class Cadastro {
     }
   }
 
-  checkForErrors(fieldControl: AbstractControl, fieldName: string ) : boolean{
+  getErrorMessage(fieldControl: AbstractControl | null, fieldName: string ) : string | null{
 
-    this.failureMessage = '';
-
-    if(fieldControl?.invalid && fieldControl?.touched){
-
-      if(fieldControl?.errors?.['required']){
-        this.failureMessage = `O ${fieldName} é obrigatório`
-      } 
-
-      if(fieldControl?.errors?.[`${fieldName}Invalido`]){
-        this.failureMessage = `O ${fieldName} é inválido`;
-      }
-
-      if(fieldControl?.errors?.['minlength']){
-        this.failureMessage = `O ${fieldName} deve ter no mínimo 3 caracteres.`;
-      }
-
-      if(fieldControl?.errors?.['maxlength']){
-        this.failureMessage = `O ${fieldName} deve ter no máximo 6 dígitos`;
-      }
-    
-      if(fieldControl?.errors?.['notFound']){
-        this.failureMessage =  `O ${fieldName} não foi encontrado`;
-      }
-
-      return false;
-
+    if(!fieldControl || !fieldControl.invalid || !fieldControl.touched){
+      return null;
     }
+
+    if(fieldControl?.errors?.['required']){
+      return `O ${fieldName} é obrigatório`
+    } 
+
+    if(fieldControl?.errors?.[`${fieldName}Invalido`]){
+      return `O ${fieldName} é inválido`;
+    }
+
+    if(fieldControl?.errors?.['minlength']){
+      return `O ${fieldName} deve ter no mínimo 3 caracteres.`;
+    }
+
+    if(fieldControl?.errors?.['maxlength']){
+      return `O ${fieldName} deve ter no máximo 6 dígitos`;
+    }
+  
+    if(fieldControl?.errors?.['notFound']){
+      return  `O ${fieldName} não foi encontrado`;
+    }
+
     
-    return true;
+    return 'Campo Inválido';
 
   }
 

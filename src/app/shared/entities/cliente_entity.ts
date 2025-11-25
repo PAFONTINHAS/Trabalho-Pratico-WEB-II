@@ -1,11 +1,11 @@
+import { Usuario } from "../models/usuario.model";
+
 export interface Cliente {
 
     id: number;
-    nome: string ;
     cpf: string ;
-    email: string ;
     enderecoCompleto: string ;
-    telefone: string ;
-
+    telefone: string;
+    usuario: Usuario;
 
 }
