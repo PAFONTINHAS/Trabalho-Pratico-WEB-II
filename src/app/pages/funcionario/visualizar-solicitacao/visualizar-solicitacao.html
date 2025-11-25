@@ -78,7 +78,7 @@
                 } @else {
 
                   <p class="text-md text-gray-600">
-                      Valor: <span class="font-semibold">R$ {{ solicitacao.orcamento | currency:'BRL':'symbol-narrow':'1.2-2'}}</span>
+                      Valor: <span class="font-semibold">{{ solicitacao.orcamento | currency:'BRL':'symbol-narrow':'1.2-2'}}</span>
                   </p>
                 }
 
