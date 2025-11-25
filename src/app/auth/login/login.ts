@@ -66,7 +66,7 @@ export class LoginComponent implements OnInit {
           this.message = 'Email ou senha inválidos.';
           
         } else {
-          this.message = 'Ocorreu um erro no servidor. Tente novamente.';
+          this.message = 'Email ou senha inválidos.';
         }
         this.loading = false;
       }
